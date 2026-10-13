@@ -19,16 +19,15 @@ describe('RunningWhaleTail', () => {
     expect(icon.firstElementChild?.childElementCount).toBe(0)
     const svg = icon.querySelector('svg')!
     expect(icon.lastElementChild).toBe(svg)
-    expect(svg.getAttribute('viewBox')).toBe('0 0 16 16')
-    expect(svg.querySelectorAll('path')).toHaveLength(1)
-    expect(svg.querySelector('path')?.getAttribute('d')).toMatch(/^M/)
-    expect(svg.querySelector('path')?.getAttribute('stroke')).toBe('currentColor')
+    expect(svg.getAttribute('viewBox')).toBe('0 0 96 96')
+    expect(svg.querySelectorAll('image')).toHaveLength(1)
+    expect(svg.querySelector('image')?.getAttribute('href')).toContain('data:image/png;base64,')
     expect(view.container.querySelector('animate')).toBeNull()
     expect(view.container.querySelector('[style]')).toBeNull()
   })
 
   it('ships a 28px alpha APNG with sixty 50ms frames and infinite playback', () => {
-    const png = readFileSync(resolve(import.meta.dirname, '../src/client/chat/running-whale@2x.png'))
+    const png = readFileSync(resolve(import.meta.dirname, '../src/client/chat/running-huayu-mark@2x.png'))
     expect([...png.subarray(0, 8)]).toEqual([137, 80, 78, 71, 13, 10, 26, 10])
     const chunks: { type: string; data: Buffer }[] = []
     for (let offset = 8; offset < png.length;) {

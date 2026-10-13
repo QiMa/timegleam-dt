@@ -232,6 +232,9 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../huayu-ai/vendor/cordis
+      '@hy/dsh-api-session-controller':
+        specifier: workspace:*
+        version: link:../huayu-ai/packages/api/session-controller
       '@hy/dsh-client-ui-renderer':
         specifier: workspace:*
         version: link:../huayu-ai/packages/client/ui-renderer
@@ -241,6 +244,9 @@ importers:
       '@hy/dsh-host-webserver':
         specifier: workspace:*
         version: link:../huayu-ai/packages/host/webserver
+      '@hy/dsh-workspace':
+        specifier: workspace:*
+        version: link:../huayu-ai/packages/workspace/workspace
       '@hy/schemastery':
         specifier: link:../huayu-ai/vendor/schemastery
         version: link:../huayu-ai/vendor/schemastery

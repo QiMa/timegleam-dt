@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const bundle = clientBundle('@hy/dsh-client-ui-chat', ['lib/types/index.js'])
 const stylesheet = fileURLToPath(new URL('./src/client/chat/ChatView.module.css', import.meta.url)).replaceAll('\\', '/')
-const whaleImage = fileURLToPath(new URL('./src/client/chat/running-whale@2x.png', import.meta.url))
+const whaleImage = fileURLToPath(new URL('./src/client/chat/running-huayu-mark@2x.png', import.meta.url))
 
 export default ((options) => bundle(options).map(config => ({
   ...config,
@@ -12,7 +12,7 @@ export default ((options) => bundle(options).map(config => ({
     name: 'chat-whale-image',
     async transform(code: string, id: string) {
       if (id.replaceAll('\\', '/') !== `\0dsh-css:${stylesheet}.mjs`) return null
-      const imageUrl = './running-whale@2x.png'
+      const imageUrl = './running-huayu-mark@2x.png'
       if (!code.includes(imageUrl)) return null
       this.addWatchFile(whaleImage)
       const image = await readFile(whaleImage)

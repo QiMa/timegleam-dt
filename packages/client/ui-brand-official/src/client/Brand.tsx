@@ -4,7 +4,7 @@ import type { SidebarBrandMarkOwnerProps } from '@hy/dsh-client-ui-sidebar/clien
 /**
  * Render the official mark with the presentation requested by its host surface.
  * @param props - Host-supplied mark presentation.
- * @returns the official whale mark.
+ * @returns the official Huayu mark.
  */
 export function OfficialBrandMark({ size }: SidebarBrandMarkOwnerProps) {
   return <FishLogo size={size} />

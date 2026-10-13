@@ -1,4 +1,4 @@
-/* NEW SESSION hero (figma Input_Bottom 75:8208): fish + title, workspace chip
+/* NEW SESSION hero (figma Input_Bottom 75:8208): mark + title, workspace chip
    above the shared InputBar card. The input itself is InputBar — only stack
    geometry and the chip live here. */
 
@@ -23,17 +23,17 @@
   overflow: visible;
 }
 
-/* figma 34:10411: fish + title, gap 10, centered; 26/32 wt500. The preview
+/* figma 34:10411: mark + title, gap 10, centered; 26/32 wt500. The preview
    badge is a product addition outside that source: a mono superscript pill
    riding the title's top-right. */
 .headline {
   display: flex;
-  /* Overflow-driven: the fish and the title group are two wrap units sharing
-     one centered line while they fit; squeezed, the fish takes its own line
+  /* Overflow-driven: the mark and the title group are two wrap units sharing
+     one centered line while they fit; squeezed, the mark takes its own line
      above the group. No breakpoint. */
   flex-wrap: wrap;
   column-gap: 10px;
-  /* Wrapped, the fish sits on its own line; more air than the 10px side gap
+  /* Wrapped, the mark sits on its own line; more air than the 10px side gap
      keeps it reading as a mark above the title, not a squeezed inline glyph. */
   row-gap: 12px;
   align-items: center;
@@ -95,7 +95,7 @@
 }
 
 /* Hover swim: a slow continuous sway about the body center — the head
-   (left) lifts as the whale rises, then settles back with a small
+   (left) lifts as the mark rises, then settles back with a small
    counter-tilt, like treading water. Negative rotation = head up (the head
    is the left half; origin 50% 60%). */
 @keyframes hero-fish-swim {

@@ -124,15 +124,14 @@ describe('product icon set', () => {
 })
 
 describe('FishLogo', () => {
-  it('renders the fish path in currentColor at the native ratio', () => {
+  it('renders the official Huayu mark as a square embedded tile', () => {
     const { container } = render(<primitives.FishLogo />)
     const svg = container.querySelector('svg')!
     expect(svg.getAttribute('width')).toBe('24')
-    expect(Number(svg.getAttribute('height'))).toBeCloseTo(17.66, 1)
-    expect(svg.getAttribute('viewBox')).toBe('0 0 23.16 17.04')
-    expect(container.querySelectorAll('path')).toHaveLength(1)
-    expect(container.innerHTML).toContain('currentColor')
-    expect(container.innerHTML).not.toContain('M0 0L23.16')
+    expect(svg.getAttribute('height')).toBe('24')
+    expect(svg.getAttribute('viewBox')).toBe('0 0 96 96')
+    expect(container.querySelectorAll('image')).toHaveLength(1)
+    expect(container.querySelector('image')?.getAttribute('href')).toContain('data:image/png;base64,')
   })
 })
 
@@ -140,11 +139,12 @@ describe('BrandWordmark', () => {
   it('can render the name artwork with or without its leading mark', () => {
     const view = render(<primitives.BrandWordmark />)
     const svg = view.container.querySelector('svg')!
-    expect(svg.getAttribute('width')).toBe('182')
-    expect(svg.getAttribute('viewBox')).toBe('0 0 182 24')
+    expect(svg.getAttribute('height')).toBe('24')
+    expect(Number(svg.getAttribute('width'))).toBeCloseTo(188.65, 1)
+    expect(svg.getAttribute('viewBox')).toBe('0 0 188.65 24')
 
     view.rerender(<primitives.BrandWordmark includeMark={false} />)
-    expect(svg.getAttribute('width')).toBe('156')
-    expect(svg.getAttribute('viewBox')).toBe('26 0 156 24')
+    expect(Number(svg.getAttribute('width'))).toBeCloseTo(157.65, 1)
+    expect(svg.getAttribute('viewBox')).toBe('0 0 157.65 24')
   })
 })
