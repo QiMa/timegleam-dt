@@ -3,7 +3,7 @@ description: "独立 SDK profile，提供持久 shell 和 Session 工作目录�
 kind: "package-bundle"
 ---
 
-# `@deepseek-ai/dsh-sdk-minimal`
+# `@hy/dsh-sdk-minimal`
 
 [English](README.md) | 中文
 

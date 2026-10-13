@@ -2,12 +2,12 @@
 /** Guide shell discovery, direct launch and cancellation stay within the entry lifetime. */
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { TerminalLaunchShells } from '@deepseek-ai/dsh-api-terminal-controller/client'
-import type { GlobalStandardProps, SessionStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { PaneId, TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { ShortcutCommandId, ShortcutCatalogEntry } from '@deepseek-ai/dsh-client-shortcuts/client'
+import { makeTranslate } from '@hy/dsh-client-test-runtime'
+import type { TerminalLaunchShells } from '@hy/dsh-api-terminal-controller/client'
+import type { GlobalStandardProps, SessionStandardProps } from '@hy/dsh-client-ui-slots'
+import type { SessionId } from '@hy/dsh-session/types'
+import type { PaneId, TabId } from '@hy/dsh-client-ui-dockkit'
+import type { ShortcutCommandId, ShortcutCatalogEntry } from '@hy/dsh-client-shortcuts/client'
 import { TerminalGuide, type TerminalGuideProps } from '../src/client/TerminalGuide.tsx'
 import { en } from '../src/client/locales.ts'
 

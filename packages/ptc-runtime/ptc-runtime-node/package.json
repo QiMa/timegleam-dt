@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-ptc-runtime-node",
-  "description": "Sandboxed Node process implementation of the DeepSeek Harness PTC execution capability",
+  "name": "@hy/dsh-ptc-runtime-node",
+  "description": "Sandboxed Node process implementation of the Huayu AI PTC execution capability",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -31,31 +31,31 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-sandbox": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-ptc-runtime": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-sandbox": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-sandbox": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
-    "@deepseek-ai/dsh-fs-local": "workspace:*",
-    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-local": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-ptc-runtime": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-sandbox": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-fs-local": "workspace:*",
+    "@hy/dsh-subprocess-local": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-sandbox-local": "workspace:*"
   }
 }

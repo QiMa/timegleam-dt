@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-spill-local",
-  "description": "Local-filesystem implementation of the DeepSeek Harness spill storage seam (private session-scoped files)",
+  "name": "@hy/dsh-spill-local",
+  "description": "Local-filesystem implementation of the Huayu AI spill storage seam (private session-scoped files)",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,19 +27,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-spill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-spill": "workspace:*",
+    "@hy/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-spill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis-plugin-include": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-spill": "workspace:*",
+    "@hy/cordis": "workspace:~"
   }
 }

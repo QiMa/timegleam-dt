@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-storage-domain",
-  "description": "Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the DeepSeek Harness",
+  "name": "@hy/dsh-storage-domain",
+  "description": "Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the Huayu AI",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,15 +27,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-storage": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-storage": "workspace:*",
+    "@hy/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@hy/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-storage": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-storage": "workspace:*",
+    "@hy/cordis": "workspace:~"
   }
 }

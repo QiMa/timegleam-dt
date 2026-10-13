@@ -13,10 +13,10 @@ import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { act, cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, vi } from 'vitest'
-import { bootInjections, orderByModuleGraph } from '@deepseek-ai/dsh-client-modules'
-import type { ClientModuleLoaderTarget, WebBootEntry, WebBootGraph } from '@deepseek-ai/dsh-client-modules/client'
-import type { RemoteMock } from '@deepseek-ai/dsh-remote-mock'
-import { AppWebEntry } from '@deepseek-ai/dsh-client-web'
+import { bootInjections, orderByModuleGraph } from '@hy/dsh-client-modules'
+import type { ClientModuleLoaderTarget, WebBootEntry, WebBootGraph } from '@hy/dsh-client-modules/client'
+import type { RemoteMock } from '@hy/dsh-remote-mock'
+import { AppWebEntry } from '@hy/dsh-client-web'
 import {
   createAssembledRemote, type AssembledRemote, type AssembledRemoteOptions,
 } from './assembled-remote.ts'
@@ -71,7 +71,7 @@ const workspacePackageManifests = new Map(globSync('packages/*/*/package.json', 
   if (pkg.name === undefined) throw new Error(`assembled boot: workspace package has no name: ${path}`)
   return [pkg.name, path]
 }))
-const appBoot = await import(pathToFileURL(webBundleResolver.resolve('@deepseek-ai/dsh-app-boot')).href) as unknown as BootComposition
+const appBoot = await import(pathToFileURL(webBundleResolver.resolve('@hy/dsh-app-boot')).href) as unknown as BootComposition
 
 function resolvePackageManifest(specifier: string): string | undefined {
   return workspacePackageManifests.get(specifier)
@@ -127,7 +127,7 @@ function loadAssembledPlugins(): readonly AssembledPlugin[] {
 
 const PLUGINS = loadAssembledPlugins()
 
-const BOOTSTRAP_IDS = ['@deepseek-ai/dsh-client-modules'] as const
+const BOOTSTRAP_IDS = ['@hy/dsh-client-modules'] as const
 
 /** Build the fixture graph after applying per-scenario package exclusions. */
 function bootGraph(plugins: readonly AssembledPlugin[]): WebBootGraph {
@@ -227,7 +227,7 @@ export function installAssembledBootEnv(): void {
     // locale setting, so pinning the navigator selects English.
     Object.defineProperty(navigator, 'languages', { value: ['en-US'], configurable: true })
     Object.defineProperty(navigator, 'language', { value: 'en-US', configurable: true })
-    document.title = 'DeepSeek Harness'
+    document.title = 'Huayu AI'
     vi.stubGlobal('ResizeObserver', ResizeObserverStub)
     vi.stubGlobal('EventSource', EventSourceStub)
     vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>

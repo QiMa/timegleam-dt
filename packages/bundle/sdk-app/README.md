@@ -3,7 +3,7 @@ description: "SDK stdio application profile for users and maintainers launching 
 kind: "package-bundle"
 ---
 
-# `@deepseek-ai/dsh-sdk-app`
+# `@hy/dsh-sdk-app`
 
 English | [中文](README.zh.md)
 
@@ -44,7 +44,7 @@ The Python runtime exposes explicitly downloaded authoring resources and Office 
 
 #### What the model sees
 
-The profile inherits the base system prompt, including the `You are an AI agent powered by DeepSeek Harness.` identity, without adding a task-specific persona. Each Session receives its current directory in required user-role context from [`dsh-working-directory`](../../session/working-directory/README.md). Default file tool schemas include `read`, `write`, and `edit`; they omit `str_replace_editor`.
+The profile inherits the base system prompt, including the `You are an AI agent powered by Huayu AI.` identity, without adding a task-specific persona. Each Session receives its current directory in required user-role context from [`dsh-working-directory`](../../session/working-directory/README.md). Default file tool schemas include `read`, `write`, and `edit`; they omit `str_replace_editor`.
 
 #### Token effect
 

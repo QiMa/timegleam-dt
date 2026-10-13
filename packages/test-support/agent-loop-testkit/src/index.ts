@@ -2,23 +2,23 @@
  * Shared service mounting, real AgentLoop drivers, and structural Inbox stubs
  * for agent-loop tests. Callers retain ownership of their contexts, adapters,
  * optional plugins, agents, and teardown.
- * @module @deepseek-ai/dsh-agent-loop-testkit
+ * @module @hy/dsh-agent-loop-testkit
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentOptions, Inbox, InboxTarget } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { SessionHeader, SessionId, UserMessage } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import type { Config as SystemPromptConfig } from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import type { Config as ToolRuntimeConfig } from '@deepseek-ai/dsh-tools'
-import FsLocal from '@deepseek-ai/dsh-fs-local'
-import WorkingDirectory from '@deepseek-ai/dsh-working-directory'
+import type { Context } from '@hy/cordis'
+import AgentRegistry from '@hy/dsh-agent'
+import type { Agent, AgentOptions, Inbox, InboxTarget } from '@hy/dsh-agent'
+import AgentLoop from '@hy/dsh-agent-loop'
+import LlmRuntime from '@hy/dsh-llm'
+import SessionStore from '@hy/dsh-session'
+import type { SessionHeader, SessionId, UserMessage } from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import SystemPrompt from '@hy/dsh-system-prompt'
+import type { Config as SystemPromptConfig } from '@hy/dsh-system-prompt'
+import ToolRuntime from '@hy/dsh-tools'
+import type { Config as ToolRuntimeConfig } from '@hy/dsh-tools'
+import FsLocal from '@hy/dsh-fs-local'
+import WorkingDirectory from '@hy/dsh-working-directory'
 
 export { createInboxStub, unsupportedInbox } from './inbox.ts'
 export { provideWorkingDirectoryFixture } from './working-directory-fixture.ts'

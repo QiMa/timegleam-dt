@@ -10,10 +10,10 @@
  * open Session's tasks.
  */
 
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type { HostObservable, SnapshotSelectorHook } from '@deepseek-ai/dsh-client-ui-slots'
-import type { ScheduleCatalogEntry } from '@deepseek-ai/dsh-schedule/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { Context as ClientContext } from '@hy/cordis'
+import type { HostObservable, SnapshotSelectorHook } from '@hy/dsh-client-ui-slots'
+import type { ScheduleCatalogEntry } from '@hy/dsh-schedule/client'
+import type { SessionId } from '@hy/dsh-session/types'
 import { createCatalogSource, type CatalogInjected, type CatalogSnapshot } from './catalog-source.ts'
 
 /** Per-Session source factory handed to the Session-header catalog occupant. */

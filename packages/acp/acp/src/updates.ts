@@ -1,9 +1,9 @@
 /** Standard ACP updates derived from committed DSH session events. */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@hy/cordis'
 import type { SessionUpdate, ToolCallContent } from '@agentclientprotocol/sdk'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-token-meter'
+import type { Session, SessionEvent } from '@hy/dsh-session'
+import type {} from '@hy/dsh-token-meter'
 import { assistantBlockToAcp } from './content.ts'
 
 /**

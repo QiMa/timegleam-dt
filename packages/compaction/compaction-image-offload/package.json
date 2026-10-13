@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-compaction-image-offload",
+  "name": "@hy/dsh-compaction-image-offload",
   "description": "Durable image offload for image-capable routes: replace over-budget request images with placeholders and retry",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
@@ -31,27 +31,27 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-compaction": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-compaction": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-session": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-compaction": "workspace:*",
-    "@deepseek-ai/dsh-compaction-basic": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-token-meter": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-compaction": "workspace:*",
+    "@hy/dsh-compaction-basic": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-token-meter": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-values": "workspace:*"
+    "@hy/dsh-util-values": "workspace:*"
   }
 }

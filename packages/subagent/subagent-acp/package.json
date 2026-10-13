@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-subagent-acp",
+  "name": "@hy/dsh-subagent-acp",
   "description": "Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
@@ -27,34 +27,34 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-subagent": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "1.4.0",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-loader-smoke": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-checkpoint-policy": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-subagent": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-tool-subagent": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-loader-smoke": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-checkpoint-policy": "workspace:*",
+    "@hy/dsh-session-persistence-jsonl": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-subprocess-local": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-tool-subagent": "workspace:*"
   }
 }

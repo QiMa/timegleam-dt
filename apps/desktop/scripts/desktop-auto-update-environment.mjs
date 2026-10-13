@@ -1,4 +1,4 @@
-/** Resolve the Desktop auto-update channel and its Tencent COS destination. */
+/** Resolve the Desktop auto-update channel and its publication destination. */
 
 import { valid } from 'semver'
 
@@ -7,6 +7,7 @@ export const DESKTOP_AUTO_UPDATE_ENV = 'DSH_DESKTOP_AUTO_UPDATE_ENV'
 
 const UPDATE_ENVIRONMENTS = {
   test: {
+    transport: 'cos',
     originEnvName: 'DOWNLOAD_TEST_ORIGIN',
     fixedOrigin: undefined,
     bucketEnvName: 'DOWNLOAD_TEST_COS_BUCKET',
@@ -14,11 +15,11 @@ const UPDATE_ENVIRONMENTS = {
     secretKeyEnvName: 'DOWNLOAD_TEST_COS_SECRET_KEY',
   },
   production: {
+    transport: 'static',
     originEnvName: undefined,
-    fixedOrigin: 'https://download.deepseek.com',
-    bucketEnvName: 'DOWNLOAD_PROD_COS_BUCKET',
-    secretIdEnvName: 'DOWNLOAD_PROD_COS_SECRET_ID',
-    secretKeyEnvName: 'DOWNLOAD_PROD_COS_SECRET_KEY',
+    fixedOrigin: 'https://lanhc.com/lanhc',
+    staticHost: 'baizor',
+    staticRemoteRoot: '/lucky/lanhc-hugo/lanhc',
   },
 }
 
@@ -121,6 +122,12 @@ function httpsOrigin(value, name) {
 
 /**
  * Resolve the public updater URL and object prefixes for one release target.
+ *
+ * Test deployments read their HTTPS origin from `DOWNLOAD_TEST_ORIGIN`; production
+ * publishes below the fixed base URL `https://lanhc.com/lanhc`, whose `/lanhc`
+ * path maps to the static host root. The returned `origin` is therefore either
+ * an origin (test) or an origin plus a base path (production); both are intended
+ * to be joined with a slash and an object prefix.
  * @param {NodeJS.ProcessEnv} env - Packaging or upload environment.
  * @param {NodeJS.Platform} platform - Target Node.js platform.
  * @param {string} arch - Target Node.js architecture.
@@ -157,20 +164,29 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
 }
 
 /**
- * Resolve the public updater URL and private COS destination for one upload target.
+ * Resolve the public updater URL and private publication destination for one upload target.
  * @param {NodeJS.ProcessEnv} env - Upload environment.
  * @param {NodeJS.Platform} platform - Target Node.js platform.
  * @param {string} arch - Target Node.js architecture.
- * @returns {{ environment: 'test' | 'production', target: 'mac-arm64' | 'mac-x64' | 'win-x64', origin: string, publicUrl: string, keyPrefix: string, binaryKeyPrefix: string, bucket: string, secretIdEnvName: string, secretKeyEnvName: string }} Resolved upload configuration.
+ * @returns {object} Resolved upload configuration; COS deployments carry bucket and secret environment names, static deployments carry an SSH host and remote root.
  * @throws {Error} When the selected deployment lacks a bucket or valid updater configuration.
  */
 export function resolveDesktopUploadConfig(env, platform, arch) {
   const update = resolveDesktopAutoUpdateConfig(env, platform, arch)
   const deployment = UPDATE_ENVIRONMENTS[update.environment]
+  if (deployment.transport === 'cos') {
+    return {
+      ...update,
+      transport: 'cos',
+      bucket: requiredEnvironmentValue(env, deployment.bucketEnvName),
+      secretIdEnvName: deployment.secretIdEnvName,
+      secretKeyEnvName: deployment.secretKeyEnvName,
+    }
+  }
   return {
     ...update,
-    bucket: requiredEnvironmentValue(env, deployment.bucketEnvName),
-    secretIdEnvName: deployment.secretIdEnvName,
-    secretKeyEnvName: deployment.secretKeyEnvName,
+    transport: 'static',
+    staticHost: deployment.staticHost,
+    staticRemoteRoot: deployment.staticRemoteRoot,
   }
 }

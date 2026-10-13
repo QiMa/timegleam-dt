@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@hy/dsh-client-store'
 /**
  * Host home reaches the browsing region through the assembled renderer, which
  * memoizes a root entry's inject result for the whole registration — so a home
@@ -9,11 +9,11 @@ import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, screen } from '@testing-library/react'
-import type { WorkspaceId } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
-import { SlotTestRuntime, usePinnedBrowserLanguages } from '@deepseek-ai/dsh-client-test-runtime'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { apply, inject } from '@deepseek-ai/dsh-client-ui-workspace/client'
+import type { WorkspaceId } from '@hy/dsh-api-workspace-controller/client'
+import type { PropsRenderSlots } from '@hy/dsh-client-ui-slots'
+import { SlotTestRuntime, usePinnedBrowserLanguages } from '@hy/dsh-client-test-runtime'
+import { LocaleRuntime } from '@hy/dsh-client-locale/client'
+import { apply, inject } from '@hy/dsh-client-ui-workspace/client'
 
 usePinnedBrowserLanguages('zh-CN')
 

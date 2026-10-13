@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-ptc-runtime-python",
-  "description": "CPython subprocess implementation of the DeepSeek Harness PTC execution seam",
+  "name": "@hy/dsh-experimental-ptc-runtime-python",
+  "description": "CPython subprocess implementation of the Huayu AI PTC execution seam",
   "version": "0.2.1-alpha.2",
   "repository": {
     "type": "git",
@@ -24,26 +24,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/dsh-sandbox": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:*"
+    "@hy/dsh-ptc-runtime": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/dsh-sandbox": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/dsh-sandbox": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-local": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*"
+    "@hy/dsh-ptc-runtime": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/dsh-sandbox": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-sandbox-local": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-session": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/schemastery": "workspace:~"
   },
   "publishConfig": {
     "access": "public"

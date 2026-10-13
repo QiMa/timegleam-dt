@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
 import { createPortal } from 'react-dom'
-import type { JobsSnapshot, JobView, ObservedJob } from '@deepseek-ai/dsh-api-job-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { JobsSnapshot, JobView, ObservedJob } from '@hy/dsh-api-job-controller/client'
+import type { SessionId } from '@hy/dsh-session/types'
 import {
   IconChevronDownOutlineRegular, IconStopFillRegular, StateDot, TerminalBlock, useAnchoredPosition, useDismissOnOutsidePointer,
   type StateDotState, type TerminalBlockLabels,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime, TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@hy/dsh-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime, TranslateNS } from '@hy/dsh-client-ui-slots'
 import { NS } from './locales.ts'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@hy/dsh-client-ui-conversation/client'
 import css from './JobListAction.module.css'
 
 /** Registration-side business face for the job list. */

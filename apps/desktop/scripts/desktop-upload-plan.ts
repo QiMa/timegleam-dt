@@ -45,9 +45,13 @@ export interface DesktopUploadPlan {
   readonly version: string
   /** Update feed directory URL, or the single installer URL for a fixed download. */
   readonly publicUrl: string
-  readonly bucket: string
-  readonly secretIdEnvName: string
-  readonly secretKeyEnvName: string
+  /** Publication transport selected by the release environment. */
+  readonly transport: 'cos' | 'static'
+  readonly bucket?: string
+  readonly secretIdEnvName?: string
+  readonly secretKeyEnvName?: string
+  readonly staticHost?: string
+  readonly staticRemoteRoot?: string
   readonly artifacts: readonly DesktopUploadArtifact[]
   /** Commit the artifacts were packaged from, absent for a package built before builds recorded it. */
   readonly commit?: string
@@ -234,7 +238,7 @@ export async function createDesktopUploadPlan(
     throw new Error(`desktop upload: ${metadataFilename}.files must contain exactly one target update file`)
   }
 
-  const base = `deepseek-harness-${buildVersion}-${target.os}-${target.arch}`
+  const base = `huayu-ai-${buildVersion}-${target.os}-${target.arch}`
   const updaterExtension = target.platform === 'darwin' ? 'zip' : 'exe'
   const updaterInfo = updateFileInfo(metadata.files[0], `${metadataFilename}.files[0]`, `${base}.${updaterExtension}`)
   const updaterPath = await verifyChecksummedArtifact(artifactsRoot, updaterInfo)
@@ -280,14 +284,15 @@ export async function createDesktopUploadPlan(
   }
   const latestFilename = `dsh-latest-${target.platform === 'darwin' ? 'macos' : 'windows'}-${target.arch}.${target.platform === 'darwin' ? 'dmg' : 'exe'}`
   const latestKey = `desktop/${latestFilename}`
+  const publication = update.transport === 'cos'
+    ? { transport: 'cos' as const, bucket: update.bucket, secretIdEnvName: update.secretIdEnvName, secretKeyEnvName: update.secretKeyEnvName }
+    : { transport: 'static' as const, staticHost: update.staticHost, staticRemoteRoot: update.staticRemoteRoot }
   return {
     environment: update.environment,
     target: targetName,
     version: buildVersion,
     publicUrl: options.latest ? `${update.origin}/${latestKey}` : update.publicUrl,
-    bucket: update.bucket,
-    secretIdEnvName: update.secretIdEnvName,
-    secretKeyEnvName: update.secretKeyEnvName,
+    ...publication,
     artifacts: options.latest ? [{ ...installerArtifact, filename: latestFilename, key: latestKey }] : artifacts,
     ...typeof buildRecord.commit === 'string' ? { commit: buildRecord.commit } : {},
     ...typeof buildRecord.dirty === 'boolean' ? { dirty: buildRecord.dirty } : {},

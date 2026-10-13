@@ -3,13 +3,13 @@ description: "The out-of-process SDK subagent backend for users and maintainers 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-subagent-dsh-sdk
+# @hy/dsh-subagent-dsh-sdk
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-subagent-dsh-sdk` runs each delegated task in a fresh DeepSeek Harness subprocess with its own profile, session, model route, and tools. The parent provides the task and working directory, while each child uses its configured runtime and remains isolated from the parent conversation. The parent receives the child's final assistant text or a safe error; intermediate messages and tool traffic stay inside the child process. Choose this backend when delegation needs a complete Harness runtime rather than shared in-process state, and accept the cost of starting a new process for every run.
+`dsh-subagent-dsh-sdk` runs each delegated task in a fresh Huayu AI subprocess with its own profile, session, model route, and tools. The parent provides the task and working directory, while each child uses its configured runtime and remains isolated from the parent conversation. The parent receives the child's final assistant text or a safe error; intermediate messages and tool traffic stay inside the child process. Choose this backend when delegation needs a complete Harness runtime rather than shared in-process state, and accept the cost of starting a new process for every run.
 
 ## Table of Contents
 
@@ -56,7 +56,7 @@ Request `agentOptions` override `provider`, `model`, and `maxTokens` independent
 
 ```yaml
 - id: subagent-dsh-sdk
-  name: '@deepseek-ai/dsh-subagent-dsh-sdk'
+  name: '@hy/dsh-subagent-dsh-sdk'
   config:
     providerName: dsh-sdk
     profile: sdk
@@ -66,7 +66,7 @@ Request `agentOptions` override `provider`, `model`, and `maxTokens` independent
     env:
       DEEPSEEK_API_KEY: !!js process.env.DEEPSEEK_API_KEY
 - id: tool-subagent
-  name: '@deepseek-ai/dsh-tool-subagent'
+  name: '@hy/dsh-tool-subagent'
   config: { provider: dsh-sdk, toolName: subagent, maxDepth: 'provider-managed' }
 ```
 

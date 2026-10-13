@@ -3,7 +3,7 @@ description: "改变一个 Session 的工作目录，同时保留已有进程各
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-working-directory
+# @hy/dsh-working-directory
 
 [English](README.md) | 中文
 
@@ -28,7 +28,7 @@ kind: "package-reference"
 与 `fs`、`sessionProjections` 和 `systemPrompt` 一起挂载。`defaultDirectory` 为没有原始目录的 Session 指定绝对回退目录；省略时使用启动目录。参见[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-working-directory)。
 
 ```yaml
-- name: '@deepseek-ai/dsh-working-directory'
+- name: '@hy/dsh-working-directory'
 ```
 
 -----

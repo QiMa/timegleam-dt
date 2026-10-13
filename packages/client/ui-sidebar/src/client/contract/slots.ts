@@ -7,13 +7,13 @@
  * `sidebar.settings` registrant's (ui-settings), followed by optional footer
  * actions in `sidebar.footer.action`.
  */
-import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
-import type { WorkspaceId } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { ShortcutCatalogEntry } from '@deepseek-ai/dsh-client-shortcuts/client'
-import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
+import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@hy/dsh-client-ui-slots'
+import type { ObservableSnapshot } from '@hy/dsh-client-store'
+import type { WorkspaceId } from '@hy/dsh-api-workspace-controller/client'
+import type { ShortcutCatalogEntry } from '@hy/dsh-client-shortcuts/client'
+import type { MainPanelId } from '@hy/dsh-client-ui-layout/client'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@hy/dsh-client-ui-slots' {
   interface SlotMap {
     /** Non-interactive notification inside the collapsed sidebar expand button. */
     'sidebar.toggle.badge': { kind: 'single'; scope: 'root'; owner: Record<never, never> }

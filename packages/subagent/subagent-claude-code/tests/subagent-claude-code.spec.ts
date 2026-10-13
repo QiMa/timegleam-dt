@@ -13,8 +13,8 @@ import type {
   SDKResultMessage,
   SpawnOptions,
 } from '@anthropic-ai/claude-agent-sdk'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { Context } from '@hy/cordis'
+import Loader from '@hy/cordis-plugin-loader'
 import * as yaml from 'js-yaml'
 import {
   afterEach,
@@ -25,17 +25,17 @@ import {
   type Mock,
   vi,
 } from 'vitest'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import SubagentRuntime from '@deepseek-ai/dsh-subagent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import type { Agent } from '@hy/dsh-agent'
+import type { ContentBlock } from '@hy/dsh-llm'
+import SubagentRuntime from '@hy/dsh-subagent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import type {
   SubprocessHandle,
   SubprocessOutcome,
   SubprocessSpawnSpec,
-} from '@deepseek-ai/dsh-subprocess'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+} from '@hy/dsh-subprocess'
+import LocalSubprocessRuntime from '@hy/dsh-subprocess-local'
+import { MAX_TIMER_DELAY_MS } from '@hy/dsh-timeout'
 import * as claudeCode from '../src/index.ts'
 import {
   claudeSpawnSpec,
@@ -361,7 +361,7 @@ describe('task admission and package contracts', () => {
       '^1.31.0',
     )
     expect(manifest.dependencies).toHaveProperty('zod', '^4.4.3')
-    expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-codex')
+    expect(manifest.dependencies).not.toHaveProperty('@hy/dsh-subagent-codex')
 
     const sdkRoot = dirname(fileURLToPath(
       import.meta.resolve('@anthropic-ai/claude-agent-sdk'),
@@ -394,12 +394,12 @@ describe('task admission and package contracts', () => {
 
     const parsed = yaml.load(readFileSync(resolve(root, manifest.dsh!.bundle!.patch!), 'utf8'))
     expect(parsed).toEqual([{ insert: [
-      { id: 'subagent-claude-code', name: '@deepseek-ai/dsh-subagent-claude-code' },
-      { id: 'tool-subagent-claude-code', name: '@deepseek-ai/dsh-tool-subagent', config: {
+      { id: 'subagent-claude-code', name: '@hy/dsh-subagent-claude-code' },
+      { id: 'tool-subagent-claude-code', name: '@hy/dsh-tool-subagent', config: {
         provider: 'claude-code', toolName: 'subagent_claude_code', maxDepth: 'provider-managed',
       } },
     ] }])
-    expect(manifest.dependencies).toHaveProperty('@deepseek-ai/dsh-tool-subagent', 'workspace:*')
+    expect(manifest.dependencies).toHaveProperty('@hy/dsh-tool-subagent', 'workspace:*')
   })
 
   it('preserves text sequences and rejects empty, blank, and non-text tasks', () => {

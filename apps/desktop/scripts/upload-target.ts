@@ -9,6 +9,7 @@ import { loadDesktopPackageEnvironment } from './desktop-package-environment.mjs
 import { createDesktopUploadPlan, type DesktopUploadPlan } from './desktop-upload-plan.ts'
 import { desktopReleaseTag, tagDesktopRelease } from './desktop-release-tag.ts'
 import { uploadDesktopRelease } from './desktop-upload-run.ts'
+import { uploadDesktopReleaseStatic } from './desktop-upload-static.ts'
 
 const SUPPORTED_TARGETS = new Set<DesktopPackageTargetName>(['mac-arm64', 'mac-x64', 'win-x64'])
 
@@ -44,6 +45,9 @@ export function resolveCredentialUploadEnvironment(
   const platform = target === 'win-x64' ? 'win32' : 'darwin'
   const arch = target === 'mac-arm64' ? 'arm64' : 'x64'
   const destination = resolveDesktopUploadConfig(fileEnvironment, platform, arch)
+  if (destination.transport !== 'cos') {
+    throw new Error('desktop upload: credential launcher supports only COS deployments')
+  }
   if (destination.environment !== selected || destination.bucket !== bucket) {
     throw new Error('desktop upload: credential launcher deployment or bucket differs from the packaged release destination')
   }
@@ -86,12 +90,19 @@ export async function uploadDesktopTarget(args: string[]): Promise<void> {
     ? resolveCredentialUploadEnvironment(fileEnvironment, process.env, values.environment as 'test' | 'production', values.bucket!, name)
     : fileEnvironment
   const plan = await createDesktopUploadPlan(name, { environment, latest: values.latest === true })
-  const cos = createDesktopCos({
-    secretId: requiredEnvironmentValue(environment, plan.secretIdEnvName),
-    secretKey: requiredEnvironmentValue(environment, plan.secretKeyEnvName),
-  })
   process.stdout.write(`desktop upload: ${plan.target} ${plan.version} -> ${plan.publicUrl}\n`)
-  await uploadDesktopRelease(plan, cos, resolve(import.meta.dirname, '../.desktop-build/upload-records'))
+  if (plan.transport === 'cos') {
+    if (plan.secretIdEnvName === undefined || plan.secretKeyEnvName === undefined) {
+      throw new Error('desktop upload: COS publication requires secret environment names')
+    }
+    const cos = createDesktopCos({
+      secretId: requiredEnvironmentValue(environment, plan.secretIdEnvName),
+      secretKey: requiredEnvironmentValue(environment, plan.secretKeyEnvName),
+    })
+    await uploadDesktopRelease(plan, cos, resolve(import.meta.dirname, '../.desktop-build/upload-records'))
+  } else {
+    await uploadDesktopReleaseStatic(plan, resolve(import.meta.dirname, '../.desktop-build/upload-records'))
+  }
   if (plan.environment === 'production' && !values.latest) recordProductionRelease(plan)
 }
 

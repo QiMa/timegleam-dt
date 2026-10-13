@@ -1,21 +1,21 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry, { agentEvents } from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage, HarnessError } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import SessionStore, { Session, SessionId, type UserMessage } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { Context } from '@hy/cordis'
+import AgentRegistry, { agentEvents } from '@hy/dsh-agent'
+import type { Agent } from '@hy/dsh-agent'
+import { createUserMessage, HarnessError } from '@hy/dsh-llm'
+import type { ContextFormed } from '@hy/dsh-llm'
+import SessionStore, { Session, SessionId, type UserMessage } from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import GoalService, {
   GoalError,
   GoalId,
   decodeGoalChange,
   foldGoal,
-} from '@deepseek-ai/dsh-goal'
-import type { GoalChangeMeta, GoalRef, GoalSnapshotChangeMeta } from '@deepseek-ai/dsh-goal'
-import { createInboxStub } from '@deepseek-ai/dsh-agent-loop-testkit'
+} from '@hy/dsh-goal'
+import type { GoalChangeMeta, GoalRef, GoalSnapshotChangeMeta } from '@hy/dsh-goal'
+import { createInboxStub } from '@hy/dsh-agent-loop-testkit'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@hy/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
     'ordinary-user-message': { kind: 'ordinary-user-message' } & ContextFormed
@@ -79,7 +79,7 @@ function stubAgentForSession(session: Session, suppliedCtx?: Context): StubAgent
 /** Build a registry-compatible agent around a fresh session. */
 function stubAgent(
   rawId: string,
-  seed?: readonly import('@deepseek-ai/dsh-session').SessionEvent[],
+  seed?: readonly import('@hy/dsh-session').SessionEvent[],
   ctx?: Context,
 ): StubAgent {
   const session = ctx === undefined

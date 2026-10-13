@@ -10,13 +10,13 @@ import { desktopUpdateMetadataFilename } from '../scripts/desktop-auto-update-en
 import type { DesktopPackageTargetName } from '../scripts/package-target.ts'
 import { createDesktopCos } from '../scripts/desktop-cos.ts'
 import { uploadDesktopRelease } from '../scripts/desktop-upload-run.ts'
+import { uploadDesktopReleaseStatic } from '../scripts/desktop-upload-static.ts'
 import { startCosLoopback } from './cos-loopback.ts'
 
 const temporaryDirectories: string[] = []
 const TEST_ORIGIN = 'https://desktop-updates.example.com'
 const TEST_BUCKET = 'test-download-bucket-1250000000'
 const RELEASE_ID = '0123456789abcdef0123456789abcdef'
-const PRODUCTION_BUCKET = 'production-download-bucket-1250000000'
 const require = createRequire(import.meta.url)
 const { createBlockmap } = require('app-builder-lib/out/targets/differentialUpdateInfoBuilder.js') as {
   createBlockmap: (file: string, target: object, packager: { info: { emitArtifactBuildCompleted(event: object): Promise<void> } },
@@ -49,10 +49,10 @@ async function fixture(
   await writeFile(join(appRoot, 'package.json'), `${JSON.stringify({ version })}\n`)
 
   const [os, arch] = target.split('-') as ['mac' | 'win', 'arm64' | 'x64']
-  const base = `deepseek-harness-${version}-${os}-${arch}`
+  const base = `huayu-ai-${version}-${os}-${arch}`
   const origin = environment === 'test'
     ? TEST_ORIGIN
-    : 'https://download.deepseek.com'
+    : 'https://lanhc.com/lanhc'
   await writeFile(join(artifactsRoot, `${target}-release.json`), `${JSON.stringify({
     schemaVersion: 1,
     target,
@@ -100,7 +100,6 @@ async function fixture(
       }
       : {
         DSH_DESKTOP_AUTO_UPDATE_ENV: 'production',
-        DOWNLOAD_PROD_COS_BUCKET: PRODUCTION_BUCKET,
       },
   }
 }
@@ -113,36 +112,56 @@ afterEach(async () => {
 })
 
 describe('desktop upload plan', () => {
-  it('uploads only the selected latest installer to each deployment using the existing COS transport', async () => {
+  it('uploads only the selected latest installer to each deployment through its transport', async () => {
     const published = []
     for (const environment of ['production', 'test'] as const) {
       for (const target of ['mac-arm64', 'mac-x64', 'win-x64'] as const) {
         const paths = await fixture(target, '1.2.3', environment)
         const plan = await createDesktopUploadPlan(target, { ...paths, latest: true })
-        const loopback = await startCosLoopback()
-        try {
-          const cos = createDesktopCos({ secretId: 'fixture-id', secretKey: 'fixture-secret' })
-          loopback.redirect(cos)
-          const directory = await uploadDesktopRelease(plan, cos, join(paths.appRoot, 'records'))
-          expect(plan.artifacts).toHaveLength(1)
-          const artifact = plan.artifacts[0]!
-          expect(loopback.requests).toHaveLength(1)
-          const request = loopback.requests[0]!
-          expect(request.method).toBe('PUT')
-          expect(request.path).toBe(`/${artifact.key}`)
-          expect(request.body).toEqual(await readFile(artifact.path))
-          expect(JSON.parse(await readFile(join(directory, 'result.json'), 'utf8'))).toMatchObject({
-            success: true, confirmedPuts: 1, publicReadback: 'not-performed',
-          })
+        expect(plan.artifacts).toHaveLength(1)
+        const artifact = plan.artifacts[0]!
+        if (plan.transport === 'cos') {
+          const loopback = await startCosLoopback()
+          try {
+            const cos = createDesktopCos({ secretId: 'fixture-id', secretKey: 'fixture-secret' })
+            loopback.redirect(cos)
+            const directory = await uploadDesktopRelease(plan, cos, join(paths.appRoot, 'records'))
+            expect(loopback.requests).toHaveLength(1)
+            const request = loopback.requests[0]!
+            expect(request.method).toBe('PUT')
+            expect(request.path).toBe(`/${artifact.key}`)
+            expect(request.body).toEqual(await readFile(artifact.path))
+            expect(JSON.parse(await readFile(join(directory, 'result.json'), 'utf8'))).toMatchObject({
+              success: true, confirmedPuts: 1, publicReadback: 'not-performed',
+            })
+          } finally {
+            await loopback.close()
+          }
           published.push({ environment, target, bucket: plan.bucket, publicUrl: plan.publicUrl,
             filename: artifact.filename, key: artifact.key, contentType: artifact.contentType,
             channelMetadata: artifact.channelMetadata })
-        } finally {
-          await loopback.close()
+        } else {
+          const commands: string[][] = []
+          const directory = await uploadDesktopReleaseStatic(plan, join(paths.appRoot, 'records'), {
+            runCommand: async (command, args) => {
+              commands.push([command, ...args])
+              return { code: 0, stdout: '', stderr: '' }
+            },
+          })
+          expect(commands[0]?.[0]).toBe('ssh')
+          expect(commands.at(-1)![0]).toBe('scp')
+          expect(commands.at(-1)!.at(-1)).toBe(`baizor:${plan.staticRemoteRoot!}/${artifact.key}`)
+          expect(JSON.parse(await readFile(join(directory, 'result.json'), 'utf8'))).toMatchObject({
+            success: true, confirmedPuts: 1, transport: 'static', publicReadback: 'not-performed',
+          })
+          published.push({ environment, target, publicUrl: plan.publicUrl,
+            filename: artifact.filename, key: artifact.key, contentType: artifact.contentType,
+            channelMetadata: artifact.channelMetadata })
         }
       }
     }
-    await expect(`${JSON.stringify(published, null, 2)}\n`).toMatchFileSnapshot('./expected/latest-installer-uploads.json')
+    await expect(`${JSON.stringify(published, null, 2)}
+`).toMatchFileSnapshot('./expected/latest-installer-uploads.json')
   })
 
   it('allows an explicitly selected production prerelease at the fixed installer URL', async () => {
@@ -151,7 +170,7 @@ describe('desktop upload plan', () => {
     expect(plan.version).toBe('1.2.3-alpha.4')
     expect(plan.artifacts).toHaveLength(1)
     expect(plan.artifacts[0]).toMatchObject({
-      path: join(paths.artifactsRoot, 'deepseek-harness-1.2.3-alpha.4-win-x64.exe'),
+      path: join(paths.artifactsRoot, 'huayu-ai-1.2.3-alpha.4-win-x64.exe'),
       key: 'desktop/dsh-latest-windows-x64.exe', channelMetadata: false,
     })
   })
@@ -164,7 +183,7 @@ describe('desktop upload plan', () => {
       DOWNLOAD_TEST_RELEASE_ID: RELEASE_ID, DOWNLOAD_TEST_COS_BUCKET: TEST_BUCKET,
     })
     if (failure === 'checksum') {
-      const path = join(paths.artifactsRoot, 'deepseek-harness-1.2.3-win-x64.exe')
+      const path = join(paths.artifactsRoot, 'huayu-ai-1.2.3-win-x64.exe')
       await writeFile(path, Buffer.alloc((await readFile(path)).length))
     }
     await expect(createDesktopUploadPlan('win-x64', { ...paths, latest: true }))
@@ -175,15 +194,15 @@ describe('desktop upload plan', () => {
     const paths = await fixture('win-x64', '1.2.3', 'production')
     const plan = await createDesktopUploadPlan('win-x64', paths)
     expect(plan.artifacts.map(artifact => artifact.key)).toEqual([
-      'dsh-desk/bin/win-x64/deepseek-harness-1.2.3-win-x64.exe',
-      'dsh-desk/bin/win-x64/deepseek-harness-1.2.3-win-x64.exe.blockmap',
+      'dsh-desk/bin/win-x64/huayu-ai-1.2.3-win-x64.exe',
+      'dsh-desk/bin/win-x64/huayu-ai-1.2.3-win-x64.exe.blockmap',
       'dsh-desk/feeds/win-x64/nightly.yml',
       'dsh-desk/feeds/win-x64/latest.yml',
     ])
     expect(load(plan.artifacts[2]!.contents!)).toMatchObject({
       version: '1.2.3',
       files: [{
-        url: 'https://download.deepseek.com/dsh-desk/bin/win-x64/deepseek-harness-1.2.3-win-x64.exe',
+        url: 'https://lanhc.com/lanhc/dsh-desk/bin/win-x64/huayu-ai-1.2.3-win-x64.exe',
         sha512: digest('signed NSIS executable fixture'),
       }],
     })
@@ -201,9 +220,9 @@ describe('desktop upload plan', () => {
       bucket: TEST_BUCKET,
     })
     expect(plan.artifacts.map(artifact => artifact.filename)).toEqual([
-      'deepseek-harness-1.2.3-mac-arm64.dmg',
-      'deepseek-harness-1.2.3-mac-arm64.zip',
-      'deepseek-harness-1.2.3-mac-arm64.zip.blockmap',
+      'huayu-ai-1.2.3-mac-arm64.dmg',
+      'huayu-ai-1.2.3-mac-arm64.zip',
+      'huayu-ai-1.2.3-mac-arm64.zip.blockmap',
       'nightly-mac.yml',
       'latest-mac.yml',
     ])
@@ -244,9 +263,9 @@ describe('desktop upload plan', () => {
     const paths = await fixture('mac-arm64', '1.2.3-alpha.4')
     const plan = await createDesktopUploadPlan('mac-arm64', paths)
     expect(plan.artifacts.map(artifact => artifact.filename)).toEqual([
-      'deepseek-harness-1.2.3-alpha.4-mac-arm64.dmg',
-      'deepseek-harness-1.2.3-alpha.4-mac-arm64.zip',
-      'deepseek-harness-1.2.3-alpha.4-mac-arm64.zip.blockmap',
+      'huayu-ai-1.2.3-alpha.4-mac-arm64.dmg',
+      'huayu-ai-1.2.3-alpha.4-mac-arm64.zip',
+      'huayu-ai-1.2.3-alpha.4-mac-arm64.zip.blockmap',
       'nightly-mac.yml',
     ])
   })
@@ -255,20 +274,22 @@ describe('desktop upload plan', () => {
     const paths = await fixture('win-x64', '2.0.0', 'production')
     const plan = await createDesktopUploadPlan('win-x64', paths)
     expect(plan.artifacts.map(artifact => artifact.filename)).toEqual([
-      'deepseek-harness-2.0.0-win-x64.exe',
-      'deepseek-harness-2.0.0-win-x64.exe.blockmap',
+      'huayu-ai-2.0.0-win-x64.exe',
+      'huayu-ai-2.0.0-win-x64.exe.blockmap',
       'nightly.yml',
       'latest.yml',
     ])
     expect(plan).toMatchObject({
-      publicUrl: 'https://download.deepseek.com/dsh-desk/feeds/win-x64/',
-      bucket: PRODUCTION_BUCKET,
+      transport: 'static',
+      publicUrl: 'https://lanhc.com/lanhc/dsh-desk/feeds/win-x64/',
+      staticHost: 'baizor',
+      staticRemoteRoot: '/lucky/lanhc-hugo/lanhc',
     })
   })
 
   it.each(['missing', 'empty'])('rejects a %s Windows blockmap before publishing its feed', async (condition) => {
     const paths = await fixture('win-x64')
-    const path = join(paths.artifactsRoot, 'deepseek-harness-1.2.3-win-x64.exe.blockmap')
+    const path = join(paths.artifactsRoot, 'huayu-ai-1.2.3-win-x64.exe.blockmap')
     if (condition === 'missing') await rm(path)
     else await writeFile(path, '')
     await expect(createDesktopUploadPlan('win-x64', paths)).rejects.toThrow(/missing or empty artifact.*\.exe\.blockmap/u)
@@ -295,7 +316,7 @@ describe('desktop upload plan', () => {
   it('rejects stale architecture metadata and modified updater bytes', async () => {
     const paths = await fixture('mac-arm64')
     const metadataPath = join(paths.artifactsRoot, 'nightly-mac.yml')
-    const zipPath = join(paths.artifactsRoot, 'deepseek-harness-1.2.3-mac-arm64.zip')
+    const zipPath = join(paths.artifactsRoot, 'huayu-ai-1.2.3-mac-arm64.zip')
     await writeFile(zipPath, 'modified')
     await expect(createDesktopUploadPlan('mac-arm64', paths)).rejects.toThrow(/size.*metadata/u)
 
@@ -303,7 +324,7 @@ describe('desktop upload plan', () => {
     await writeFile(metadataPath, `${JSON.stringify({
       version: '1.2.3',
       files: [{
-        url: 'deepseek-harness-1.2.3-mac-x64.zip',
+        url: 'huayu-ai-1.2.3-mac-x64.zip',
         size: Buffer.byteLength(x64),
         sha512: digest(x64),
       }],

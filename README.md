@@ -1,8 +1,10 @@
-# DeepSeek Harness
+# Huayu AI
+
+![Huayu AI](assets/brand/huayuai-icon.svg)
 
 English | [中文](README.zh.md)
 
-DeepSeek Harness (`dsh`) is an open-source agent harness developed by [DeepSeek AI](https://deepseek.com).
+Huayu AI (`dsh`) is an open-source agent harness based on [Huayu AI](https://github.com/deepseek-ai/deepseek-harness), built by the Huayu AI team.
 
 It is built on an **everything-is-a-plugin** architecture and powered by [Cordis](https://github.com/cordiverse/cordis), whose design is described in [_A Programming Paradigm for Spatiotemporal Composability_](https://arxiv.org/abs/2608.25512).
 
@@ -10,7 +12,7 @@ Documentation: [https://deepseek-harness.github.io/deepseek-harness/](https://de
 
 ## Developer preview
 
-DeepSeek Harness is in _developer preview_ and iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**
+Huayu AI is in _developer preview_ and iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**
 
 Review the [safety notice](SAFETY.md) before running the project.
 
@@ -21,7 +23,7 @@ Review the [safety notice](SAFETY.md) before running the project.
 Install `Node.js`, then run:
 
 ```sh
-npx @deepseek-ai/dsh web
+npx @hy/dsh web
 ```
 
 The command starts the Web UI at `http://127.0.0.1:3080` by default and opens it in the default browser for a local launch. An SSH launch only prints the host URL because the SSH client or editor owns the local forwarded address. Pass `--no-open` to run the server without opening a browser. See [Web UI guide](docs/user/guide/index.md).
@@ -44,7 +46,7 @@ pnpm dsh web
 
 - Submit feedback or bug reports through [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions).
 - Add the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic to your plugin repository for discoverability.
-- Join <a href="https://discord.gg/4MrtZUhpxg">DeepSeek Harness Discord community</a>.
+- Join <a href="https://discord.gg/4MrtZUhpxg">Huayu AI Discord community</a>.
 
 ## Contributing
 
@@ -62,7 +64,7 @@ For agents, follow [AGENTS.md](AGENTS.md).
 
 ```bibtex
 @misc{deepseek-harness2026,
-  title={DeepSeek Harness: Everything is a Plugin},
+  title={Huayu AI: Everything is a Plugin},
   author={DeepSeek-AI},
   year={2026},
   publisher={GitHub},

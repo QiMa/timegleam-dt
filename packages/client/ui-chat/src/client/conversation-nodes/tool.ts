@@ -1,11 +1,11 @@
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@hy/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, PreparingToolCall, StartedToolCall,
   ToolCallBlock, ToolResultNode,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
-import type {} from '@deepseek-ai/dsh-tools/types'
-import { PartialArguments } from '@deepseek-ai/dsh-util-values'
+} from '@hy/dsh-client-ui-conversation/client'
+import { isAppendSurfaceEvent } from '@hy/dsh-session/surface'
+import type {} from '@hy/dsh-tools/types'
+import { PartialArguments } from '@hy/dsh-util-values'
 import type { ChatNode, ToolChatData } from '../contract/chat-nodes.ts'
 import { CHAT_SYNTHETIC_SEQ_OFFSETS, chatNode, contextLocation } from './common.ts'
 

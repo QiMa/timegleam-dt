@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-llm-retry",
-  "description": "Provider-routed LLM request retry policy for the DeepSeek Harness",
+  "name": "@hy/dsh-llm-retry",
+  "description": "Provider-routed LLM request retry policy for the Huayu AI",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -31,35 +31,35 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-session-projection": "workspace:*"
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-session-projection": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@hy/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
-    "@deepseek-ai/dsh-llm-mock-server": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/cordis-plugin-include": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
+    "@hy/dsh-llm-deepseek-api-key": "workspace:*",
+    "@hy/dsh-llm-mock-server": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-session-persistence-jsonl": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/cordis": "workspace:~"
   }
 }

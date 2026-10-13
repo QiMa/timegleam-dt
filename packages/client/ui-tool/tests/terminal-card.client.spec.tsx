@@ -1,23 +1,23 @@
 // @vitest-environment jsdom
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { useDisclosure } from '@deepseek-ai/dsh-client-ui-chat/src/client/chat/use-disclosure.ts'
+import { useDisclosure } from '@hy/dsh-client-ui-chat/src/client/chat/use-disclosure.ts'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import { bindSnapshotSelector } from '@deepseek-ai/dsh-client-test-runtime'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { StartedToolCall, ToolResultNode } from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { en as commonEn } from '@deepseek-ai/dsh-client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
+import { bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
+import { createSnapshotStore } from '@hy/dsh-client-store'
+import type { StartedToolCall, ToolResultNode } from '@hy/dsh-client-ui-chat/client'
+import type { SessionListState } from '@hy/dsh-api-session-controller/client'
+import type { SessionId } from '@hy/dsh-session/types'
+import { makeTranslate } from '@hy/dsh-client-test-runtime'
+import { en as commonEn } from '@hy/dsh-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@hy/dsh-client-locale/src/locales/zh.ts'
 import {
   localizeTerminalCardModel, terminalCardModel, terminalFailed,
 } from '../src/client/tool/models/terminal-card-model.ts'
 import { GenericToolCard, type GenericToolCardProps } from '../src/client/tool/toolviews/GenericToolCard.tsx'
 import { BashRow } from '../src/client/tool/toolviews/bash-sample.tsx'
-import { en, zh } from '@deepseek-ai/dsh-client-ui-conversation/src/client/locales.ts'
-import { PartialArguments } from '@deepseek-ai/dsh-util-values'
+import { en, zh } from '@hy/dsh-client-ui-conversation/src/client/locales.ts'
+import { PartialArguments } from '@hy/dsh-util-values'
 
 type BashRowProps = Parameters<typeof BashRow>[0]
 
@@ -528,7 +528,7 @@ describe('BashRow terminal card', () => {
   })
 
   it.each([undefined, 'dispatch-parent'])('expands a background launch and its acknowledgement without reporting a job exit (parent: %s)', (parentCallId) => {
-    const command = 'pnpm --filter @deepseek-ai/dsh-client-ui-tool run build --watch --verbose'
+    const command = 'pnpm --filter @hy/dsh-client-ui-tool run build --watch --verbose'
     const args = { command, description: 'Wait', run_in_background: true }
     const argsRaw = JSON.stringify(args)
     const inspect = vi.fn()

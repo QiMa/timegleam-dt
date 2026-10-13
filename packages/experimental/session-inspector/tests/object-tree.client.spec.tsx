@@ -2,11 +2,11 @@
 /** Reference links stop traversal; expanded collections retain original entry values. */
 
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@hy/dsh-client-store'
 import { afterEach, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { SessionSeq, type SessionId } from '@deepseek-ai/dsh-session/types'
-import { ConversationLocationIndex } from '@deepseek-ai/dsh-client-ui-conversation/client'
+import { makeTranslate } from '@hy/dsh-client-test-runtime'
+import { SessionSeq, type SessionId } from '@hy/dsh-session/types'
+import { ConversationLocationIndex } from '@hy/dsh-client-ui-conversation/client'
 import { InspectorJsonTree, InspectorObjectTree } from '../src/client/views/InspectorObjectTree.tsx'
 import type { InspectorObjects, InspectorObjectReference } from '../src/client/views/objects.ts'
 import { en } from '../src/client/locales.ts'
@@ -15,7 +15,7 @@ interface TreeProbeData {
   readonly status: string
 }
 
-declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
+declare module '@hy/dsh-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     'tree-probe': TreeProbeData
   }

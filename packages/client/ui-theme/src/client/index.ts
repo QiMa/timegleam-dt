@@ -8,15 +8,15 @@
  * into the settings General section — the theme feature owns its own settings
  * surface.
  */
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type { BoundActions } from '@deepseek-ai/dsh-client-ui-slots'
+import type { Context as ClientContext } from '@hy/cordis'
+import type { BoundActions } from '@hy/dsh-client-ui-slots'
 // Type-only: the ctx.configForms Context merge. Cross-plugin collaboration
 // goes through the service, never a value import (client bundle purity gate).
-import type { ConfigForm } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { ConfigForm } from '@hy/dsh-client-ui-settings/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@hy/dsh-client-locale/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@hy/dsh-client-ui-renderer/client'
 import type { AppearanceRowInjected } from './AppearanceRow.tsx'
 import { AppearanceRow } from './AppearanceRow.tsx'
 import type { FontSettingsInjected } from './FontSettingsGroup.tsx'
@@ -40,7 +40,7 @@ export type { FontFamilies, FontRole, FontSizes, ThemePreference, ThemeSettings 
 /** Namespace owning this feature's settings-row copy. */
 export const SETTINGS_NS = 'settings.theme'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@hy/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The Appearance settings row's copy. */
     'settings.theme': ThemeKey
@@ -112,7 +112,7 @@ export interface ThemeTokenInspection {
   cssVariable?: string
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@hy/cordis' {
   interface Context {
     theme: ThemeRuntime
   }

@@ -2,28 +2,28 @@
 
 import { modelAvailable } from './catalog.ts'
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Agent, ModelSelection as AgentModelSelection } from '@deepseek-ai/dsh-agent'
-import { AttachmentError } from '@deepseek-ai/dsh-attachment'
+import type { Context } from '@hy/cordis'
+import { brandString } from '@hy/dsh-brand'
+import type { Agent, ModelSelection as AgentModelSelection } from '@hy/dsh-agent'
+import { AttachmentError } from '@hy/dsh-attachment'
 import type {
   AttachmentAdmissionPart, FileAttachmentRef, ImageAttachmentRef,
-} from '@deepseek-ai/dsh-attachment'
-import type { FileUploadReceiptId } from '@deepseek-ai/dsh-client-file-upload/types'
-import type {} from '@deepseek-ai/dsh-client-file-upload'
+} from '@hy/dsh-attachment'
+import type { FileUploadReceiptId } from '@hy/dsh-client-file-upload/types'
+import type {} from '@hy/dsh-client-file-upload'
 import {
   ReasoningEffortId, assistantStreamChunks, createUserMessage, freezeMessage,
-} from '@deepseek-ai/dsh-llm'
-import type { MessageSource } from '@deepseek-ai/dsh-llm'
-import { buildForkSeed } from '@deepseek-ai/dsh-session/fork'
-import { SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader, SessionId, UserMessage } from '@deepseek-ai/dsh-session'
-import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
-import { SessionTitleInvalidError } from '@deepseek-ai/dsh-session-title'
-import { canonicalClientTimeZone } from '@deepseek-ai/dsh-util-time'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import { RemoteError, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
-import type { Workspace } from '@deepseek-ai/dsh-workspace'
+} from '@hy/dsh-llm'
+import type { MessageSource } from '@hy/dsh-llm'
+import { buildForkSeed } from '@hy/dsh-session/fork'
+import { SessionLogOffset, SessionSeq } from '@hy/dsh-session'
+import type { SessionEvent, SessionHeader, SessionId, UserMessage } from '@hy/dsh-session'
+import { SessionQueryError, type SessionObservation } from '@hy/dsh-session-query'
+import { SessionTitleInvalidError } from '@hy/dsh-session-title'
+import { canonicalClientTimeZone } from '@hy/dsh-util-time'
+import { assertNever } from '@hy/dsh-util-values'
+import { RemoteError, remoteErrorOf } from '@hy/dsh-typert-protocol'
+import type { Workspace } from '@hy/dsh-workspace'
 import {
   ApiSessionAgentController,
   ApiSessionCwdConflict,

@@ -3,7 +3,7 @@ description: "Standalone SDK profile with a persistent shell and Session working
 kind: "package-bundle"
 ---
 
-# `@deepseek-ai/dsh-sdk-minimal`
+# `@hy/dsh-sdk-minimal`
 
 English | [中文](README.zh.md)
 

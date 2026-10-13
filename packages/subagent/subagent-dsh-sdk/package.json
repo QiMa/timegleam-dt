@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-subagent-dsh-sdk",
-  "description": "Out-of-process SDK subagent backend: drives a child DeepSeek Harness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client",
+  "name": "@hy/dsh-subagent-dsh-sdk",
+  "description": "Out-of-process SDK subagent backend: drives a child Huayu AI runtime subprocess over stdio JSON-RPC through the TypeScript SDK client",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,38 +27,38 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-sdk-client": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-subagent": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-sdk-client": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-instructions": "workspace:*",
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
-    "@deepseek-ai/dsh-loader-smoke": "workspace:*",
-    "@deepseek-ai/dsh-sdk-client": "workspace:*",
-    "@deepseek-ai/dsh-sdk-protocol": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-checkpoint-policy": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-skill-filesystem": "workspace:*",
-    "@deepseek-ai/dsh-subagent": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tool-subagent": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-instructions": "workspace:*",
+    "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
+    "@hy/dsh-llm-deepseek-api-key": "workspace:*",
+    "@hy/dsh-loader-smoke": "workspace:*",
+    "@hy/dsh-sdk-client": "workspace:*",
+    "@hy/dsh-sdk-protocol": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-checkpoint-policy": "workspace:*",
+    "@hy/dsh-session-persistence-jsonl": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-skill-filesystem": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-subagent": "workspace:*"
   }
 }

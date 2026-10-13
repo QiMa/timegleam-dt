@@ -65,20 +65,20 @@ describe('desktop auto-update environment', () => {
     }, 'win32', 'x64')).toMatchObject({
       environment: 'production',
       target: 'win-x64',
-      publicUrl: 'https://download.deepseek.com/dsh-desk/feeds/win-x64/',
+      origin: 'https://lanhc.com/lanhc',
+      publicUrl: 'https://lanhc.com/lanhc/dsh-desk/feeds/win-x64/',
       binaryKeyPrefix: 'dsh-desk/bin/win-x64',
     })
     expect(resolveDesktopUploadConfig({
       DSH_DESKTOP_AUTO_UPDATE_ENV: 'production',
-      DOWNLOAD_PROD_COS_BUCKET: 'production-download-bucket',
     }, 'win32', 'x64')).toMatchObject({
-      bucket: 'production-download-bucket',
-      secretIdEnvName: 'DOWNLOAD_PROD_COS_SECRET_ID',
-      secretKeyEnvName: 'DOWNLOAD_PROD_COS_SECRET_KEY',
+      transport: 'static',
+      staticHost: 'baizor',
+      staticRemoteRoot: '/lucky/lanhc-hugo/lanhc',
     })
   })
 
-  it('requires the selected deployment origin for packages and bucket only for uploads', () => {
+  it('requires the test origin and bucket while production publishes to the fixed static destination', () => {
     expect(() => resolveDesktopAutoUpdateConfig({}, 'darwin', 'arm64'))
       .toThrow(/DOWNLOAD_TEST_ORIGIN/u)
     expect(resolveDesktopAutoUpdateConfig({
@@ -89,9 +89,13 @@ describe('desktop auto-update environment', () => {
       DOWNLOAD_TEST_ORIGIN: 'https://desktop-updates.example.com',
       DOWNLOAD_TEST_RELEASE_ID: RELEASE_ID,
     }, 'darwin', 'arm64')).toThrow(/DOWNLOAD_TEST_COS_BUCKET/u)
-    expect(() => resolveDesktopUploadConfig({
+    expect(resolveDesktopUploadConfig({
       DSH_DESKTOP_AUTO_UPDATE_ENV: 'production',
-    }, 'win32', 'x64')).toThrow(/DOWNLOAD_PROD_COS_BUCKET/u)
+    }, 'win32', 'x64')).toMatchObject({
+      transport: 'static',
+      staticHost: 'baizor',
+      staticRemoteRoot: '/lucky/lanhc-hugo/lanhc',
+    })
   })
 
   it('rejects a test download URL that is not an HTTPS origin', () => {

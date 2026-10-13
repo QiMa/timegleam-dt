@@ -1,16 +1,16 @@
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@hy/cordis'
 import { useEffect, useId, useMemo, useState } from 'react'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@hy/dsh-attachment'
+import type { PropsLocale, PropsRuntime } from '@hy/dsh-client-ui-slots'
+import type { SessionId } from '@hy/dsh-session/types'
 import {
   IconCheckOutlineRegular, IconChevronDownOutlineRegular, IconChevronUpOutlineRegular, IconCloseOutlineRegular,
   FileTypeIcon, fileSizeText, IconEditOutlineRegular, InlineEditor, IconQueueOutlineRegular, IconSendOutlineRegular,
   IconTrashOutlineRegular, projectUserText, Tooltip,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InboxState } from '@deepseek-ai/dsh-agent/types'
-import type { QueueAction } from '@deepseek-ai/dsh-api-session-controller/types'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
+} from '@hy/dsh-client-ui-primitives'
+import type { InboxState } from '@hy/dsh-agent/types'
+import type { QueueAction } from '@hy/dsh-api-session-controller/types'
+import type { MessageId } from '@hy/dsh-llm/brand'
 import { NS } from '../locales.ts'
 import css from './QueueDock.module.css'
 

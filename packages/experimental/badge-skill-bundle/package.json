@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-badge-skill-bundle",
+  "name": "@hy/dsh-experimental-badge-skill-bundle",
   "description": "Offer the powered-by-DSH badge as a discoverable skill.",
   "version": "0.2.1-alpha.2",
   "icon": "./icon.svg",
@@ -38,12 +38,12 @@
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-skill-badge": "workspace:*"
+    "@hy/dsh-skill-badge": "workspace:*"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   }
 }

@@ -18,25 +18,25 @@ import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/pr
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@hy/cordis'
 import { z } from 'zod'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionHeader } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
-import Storage from '@deepseek-ai/dsh-storage'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId } from '@hy/dsh-session'
+import type { SessionHeader } from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import type { ProjectionDefinition } from '@hy/dsh-session-projection'
+import Storage from '@hy/dsh-storage'
 import {
   apply as storageJsonApply, Config as storageJsonConfig, inject as storageJsonInject, name as storageJsonName,
-} from '@deepseek-ai/dsh-storage-json'
+} from '@hy/dsh-storage-json'
 import {
   apply as storageDomainApply, Config as storageDomainConfig, inject as storageDomainInject, name as storageDomainName,
-} from '@deepseek-ai/dsh-storage-domain'
+} from '@hy/dsh-storage-domain'
 import SessionProjectionCache from '../src/index.ts'
 import { checkpointRow, projectionCacheDomainSpec } from '../src/spec.ts'
 
 // Declarations must match the shipped title unit's exactly (the repo-wide
 // compile face sees both).
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@hy/dsh-session-projection/types' {
   interface SessionProjectionStateMap {
     title: string | null
   }
@@ -45,7 +45,7 @@ declare module '@deepseek-ai/dsh-session-projection/types' {
   }
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@hy/dsh-session/types' {
   interface SessionEventMap {
     'fixtures-test/set-title': { title: string }
   }

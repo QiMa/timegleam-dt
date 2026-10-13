@@ -1,4 +1,4 @@
-import { brandNumber, brandString, type Branded, type BrandedNumber } from '@deepseek-ai/dsh-brand'
+import { brandNumber, brandString, type Branded, type BrandedNumber } from '@hy/dsh-brand'
 import type {
   AssistantMessage,
   DeveloperMessage,
@@ -13,8 +13,8 @@ import type {
   ToolResultMessage,
   ToolSchema,
   UserMessage,
-} from '@deepseek-ai/dsh-llm'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@hy/dsh-llm'
+import type { JsonValue } from '@hy/dsh-util-values'
 
 /** Identifies one session in the store (and its persistence artifacts). */
 export type SessionId = Branded<'SessionId'>
@@ -548,7 +548,7 @@ export interface PluginRecord {
   readonly data: unknown
 }
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@hy/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The named Session does not exist; produced by every layer that resolves a SessionId. */
     'session/not-found': { readonly sessionId: SessionId }

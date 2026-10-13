@@ -3,7 +3,7 @@ description: "web GUI 宿主的 HTTP 服务器：具名路由与 upgrade 注册�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-host-webserver
+# @hy/dsh-host-webserver
 
 [English](README.md) | 中文
 
@@ -30,7 +30,7 @@ kind: "package-reference"
 ### 最小配置
 
 ```yaml
-- name: '@deepseek-ai/dsh-host-webserver'
+- name: '@hy/dsh-host-webserver'
   config:
     host: 127.0.0.1
     port: 3000
@@ -45,7 +45,7 @@ kind: "package-reference"
 `tls` 在同一地址上以 TLS 提供同一批路由：载体不会另开一个 HTTP 监听，也从不重定向。两个文件在激活期间、socket 绑定之前各读取一次，因此不可读、为空或格式错误的文件、与证书不匹配的私钥，或绑定失败都会拒绝初始化——配置错误的证书绝不会退回 HTTP。路径相对进程工作目录解析，私钥必须是无口令的 PEM，`certFile` 可以包含证书链且叶子证书在前。替换任一文件都需要重新加载；本载体既不申请也不续期证书。
 
 ```yaml
-- name: '@deepseek-ai/dsh-host-webserver'
+- name: '@hy/dsh-host-webserver'
   config:
     host: 127.0.0.1
     port: 3000

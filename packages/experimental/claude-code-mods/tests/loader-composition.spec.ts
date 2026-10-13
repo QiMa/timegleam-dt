@@ -5,19 +5,19 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import CommandRuntime from '@deepseek-ai/dsh-commands'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import WorkingDirectory from '@deepseek-ai/dsh-working-directory'
-import LlmRuntime, { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
+import { Context } from '@hy/cordis'
+import Loader from '@hy/cordis-plugin-loader'
+import Include from '@hy/cordis-plugin-include'
+import AgentRegistry from '@hy/dsh-agent'
+import AgentLoop from '@hy/dsh-agent-loop'
+import CommandRuntime from '@hy/dsh-commands'
+import LocalFileSystem from '@hy/dsh-fs-local'
+import WorkingDirectory from '@hy/dsh-working-directory'
+import LlmRuntime, { createUserMessage } from '@hy/dsh-llm'
+import SessionStore, { SessionId } from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import SystemPrompt from '@hy/dsh-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@hy/dsh-tools'
 import * as ClaudeCodeMods from '../src/index.ts'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
@@ -37,17 +37,17 @@ it('loads from cordis.yml, counts the model\'s tool calls, and answers /tally th
   root = await mkdtemp(join(tmpdir(), 'dsh-cc-mods-composition-'))
   const configPath = join(root, 'cordis.yml')
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-llm', LlmRuntime],
-    ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
-    ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
-    ['@deepseek-ai/dsh-fs-local', LocalFileSystem],
-    ['@deepseek-ai/dsh-working-directory', WorkingDirectory],
-    ['@deepseek-ai/dsh-tools', ToolRuntime],
-    ['@deepseek-ai/dsh-agent', AgentRegistry],
-    ['@deepseek-ai/dsh-agent-loop', AgentLoop],
-    ['@deepseek-ai/dsh-commands', CommandRuntime],
-    ['@deepseek-ai/dsh-experimental-claude-code-mods', ClaudeCodeMods],
+    ['@hy/dsh-llm', LlmRuntime],
+    ['@hy/dsh-session', SessionStore],
+    ['@hy/dsh-session-projection', SessionProjectionRegistry],
+    ['@hy/dsh-system-prompt', SystemPrompt],
+    ['@hy/dsh-fs-local', LocalFileSystem],
+    ['@hy/dsh-working-directory', WorkingDirectory],
+    ['@hy/dsh-tools', ToolRuntime],
+    ['@hy/dsh-agent', AgentRegistry],
+    ['@hy/dsh-agent-loop', AgentLoop],
+    ['@hy/dsh-commands', CommandRuntime],
+    ['@hy/dsh-experimental-claude-code-mods', ClaudeCodeMods],
   ])
   // A mod is a plugin like any other: here the tutorial mod's `defineMod` wrapper, mounted by file URL after the bridge.
   const firstMod = pathToFileURL(resolve(FIXTURES, 'first-mod.ts')).href

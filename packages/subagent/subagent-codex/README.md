@@ -3,13 +3,13 @@ description: "The one-shot Codex subagent provider for users and maintainers cho
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-subagent-codex
+# @hy/dsh-subagent-codex
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Install `@deepseek-ai/dsh-subagent-codex` into a Profile when delegated work should run in a genuine, unattended Codex session in the parent Session's workspace. Each delegation uses a fresh isolated Codex thread for one self-contained text task and returns only its final answer or a safe failure diagnostic. Native Codex configuration and authentication remain authoritative, while `permissionMode` selects the non-interactive approval and sandbox behavior. The Bundle supplies a compatible native Codex payload and adds its delegation tool as a global tool.
+Install `@hy/dsh-subagent-codex` into a Profile when delegated work should run in a genuine, unattended Codex session in the parent Session's workspace. Each delegation uses a fresh isolated Codex thread for one self-contained text task and returns only its final answer or a safe failure diagnostic. Native Codex configuration and authentication remain authoritative, while `permissionMode` selects the non-interactive approval and sandbox behavior. The Bundle supplies a compatible native Codex payload and adds its delegation tool as a global tool.
 
 ## Table of Contents
 
@@ -61,9 +61,9 @@ The bundle inserts `tool-subagent-codex` as a Host row, so `subagent_codex` is a
 ```yaml
 - insert:
     - id: subagent-codex
-      name: '@deepseek-ai/dsh-subagent-codex'
+      name: '@hy/dsh-subagent-codex'
     - id: tool-subagent-codex
-      name: '@deepseek-ai/dsh-tool-subagent'
+      name: '@hy/dsh-tool-subagent'
       config:
         provider: codex
         toolName: subagent_codex

@@ -1,8 +1,8 @@
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@hy/cordis'
 import { existsSync, writeFileSync } from 'node:fs'
 import { setTimeout } from 'node:timers/promises'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { LlmAdapter, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@hy/dsh-llm'
+import { LlmAdapter, ReasoningEffortId } from '@hy/dsh-llm'
 
 /**
  * Scripted model for the CHILD runtime: validates either the routed success

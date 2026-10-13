@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { bindSnapshotSelector } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { createSnapshotStore } from '@hy/dsh-client-store'
+import { bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
+import type { SessionListState } from '@hy/dsh-api-session-controller/client'
+import type { SessionId } from '@hy/dsh-session/types'
 import { DocumentTitle } from '../src/client/DocumentTitle.tsx'
 import type { MainPanelId, PanelInfo } from '../src/client/service.ts'
 
@@ -33,12 +33,12 @@ describe('DocumentTitle', () => {
   it('projects a durable title and restores the product title', () => {
     const { sessionId, sessions, props } = titleSources()
     document.title = 'stale title'
-    const mounted = render(<DocumentTitle {...props} productTitle="DeepSeek Harness" />)
-    expect(document.title).toBe('DeepSeek Harness')
+    const mounted = render(<DocumentTitle {...props} productTitle="Huayu AI" />)
+    expect(document.title).toBe('Huayu AI')
     act(() => { sessions.update((state) => { state.byId[sessionId]!.title = 'First title' }) })
-    expect(document.title).toBe('First title — DeepSeek Harness')
+    expect(document.title).toBe('First title — Huayu AI')
     act(() => { sessions.update((state) => { state.byId[sessionId]!.title = 'Revised title' }) })
-    expect(document.title).toBe('Revised title — DeepSeek Harness')
+    expect(document.title).toBe('Revised title — Huayu AI')
     act(() => {
       const state = sessions.getSnapshot()
       sessions.set({
@@ -46,9 +46,9 @@ describe('DocumentTitle', () => {
         byId: { ...state.byId, [sessionId]: { ...state.byId[sessionId]!, retainedBy: {} } },
       })
     })
-    expect(document.title).toBe('DeepSeek Harness')
+    expect(document.title).toBe('Huayu AI')
     mounted.unmount()
-    expect(document.title).toBe('DeepSeek Harness')
+    expect(document.title).toBe('Huayu AI')
   })
 
   it('uses the localized product title supplied by the frame', () => {

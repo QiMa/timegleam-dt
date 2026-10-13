@@ -3,7 +3,7 @@ description: "Offer the powered-by-DSH badge as a discoverable skill."
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-experimental-badge-skill-bundle
+# @hy/dsh-experimental-badge-skill-bundle
 
 English | [中文](README.zh.md)
 

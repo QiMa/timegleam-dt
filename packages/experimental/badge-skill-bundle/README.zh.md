@@ -3,7 +3,7 @@ description: "提供可发现的 powered-by-DSH 徽章技能。"
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-experimental-badge-skill-bundle
+# @hy/dsh-experimental-badge-skill-bundle
 
 [English](README.md) | 中文
 

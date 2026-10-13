@@ -7,13 +7,13 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { PassThrough, Writable } from 'node:stream'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { LlmAdapter } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
-import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@hy/cordis'
+import Loader from '@hy/cordis-plugin-loader'
+import AgentLoop from '@hy/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
+import { LlmAdapter } from '@hy/dsh-llm'
+import type { GenerateOptions, StreamChunk } from '@hy/dsh-llm'
+import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import * as jsonrpc from '../src/index.ts'
 
 /**
@@ -361,7 +361,7 @@ describe('dsh-sdk-jsonrpc-server plugin apply', () => {
       const error = await harness.waitForFrame(frame => frame.id === 'probe-1', 'error response for unknown method')
       expect(error.error).toMatchObject({
         code: -32603,
-        message: 'unknown DeepSeek Harness SDK runtime method: nope/unknown',
+        message: 'unknown Huayu AI SDK runtime method: nope/unknown',
       })
 
       await harness.fiber.dispose()

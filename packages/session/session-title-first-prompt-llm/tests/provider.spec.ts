@@ -1,12 +1,12 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@hy/cordis'
 import { describe, expect, it, onTestFinished } from 'vitest'
-import LlmRuntime, { createUserMessage, LlmAdapter, ReasoningEffortId, ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import SessionStore, { Session, SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
-import SessionTitleService, { type SessionTitleProvider } from '@deepseek-ai/dsh-session-title'
-import * as providerPlugin from '@deepseek-ai/dsh-session-title-first-prompt-llm'
+import LlmRuntime, { createUserMessage, LlmAdapter, ReasoningEffortId, ToolCallId } from '@hy/dsh-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@hy/dsh-llm'
+import SessionStore, { Session, SessionId } from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import { turnBoundaryProjectionDefinition } from '@hy/dsh-agent-loop'
+import SessionTitleService, { type SessionTitleProvider } from '@hy/dsh-session-title'
+import * as providerPlugin from '@hy/dsh-session-title-first-prompt-llm'
 
 class RecordingAdapter extends LlmAdapter {
   readonly requests: GenerateOptions[] = []

@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-acp",
-  "description": "Automation-only Agent Client Protocol server for driving DeepSeek Harness agents over JSON-RPC stdio",
+  "name": "@hy/dsh-acp",
+  "description": "Automation-only Agent Client Protocol server for driving Huayu AI agents over JSON-RPC stdio",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -28,40 +28,40 @@
   "license": "MIT",
   "dependencies": {
     "@agentclientprotocol/sdk": "1.4.0",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-mcp-client": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence": "workspace:*",
-    "@deepseek-ai/dsh-token-meter": "workspace:*",
-    "@deepseek-ai/dsh-user-approval": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-mcp-client": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-persistence": "workspace:*",
+    "@hy/dsh-token-meter": "workspace:*",
+    "@hy/dsh-user-approval": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/dsh-token-meter": {
+    "@hy/dsh-token-meter": {
       "optional": true
     }
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-mcp-client": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-subagent": "workspace:*",
-    "@deepseek-ai/dsh-token-meter": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/dsh-user-approval": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-mcp-client": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-persistence": "workspace:*",
+    "@hy/dsh-session-persistence-jsonl": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-token-meter": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-user-approval": "workspace:*"
   }
 }

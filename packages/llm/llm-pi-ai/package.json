@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-llm-pi-ai",
-  "description": "pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam (design-verification twin of dsh-llm-deepseek)",
+  "name": "@hy/dsh-llm-pi-ai",
+  "description": "pi-ai-backed DeepSeek adapter for the Huayu AI LLM seam (design-verification twin of dsh-llm-deepseek)",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,39 +27,39 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-authorization": "workspace:*",
-    "@deepseek-ai/dsh-credentials": "workspace:*",
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-launch-environment": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-authorization": "workspace:*",
+    "@hy/dsh-credentials": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-launch-environment": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/cordis-plugin-loader": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/schemastery": "workspace:~",
     "@earendil-works/pi-ai": "^1.0.2"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-authorization": "workspace:*",
-    "@deepseek-ai/dsh-credentials": "workspace:*",
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-launch-environment": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek": "workspace:*",
-    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-http-proxy": "workspace:*",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-settings": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-authorization": "workspace:*",
+    "@hy/dsh-credentials": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-launch-environment": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
+    "@hy/dsh-llm-deepseek-api-key": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-http-proxy": "workspace:*",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-settings": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/cordis-plugin-loader": {
+    "@hy/cordis-plugin-loader": {
       "optional": true
     }
   }

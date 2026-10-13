@@ -10,13 +10,13 @@ import {
   type SessionHeader,
   type SessionLogOffset as SessionLogOffsetType,
   type SessionSeq as SessionSeqType,
-} from '@deepseek-ai/dsh-session'
+} from '@hy/dsh-session'
 import {
   eventLines, generationLogFilename, projectKey, toHeaderLine,
-} from '@deepseek-ai/dsh-session-persistence-jsonl/src/format.ts'
-import { projectionCacheDomainSpec } from '@deepseek-ai/dsh-session-projection-cache'
-import { scheduleDomain } from '@deepseek-ai/dsh-schedule'
-import { snapshotSubagentDescriptor, SUBAGENT_DESCRIPTOR_VERSION } from '@deepseek-ai/dsh-subagent'
+} from '@hy/dsh-session-persistence-jsonl/src/format.ts'
+import { projectionCacheDomainSpec } from '@hy/dsh-session-projection-cache'
+import { scheduleDomain } from '@hy/dsh-schedule'
+import { snapshotSubagentDescriptor, SUBAGENT_DESCRIPTOR_VERSION } from '@hy/dsh-subagent'
 
 /** Root copied by the preview image's repository adapter. */
 export const VFS_EXAMPLE_ROOT = fileURLToPath(new URL('./fixtures/vfs-example', import.meta.url))

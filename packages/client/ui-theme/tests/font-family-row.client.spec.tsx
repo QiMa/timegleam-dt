@@ -2,13 +2,13 @@
 /** FontFamilyRow behavior: the field shows the persisted list, blur and Enter
  * commit the normalized input, and the field follows store changes. Also
  * covers the font-list normalization it relies on. */
-import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
+import type { GlobalStandardProps } from '@hy/dsh-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { bindSnapshotSelector } from '@deepseek-ai/dsh-client-test-runtime'
+import type { SessionListState } from '@hy/dsh-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@hy/dsh-api-workspace-controller/client'
+import { createSnapshotStore } from '@hy/dsh-client-store'
+import { bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
 import { FontFamilyRow } from '../src/client/FontFamilyRow.tsx'
 import type { FontFamilyRowComponentProps } from '../src/client/FontFamilyRow.tsx'
 import { createFontRowStore } from '../src/client/settings-store.ts'

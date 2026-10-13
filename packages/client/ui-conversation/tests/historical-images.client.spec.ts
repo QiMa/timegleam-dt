@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import { AttachmentId } from '@deepseek-ai/dsh-attachment'
-import type { SessionFace } from '@deepseek-ai/dsh-api-session-controller/client'
-import { RemoteError, SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
+import { AttachmentId } from '@hy/dsh-attachment'
+import type { SessionFace } from '@hy/dsh-api-session-controller/client'
+import { RemoteError, SlotTestRuntime } from '@hy/dsh-client-test-runtime'
 import { HistoricalImageCache } from '../src/client/conversation/historical-images.ts'
 
 describe('HistoricalImageCache', () => {

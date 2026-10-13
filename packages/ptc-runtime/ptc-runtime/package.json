@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-ptc-runtime",
-  "description": "Abstract PTC execution seam (ctx.ptcRuntime) for the DeepSeek Harness",
+  "name": "@hy/dsh-ptc-runtime",
+  "description": "Abstract PTC execution seam (ctx.ptcRuntime) for the Huayu AI",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,11 +27,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-sandbox": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-sandbox": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-sandbox": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-sandbox": "workspace:*"
   }
 }

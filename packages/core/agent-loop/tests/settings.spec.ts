@@ -1,15 +1,15 @@
 /** The `agent-loop` settings section layered over the composition entry. */
 
 import { expect, it, onTestFinished } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { Context } from '@hy/cordis'
+import LlmRuntime from '@hy/dsh-llm'
+import SessionStore from '@hy/dsh-session'
+import SystemPrompt from '@hy/dsh-system-prompt'
+import ToolRuntime from '@hy/dsh-tools'
+import AgentRegistry from '@hy/dsh-agent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { liveConfig } from '../../../settings/settings/tests/live-config.ts'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import AgentLoop from '@hy/dsh-agent-loop'
 
 async function boot() {
   const ctx = new Context()

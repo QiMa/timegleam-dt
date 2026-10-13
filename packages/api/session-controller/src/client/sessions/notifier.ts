@@ -1,4 +1,4 @@
-import { notifySubscribers } from '@deepseek-ai/dsh-client-store'
+import { notifySubscribers } from '@hy/dsh-client-store'
 
 /**
  * Batches structural updates in microtasks and stream updates by animation

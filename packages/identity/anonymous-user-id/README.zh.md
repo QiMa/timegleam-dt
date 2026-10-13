@@ -3,13 +3,13 @@ description: "面向用户与维护者的按 harness home 划分的匿名身份�
 kind: "package-library"
 ---
 
-# @deepseek-ai/dsh-anonymous-user-id
+# @hy/dsh-anonymous-user-id
 
 [English](README.md) | 中文
 
 ## 概述
 
-DeepSeek Harness 为每个 harness home 使用一个匿名标识符，以关联同一套安装产生的遥测、反馈与 DeepSeek 请求，同时不识别用户身份。该随机 UUID 存储在 `$DSH_HOME/.anonymous-user-id`（`$DSH_HOME` 默认为 `~/.dsh`）中，可跨重启保留，并在你删除文件后重新生成。不同 harness home 使用不同的标识符，且该值不包含机器或账户数据。内置功能会自动创建并附加该值；包消费方可以复用同一个值进行安装范围的关联，但无法跨 home 关联记录。
+Huayu AI 为每个 harness home 使用一个匿名标识符，以关联同一套安装产生的遥测、反馈与 DeepSeek 请求，同时不识别用户身份。该随机 UUID 存储在 `$DSH_HOME/.anonymous-user-id`（`$DSH_HOME` 默认为 `~/.dsh`）中，可跨重启保留，并在你删除文件后重新生成。不同 harness home 使用不同的标识符，且该值不包含机器或账户数据。内置功能会自动创建并附加该值；包消费方可以复用同一个值进行安装范围的关联，但无法跨 home 关联记录。
 
 ## 目录
 
@@ -44,7 +44,7 @@ DeepSeek Harness 为每个 harness home 使用一个匿名标识符，以关联�
 当你构建的功能需要共享该安装的匿名 id 时，导入一次并复用该值即可——遥测、反馈与 DeepSeek 已经在使用同一个 id，因此你的记录能与它们相互对应：
 
 ```ts
-import { getOrCreateAnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
+import { getOrCreateAnonymousUserId } from '@hy/dsh-anonymous-user-id'
 
 const userId = getOrCreateAnonymousUserId() // stable for the process lifetime
 ```

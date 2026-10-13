@@ -3,7 +3,7 @@ description: "供用户与维护者在组合或调试可继续子级控制功能
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tool-subagent-control
+# @hy/dsh-tool-subagent-control
 
 [English](README.md) | 中文
 
@@ -32,13 +32,13 @@ kind: "package-reference"
 先加载 subagent 服务、一个后端、委派工具与本包。加上独立的列表插件即可公开全部三个工具：
 
 ```yaml
-- name: '@deepseek-ai/dsh-subagent'
-- name: '@deepseek-ai/dsh-subagent-spawn-in-process'
-- name: '@deepseek-ai/dsh-tool-subagent'
+- name: '@hy/dsh-subagent'
+- name: '@hy/dsh-subagent-spawn-in-process'
+- name: '@hy/dsh-tool-subagent'
   config:
     provider: spawn
-- name: '@deepseek-ai/dsh-tool-subagent-control'
-- name: '@deepseek-ai/dsh-tool-subagent-control/list-agents'
+- name: '@hy/dsh-tool-subagent-control'
+- name: '@hy/dsh-tool-subagent-control/list-agents'
 ```
 
 本包不接收任何配置：根插件提供 `send_message` 与 `interrupt_agent`，列表插件提供 `list_agents`。

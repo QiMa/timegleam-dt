@@ -13,15 +13,15 @@
  * projections. Direct driving is deliberate: this spec owns only the
  * source's own contract.
  */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@hy/cordis'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { InputTriggerService } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
-import { RemoteError, TestRemote, TestSessions } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionFixture } from '@deepseek-ai/dsh-client-test-runtime'
-import type { RemoteFailure } from '@deepseek-ai/dsh-api-remotes/client'
-import type { ClientSessionContext, InputTriggerSource } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
+import type { SessionId } from '@hy/dsh-session/types'
+import { SlotRegistry } from '@hy/dsh-client-ui-renderer/client'
+import { InputTriggerService } from '@hy/dsh-client-ui-input-trigger/client'
+import { RemoteError, TestRemote, TestSessions } from '@hy/dsh-client-test-runtime'
+import type { SessionFixture } from '@hy/dsh-client-test-runtime'
+import type { RemoteFailure } from '@hy/dsh-api-remotes/client'
+import type { ClientSessionContext, InputTriggerSource } from '@hy/dsh-client-ui-input-trigger/client'
 import { apply, inject } from '../src/client/index.ts'
 import { SkillRow as SkillToolRow } from '../src/client/SkillRow.tsx'
 

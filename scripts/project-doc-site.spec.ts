@@ -361,7 +361,7 @@ describe('docsPages locale routes', () => {
       expect(projected).toContain('layout: false')
       expect(projected).toContain('http-equiv: refresh')
       expect(projected).toContain('content: 0; url=./guide/quickstart')
-      expect(projected).not.toContain('# DeepSeek Harness')
+      expect(projected).not.toContain('# Huayu AI')
     }
   })
 
@@ -439,7 +439,7 @@ describe('docsPages locale routes', () => {
     const catalog = readFileSync(resolve(repositoryRoot, 'docs/tool-catalog.zh.md'), 'utf8')
     expect(catalog.match(/<a id="deepseek-aidsh-tool-todo"><\/a>/g)).toHaveLength(1)
     expect(catalog).toContain(
-      '<a id="deepseek-aidsh-tool-todo"></a>\n\n## `@deepseek-ai/dsh-tool-todo`',
+      '<a id="deepseek-aidsh-tool-todo"></a>\n\n## `@hy/dsh-tool-todo`',
     )
   })
 
@@ -778,7 +778,7 @@ describe('raw Markdown projection of the published manifest', () => {
     for (const route of ['index.md', 'en/index.md']) {
       const home = new TextDecoder().decode(readFileSync(join(mirror, route)))
       expect(home.startsWith('---'), route).toBe(false)
-      expect(home, route).toContain('# DeepSeek Harness')
+      expect(home, route).toContain('# Huayu AI')
     }
   })
 
@@ -815,7 +815,7 @@ function relativeTargets(markdown: string): string[] {
 }
 
 describe('llmsTxt', () => {
-  const site = { base: '/x/', title: 'DeepSeek Harness', description: '插件化 SDK' }
+  const site = { base: '/x/', title: 'Huayu AI', description: '插件化 SDK' }
 
   it('lists every sidebar page as a base-prefixed raw-Markdown link', () => {
     const text = llmsTxt(site)
@@ -833,7 +833,7 @@ describe('llmsTxt', () => {
 
   it('carries the site identity and the raw-Markdown convention', () => {
     const text = llmsTxt(site)
-    expect(text.startsWith('# DeepSeek Harness\n')).toBe(true)
+    expect(text.startsWith('# Huayu AI\n')).toBe(true)
     expect(text).toContain('> 插件化 SDK')
     expect(text).toMatch(/`\.md`/)
   })

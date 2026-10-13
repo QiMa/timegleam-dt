@@ -1,19 +1,19 @@
 // @vitest-environment jsdom
 /** Detail adapters accept the exact recorded result text and retain safe fallback paths. */
 import { describe, expect, it } from 'vitest'
-import type { ToolResultNode } from '@deepseek-ai/dsh-client-ui-chat/client'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { en, zh } from '@deepseek-ai/dsh-client-ui-conversation/src/client/locales.ts'
-import { en as commonEn } from '@deepseek-ai/dsh-client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
-import { statusLine } from '@deepseek-ai/dsh-tool-jobs/src/render.ts'
-import { presentation } from '@deepseek-ai/dsh-tool-session-query/src/presentation.ts'
-import { renderList, renderRead, renderSpawn } from '@deepseek-ai/dsh-tool-terminal/src/render.ts'
-import { formatSpillNotice } from '@deepseek-ai/dsh-spill-policy/notice'
+import type { ToolResultNode } from '@hy/dsh-client-ui-chat/client'
+import { makeTranslate } from '@hy/dsh-client-test-runtime'
+import { en, zh } from '@hy/dsh-client-ui-conversation/src/client/locales.ts'
+import { en as commonEn } from '@hy/dsh-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@hy/dsh-client-locale/src/locales/zh.ts'
+import { statusLine } from '@hy/dsh-tool-jobs/src/render.ts'
+import { presentation } from '@hy/dsh-tool-session-query/src/presentation.ts'
+import { renderList, renderRead, renderSpawn } from '@hy/dsh-tool-terminal/src/render.ts'
+import { formatSpillNotice } from '@hy/dsh-spill-policy/notice'
 import { detailBadge, detailJson, detailList, detailRecord, inspectionItems, nonempty } from '../src/client/tool/models/detail-model-shared.ts'
 import { detailsCardModel } from '../src/client/tool/models/details-card-model.ts'
-import { SpillLocator } from '@deepseek-ai/dsh-spill'
-import { PartialArguments } from '@deepseek-ai/dsh-util-values'
+import { SpillLocator } from '@hy/dsh-spill'
+import { PartialArguments } from '@hy/dsh-util-values'
 
 const t = makeTranslate(en, commonEn)
 

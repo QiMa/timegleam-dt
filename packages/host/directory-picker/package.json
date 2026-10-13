@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-host-directory-picker",
-  "description": "Abstract workspace-directory picking seam (ctx.directoryPicker) for the DeepSeek Harness web GUI host",
+  "name": "@hy/dsh-host-directory-picker",
+  "description": "Abstract workspace-directory picking seam (ctx.directoryPicker) for the Huayu AI web GUI host",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -32,9 +32,9 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   }
 }

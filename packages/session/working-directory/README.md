@@ -3,7 +3,7 @@ description: "Change one Session’s working directory while existing processes 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-working-directory
+# @hy/dsh-working-directory
 
 English | [中文](README.zh.md)
 
@@ -28,7 +28,7 @@ Change one Session’s working directory while existing processes retain theirs.
 Mount alongside `fs`, `sessionProjections`, and `systemPrompt`. `defaultDirectory` selects an absolute fallback for Sessions without an original directory; omission uses the launch directory. See the [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-working-directory).
 
 ```yaml
-- name: '@deepseek-ai/dsh-working-directory'
+- name: '@hy/dsh-working-directory'
 ```
 
 -----

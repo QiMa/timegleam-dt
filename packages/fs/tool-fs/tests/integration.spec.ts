@@ -5,23 +5,23 @@
  * messages.
  */
 
-import { mountAgentLoopTestDependencies, provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { mountAgentLoopTestDependencies, provideWorkingDirectoryFixture } from '@hy/dsh-agent-loop-testkit'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { PtcRuntime, type PtcRunRequest, type PtcRunResult, type PtcRunSpec } from '@deepseek-ai/dsh-ptc-runtime'
-import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { FsVersion } from '@deepseek-ai/dsh-fs'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@deepseek-ai/dsh-tools'
-import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'
-import * as FsPolicy from '@deepseek-ai/dsh-fs-observation-policy'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
+import { Context } from '@hy/cordis'
+import { SessionId } from '@hy/dsh-session'
+import AgentLoop from '@hy/dsh-agent-loop'
+import { PtcRuntime, type PtcRunRequest, type PtcRunResult, type PtcRunSpec } from '@hy/dsh-ptc-runtime'
+import SandboxPolicyService from '@hy/dsh-sandbox-policy'
+import { ToolCallId } from '@hy/dsh-llm'
+import type { FsVersion } from '@hy/dsh-fs'
+import SystemPrompt from '@hy/dsh-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@hy/dsh-tools'
+import { LocalFileSystem } from '@hy/dsh-fs-local'
+import * as FsPolicy from '@hy/dsh-fs-observation-policy'
+import * as ToolFs from '@hy/dsh-tool-fs'
 
 const testToolSignal = new AbortController().signal
 

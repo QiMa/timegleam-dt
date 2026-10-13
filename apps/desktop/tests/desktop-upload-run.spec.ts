@@ -28,7 +28,7 @@ async function fixture(environment: 'test' | 'production' = 'test') {
   await writeFile(binary, BINARY_BYTES)
   const bucket = `${environment}-fixture-1250000000`
   const plan: DesktopUploadPlan = {
-    environment, target: 'win-x64', version: '1.2.3', bucket,
+    environment, target: 'win-x64', version: '1.2.3', transport: 'cos', bucket,
     publicUrl: `https://${environment}.invalid/feed/`, secretIdEnvName: 'UNREAD_ID', secretKeyEnvName: 'UNREAD_KEY',
     artifacts: [
       { path: binary, filename: 'package.exe', key: 'bin/package.exe', contentType: 'application/octet-stream', channelMetadata: false },

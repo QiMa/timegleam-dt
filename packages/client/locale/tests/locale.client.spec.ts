@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { stubConfigForm, type StubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
-import type { LocaleSettings, LocaleSnapshot } from '@deepseek-ai/dsh-client-locale/client'
-import { FALLBACK_LOCALE, LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { Context } from '@hy/cordis'
+import { stubConfigForm, type StubConfigForm } from '@hy/dsh-client-test-runtime'
+import type { LocaleSettings, LocaleSnapshot } from '@hy/dsh-client-locale/client'
+import { FALLBACK_LOCALE, LocaleRuntime } from '@hy/dsh-client-locale/client'
 const make = (host?: StubConfigForm<LocaleSettings>): {
   ctx: Context
   svc: LocaleRuntime

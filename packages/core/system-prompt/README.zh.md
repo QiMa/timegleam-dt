@@ -3,7 +3,7 @@ description: "面向用户与维护者的系统提示词组装说明，用于添
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-system-prompt
+# @hy/dsh-system-prompt
 
 [English](README.md) | 中文
 
@@ -33,7 +33,7 @@ kind: "package-reference"
 配置拥有固定开场白、runtime 上下文、部署 persona 前缀与后缀与工具顺序；其余一切来自已注册的贡献。
 
 ```yaml
-- name: '@deepseek-ai/dsh-system-prompt'
+- name: '@hy/dsh-system-prompt'
   config:
     includeHarnessIdentity: true
     includeRuntimeContext: true
@@ -43,7 +43,7 @@ kind: "package-reference"
 
 | 字段 | 默认值 | 含义 |
 |---|---|---|
-| `includeHarnessIdentity` | `true` | 是否包含顺序为 −1000 的第一方固定开场白 `You are an AI agent powered by DeepSeek Harness.`。仅当兼容性部署拥有完整系统提示词时设为 false。 |
+| `includeHarnessIdentity` | `true` | 是否包含顺序为 −1000 的第一方固定开场白 `You are an AI agent powered by Huayu AI.`。仅当兼容性部署拥有完整系统提示词时设为 false。 |
 | `includeRuntimeContext` | `true` | 是否在组装中包含可选的有序动态 runtime 上下文 |
 | `personaPrefix` | `''` | 全局 persona 前缀模板，顺序为 `0`，位于第一方指导之前 |
 | `personaSuffix` | `''` | 全局 `deployment:persona-suffix` 模板，顺序为 `10200`，位于第一方指导之后 |
@@ -142,7 +142,7 @@ ctx.systemPrompt.variable('response_language', () => 'English')
 ##### harness 身份
 
 ```markdown
-You are an AI agent powered by DeepSeek Harness.
+You are an AI agent powered by Huayu AI.
 ```
 
 #### Token 影响

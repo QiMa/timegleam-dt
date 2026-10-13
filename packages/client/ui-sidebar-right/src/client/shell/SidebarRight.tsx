@@ -29,16 +29,16 @@
  */
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import type { CSSProperties, ReactNode, RefObject } from 'react'
-import type { ShortcutCatalogEntry } from '@deepseek-ai/dsh-client-shortcuts/client'
-import { IconPanelLeftOutlineRegular, Tooltip } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { ShortcutCatalogEntry } from '@hy/dsh-client-shortcuts/client'
+import { IconPanelLeftOutlineRegular, Tooltip } from '@hy/dsh-client-ui-primitives'
 import type {
   HostObservable, InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore,
-} from '@deepseek-ai/dsh-client-ui-slots'
+} from '@hy/dsh-client-ui-slots'
 import type {} from '../contract/slots.ts'
-import type { DockIntents, DockMode, FloatRect, TabId, TabRecord, TabRenderer } from '@deepseek-ai/dsh-client-ui-dockkit'
-import { canSplit, dockPaneIds, DockLayout, findPaneContentTab } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { HalvesFit, LayoutState, PaneId } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { DockIntents, DockMode, FloatRect, TabId, TabRecord, TabRenderer } from '@hy/dsh-client-ui-dockkit'
+import { canSplit, dockPaneIds, DockLayout, findPaneContentTab } from '@hy/dsh-client-ui-dockkit'
+import type { HalvesFit, LayoutState, PaneId } from '@hy/dsh-client-ui-dockkit'
+import type { SessionId } from '@hy/dsh-session/types'
 import { GUIDE_KIND, pageAddress } from '../contract/seed.ts'
 import { dockLabels } from '../labels.ts'
 import type { SidebarRightOpenTabOptions } from '../service.ts'

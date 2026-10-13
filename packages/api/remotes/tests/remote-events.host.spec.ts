@@ -1,11 +1,11 @@
-import { Context } from '@deepseek-ai/cordis'
-import type { Fiber } from '@deepseek-ai/cordis'
+import { Context } from '@hy/cordis'
+import type { Fiber } from '@hy/cordis'
 import type {
   RemoteEventHostInfo,
   TypertRemoteEventInvocation,
   TypertRemoteEventSource,
-} from '@deepseek-ai/dsh-api-gateway'
-import { scopeTarget } from '@deepseek-ai/dsh-scope'
+} from '@hy/dsh-api-gateway'
+import { scopeTarget } from '@hy/dsh-scope'
 import { describe, expect, it } from 'vitest'
 import { apply, inject } from '../src/index.ts'
 

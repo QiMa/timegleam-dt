@@ -1,8 +1,8 @@
 import {
   type AssistantLiveChunkEvent, type SessionEventLike, type SessionEventLikeEntry,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import { notifySubscribers } from '@deepseek-ai/dsh-client-store'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
+} from '@hy/dsh-api-session-controller/client'
+import { notifySubscribers } from '@hy/dsh-client-store'
+import type { SessionEvent } from '@hy/dsh-session/types'
 import type {
   ConversationLocation, ConversationLocationData,
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationStepDataMap,

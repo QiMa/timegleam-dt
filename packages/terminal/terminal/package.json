@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-terminal",
-  "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+  "name": "@hy/dsh-terminal",
+  "description": "Persistent PTY session seam for the Huayu AI — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,15 +27,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/cordis": "workspace:~"
   }
 }

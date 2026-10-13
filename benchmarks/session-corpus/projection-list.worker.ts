@@ -5,17 +5,17 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks'
 import { scheduler, setTimeout as delay } from 'node:timers/promises'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionController from '@deepseek-ai/dsh-api-session-controller'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, type SessionHeader } from '@deepseek-ai/dsh-session'
-import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SessionProjectionCache, { projectionCacheDomainSpec } from '@deepseek-ai/dsh-session-projection-cache'
-import SqliteSessionQueryEngine from '@deepseek-ai/dsh-session-query-sqlite'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import { Context } from '@hy/cordis'
+import AgentRegistry from '@hy/dsh-agent'
+import SessionController from '@hy/dsh-api-session-controller'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, type SessionHeader } from '@hy/dsh-session'
+import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import SessionProjectionCache, { projectionCacheDomainSpec } from '@hy/dsh-session-projection-cache'
+import SqliteSessionQueryEngine from '@hy/dsh-session-query-sqlite'
+import Storage from '@hy/dsh-storage'
+import * as StorageDomain from '@hy/dsh-storage-domain'
+import * as StorageJson from '@hy/dsh-storage-json'
 import { z } from 'zod'
 import { generationLogPath, sessionDir, toHeaderLine } from '../../packages/session/session-persistence-jsonl/src/format.ts'
 import { compressZstdFrame } from '../../packages/session/session-persistence-jsonl/src/zstd.ts'
@@ -51,7 +51,7 @@ const stateSchema = z.object({
 const viewSchema = z.object({ sessionOrdinal: z.number().int(), rows: z.number().int(), requests: z.number().int(), tokens: z.number().int() })
 type ProjectionState = z.infer<typeof stateSchema>
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@hy/dsh-session-projection/types' {
   interface SessionProjectionStateMap { syntheticProjectionList: ProjectionState }
   interface SessionProjectionMap { syntheticProjectionList: z.infer<typeof viewSchema> }
 }
@@ -283,10 +283,10 @@ async function measure(controller: SessionController, observation: ViewObservati
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, {
-  controller: import.meta.resolve('@deepseek-ai/dsh-api-session-controller'),
-  registry: import.meta.resolve('@deepseek-ai/dsh-session-projection'),
-  cache: import.meta.resolve('@deepseek-ai/dsh-session-projection-cache'),
-  persistence: import.meta.resolve('@deepseek-ai/dsh-session-persistence-jsonl'),
+  controller: import.meta.resolve('@hy/dsh-api-session-controller'),
+  registry: import.meta.resolve('@hy/dsh-session-projection'),
+  cache: import.meta.resolve('@hy/dsh-session-projection-cache'),
+  persistence: import.meta.resolve('@hy/dsh-session-persistence-jsonl'),
 })
 const [root, workload, sliceArgument] = process.argv.slice(2)
 if (root === undefined || (workload !== 'modest' && workload !== 'tail' && workload !== 'cheap')) throw new Error('usage: projection-list.worker.js <private-root> <modest|tail|cheap> [work-slice-ms]')

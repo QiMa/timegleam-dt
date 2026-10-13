@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-ui-sidebar-right",
+  "name": "@hy/dsh-client-ui-sidebar-right",
   "description": "Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
@@ -28,12 +28,12 @@
   "dsh": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-api-session-controller",
-        "@deepseek-ai/dsh-client-resources",
-        "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-layout",
-        "@deepseek-ai/dsh-client-ui-session",
-        "@deepseek-ai/dsh-client-shortcuts"
+        "@hy/dsh-api-session-controller",
+        "@hy/dsh-client-resources",
+        "@hy/dsh-client-ui-conversation",
+        "@hy/dsh-client-ui-layout",
+        "@hy/dsh-client-ui-session",
+        "@hy/dsh-client-shortcuts"
       ],
       "platform": "web"
     }
@@ -44,23 +44,23 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-session-controller": "workspace:*",
-    "@deepseek-ai/dsh-client-locale": "workspace:*",
-    "@deepseek-ai/dsh-client-resources": "workspace:*",
-    "@deepseek-ai/dsh-client-store": "workspace:*",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-conversation": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-dockkit": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-layout": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-session": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-resources": "workspace:*",
+    "@hy/dsh-client-store": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-client-ui-conversation": "workspace:*",
+    "@hy/dsh-client-ui-dockkit": "workspace:*",
+    "@hy/dsh-client-ui-layout": "workspace:*",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-session": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
     "@testing-library/react": "^16.3.3",
     "@types/picomatch": "^4.0.3",
     "@types/react": "~18.3.1",
@@ -69,10 +69,10 @@
     "react-dom": "^18.2.0",
     "picomatch": "^4.0.7",
     "clsx": "^2.0.0",
-    "@deepseek-ai/dsh-util-crypto": "workspace:*",
+    "@hy/dsh-util-crypto": "workspace:*",
     "zod": "^4.4.3",
-    "@deepseek-ai/dsh-client-shortcuts": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*"
+    "@hy/dsh-client-shortcuts": "workspace:*",
+    "@hy/dsh-brand": "workspace:*"
   },
   "files": [
     "lib/index.js",

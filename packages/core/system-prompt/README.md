@@ -3,7 +3,7 @@ description: "System-prompt assembly for users and maintainers adding prompt sec
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-system-prompt
+# @hy/dsh-system-prompt
 
 English | [中文](README.zh.md)
 
@@ -33,7 +33,7 @@ Mount `dsh-system-prompt` wherever agents run: it provides `ctx.systemPrompt`, t
 The config owns the fixed opener, runtime context, deployment persona prefix and suffix, and tool order; everything else comes from registered contributions.
 
 ```yaml
-- name: '@deepseek-ai/dsh-system-prompt'
+- name: '@hy/dsh-system-prompt'
   config:
     includeHarnessIdentity: true
     includeRuntimeContext: true
@@ -43,7 +43,7 @@ The config owns the fixed opener, runtime context, deployment persona prefix and
 
 | Field | Default | Meaning |
 |---|---|---|
-| `includeHarnessIdentity` | `true` | Include the fixed `You are an AI agent powered by DeepSeek Harness.` first-party opener at order −1000. Set false only when a compatibility deployment owns the complete system prompt. |
+| `includeHarnessIdentity` | `true` | Include the fixed `You are an AI agent powered by Huayu AI.` first-party opener at order −1000. Set false only when a compatibility deployment owns the complete system prompt. |
 | `includeRuntimeContext` | `true` | Include optional ordered dynamic runtime context in assembly |
 | `personaPrefix` | `''` | Global persona prefix template at order `0`, before first-party guidance |
 | `personaSuffix` | `''` | Global `deployment:persona-suffix` template at order `10200`, after first-party guidance |
@@ -142,7 +142,7 @@ First-party sections render the harness identity, deployment persona prefix (inc
 ##### Harness identity
 
 ```markdown
-You are an AI agent powered by DeepSeek Harness.
+You are an AI agent powered by Huayu AI.
 ```
 
 #### Token effect

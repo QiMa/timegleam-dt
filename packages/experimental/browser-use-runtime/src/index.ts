@@ -4,8 +4,8 @@
  * @module
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { Context } from '@hy/cordis'
+import type { Agent } from '@hy/dsh-agent'
 
 /** One provider-owned browser or connection and its quiescent cleanup. */
 export interface OwnedSessionResource<T> {

@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-skill",
-  "description": "Agent skill provider registry for the DeepSeek Harness",
+  "name": "@hy/dsh-skill",
+  "description": "Agent skill provider registry for the Huayu AI",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,17 +27,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-scope": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-scope": "workspace:*"
   }
 }

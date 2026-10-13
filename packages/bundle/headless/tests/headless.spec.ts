@@ -2,25 +2,25 @@
 
 import { Readable } from 'node:stream'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
+import { Context } from '@hy/cordis'
+import { brandString } from '@hy/dsh-brand'
+import AgentRegistry from '@hy/dsh-agent'
 import type {
   Agent,
   AgentHandle,
   AssistantStreamFrame,
   CreateAgentOptions,
   ResumeAgentOptions,
-} from '@deepseek-ai/dsh-agent'
-import AgentDefaultModelConfig from '@deepseek-ai/dsh-agent-default-model'
-import { LlmAttemptId, ToolCallId, createAssistantMessage, createToolResultMessage, createUserMessage, type MessageId, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { Session, SessionId, UserMessage } from '@deepseek-ai/dsh-session'
-import { SessionQueryError } from '@deepseek-ai/dsh-session-query'
-import { createInboxStub, provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
+} from '@hy/dsh-agent'
+import AgentDefaultModelConfig from '@hy/dsh-agent-default-model'
+import { LlmAttemptId, ToolCallId, createAssistantMessage, createToolResultMessage, createUserMessage, type MessageId, type StreamChunk } from '@hy/dsh-llm'
+import SessionStore from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import type { Session, SessionId, UserMessage } from '@hy/dsh-session'
+import { SessionQueryError } from '@hy/dsh-session-query'
+import { createInboxStub, provideWorkingDirectoryFixture } from '@hy/dsh-agent-loop-testkit'
 import { apply, Config } from '../src/index.ts'
-import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import SubagentRuntime from '@hy/dsh-subagent'
 import { internals } from '../src/runner-internals.ts'
 
 const originalInternals = { ...internals }

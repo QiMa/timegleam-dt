@@ -18,11 +18,22 @@ export interface DesktopAutoUpdateConfig {
 }
 
 /** Public updater URL and private COS destination for one upload target. */
-export interface DesktopUploadConfig extends DesktopAutoUpdateConfig {
+export interface DesktopCosUploadConfig extends DesktopAutoUpdateConfig {
+  readonly transport: 'cos'
   readonly bucket: string
   readonly secretIdEnvName: string
   readonly secretKeyEnvName: string
 }
+
+/** Public updater URL and private SSH destination for one upload target. */
+export interface DesktopStaticUploadConfig extends DesktopAutoUpdateConfig {
+  readonly transport: 'static'
+  readonly staticHost: string
+  readonly staticRemoteRoot: string
+}
+
+/** Public updater URL and private publication destination for one upload target. */
+export type DesktopUploadConfig = DesktopCosUploadConfig | DesktopStaticUploadConfig
 
 /**
  * Resolve the update deployment, defaulting local release work to test.
@@ -77,12 +88,12 @@ export function resolveDesktopAutoUpdateConfig(
 ): DesktopAutoUpdateConfig
 
 /**
- * Resolve the public updater URL and private COS destination for one upload target.
+ * Resolve the public updater URL and private publication destination for one upload target.
  * @param env - Upload environment.
  * @param platform - Target Node.js platform.
  * @param arch - Target Node.js architecture.
- * @returns Resolved upload configuration.
- * @throws When the selected deployment lacks a bucket or valid updater configuration.
+ * @returns Resolved upload configuration; COS deployments carry bucket and secret environment names, static deployments carry an SSH host and remote root.
+ * @throws When the selected deployment lacks required settings or valid updater configuration.
  */
 export function resolveDesktopUploadConfig(
   env: NodeJS.ProcessEnv,

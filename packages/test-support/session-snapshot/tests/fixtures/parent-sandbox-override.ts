@@ -1,6 +1,6 @@
-import type { Context } from '@deepseek-ai/cordis'
-import { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
-import type {} from '@deepseek-ai/dsh-agent'
+import type { Context } from '@hy/cordis'
+import { setSandboxMode } from '@hy/dsh-sandbox-policy'
+import type {} from '@hy/dsh-agent'
 
 export const name = 'parent-sandbox-override'
 

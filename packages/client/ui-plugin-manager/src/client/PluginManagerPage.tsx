@@ -10,7 +10,7 @@
 
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import type { PluginInstallFailureKind, Registry } from '@deepseek-ai/dsh-api-remotes/client'
+import type { PluginInstallFailureKind, Registry } from '@hy/dsh-api-remotes/client'
 import {
   Button, IconCheckCircleFillRegular, IconChevronDownOutlineRegular, IconChevronLeftOutlineMedium,
   IconChevronRightOutlineRegular, IconCloseOutlineMedium,
@@ -19,8 +19,8 @@ import {
   PluginArtworkDefault, PluginArtworkLoop, PluginArtworkSearch, PluginArtworkSubagent, PluginArtworkTerminal,
   StateDot, Switch, Tag, TerminalBlock, Toast, Tooltip, useAnchoredPosition, useDismissOnOutsidePointer,
   type IconProps, type StateDotState, type TerminalBlockLabels,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@hy/dsh-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@hy/dsh-client-ui-slots'
 import type { createNavigationStore } from './navigation-store.ts'
 import { rowConfigKey, type OfficialItem } from './config-ledger.ts'
 import { INSTALL_GIT_EXAMPLE, INSTALL_PATH_EXAMPLE, type PluginManagerLocaleKey } from './locales.ts'
@@ -95,31 +95,31 @@ const HIGHLIGHT_MS = 2_400
 
 /** Built-in profile bundles stay out of this page even when the profile declares them as dependencies. */
 const BUILTIN_PROFILE_BUNDLES = new Set([
-  '@deepseek-ai/dsh-base',
-  '@deepseek-ai/dsh-web-app',
-  '@deepseek-ai/dsh-headless',
-  '@deepseek-ai/dsh-sdk-app',
-  '@deepseek-ai/dsh-acp-app',
-  '@deepseek-ai/dsh-sdk-minimal',
+  '@hy/dsh-base',
+  '@hy/dsh-web-app',
+  '@hy/dsh-headless',
+  '@hy/dsh-sdk-app',
+  '@hy/dsh-acp-app',
+  '@hy/dsh-sdk-minimal',
 ])
 
 /** Display order on the main and full optional plugin lists; new bundles join the main list. */
 const EXTENSION_BUNDLES = [
-  '@deepseek-ai/dsh-experimental-agent-team-profile',
-  '@deepseek-ai/dsh-experimental-voice-input-bundle',
-  '@deepseek-ai/dsh-experimental-auto-review',
-  '@deepseek-ai/dsh-experimental-inspector-profile',
+  '@hy/dsh-experimental-agent-team-profile',
+  '@hy/dsh-experimental-voice-input-bundle',
+  '@hy/dsh-experimental-auto-review',
+  '@hy/dsh-experimental-inspector-profile',
 ]
 const MORE_BUNDLES = [
-  '@deepseek-ai/dsh-experimental-tool-worktree',
-  '@deepseek-ai/dsh-experimental-cot-translation-bundle',
-  '@deepseek-ai/dsh-experimental-terminal-bundle',
-  '@deepseek-ai/dsh-experimental-session-search',
-  '@deepseek-ai/dsh-experimental-session-titles-bundle',
-  '@deepseek-ai/dsh-experimental-badge-skill-bundle',
-  '@deepseek-ai/dsh-experimental-ralph-bundle',
-  '@deepseek-ai/dsh-subagent-codex',
-  '@deepseek-ai/dsh-subagent-claude-code',
+  '@hy/dsh-experimental-tool-worktree',
+  '@hy/dsh-experimental-cot-translation-bundle',
+  '@hy/dsh-experimental-terminal-bundle',
+  '@hy/dsh-experimental-session-search',
+  '@hy/dsh-experimental-session-titles-bundle',
+  '@hy/dsh-experimental-badge-skill-bundle',
+  '@hy/dsh-experimental-ralph-bundle',
+  '@hy/dsh-subagent-codex',
+  '@hy/dsh-subagent-claude-code',
 ]
 
 function orderPackages(packages: readonly PackageView[], order: readonly string[]): PackageView[] {

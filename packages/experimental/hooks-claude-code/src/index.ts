@@ -5,26 +5,26 @@
  * mapping; shared execution and parsing live in `dsh-hook-protocol`.
  * `updatedInput` is logged and warned but not honored. Bespoke behavior should
  * use typed native plugins on the same extension points.
- * @module @deepseek-ai/dsh-hooks-claude-code
+ * @module @hy/dsh-hooks-claude-code
  */
 
-import type {} from '@deepseek-ai/dsh-working-directory'
+import type {} from '@hy/dsh-working-directory'
 import { readFileSync } from 'node:fs'
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Agent, PreStepDecision, TurnBoundaryProjection } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-session-projection'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-declare module '@deepseek-ai/dsh-llm' {
+import type { Context } from '@hy/cordis'
+import z from '@hy/schemastery'
+import type { Agent, PreStepDecision, TurnBoundaryProjection } from '@hy/dsh-agent'
+import type {} from '@hy/dsh-session-projection'
+import { createUserMessage } from '@hy/dsh-llm'
+import type { ContextFormed } from '@hy/dsh-llm'
+declare module '@hy/dsh-llm' {
   interface MessageSourceMap {
     'hooks-claude-code': { kind: 'hooks-claude-code' } & ContextFormed
   }
 }
 
-import type { ContentBlock, MessageSource } from '@deepseek-ai/dsh-llm'
-import type { UserMessage } from '@deepseek-ai/dsh-session'
-import type { PostToolDecision, PreToolDecision, ToolExecution, ToolExecutionResult } from '@deepseek-ai/dsh-tools'
+import type { ContentBlock, MessageSource } from '@hy/dsh-llm'
+import type { UserMessage } from '@hy/dsh-session'
+import type { PostToolDecision, PreToolDecision, ToolExecution, ToolExecutionResult } from '@hy/dsh-tools'
 import {
   appendHookInvoked,
   appendHookResult,
@@ -36,10 +36,10 @@ import {
   selectHookGroups,
   type HookOutput,
   type MergedHookOutcome,
-} from '@deepseek-ai/dsh-hook-protocol'
+} from '@hy/dsh-hook-protocol'
 // Pulls in the declaration-merged subagent events and the identity pairing their
 // start/end edges.
-import type { SubagentRunId } from '@deepseek-ai/dsh-subagent'
+import type { SubagentRunId } from '@hy/dsh-subagent'
 import { parseClaudeCodeConfig, type ClaudeCodeHookConfig } from './config.ts'
 
 export const name = 'hooks-claude-code'

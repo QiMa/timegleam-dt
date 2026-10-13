@@ -3,7 +3,7 @@ description: "The tool registry and execution pipeline for tool authors and main
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tools
+# @hy/dsh-tools
 
 English | [中文](README.zh.md)
 
@@ -37,8 +37,8 @@ Canonical values belong to execution; the Session records rendered content and o
 
 ```ts
 import { readFile } from 'node:fs/promises'
-import type { Context } from '@deepseek-ai/cordis'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@hy/cordis'
+import { defineTool } from '@hy/dsh-tools'
 
 declare const ctx: Context
 
@@ -68,7 +68,7 @@ The unified schema DSL supports `string`, `number`, `integer`, `boolean`, `null`
 The `mode` config decides what the model sees: `native` (every visible schema) or `ptc` (only `run_code` plus a generated SDK).
 
 ```yaml
-- name: '@deepseek-ai/dsh-tools'
+- name: '@hy/dsh-tools'
   config:
     mode: native
 ```
@@ -232,7 +232,7 @@ These limits define when the registry needs special care. They are current packa
 - **Concurrency policy is not an event gate** — `executionMode()` reads the resolved tool definition directly; plugins can only declare a classifier on definitions they own.
 - **`tools/pre-execute` deliberately cannot rewrite `exec.arguments`** — logged and rendered args would desync from what ran; the rewrite design is [a proposed Agent Note](../../../.agents/notes/proposed/feature/2026-06-30-pre-tool-input-rewrite.md).
 - **Caller-defined subagent and workflow structured outputs remain object-rooted** — this is a consumer-level guard; the shared schema vocabulary and tool outputs support every JSON root.
-- **`timeoutMs` on a definition is declarative only** — the registry never enforces deadlines; enforcement requires the `@deepseek-ai/dsh-tool-call-timeout-policy` wrapper.
+- **`timeoutMs` on a definition is declarative only** — the registry never enforces deadlines; enforcement requires the `@hy/dsh-tool-call-timeout-policy` wrapper.
 - **PTC mode's SDK language follows the one loaded runtime, and a presentation is per agent rather than per tool** — `mode: ptc` rejects prompt assembly unless `ctx.ptcRuntime.language` has a registered SDK renderer; within one agent no tool can be native-only while another is ptc-only.
 - **PTC mode intermediate values are execution-local and unbounded by bytes** — they cannot be reconstructed from session replay and may exhaust process or worker memory; only the outer `run_code` output has the worker's configurable hard cap.
 - **`run_code` state is fresh per run** — a persistent REPL-style kernel is rejected for the MVP, because cross-call state would be invisible to the log.

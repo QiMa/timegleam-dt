@@ -1,9 +1,9 @@
 /** All voice views share one readiness subscription, including reconnect and terminal failure. */
-import { Context } from '@deepseek-ai/cordis'
-import type { RemoteStreamOptions } from '@deepseek-ai/dsh-api-gateway/client'
-import { RemoteStreamCarrierError } from '@deepseek-ai/dsh-api-gateway/client'
-import type { SpeechProviderId } from '@deepseek-ai/dsh-experimental-speech-to-text/types'
-import type { SpeechCatalog } from '@deepseek-ai/dsh-experimental-api-speech-to-text/types'
+import { Context } from '@hy/cordis'
+import type { RemoteStreamOptions } from '@hy/dsh-api-gateway/client'
+import { RemoteStreamCarrierError } from '@hy/dsh-api-gateway/client'
+import type { SpeechProviderId } from '@hy/dsh-experimental-speech-to-text/types'
+import type { SpeechCatalog } from '@hy/dsh-experimental-api-speech-to-text/types'
 import { expect, it, vi, onTestFinished } from 'vitest'
 import { observeReadiness } from '../src/client/readiness.ts'
 

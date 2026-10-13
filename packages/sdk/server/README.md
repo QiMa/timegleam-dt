@@ -1,9 +1,9 @@
 ---
-description: "The stdio JSON-RPC serving plugin for deployments that let out-of-process SDK clients open sessions and drive agents in a DeepSeek Harness runtime."
+description: "The stdio JSON-RPC serving plugin for deployments that let out-of-process SDK clients open sessions and drive agents in a Huayu AI runtime."
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-sdk-jsonrpc-server
+# @hy/dsh-sdk-jsonrpc-server
 
 English | [中文](README.zh.md)
 

@@ -17,7 +17,9 @@
  * numbering against a partial answer.
  */
 
+import { execFile } from 'node:child_process'
 import { readdir } from 'node:fs/promises'
+import { promisify } from 'node:util'
 import { parse } from 'semver'
 import { desktopBuildVersionPrefix, validateDesktopBuildVersion } from './desktop-build-version.mjs'
 import { DESKTOP_AUTO_UPDATE_ENV, resolveDesktopUploadConfig } from './desktop-auto-update-environment.mjs'
@@ -30,8 +32,10 @@ const LISTING_DEADLINE_MS = 8_000
 /** Objects one listing page may return. */
 const LISTING_PAGE_SIZE = 1000
 
+const execute = promisify(execFile)
+
 /** Artifact name electron-builder writes for one build, on either platform; unsigned builds add a suffix. */
-const ARTIFACT = /(?:^|\/)deepseek-harness-(?<version>.+)-(?:mac|win)-(?:arm64|x64)(?:-unsigned)?\.(?:exe|dmg|zip)$/u
+const ARTIFACT = /(?:^|\/)huayu-ai-(?<version>.+)-(?:mac|win)-(?:arm64|x64)(?:-unsigned)?\.(?:exe|dmg|zip)$/u
 
 /** Inputs that decide which versions are already taken. */
 export interface DesktopBuildVersionSuggestionOptions {
@@ -82,6 +86,29 @@ async function localVersions(artifactsRoot: string): Promise<string[]> {
 }
 
 /**
+ * Read versions from the production static host without contacting COS.
+ * @param update Static deployment naming the remote binary directory.
+ * @returns Versions parsed from remote filenames, or undefined when the host cannot be listed in time.
+ */
+async function remoteStaticVersions(update: {
+  staticHost: string
+  staticRemoteRoot: string
+  binaryKeyPrefix: string
+}): Promise<string[] | undefined> {
+  try {
+    const { stdout } = await execute('ssh', ['-o', 'BatchMode=yes', update.staticHost, 'ls', '-1', `${update.staticRemoteRoot}/${update.binaryKeyPrefix}`], {
+      windowsHide: true, timeout: LISTING_DEADLINE_MS, maxBuffer: 10 * 1024 * 1024,
+    })
+    return stdout.trim().split(/\r?\n/u).filter(Boolean)
+      .map(name => ARTIFACT.exec(name)?.groups?.version)
+      .filter((version): version is string => version !== undefined && parse(version) !== null)
+  }
+  catch {
+    return undefined
+  }
+}
+
+/**
  * Read every version one update bucket publishes for a target.
  * @param options - Product version, target, and environment naming the bucket.
  * @returns Versions parsed from object names, or undefined when the bucket cannot be listed completely in time.
@@ -93,6 +120,7 @@ async function remoteVersions(options: DesktopBuildVersionSuggestionOptions): Pr
   if (options.environment[DESKTOP_AUTO_UPDATE_ENV] === undefined
     && options.environment.DOWNLOAD_TEST_ORIGIN === undefined) return undefined
   const update = resolveDesktopUploadConfig(options.environment, platform, arch)
+  if (update.transport !== 'cos') return remoteStaticVersions(update)
   const secretId = options.environment[update.secretIdEnvName]?.trim()
   const secretKey = options.environment[update.secretKeyEnvName]?.trim()
   if (secretId === undefined || secretId === '' || secretKey === undefined || secretKey === '') return undefined
@@ -107,7 +135,7 @@ async function remoteVersions(options: DesktopBuildVersionSuggestionOptions): Pr
         new Promise<{ keys: string[]; next: string | undefined }>((resolveListing, rejectListing) => {
           cos.getBucket({
             Bucket: update.bucket, Region: DESKTOP_COS_REGION, MaxKeys: LISTING_PAGE_SIZE,
-            Prefix: `${update.binaryKeyPrefix}/deepseek-harness-`, ...marker === undefined ? {} : { Marker: marker },
+            Prefix: `${update.binaryKeyPrefix}/huayu-ai-`, ...marker === undefined ? {} : { Marker: marker },
           }, (error, data) => {
             if (error !== null && error !== undefined) rejectListing(error instanceof Error ? error : new Error(String(error)))
             else {

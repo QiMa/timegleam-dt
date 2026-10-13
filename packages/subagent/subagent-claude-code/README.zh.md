@@ -3,7 +3,7 @@ description: "面向用户与维护者的一次性 Claude Code subagent 提供�
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-subagent-claude-code
+# @hy/dsh-subagent-claude-code
 
 [English](README.md) | 中文
 
@@ -63,9 +63,9 @@ Bundle 将 `tool-subagent-claude-code` 作为 Host 条目插入，因此 `subage
 ```yaml
 - insert:
     - id: subagent-claude-code
-      name: '@deepseek-ai/dsh-subagent-claude-code'
+      name: '@hy/dsh-subagent-claude-code'
     - id: tool-subagent-claude-code
-      name: '@deepseek-ai/dsh-tool-subagent'
+      name: '@hy/dsh-tool-subagent'
       config:
         provider: claude-code
         toolName: subagent_claude_code

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-session-inspector",
+  "name": "@hy/dsh-experimental-session-inspector",
   "description": "Experimental virtualized Session log and live Chat group/node inspectors",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
@@ -29,11 +29,11 @@
   "dsh": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-sidebar-right",
-        "@deepseek-ai/dsh-client-ui-session",
-        "@deepseek-ai/dsh-client-ui-renderer"
+        "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-conversation",
+        "@hy/dsh-client-ui-sidebar-right",
+        "@hy/dsh-client-ui-session",
+        "@hy/dsh-client-ui-renderer"
       ],
       "platform": "web"
     }
@@ -50,28 +50,28 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
     "@testing-library/react": "^16.3.3",
     "@types/react-dom": "~18.3.0",
     "react-dom": "^18.2.0",
-    "@deepseek-ai/dsh-api-session-controller": "workspace:*",
-    "@deepseek-ai/dsh-client-store": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-chat": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-sidebar-right": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-session": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-store": "workspace:*",
+    "@hy/dsh-client-ui-chat": "workspace:*",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-client-ui-session": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
     "@tanstack/react-virtual": "^3.14.10",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-client-locale": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-conversation": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-ui-conversation": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*"
   }
 }

@@ -5,12 +5,12 @@
  * summary, and deliveries from `present`; never from presentation data or
  * the closing prose.
  */
-import { isAbsoluteWorkspacePath } from '@deepseek-ai/dsh-util-workspace-path'
-import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
-import type { TurnTailOwnerProps } from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { ConversationNodeDefinition } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { MarkdownFileMentions } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PresentedFile } from '@deepseek-ai/dsh-tool-present/types'
+import { isAbsoluteWorkspacePath } from '@hy/dsh-util-workspace-path'
+import { isAppendSurfaceEvent } from '@hy/dsh-session/surface'
+import type { TurnTailOwnerProps } from '@hy/dsh-client-ui-chat/client'
+import type { ConversationNodeDefinition } from '@hy/dsh-client-ui-conversation/client'
+import type { MarkdownFileMentions } from '@hy/dsh-client-ui-primitives'
+import type { PresentedFile } from '@hy/dsh-tool-present/types'
 import { isChangesEvent } from '../changes.ts'
 import { basename, isPresentedData, isPresentedFile } from '../presented.ts'
 
@@ -38,7 +38,7 @@ export interface DeliverablesTurnData {
   readonly changes?: ChangesTurnData
 }
 
-declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
+declare module '@hy/dsh-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     /** Successful mutation paths, recorded changed files, and deliveries accumulated in this Turn. */
     deliverables: DeliverablesTurnData

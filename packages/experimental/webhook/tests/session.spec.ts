@@ -1,5 +1,5 @@
-import type { Context } from '@deepseek-ai/cordis'
-import { ReasoningEffortId, type LlmCallConfig } from '@deepseek-ai/dsh-llm'
+import type { Context } from '@hy/cordis'
+import { ReasoningEffortId, type LlmCallConfig } from '@hy/dsh-llm'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   WebhookDeliveryId,

@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-commands",
-  "description": "Plugin-owned human command registry for DeepSeek Harness UIs",
+  "name": "@hy/dsh-commands",
+  "description": "Plugin-owned human command registry for Huayu AI UIs",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -48,27 +48,27 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-scope": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-crypto": "workspace:*",
+    "@hy/dsh-util-crypto": "workspace:*",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-scope": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/cordis": "workspace:~"
   }
 }

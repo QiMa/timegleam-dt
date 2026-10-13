@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-skill-filesystem",
-  "description": "Local filesystem skill provider for the DeepSeek Harness",
+  "name": "@hy/dsh-skill-filesystem",
+  "description": "Local filesystem skill provider for the Huayu AI",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-home-paths": "workspace:*",
-    "@deepseek-ai/dsh-skill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-home-paths": "workspace:*",
+    "@hy/dsh-skill": "workspace:*",
+    "@hy/cordis": "workspace:~"
   },
   "dependencies": {
     "chokidar": "^5.0.0",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@hy/schemastery": "workspace:~",
     "yaml": "^2.4.2"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-home-paths": "workspace:*",
-    "@deepseek-ai/dsh-skill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-home-paths": "workspace:*",
+    "@hy/dsh-skill": "workspace:*",
+    "@hy/cordis": "workspace:~"
   }
 }

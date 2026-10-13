@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-workspace-files",
+  "name": "@hy/dsh-api-workspace-files",
   "description": "Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
@@ -40,8 +40,8 @@
   "dsh": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-api-gateway",
-        "@deepseek-ai/dsh-client-resources"
+        "@hy/dsh-api-gateway",
+        "@hy/dsh-client-resources"
       ],
       "platform": "web"
     }
@@ -52,26 +52,26 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-deque": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@hy/dsh-deque": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-gateway": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-client-resources": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
-    "@deepseek-ai/dsh-fs": "workspace:*",
-    "@deepseek-ai/dsh-remote-mock": "workspace:*",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence": "workspace:*",
-    "@deepseek-ai/dsh-util-workspace-path": "workspace:*"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-api-gateway": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
+    "@hy/dsh-client-resources": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-remote-mock": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-persistence": "workspace:*",
+    "@hy/dsh-util-workspace-path": "workspace:*"
   },
   "files": [
     "lib/index.js",

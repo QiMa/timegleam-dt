@@ -64,6 +64,9 @@ function streamedBody(artifact: DesktopUploadArtifact): Readable {
  * @returns Fresh record directory after all PUTs succeed; errors retain partial evidence and stop later PUTs.
  */
 export async function uploadDesktopRelease(plan: DesktopUploadPlan, cos: COS, recordsRoot: string): Promise<string> {
+  if (plan.transport !== 'cos' || plan.bucket === undefined) {
+    throw new Error('desktop upload: COS publication requires a COS plan with a bucket')
+  }
   await mkdir(recordsRoot, { recursive: true })
   const directory = await mkdtemp(join(recordsRoot, `${plan.environment}-${plan.target}-`))
   process.stdout.write(`desktop upload: record ${directory}\n`)
@@ -87,7 +90,7 @@ export async function uploadDesktopRelease(plan: DesktopUploadPlan, cos: COS, re
       sourceSha256[filename] = createHash('sha256').update(await readFile(join(import.meta.dirname, filename))).digest('hex')
     }
     await writeFile(join(directory, 'plan.json'), `${JSON.stringify({ schemaVersion: 1,
-      environment: plan.environment, target: plan.target, version: plan.version, bucket: plan.bucket,
+      environment: plan.environment, target: plan.target, version: plan.version, transport: plan.transport, bucket: plan.bucket,
       publicUrl: plan.publicUrl, maxAttempts: 1, sourceSha256, artifacts }, null, 2)}\n`, { flag: 'wx', mode: 0o600, flush: true })
     for (const artifact of artifacts) {
       key = artifact.key

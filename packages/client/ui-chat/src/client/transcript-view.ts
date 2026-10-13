@@ -1,7 +1,7 @@
 /** Host-backed work details and independent, in-memory collapse timing. */
 
-import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { ConfigForm } from '@deepseek-ai/dsh-client-ui-settings/client'
+import { createSnapshotStore, type SnapshotStore } from '@hy/dsh-client-store'
+import type { ConfigForm } from '@hy/dsh-client-ui-settings/client'
 import type { CollapseTiming } from './presentation-policy.ts'
 import {
   DEFAULT_TRANSCRIPT_VIEW_MODE, LEGACY_TRANSCRIPT_VIEW_MODE, LEGACY_EXPANDED_TRANSCRIPT_VIEW_MODE, TRANSCRIPT_VIEW_FIELD,

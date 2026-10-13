@@ -1,12 +1,12 @@
 import { mountWorkingDirectoryFixture } from '../../../subagent/subagent/tests/working-directory-fixture.ts'
 /** SDK shutdown releases managed descendants before their root Agents leave the registry. */
 
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import SubagentRuntime, { NO_START_CAPABILITIES, type SubagentActivation } from '@deepseek-ai/dsh-subagent'
+import { Context } from '@hy/cordis'
+import type { Agent } from '@hy/dsh-agent'
+import AgentLoop from '@hy/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
+import { SessionId } from '@hy/dsh-session'
+import SubagentRuntime, { NO_START_CAPABILITIES, type SubagentActivation } from '@hy/dsh-subagent'
 import { describe, expect, it, vi } from 'vitest'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { HarnessSdkJsonRpcServer } from '../src/server.ts'

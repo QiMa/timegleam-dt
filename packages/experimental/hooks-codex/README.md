@@ -3,7 +3,7 @@ description: "Run your existing Codex hooks.json hook config during agent runs �
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-hooks-codex
+# @hy/dsh-hooks-codex
 
 English | [中文](README.zh.md)
 
@@ -36,7 +36,7 @@ Use it when you own a Codex `hooks.json` and its command hooks should gate promp
 ### Smallest working setup
 
 ```yaml
-- name: '@deepseek-ai/dsh-hooks-codex'
+- name: '@hy/dsh-hooks-codex'
   config:
     configPath: ./.codex/hooks.json
     model: deepseek-v4

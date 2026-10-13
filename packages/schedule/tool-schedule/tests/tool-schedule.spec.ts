@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { ToolExecutionToken } from '@deepseek-ai/dsh-tools'
+import { ToolCallId } from '@hy/dsh-llm'
+import { SessionId } from '@hy/dsh-session'
+import type { Agent } from '@hy/dsh-agent'
+import type { ToolExecutionToken } from '@hy/dsh-tools'
 import * as ToolSchedule from '../src/index.ts'
-import { MAX_TITLE_LENGTH, REQUIRED_TITLE_MESSAGE, ScheduleId, createAfterScheduleRecord, scheduleDomain } from '@deepseek-ai/dsh-schedule'
+import { MAX_TITLE_LENGTH, REQUIRED_TITLE_MESSAGE, ScheduleId, createAfterScheduleRecord, scheduleDomain } from '@hy/dsh-schedule'
 import { agentFor, harness, mountToolSchedule } from './harness.ts'
 
 const tests: Awaited<ReturnType<typeof harness>>[] = []

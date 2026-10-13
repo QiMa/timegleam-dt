@@ -1,24 +1,24 @@
-import { ToolCallId, createMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import { ToolCallId, createMessage, createUserMessage } from '@hy/dsh-llm'
 import { afterEach, describe, expect, it, vi, type MockInstance } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@hy/cordis'
 import { appendFile, mkdtemp, readdir, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionLogOffset, SessionSeq, Session, SessionId, TOOL_NOT_STARTED, TOOL_OUTCOME_UNKNOWN } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture, TOOL_RUNTIME_SCHEDULER } from '@deepseek-ai/dsh-tools'
-import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
-import type { SessionHandle } from '@deepseek-ai/dsh-session-persistence'
+import LlmRuntime from '@hy/dsh-llm'
+import type { ContextFormed } from '@hy/dsh-llm'
+import SessionStore, { SessionLogOffset, SessionSeq, Session, SessionId, TOOL_NOT_STARTED, TOOL_OUTCOME_UNKNOWN } from '@hy/dsh-session'
+import type { SessionEvent } from '@hy/dsh-session'
+import SystemPrompt from '@hy/dsh-system-prompt'
+import ToolRuntime, { defineContentToolFixture, TOOL_RUNTIME_SCHEDULER } from '@hy/dsh-tools'
+import AgentRegistry, { type Agent } from '@hy/dsh-agent'
+import type { SessionHandle } from '@hy/dsh-session-persistence'
 
-import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import AgentLoop from '@hy/dsh-agent-loop'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@hy/dsh-llm' {
   interface MessageSourceMap {
     'tool-bash': { kind: 'tool-bash' } & ContextFormed
   }

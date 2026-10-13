@@ -60,7 +60,7 @@ console.log(JSON.stringify({ paths: app.paths, home: process.env.DSH_HOME, journ
       const env = { DSH_HOME: 'existing' }
       const app = { getPath: () => directory, setPath: (): never => { throw new Error('unexpected path change') } }
       expect(() => configureInstalledUpdateIdentity(app, { id: 'a'.repeat(24), versions },
-        { version: versions[0], dshDesktopAppId: 'com.deepseek.dsh' }, env)).toThrow('identity')
+        { version: versions[0], dshDesktopAppId: 'com.hy.dsh' }, env)).toThrow('identity')
       expect(await readdir(directory)).toEqual([])
       expect(env).toEqual({ DSH_HOME: 'existing' })
     })

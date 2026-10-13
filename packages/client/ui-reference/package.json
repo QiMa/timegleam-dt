@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-ui-reference",
+  "name": "@hy/dsh-client-ui-reference",
   "description": "Unified Web @file and @session reference source",
   "version": "0.2.1-alpha.2",
   "publishConfig": {
@@ -28,12 +28,12 @@
   "dsh": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-api-remotes",
-        "@deepseek-ai/dsh-api-session-controller",
-        "@deepseek-ai/dsh-client-connection",
-        "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-input-trigger",
-        "@deepseek-ai/dsh-client-ui-sidebar-right"
+        "@hy/dsh-api-remotes",
+        "@hy/dsh-api-session-controller",
+        "@hy/dsh-client-connection",
+        "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-input-trigger",
+        "@hy/dsh-client-ui-sidebar-right"
       ],
       "platform": "web"
     }
@@ -44,23 +44,23 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-api-remotes": "workspace:*",
-    "@deepseek-ai/dsh-api-session-controller": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-client-locale": "workspace:*",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-input-trigger": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
-    "@deepseek-ai/dsh-file-reference": "workspace:*",
-    "@deepseek-ai/dsh-session-reference": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/dsh-util-workspace-path": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-client-ui-sidebar-right": "workspace:*"
+    "@hy/dsh-api-remotes": "workspace:*",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-client-ui-input-trigger": "workspace:*",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-file-reference": "workspace:*",
+    "@hy/dsh-session-reference": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/dsh-util-workspace-path": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*"
   },
   "files": [
     "lib/index.js",

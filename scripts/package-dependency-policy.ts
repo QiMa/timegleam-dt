@@ -5,43 +5,43 @@ const CLIENT_FACE_INCLUDE: readonly string[] = []
 
 /** Packages exempted from automatic Client/Host treatment despite declaring `dsh.client`. */
 const CLIENT_FACE_EXCLUDE: readonly string[] = [
-  '@deepseek-ai/dsh-api-session-controller',
-  '@deepseek-ai/dsh-api-workspace-controller',
+  '@hy/dsh-api-session-controller',
+  '@hy/dsh-api-workspace-controller',
 ]
 
 /** Host-only packages whose peer relays are deliberately flattened. */
 const HOST_DEPENDENCY_PACKAGES: readonly string[] = [
-  '@deepseek-ai/dsh-llm',
-  '@deepseek-ai/dsh-session',
+  '@hy/dsh-llm',
+  '@hy/dsh-session',
 ]
 
 /** Required Cordis services whose Host imports are type-only. */
 const REQUIRED_SERVICE_PEERS = {
-  '@deepseek-ai/dsh-api-terminal-controller': ['@deepseek-ai/dsh-subprocess'],
+  '@hy/dsh-api-terminal-controller': ['@hy/dsh-subprocess'],
 } as const satisfies Readonly<Record<string, readonly string[]>>
 
 /** Development-only package relationships not represented by source imports. */
 const CONFIGURATION_ONLY_DEV_DEPENDENCIES = {
-  '@deepseek-ai/dsh-client-locale': ['@deepseek-ai/dsh-api-remotes'],
-  '@deepseek-ai/dsh-client-ui-conversation': [
-    '@deepseek-ai/dsh-api-remotes',
-    '@deepseek-ai/dsh-client-ui-workspace',
+  '@hy/dsh-client-locale': ['@hy/dsh-api-remotes'],
+  '@hy/dsh-client-ui-conversation': [
+    '@hy/dsh-api-remotes',
+    '@hy/dsh-client-ui-workspace',
   ],
-  '@deepseek-ai/dsh-client-ui-model-selection': ['@deepseek-ai/dsh-client-ui-input-trigger'],
-  '@deepseek-ai/dsh-client-ui-sidebar': ['@deepseek-ai/dsh-client-ui-workspace'],
-  '@deepseek-ai/dsh-client-ui-subagent': ['@deepseek-ai/dsh-client-ui-input-trigger'],
-  '@deepseek-ai/dsh-client-ui-theme': ['@deepseek-ai/dsh-api-remotes'],
-  '@deepseek-ai/dsh-client-ui-tool': ['@deepseek-ai/dsh-api-remotes'],
+  '@hy/dsh-client-ui-model-selection': ['@hy/dsh-client-ui-input-trigger'],
+  '@hy/dsh-client-ui-sidebar': ['@hy/dsh-client-ui-workspace'],
+  '@hy/dsh-client-ui-subagent': ['@hy/dsh-client-ui-input-trigger'],
+  '@hy/dsh-client-ui-theme': ['@hy/dsh-api-remotes'],
+  '@hy/dsh-client-ui-tool': ['@hy/dsh-api-remotes'],
 } as const satisfies Readonly<Record<string, readonly string[]>>
 
 /** Workspace packages whose complete runtime surface is safe across duplicate installations. */
 const DUPLICATE_SAFE_PACKAGES: readonly string[] = [
-  '@deepseek-ai/dsh-brand',
-  '@deepseek-ai/dsh-lazy-require',
-  '@deepseek-ai/dsh-typert-protocol',
-  '@deepseek-ai/dsh-util-code-language',
-  '@deepseek-ai/dsh-util-crypto',
-  '@deepseek-ai/dsh-util-values',
+  '@hy/dsh-brand',
+  '@hy/dsh-lazy-require',
+  '@hy/dsh-typert-protocol',
+  '@hy/dsh-util-code-language',
+  '@hy/dsh-util-crypto',
+  '@hy/dsh-util-values',
 ]
 
 /**
@@ -51,20 +51,20 @@ const DUPLICATE_SAFE_PACKAGES: readonly string[] = [
  * prominent heading in the pull request description.
  */
 const SAFE_HOST_DEPENDENCY_EXPORTS = {
-  '@deepseek-ai/dsh-credentials': ['credentialKey'],
-  '@deepseek-ai/dsh-deque': ['Deque'],
-  '@deepseek-ai/dsh-llm': ['callConfigEquals'],
-  '@deepseek-ai/dsh-session-format': ['sessionFormatLogFilename'],
-  '@deepseek-ai/dsh-timeout': ['MAX_TIMER_DELAY_MS'],
-  '@deepseek-ai/schemastery': ['default'],
+  '@hy/dsh-credentials': ['credentialKey'],
+  '@hy/dsh-deque': ['Deque'],
+  '@hy/dsh-llm': ['callConfigEquals'],
+  '@hy/dsh-session-format': ['sessionFormatLogFilename'],
+  '@hy/dsh-timeout': ['MAX_TIMER_DELAY_MS'],
+  '@hy/schemastery': ['default'],
 } as const satisfies HostDependencyExports
 
 /** Runtime exports that require every consumer to resolve the provider's shared peer instance. */
 const PEER_REQUIRED_HOST_EXPORTS = {
-  '@deepseek-ai/dsh-client-connection': ['OperatorPeer'],
-  '@deepseek-ai/dsh-scope': ['carrierKeyOf', 'createScope', 'scopeOf', 'scopeTarget'],
-  '@deepseek-ai/dsh-session': ['SESSION_FORMAT_VERSION'],
-  '@deepseek-ai/dsh-session-persistence': ['SessionPersistenceNotFoundError'],
+  '@hy/dsh-client-connection': ['OperatorPeer'],
+  '@hy/dsh-scope': ['carrierKeyOf', 'createScope', 'scopeOf', 'scopeTarget'],
+  '@hy/dsh-session': ['SESSION_FORMAT_VERSION'],
+  '@hy/dsh-session-persistence': ['SessionPersistenceNotFoundError'],
 } as const satisfies HostDependencyExports
 
 /** Exact import specifier to reviewed runtime exports. */

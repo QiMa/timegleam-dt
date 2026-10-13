@@ -1,12 +1,12 @@
 /** Source-profile tool-dispatch evidence from the real Agent and Node module cache. */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/cordis-plugin-loader'
-import type {} from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-cmdline'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+import type { Context } from '@hy/cordis'
+import type {} from '@hy/cordis-plugin-loader'
+import type {} from '@hy/dsh-agent'
+import type {} from '@hy/dsh-cmdline'
+import { createUserMessage } from '@hy/dsh-llm'
+import { SessionId, type SessionEvent } from '@hy/dsh-session'
 
 /** Observations from one isolated Agent's run through the shipped headless profile. */
 export interface SourceToolEvidence {

@@ -3,20 +3,20 @@ import { mkdtemp, readFile, realpath, rm, symlink, writeFile } from 'node:fs/pro
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include, { applyEntryPatches } from '@deepseek-ai/cordis-plugin-include'
-import { loadOverlayPatches } from '@deepseek-ai/dsh-app-boot'
-import WorkspaceFiles, { type WorkspaceFileScope } from '@deepseek-ai/dsh-api-workspace-files'
-import OfficeToPdf from '@deepseek-ai/dsh-office-to-pdf'
-import * as DocumentPreview from '@deepseek-ai/dsh-client-ui-sidebar-documentpreview'
-import type { IndexInjection } from '@deepseek-ai/dsh-host-webserver'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import { FsError } from '@deepseek-ai/dsh-fs'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
+import { Context } from '@hy/cordis'
+import Loader from '@hy/cordis-plugin-loader'
+import Include, { applyEntryPatches } from '@hy/cordis-plugin-include'
+import { loadOverlayPatches } from '@hy/dsh-app-boot'
+import WorkspaceFiles, { type WorkspaceFileScope } from '@hy/dsh-api-workspace-files'
+import OfficeToPdf from '@hy/dsh-office-to-pdf'
+import * as DocumentPreview from '@hy/dsh-client-ui-sidebar-documentpreview'
+import type { IndexInjection } from '@hy/dsh-host-webserver'
+import SessionStore, { SessionId } from '@hy/dsh-session'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import SandboxPolicyService from '@hy/dsh-sandbox-policy'
+import LocalFileSystem from '@hy/dsh-fs-local'
+import { FsError } from '@hy/dsh-fs'
+import TypertRegistry from '@hy/dsh-typert-registry'
 import type { Converter, ConverterOptions } from '@deepseek-ai/libreoffice-kit'
 import { expect, it, onTestFinished, vi } from 'vitest'
 
@@ -32,8 +32,8 @@ it('loads the shipped Office rows with separately patched settings and authorize
   })
   const configPath = join(directory, 'cordis.yml')
   const expectedRows = {
-    'office-to-pdf': '@deepseek-ai/dsh-office-to-pdf',
-    'ui-sidebar-documentpreview': '@deepseek-ai/dsh-client-ui-sidebar-documentpreview',
+    'office-to-pdf': '@hy/dsh-office-to-pdf',
+    'ui-sidebar-documentpreview': '@hy/dsh-client-ui-sidebar-documentpreview',
   }
   const rows = loadOverlayPatches('web-office-test', fileURLToPath(new URL('../cordis.patch.yml', import.meta.url)))
     .flatMap(patch => patch.insert ?? []).filter(row => row.id !== undefined && Object.hasOwn(expectedRows, row.id))
@@ -46,12 +46,12 @@ it('loads the shipped Office rows with separately patched settings and authorize
   ], (message) => { throw new Error(message) })
   expect(configured.find(row => row.id === 'ui-sidebar-documentpreview')!.config).toEqual(clientConfig)
   await writeFile(configPath, JSON.stringify([
-    { name: '@deepseek-ai/dsh-session' },
-    { name: '@deepseek-ai/dsh-session-projection' },
-    { name: '@deepseek-ai/dsh-sandbox-policy', config: { workspaceRoot: directory } },
-    { name: '@deepseek-ai/dsh-fs-local', config: { cwd: directory } },
-    { name: '@deepseek-ai/dsh-typert-registry' },
-    { name: '@deepseek-ai/dsh-api-workspace-files', config: { maxFileBytes: 1 } },
+    { name: '@hy/dsh-session' },
+    { name: '@hy/dsh-session-projection' },
+    { name: '@hy/dsh-sandbox-policy', config: { workspaceRoot: directory } },
+    { name: '@hy/dsh-fs-local', config: { cwd: directory } },
+    { name: '@hy/dsh-typert-registry' },
+    { name: '@hy/dsh-api-workspace-files', config: { maxFileBytes: 1 } },
     ...configured,
   ]))
   const pdf = Buffer.from('%PDF-1.7\nLoader preview\n%%EOF\n')
@@ -71,14 +71,14 @@ it('loads the shipped Office rows with separately patched settings and authorize
   ctx.loader.builtins.include = Include
   // Loader's native imports must share the test's source-plane Service classes.
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
-    ['@deepseek-ai/dsh-sandbox-policy', SandboxPolicyService],
-    ['@deepseek-ai/dsh-fs-local', LocalFileSystem],
-    ['@deepseek-ai/dsh-typert-registry', TypertRegistry],
-    ['@deepseek-ai/dsh-api-workspace-files', WorkspaceFiles],
-    ['@deepseek-ai/dsh-office-to-pdf', OfficeToPdf],
-    ['@deepseek-ai/dsh-client-ui-sidebar-documentpreview', DocumentPreview],
+    ['@hy/dsh-session', SessionStore],
+    ['@hy/dsh-session-projection', SessionProjectionRegistry],
+    ['@hy/dsh-sandbox-policy', SandboxPolicyService],
+    ['@hy/dsh-fs-local', LocalFileSystem],
+    ['@hy/dsh-typert-registry', TypertRegistry],
+    ['@hy/dsh-api-workspace-files', WorkspaceFiles],
+    ['@hy/dsh-office-to-pdf', OfficeToPdf],
+    ['@hy/dsh-client-ui-sidebar-documentpreview', DocumentPreview],
   ])
   ctx.loader.internal = {
     version: 'v2',

@@ -1,21 +1,21 @@
 import { mountWorkingDirectoryFixture } from '../../subagent/tests/working-directory-fixture.ts'
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@hy/cordis'
 import LlmRuntime, {
   ToolCallId,
   LlmAdapter,
   ReasoningEffortId,
-} from '@deepseek-ai/dsh-llm'
+} from '@hy/dsh-llm'
 import type {
   GenerateOptions,
   LlmModelInfo,
   LlmResolvedModelInfo,
   StreamChunk,
-} from '@deepseek-ai/dsh-llm'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import SubagentRuntime from '@deepseek-ai/dsh-subagent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+} from '@hy/dsh-llm'
+import ToolRuntime from '@hy/dsh-tools'
+import SystemPrompt from '@hy/dsh-system-prompt'
+import SubagentRuntime from '@hy/dsh-subagent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import * as tool from '../src/index.ts'
 import { registerListSubagentModels } from '../src/list-models.ts'
 import { testToolSignal, text } from './harness.ts'

@@ -1,7 +1,7 @@
 /** Workspace archive and directory UI capability. */
 
-import { Service, type Context } from '@deepseek-ai/cordis'
-import type { ClientRemote, DirectoryListing, RemoteFailure } from '@deepseek-ai/dsh-api-remotes/client'
+import { Service, type Context } from '@hy/cordis'
+import type { ClientRemote, DirectoryListing, RemoteFailure } from '@hy/dsh-api-remotes/client'
 import type {
   ISessions,
   SessionCreateError,
@@ -9,15 +9,15 @@ import type {
   SessionReference,
   SessionTarget,
   SessionListState,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
+} from '@hy/dsh-api-session-controller/client'
+import { createSnapshotStore } from '@hy/dsh-client-store'
+import type { SubagentAddress } from '@hy/dsh-subagent/client'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
-import type { DraftInitializationOptions } from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@hy/dsh-api-workspace-controller/client'
+import type { SessionId } from '@hy/dsh-session/types'
+import type {} from '@hy/dsh-client-ui-layout/client'
+import type { DraftInitializationOptions } from '@hy/dsh-client-ui-conversation/client'
 import type { RowToast } from './contract/slots.ts'
 import { pinOrderAccounts, pinOrderSource } from './pin-order.ts'
 import type { WorkspaceViewStoreActions } from './stores.ts'
@@ -117,7 +117,7 @@ export interface UiWorkspace {
   createDirectory(path: string, name: string): Promise<string>
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@hy/cordis' {
   interface Context {
     /** Cross-Controller Workspace navigation and directory UI capability. */
     uiWorkspace: UiWorkspace

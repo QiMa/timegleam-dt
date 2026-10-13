@@ -3,7 +3,7 @@ description: "使用同一工具读取 Session 的当前目录，或进入一个
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tool-working-directory
+# @hy/dsh-tool-working-directory
 
 [English](README.md) | 中文
 
@@ -28,7 +28,7 @@ kind: "package-reference"
 与 `tools` 和 `workingDirectory` 一起挂载。调用 `working_directory({})` 读取目录，或调用 `working_directory({ cd: "src" })` 改变目录。此工具没有配置字段。
 
 ```yaml
-- name: '@deepseek-ai/dsh-tool-working-directory'
+- name: '@hy/dsh-tool-working-directory'
 ```
 
 -----

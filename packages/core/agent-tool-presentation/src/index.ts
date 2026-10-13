@@ -15,14 +15,14 @@
  * This row therefore waits for it rather than assuming it: a preset selecting
  * PTC mode against a deployment that composes no runtime fails at mount, named
  * in the preset's own activation audit, instead of at the first prompt.
- * @module @deepseek-ai/dsh-agent-tool-presentation
+ * @module @hy/dsh-agent-tool-presentation
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { ToolPresentationMode } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@hy/cordis'
+import z from '@hy/schemastery'
+import type { ToolPresentationMode } from '@hy/dsh-tools'
 // Type-only: brings the `ctx.tools` Context merge into this program.
-import type {} from '@deepseek-ai/dsh-tools'
+import type {} from '@hy/dsh-tools'
 
 /** Cordis plugin name. */
 export const name = 'tool-presentation'

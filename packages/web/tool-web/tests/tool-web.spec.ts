@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createScope, type Scope } from '@deepseek-ai/dsh-scope'
+import { Context } from '@hy/cordis'
+import { createScope, type Scope } from '@hy/dsh-scope'
 import TurndownService from 'turndown'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { type ToolExecutionResult } from '@deepseek-ai/dsh-tools'
-import WebRuntime from '@deepseek-ai/dsh-web'
-import type { WebSearchProvider, WebSearchResult } from '@deepseek-ai/dsh-web'
-import * as ToolWeb from '@deepseek-ai/dsh-tool-web'
+import { ToolCallId } from '@hy/dsh-llm'
+import SystemPrompt, { renderPrompt } from '@hy/dsh-system-prompt'
+import ToolRuntime, { type ToolExecutionResult } from '@hy/dsh-tools'
+import WebRuntime from '@hy/dsh-web'
+import type { WebSearchProvider, WebSearchResult } from '@hy/dsh-web'
+import * as ToolWeb from '@hy/dsh-tool-web'
 import {
   formatSearchOutput,
   formatFetchOutput,
@@ -22,9 +22,9 @@ import {
   fetchMetaFromResult,
   WEB_SEARCH_MAX_QUERIES,
   WEB_SEARCH_MAX_RESULTS,
-} from '@deepseek-ai/dsh-tool-web'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { ToolResult } from '@deepseek-ai/dsh-tools'
+} from '@hy/dsh-tool-web'
+import type { ContentBlock } from '@hy/dsh-llm'
+import type { ToolResult } from '@hy/dsh-tools'
 import { parseSearchArgs } from '../src/search.ts'
 
 const testToolSignal = new AbortController().signal
@@ -40,7 +40,7 @@ async function mountTools(opts: {
   config?: ToolWeb.Config
   webConfig?: ConstructorParameters<typeof WebRuntime>[1]
   search?: WebSearchProvider
-  fetchProvider?: import('@deepseek-ai/dsh-web').WebFetchProvider
+  fetchProvider?: import('@hy/dsh-web').WebFetchProvider
 } = {}): Promise<{ ctx: Context; fiber: Awaited<ReturnType<Context['plugin']>>; call: (name: string, args: unknown) => Promise<ToolExecutionResult> }> {
   const ctx = new Context()
   await ctx.plugin(SystemPrompt)
@@ -983,5 +983,5 @@ describe('scope-aware web guidance', () => {
 
 /** Preserve the default persona and exact section separators in the oracle. */
 function withPersona(...sections: string[]): string {
-  return ['You are an AI agent powered by DeepSeek Harness.', ...sections].join('\n\n')
+  return ['You are an AI agent powered by Huayu AI.', ...sections].join('\n\n')
 }

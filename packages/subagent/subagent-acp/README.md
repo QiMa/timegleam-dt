@@ -3,7 +3,7 @@ description: "The out-of-process ACP subagent backend for users and maintainers 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-subagent-acp
+# @hy/dsh-subagent-acp
 
 English | [中文](README.zh.md)
 
@@ -45,11 +45,11 @@ Choose this backend when the child must run with its own runtime, model, and too
 
 The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-subagent-acp) is the exhaustive source for every accepted field and its JSDoc.
 
-A DeepSeek Harness child uses the product launcher and an explicit absolute `DSH_HOME`. The isolated home prevents a nested runtime from discovering the launching person's profiles or credentials; the generic ACP provider does not impose this requirement on non-DSH agents.
+A Huayu AI child uses the product launcher and an explicit absolute `DSH_HOME`. The isolated home prevents a nested runtime from discovering the launching person's profiles or credentials; the generic ACP provider does not impose this requirement on non-DSH agents.
 
 ```yaml
 - id: subagent-acp
-  name: '@deepseek-ai/dsh-subagent-acp'
+  name: '@hy/dsh-subagent-acp'
   config:
     providerName: acp
     command: dsh

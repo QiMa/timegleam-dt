@@ -1,18 +1,18 @@
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { Context } from '@deepseek-ai/cordis'
+import { createSnapshotStore } from '@hy/dsh-client-store'
+import { Context } from '@hy/cordis'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import type {
   ISessions, SessionListState, SessionReference, SessionSnapshot, SessionSummary,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import { SessionForkError } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceId, WorkspaceSnapshot, WorkspaceView } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type { StoredEntry } from '@deepseek-ai/dsh-client-ui-slots'
-import { RemoteError, TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { apply, inject } from '@deepseek-ai/dsh-client-ui-workspace/client'
-import type { WorkspaceBrowserInjected, WorkspacePickerInjected } from '@deepseek-ai/dsh-client-ui-workspace/client'
+} from '@hy/dsh-api-session-controller/client'
+import { SessionForkError } from '@hy/dsh-api-session-controller/client'
+import type { WorkspaceId, WorkspaceSnapshot, WorkspaceView } from '@hy/dsh-api-workspace-controller/client'
+import type { SessionId } from '@hy/dsh-session/types'
+import { SlotRegistry } from '@hy/dsh-client-ui-renderer/client'
+import type { StoredEntry } from '@hy/dsh-client-ui-slots'
+import { RemoteError, TestRemote } from '@hy/dsh-client-test-runtime'
+import { LocaleRuntime } from '@hy/dsh-client-locale/client'
+import { apply, inject } from '@hy/dsh-client-ui-workspace/client'
+import type { WorkspaceBrowserInjected, WorkspacePickerInjected } from '@hy/dsh-client-ui-workspace/client'
 import {
   type ArchiveSessionInjected, type ForkSessionInjected, menuOpenStateFactory, type PinSessionInjected,
   type RenameSessionInjected, type RowToastInjected, type SessionArchiveConfirmInjected, type SessionRenameDialogInjected,

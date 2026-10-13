@@ -1,6 +1,6 @@
 /** Chat presentation derived from Host-backed detail and in-memory collapse timing. */
 
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { ObservableSnapshot } from '@hy/dsh-client-store'
 import type { TranscriptViewMode } from '../chat-settings.ts'
 
 /** Available points when a completed Turn returns to its historical presentation. */

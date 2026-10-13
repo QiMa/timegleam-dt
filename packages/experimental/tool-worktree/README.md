@@ -3,7 +3,7 @@ description: "Model tool that creates a new local Git worktree and changes the c
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-experimental-tool-worktree
+# @hy/dsh-experimental-tool-worktree
 
 English | [中文](README.zh.md)
 
@@ -30,8 +30,8 @@ In the GUI, open **Plugins → Official → Git Worktrees** and turn on the swit
 For an explicit composition, mount this function plugin after the worktree runtime and tool registry.
 
 ```yaml
-- name: '@deepseek-ai/dsh-experimental-worktree'
-- name: '@deepseek-ai/dsh-experimental-tool-worktree'
+- name: '@hy/dsh-experimental-worktree'
+- name: '@hy/dsh-experimental-tool-worktree'
 ```
 
 Call `create_worktree({ name?: string, from?: string })`. Success returns the canonical checkout `path`, new `branch`, pinned `baseCommit`, and source `repositoryRoot`, and changes the calling Session's current working directory. To leave, call `working_directory({ cd: path })`; the checkout and branch remain. The [generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-experimental-tool-worktree) owns the exact schema and model-facing description.

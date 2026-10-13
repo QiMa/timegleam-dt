@@ -1,9 +1,9 @@
 /** Bounded, cancellable commands under the calling Session's existing file policy. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
-import type { SubprocessCollectedOutputs } from '@deepseek-ai/dsh-subprocess'
-import { deadline } from '@deepseek-ai/dsh-timeout'
+import type { Context } from '@hy/cordis'
+import type { SandboxExecutionPolicy } from '@hy/dsh-sandbox'
+import type { SubprocessCollectedOutputs } from '@hy/dsh-subprocess'
+import { deadline } from '@hy/dsh-timeout'
 
 /** Resolved process resource limits owned by the worktree service. */
 export interface ProcessConfig {
