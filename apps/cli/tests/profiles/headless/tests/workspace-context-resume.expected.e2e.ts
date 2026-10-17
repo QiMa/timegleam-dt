@@ -23,7 +23,7 @@ import {
   type SessionEvent,
   type SessionHeader,
 } from '@hy/dsh-session'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import { logPath } from '../../../../../../packages/session/session-persistence-jsonl/src/format.ts'
 import { renderAgentInstructions } from '@hy/dsh-agent-instructions'
 import { resolveConfig, workspaceBaselineIdentity } from '@hy/dsh-agent-instructions/src/config.ts'

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-sdk-minimal",
   "description": "The standalone minimal SDK profile bundle: JSON-RPC, one DeepSeek adapter, persistent shell, and JSONL sessions",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -37,6 +37,9 @@
     "@hy/cordis-plugin-timer": "workspace:~",
     "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-attachment-local": "workspace:*",
+    "@hy/dsh-compaction-basic": "workspace:*",
+    "@hy/dsh-compaction-image-offload": "workspace:*",
     "@hy/dsh-deepseek-llm-api-extensions": "workspace:*",
     "@hy/dsh-jobs-local": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
@@ -57,7 +60,9 @@
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-terminal": "workspace:*",
     "@hy/dsh-terminal-bash": "workspace:*",
+    "@hy/dsh-token-meter": "workspace:*",
     "@hy/dsh-tool-bash-persistent": "workspace:*",
+    "@hy/dsh-tool-fs": "workspace:*",
     "@hy/dsh-tool-pwsh-persistent": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*",

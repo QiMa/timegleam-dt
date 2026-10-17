@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-skill",
   "description": "Web skill references and the dedicated skill tool row",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -23,13 +23,15 @@
       "default": "./lib/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
   },
   "dsh": {
     "client": {
       "inject": [
         "@hy/dsh-api-session-controller",
         "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-conversation",
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-tool",
         "@hy/dsh-client-ui-input-trigger",
@@ -53,14 +55,16 @@
     "@hy/dsh-client-connection": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",
     "@hy/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-client-ui-conversation": "workspace:*",
     "@hy/dsh-client-ui-primitives": "workspace:*",
     "@hy/dsh-client-ui-input-trigger": "workspace:*",
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-client-ui-tool": "workspace:*",
+    "@hy/dsh-plugin-manager": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@testing-library/react": "^16.3.3",
-    "@types/react": "~18.3.1",
+    "@hy/cordis": "workspace:~",
     "@hy/cordis": "workspace:~",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -69,6 +73,7 @@
     "@hy/dsh-util-workspace-path": "workspace:*"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"

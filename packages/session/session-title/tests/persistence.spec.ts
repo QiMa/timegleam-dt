@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import SessionStore, { SessionId } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import SessionTitleService, { foldSessionTitle } from '@hy/dsh-session-title'
 
 const CONFIG = {

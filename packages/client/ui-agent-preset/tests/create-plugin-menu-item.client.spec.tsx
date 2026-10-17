@@ -2,7 +2,7 @@
 import { useState, type ComponentProps } from 'react'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
+import { allowAllAccess, bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
 import { createSnapshotStore } from '@hy/dsh-client-store'
 import { Menu, MenuItemButton } from '@hy/dsh-client-ui-primitives'
 import { CreatePluginMenuItem } from '../src/client/CreatePluginMenuItem.tsx'
@@ -29,6 +29,7 @@ function view(roster: Partial<AgentPresetSettingsState> = {}, inMenu = false) {
     useAgentPresets: bindSnapshotSelector(agentPresets),
     usePanelInfo: unusedHook, useSessions: unusedHook, useSessionStatus: unusedHook,
     useSessionRetainInfo: unusedHook, useWorkspaces: unusedHook, useResource: unusedHook,
+    ...allowAllAccess,
     load, startCreatorDraft, onDismiss,
   }
   function TestMenu() {

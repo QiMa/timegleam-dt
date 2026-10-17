@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import { Session, SessionId, SESSION_FORMAT_VERSION } from '@hy/dsh-session'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import {
   runBuiltBenchmarkWorker,
   type BuiltBenchmarkWorkerRun,

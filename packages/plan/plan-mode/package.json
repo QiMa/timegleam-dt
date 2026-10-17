@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-plan-mode",
   "description": "Logged per-agent plan mode with deployment guidance, a direct slash command, and a user-reviewed exit",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -27,9 +27,11 @@
       "default": "./lib/types/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
@@ -53,7 +55,7 @@
   },
   "dependencies": {
     "@hy/dsh-brand": "workspace:*",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@hy/dsh-agent": "workspace:*",

@@ -1,7 +1,7 @@
 import { clientBundle } from '../tsdown.client.ts'
 
 export default clientBundle(
-  '@hy/dsh-client-shortcuts',
+  import.meta.dirname,
   ['lib/types/index.js', 'lib/types/protocol.js'],
   { hostPhase: true },
 )

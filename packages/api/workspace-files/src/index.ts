@@ -203,6 +203,7 @@ export class WorkspaceFiles extends TypertRemoteService {
       scope.typert.lookups.register('workspaceFileScope', {
         parameter: 'workspaceFileScope',
         wire: 'workspaceFileScopeId',
+        resource: 'session',
         hostTypeSymbol: '@hy/dsh-api-workspace-files#WorkspaceFileScope',
         wireTypeSymbol: '@hy/dsh-session/types#SessionId',
         resolve: async (sessionId) => {

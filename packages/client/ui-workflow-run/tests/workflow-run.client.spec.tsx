@@ -20,7 +20,7 @@ import type { SessionEvent, SessionId } from '@hy/dsh-session/types'
 import { SessionSeq } from '@hy/dsh-session'
 import { apply as applyLocale, inject as localeInject } from '@hy/dsh-client-locale/client'
 import {
-  chatSnapshot as emptyChatSnapshot, conversationSnapshot, makeTranslate, sessionSnapshot,
+  allowAllAccess, chatSnapshot as emptyChatSnapshot, conversationSnapshot, makeTranslate, sessionSnapshot,
   stubConfigForm, TestSessions, workspaceSnapshot,
 } from '@hy/dsh-client-test-runtime'
 import {
@@ -360,15 +360,14 @@ function panelProps(data: WorkflowRunChatData, sessions = listState(), openSessi
       submit: () => {},
     },
     useWorkspaces: selector => selector(panelWorkspace),
+    ...allowAllAccess,
     useTurnData: () => undefined,
     useDisclosure: () => { throw new Error('unused') },
     useGroupAction: () => { throw new Error('unused') },
-    openSkill: vi.fn(),
     openFile: () => {},
     inspectCall: () => {},
     forkAt: () => {},
     loadImage: () => Promise.reject(new Error('not used')),
-    renderMessageImages: () => null,
     fileMentions: () => undefined,
     openSession,
     t: makeTranslate(zh),

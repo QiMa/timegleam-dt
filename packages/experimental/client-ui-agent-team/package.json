@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-client-ui-agent-team",
   "description": "Web Agent Teams roster, task board, and teammate navigation",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -44,7 +44,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/cordis": "workspace:~"
     "@hy/dsh-client-locale": "workspace:*",
     "@hy/dsh-client-ui-conversation": "workspace:*",
     "@hy/dsh-client-ui-primitives": "workspace:*",
@@ -70,7 +70,7 @@
     "@hy/dsh-experimental-agent-team": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@testing-library/react": "^16.3.3",
-    "@types/react": "~18.3.1",
+    "@hy/cordis": "workspace:~",
     "@types/react-dom": "~18.3.0",
     "@hy/cordis": "workspace:~",
     "react": "^18.2.0",

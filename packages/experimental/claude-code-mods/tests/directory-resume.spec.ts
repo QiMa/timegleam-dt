@@ -8,7 +8,7 @@ import AgentLoop from '@hy/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
 import LocalFileSystem from '@hy/dsh-fs-local'
 import { SessionId } from '@hy/dsh-session'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import WorkingDirectory from '@hy/dsh-working-directory'
 import ClaudeCodeMods, { defineMod } from '../src/index.ts'
 

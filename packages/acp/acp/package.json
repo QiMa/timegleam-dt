@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-acp",
   "description": "Automation-only Agent Client Protocol server for driving Huayu AI agents over JSON-RPC stdio",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },

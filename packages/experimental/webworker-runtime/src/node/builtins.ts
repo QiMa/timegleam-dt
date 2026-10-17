@@ -54,6 +54,7 @@ import * as libreofficeKit from './external_packages/libreoffice-kit.ts'
 import * as nodePty from './external_packages/node-pty.ts'
 import * as execa from './external_packages/execa.ts'
 import * as got from './external_packages/got.ts'
+import * as nodeAddonRequireBuiltin from './external_packages/node-addon-require-builtin.ts'
 import * as piAi from './external_packages/pi-ai.ts'
 import * as ripgrep from './external_packages/ripgrep.ts'
 import * as sharp from './external_packages/sharp.ts'
@@ -95,13 +96,14 @@ const BUILTINS: Record<string, StaticModuleFactory> = {
 
 /** Exact package or subpath specifiers served by worker stubs and fakes. */
 const EXTERNALS: Record<string, StaticModuleFactory> = {
-  '@deepseek-ai/libreoffice-kit': () => libreofficeKit,
+  '@hy/libreoffice-kit': () => libreofficeKit,
   '@hy/node-addon-system/flock': () => systemFlock,
   'koffi': () => koffi,
   'sharp': () => sharp,
   'node-pty': () => nodePty,
   'execa': () => execa,
   'got': () => got,
+  'node-addon-require-builtin': () => nodeAddonRequireBuiltin,
   'ws': () => ws,
   '@vscode/ripgrep': () => ripgrep,
   '@earendil-works/pi-ai': () => piAi,

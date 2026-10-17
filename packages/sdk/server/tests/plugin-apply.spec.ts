@@ -13,7 +13,7 @@ import AgentLoop from '@hy/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
 import { LlmAdapter } from '@hy/dsh-llm'
 import type { GenerateOptions, StreamChunk } from '@hy/dsh-llm'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import * as jsonrpc from '../src/index.ts'
 
 /**

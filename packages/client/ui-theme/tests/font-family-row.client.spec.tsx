@@ -8,7 +8,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import type { SessionListState } from '@hy/dsh-api-session-controller/client'
 import type { WorkspaceSnapshot } from '@hy/dsh-api-workspace-controller/client'
 import { createSnapshotStore } from '@hy/dsh-client-store'
-import { bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
+import { allowAllAccess, bindSnapshotSelector } from '@hy/dsh-client-test-runtime'
 import { FontFamilyRow } from '../src/client/FontFamilyRow.tsx'
 import type { FontFamilyRowComponentProps } from '../src/client/FontFamilyRow.tsx'
 import { createFontRowStore } from '../src/client/settings-store.ts'
@@ -52,6 +52,7 @@ function mount(kind: FontRole = 'code', code = '') {
     useSessionStatus,
     usePanelInfo, useSessionRetainInfo: () => undefined, useResource,
     useWorkspaces: emptyWorkspaces(),
+    ...allowAllAccess,
     useStore: bindSnapshotSelector(store),
     actions: store.actions,
     t: (key: string) => COPY[key] ?? key,

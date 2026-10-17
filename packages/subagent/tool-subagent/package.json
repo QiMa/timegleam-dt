@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-subagent",
   "description": "Model-facing subagent delegation tool over the ctx.subagents seam",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -23,9 +23,13 @@
       "default": "./lib/model-selection-settings.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./model-selection-settings/locale/*.json": "./locale/model-selection-settings/*.json"
   },
   "files": [
+    "locale/*.json",
+    "locale/model-selection-settings/*.json",
     "lib/index.js",
     "lib/model-selection-settings.js",
     "lib/types/**/*.d.ts"
@@ -33,6 +37,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-preset-registry": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
@@ -42,13 +47,19 @@
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~"
   },
+  "peerDependenciesMeta": {
+    "@hy/dsh-agent-preset-registry": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@hy/schemastery": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-preset-registry": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-scope": "workspace:*",

@@ -55,19 +55,19 @@ function workspace(entries: Record<string, Manifest>): { manifests: Map<string, 
 describe('tierExternalDeps', () => {
   it('limits the LibreOffice exception to its reviewed package identity and MPL terms', () => {
     for (const name of [
-      '@deepseek-ai/libreoffice-kit', '@deepseek-ai/libreoffice-kit-wasm',
-      '@deepseek-ai/libreoffice-kit-darwin-arm64', '@deepseek-ai/libreoffice-kit-darwin-x64',
-      '@deepseek-ai/libreoffice-kit-win32-arm64', '@deepseek-ai/libreoffice-kit-win32-x64',
+      '@hy/libreoffice-kit', '@hy/libreoffice-kit-wasm',
+      '@hy/libreoffice-kit-darwin-arm64', '@hy/libreoffice-kit-darwin-x64',
+      '@hy/libreoffice-kit-win32-arm64', '@hy/libreoffice-kit-win32-x64',
     ]) {
       expect(() => { assertRuntimeLicenses([{ name, license: 'MPL-2.0' }]) }).not.toThrow()
       expect(() => { assertRuntimeLicenses([{ name, license: 'GPL-3.0-only' }]) }).toThrow(name)
     }
     for (const dependency of [
       { name: 'unrelated-library', license: 'MPL-2.0' },
-      { name: '@deepseek-ai/dsh-libreoffice-kit', license: 'MPL-2.0' },
-      { name: '@deepseek-ai/libreoffice-kit-unreviewed', license: 'MPL-2.0' },
-      { name: '@deepseek-ai/libreoffice-kit', license: 'GPL-3.0-only' },
-      { name: '@deepseek-ai/libreoffice-kit', license: 'UNKNOWN' },
+      { name: '@hy/dsh-libreoffice-kit', license: 'MPL-2.0' },
+      { name: '@hy/libreoffice-kit-unreviewed', license: 'MPL-2.0' },
+      { name: '@hy/libreoffice-kit', license: 'GPL-3.0-only' },
+      { name: '@hy/libreoffice-kit', license: 'UNKNOWN' },
     ]) {
       expect(() => { assertRuntimeLicenses([dependency]) }).toThrow(`${dependency.name} (${dependency.license})`)
     }

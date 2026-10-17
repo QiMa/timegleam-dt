@@ -13,7 +13,7 @@ import SessionStore, {
   SessionPreparation,
 } from '@hy/dsh-session'
 import type { AgentHandle } from '@hy/dsh-agent'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import SessionQueryEngine from '@hy/dsh-session-query'
 import type {

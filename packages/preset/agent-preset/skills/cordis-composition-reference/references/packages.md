@@ -17,6 +17,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-api-account-controller` | no | Expose safe account operations over authenticated Remote |
 | `@hy/dsh-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
 | `@hy/dsh-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
+| `@hy/dsh-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
 | `@hy/dsh-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
 | `@hy/dsh-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
 | `@hy/dsh-api-settings-controller` | yes | Remote owner for the configuration surfaces over the settings-domain seams |
@@ -37,6 +38,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-config-editor` | no | Persist plugin configuration through profile patches and Loader reconciliation |
 | `@hy/dsh-hmr` | yes | Coordinated module and profile configuration hot reload |
 | `@hy/dsh-plugin-manager` | yes | Current-profile plugin and bundle management shared by dsh CLI, Web and agent tools |
+| `@hy/dsh-plugin-market` | yes | Configured plugin market indexes for the Web Discover page and the plugin_market agent tool |
 
 ## browser-use
 
@@ -51,7 +53,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-acp-app` | no | The dsh ACP profile bundle: automation-only JSON-RPC stdio and process lifecycle over dsh-base |
 | `@hy/dsh-headless` | yes | The dsh one-shot bundle: a direct core Agent/Session runner over dsh-base with no Host, HTTP, or browser layer |
 | `@hy/dsh-sdk-app` | yes | The dsh SDK profile bundle: stdio JSON-RPC serving and process lifecycle over dsh-base |
-| `@hy/dsh-web-app` | yes | The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, web-surface prompt, bash runtime variables, URL line) |
+| `@hy/dsh-web-app` | yes | The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line) |
 
 ## client
 
@@ -85,9 +87,11 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-permission-presets` | no | Permission surfaces: a new-session default in General settings and a current-session /permission popup over the permissions projection |
 | `@hy/dsh-client-ui-plan` | no | Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews |
 | `@hy/dsh-client-ui-plugin-manager` | yes | Plugin management for the dsh web client: the sidebar Plugins panel installs, enables, disables, retries, and composes installed plugin packages |
+| `@hy/dsh-client-ui-plugin-market` | no | Discover tab of the dsh web Plugins page: browse configured plugin market indexes and install their bundles |
 | `@hy/dsh-client-ui-reference` | no | Unified Web @file and @session reference source |
 | `@hy/dsh-client-ui-renderer` | no | Browser UI renderer: React slot bindings, ctx.uiRenderer, and the assembled application root |
 | `@hy/dsh-client-ui-schedule` | no | Host task management page and Session reminder catalog |
+| `@hy/dsh-client-ui-secret-mask` | no | Web display masking for recognized credentials in sent user text |
 | `@hy/dsh-client-ui-session` | no | Session Controller adapter for React and session-scoped slots |
 | `@hy/dsh-client-ui-settings` | no | Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract |
 | `@hy/dsh-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
@@ -137,6 +141,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@hy/dsh-agent-instructions` | yes | Workspace context loader for AGENTS.md/CLAUDE.md instruction files |
 | `@hy/dsh-file-reference-local` | yes | Local-filesystem ctx.fileReferences provider with bounded fuzzy indexes |
+| `@hy/dsh-harness-dev-context` | no | Model context naming the Huayu AI checkout and Web GUI URL without letting either change the system prompt |
 | `@hy/dsh-session-reference` | yes | Cross-session snapshot references and durable untrusted model context (ctx.sessionReferenceResolver) |
 | `@hy/dsh-time-context` | yes | Durable per-step context with the current time and elapsed time |
 | `@hy/dsh-tmux-context` | yes | Opt-in durable per-step context with this agent's tmux pane and window location |
@@ -191,6 +196,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
 | `@hy/dsh-experimental-computer-use-cua-driver-mcp` | yes | Experimental computer use through an installed Cua Driver MCP executable |
 | `@hy/dsh-experimental-computer-use-cua-driver-native` | no | Experimental computer-use provider embedding the Cua Driver native npm SDK |
+| `@hy/dsh-experimental-cua-macos` | yes | macOS native provider for shared Computer Use application and window objects |
 | `@hy/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
 | `@hy/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the Huayu AI PTC execution seam |
 | `@hy/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
@@ -329,7 +335,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-ptc-runtime-node` | yes | Sandboxed Node process implementation of the Huayu AI PTC execution capability |
+| `@hy/dsh-ptc-runtime-node` | yes | Node PTC execution with per-call sandboxed processes or in-memory REPL state |
 
 ## sandbox
 
@@ -401,7 +407,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@hy/dsh-skill` | yes | Agent skill provider registry for the Huayu AI |
 | `@hy/dsh-skill-filesystem` | yes | Local filesystem skill provider for the Huayu AI |
-| `@hy/dsh-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and structural checks |
+| `@hy/dsh-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and LibreOffice Kit operations |
 | `@hy/dsh-tool-skill` | yes | Model-facing skill loading tool for the Huayu AI |
 | `@hy/dsh-tool-workspace-dependencies` | yes | The load_workspace_dependencies tool: absolute paths into a bundled Python, Node.js, and pnpm payload |
 

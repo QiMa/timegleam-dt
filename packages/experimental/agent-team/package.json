@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-agent-team",
   "description": "Implicit-root Agent Teams roster, direct peer messaging, and shared task DAG",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
   "dependencies": {
     "@hy/dsh-brand": "workspace:*",
     "@hy/schemastery": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",

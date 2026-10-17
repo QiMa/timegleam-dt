@@ -12,7 +12,7 @@ import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import SystemPrompt from '@hy/dsh-system-prompt'
 import ToolRuntime from '@hy/dsh-tools'
 import AgentRegistry, { type Agent } from '@hy/dsh-agent'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import AgentLoop from '@hy/dsh-agent-loop'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
 

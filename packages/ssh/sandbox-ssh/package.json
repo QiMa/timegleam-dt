@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-sandbox-ssh",
   "description": "Remote POSIX sandbox argv provider over the shared SSH helper",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",

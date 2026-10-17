@@ -14,6 +14,7 @@ import type {
   ToolSchema,
   UserMessage,
 } from '@hy/dsh-llm'
+import type { TypertResource } from '@hy/dsh-typert-protocol'
 import type { JsonValue } from '@hy/dsh-util-values'
 
 /** Identifies one session in the store (and its persistence artifacts). */
@@ -549,6 +550,11 @@ export interface PluginRecord {
 }
 
 declare module '@hy/dsh-typert-protocol' {
+  interface TypertResourceMap {
+    /** One Session; the Session Controller registers its default `sessionId` wire field. */
+    session: TypertResource<SessionId>
+  }
+
   interface RemoteErrorDetailsMap {
     /** The named Session does not exist; produced by every layer that resolves a SessionId. */
     'session/not-found': { readonly sessionId: SessionId }

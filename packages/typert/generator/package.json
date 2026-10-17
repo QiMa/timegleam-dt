@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-typert-generator",
   "description": "TypeScript project analyzer and model-driven Typert artifact generator",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -39,9 +39,10 @@
     "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
+    "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-tool-cordis": "workspace:*",
     "@hy/dsh-typert-registry": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   }
 }

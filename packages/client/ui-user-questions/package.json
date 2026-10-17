@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-user-questions",
   "description": "Web ask_user_question composer takeover and plan-review presentation UI",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,8 @@
       "default": "./lib/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
   },
   "dsh": {
     "client": {
@@ -58,11 +59,11 @@
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-questions": "workspace:*",
-    "@types/react": "~18.3.1",
     "@hy/dsh-client-ui-primitives": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-session": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
     "react": "^18.2.0",
     "@hy/dsh-client-ui-conversation": "workspace:*",
@@ -74,6 +75,7 @@
     "@hy/dsh-client-ui-tool": "workspace:*"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"

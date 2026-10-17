@@ -3,7 +3,7 @@
 import { Context } from '@hy/cordis'
 import { SESSION_FORMAT_VERSION, Session, SessionId } from '@hy/dsh-session'
 import type { SessionFormatEvent } from '@hy/dsh-session-format'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import { createHash } from 'node:crypto'
 import { mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'

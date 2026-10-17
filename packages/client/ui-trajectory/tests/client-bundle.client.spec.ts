@@ -50,6 +50,7 @@ describe('tsdown client artifact', () => {
       ['react', await import('react')],
       ['react/jsx-runtime', await import('react/jsx-runtime')],
       ['react-dom', await import('react-dom')],
+      ['@tanstack/react-virtual', await import('@tanstack/react-virtual')],
       ['@hy/dsh-client-store', await import('@hy/dsh-client-store')],
       ['@hy/dsh-client-ui-conversation/client', await import('@hy/dsh-client-ui-conversation/client')],
       ['@hy/dsh-client-ui-primitives', await import('@hy/dsh-client-ui-primitives')],

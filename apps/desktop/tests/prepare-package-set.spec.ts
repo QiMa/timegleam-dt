@@ -67,8 +67,8 @@ describe('desktop package-set selection', () => {
     const available = new Map<string, PackedDesktopPackage>([
       ['@hy/dsh', packed('@hy/dsh', {
         dependencies: {
-          '@deepseek-ai/libreoffice-kit': '0.0.1',
-          '@deepseek-ai/libreoffice-kit-wasm': '0.0.1',
+          '@hy/libreoffice-kit': '0.0.1',
+          '@hy/libreoffice-kit-wasm': '0.0.1',
         },
       })],
       ['@hy/dsh-desktop-host', packed('@hy/dsh-desktop-host')],

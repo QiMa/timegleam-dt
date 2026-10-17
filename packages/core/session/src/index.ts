@@ -1079,6 +1079,7 @@ export class SessionStore extends Service {
       typeCtx.typert.lookups.register('session', {
         parameter: 'session',
         wire: 'sessionId',
+        resource: 'session',
         hostTypeSymbol: '@hy/dsh-session#Session',
         wireTypeSymbol: '@hy/dsh-session/types#SessionId',
         resolve: sessionId => this.get(sessionId),

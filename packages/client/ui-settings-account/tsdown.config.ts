@@ -1,9 +1,6 @@
 import { clientBundle } from '../tsdown.client.ts'
-import { readFile } from 'node:fs/promises'
-import { basename } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
-const bundle = clientBundle('@hy/dsh-client-ui-settings-account', ['lib/types/index.js'])
+export default clientBundle(import.meta.dirname, ['lib/types/index.js'])
 
 export default ((options) => bundle(options).map(config => ({
   ...config,

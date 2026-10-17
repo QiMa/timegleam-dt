@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-fs-local",
   "description": "Local-filesystem implementation of the Huayu AI filesystem seam (ctx.fs)",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -31,7 +31,7 @@
     "@hy/cordis": "workspace:~"
   },
   "dependencies": {
-    "chokidar": "^4.0.3",
+    "chokidar": "5.0.0",
     "koffi": "3.1.1",
     "@hy/schemastery": "workspace:~"
   },

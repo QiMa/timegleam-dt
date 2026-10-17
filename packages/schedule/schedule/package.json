@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-schedule",
   "description": "Host-wide durable reminders with shared management and original-Session delivery",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -63,7 +63,7 @@
   "dependencies": {
     "@hy/schemastery": "workspace:~",
     "@js-temporal/polyfill": "0.5.1",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@hy/cordis-plugin-loader": "workspace:~",

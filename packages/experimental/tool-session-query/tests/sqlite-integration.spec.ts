@@ -13,7 +13,7 @@ import SessionStore, {
 } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { turnBoundaryProjectionDefinition } from '@hy/dsh-agent-loop'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import SqliteSessionQueryEngine from '@hy/dsh-session-query-sqlite'
 import SystemPrompt from '@hy/dsh-system-prompt'
 import ToolRuntime from '@hy/dsh-tools'

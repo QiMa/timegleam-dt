@@ -1,0 +1,99 @@
+{
+  "name": "@hy/dsh-cua",
+  "description": "Shared Computer Use application objects, authorization, and logged tool execution",
+  "version": "0.2.1-alpha.5",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/experimental/cua"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./api": {
+      "types": "./lib/types/api.d.ts",
+      "default": "./lib/api.js"
+    },
+    "./bridge": {
+      "types": "./lib/types/bridge.d.ts",
+      "default": "./lib/bridge.js"
+    },
+    "./native-client": {
+      "types": "./lib/types/native-client.d.ts",
+      "default": "./lib/native-client.js"
+    },
+    "./protocol": {
+      "types": "./lib/types/protocol.d.ts",
+      "default": "./lib/protocol.js"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/api.js",
+    "lib/bridge.js",
+    "lib/native-client.js",
+    "lib/protocol.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-computer-use": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-user-questions": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-llm": "workspace:*"
+  },
+  "dependencies": {
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/schemastery": "workspace:~",
+    "zod": "^4.4.3",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-atomic-write": "workspace:*"
+  },
+  "devDependencies": {
+    "@hy/dsh-working-directory": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-include": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-attachment-local": "workspace:*",
+    "@hy/dsh-computer-use": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-subprocess-local": "workspace:*",
+    "@hy/dsh-fs-local": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
+    "@hy/dsh-ptc-runtime-node": "workspace:*",
+    "@hy/dsh-sandbox-local": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "sharp": "^0.35.3",
+    "@hy/dsh-ptc-runtime": "workspace:*",
+    "@hy/dsh-user-questions": "workspace:*",
+    "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-config-editor": "workspace:*",
+    "@hy/dsh-hmr": "workspace:*",
+    "@hy/cordis-plugin-timer": "workspace:~"
+  }
+}

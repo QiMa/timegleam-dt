@@ -2,6 +2,7 @@
 
 /** Existing npm names retained by capabilities now housed under experimental/. */
 export const EXPERIMENTAL_PACKAGE_NAME_EXCEPTIONS: Readonly<Record<string, string>> = {
+  'packages/experimental/cua': '@hy/dsh-cua',
   'packages/experimental/tool-session-query': '@hy/dsh-tool-session-query',
   'packages/experimental/session-title-all-prompts-llm': '@hy/dsh-session-title-all-prompts-llm',
   'packages/experimental/tool-terminal': '@hy/dsh-tool-terminal',

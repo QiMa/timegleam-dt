@@ -6,7 +6,7 @@ import type { WorkspaceSnapshot } from '@hy/dsh-api-workspace-controller/client'
 import type { SessionStatusSnapshot } from '@hy/dsh-client-ui-session/client'
 import type { GlobalStandardProps } from '@hy/dsh-client-ui-slots'
 import { createSnapshotStore } from '@hy/dsh-client-store'
-import { bindSnapshotSelector, makeTranslate } from '@hy/dsh-client-test-runtime'
+import { allowAllAccess, bindSnapshotSelector, makeTranslate } from '@hy/dsh-client-test-runtime'
 import { TranscriptViewRow, type TranscriptViewRowProps } from '../src/client/settings/TranscriptViewRow.tsx'
 import { PerformanceUsageRow } from '../src/client/settings/PerformanceUsageRow.tsx'
 import type { LinkOpening, PerformanceUsageMode, TranscriptViewMode } from '../src/chat-settings.ts'
@@ -47,6 +47,7 @@ function mount(mode: TranscriptViewMode = 'standard', dictionary: typeof en | ty
     useWorkspaces: emptyWorkspaces(),
     useSessionRetainInfo: () => undefined,
     useResource,
+    ...allowAllAccess,
     useTranscriptView: bindSnapshotSelector(source),
     useCollapseTiming: bindSnapshotSelector(collapseTiming),
     setTranscriptView,

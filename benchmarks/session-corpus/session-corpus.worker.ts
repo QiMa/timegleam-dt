@@ -8,11 +8,12 @@ import { Context } from '@hy/cordis'
 import AgentLoop from '@hy/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
 import { agentPresetProjectionDefinition } from '@hy/dsh-agent-preset-registry'
+import RemoteAccessService from '@hy/dsh-api-remote-access'
 import SessionController from '@hy/dsh-api-session-controller'
 import { currentSessionMessageProjections } from '@hy/dsh-session-format-catalog/message-projections'
 import { Session, SessionLogOffset } from '@hy/dsh-session'
 import type { SessionId } from '@hy/dsh-session'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import SessionProjectionCache, { checkpointRecord, projectionCacheDomainSpec } from '@hy/dsh-session-projection-cache'
 import type { CheckpointRecord } from '@hy/dsh-session-projection-cache'
 import SqliteSessionQueryEngine from '@hy/dsh-session-query-sqlite'
@@ -148,10 +149,15 @@ async function mountHost(root: string): Promise<{ readonly ctx: Context; readonl
   await ctx.plugin(AgentLoop, { agents: [] })
   // Transport, upload, model-default, and Workspace services are outside every measured path.
   const dispose = (): void => {}
-  ctx.provide('typert', { lookups: { configure: () => dispose }, contexts: { configureHost: () => dispose } } as never)
+  ctx.provide('typert', {
+    lookups: { configure: () => dispose },
+    contexts: { configureHost: () => dispose },
+    resources: { register: () => dispose },
+  } as never)
   ctx.provide('fileUploads', { registerAgentResolver: () => dispose } as never)
   ctx.provide('agentDefaultModel', { currentSelection: () => BENCH_MODEL } as never)
   ctx.provide('workspaceRegistry', { list: () => [], archivedSessionIds: [] } as never)
+  new RemoteAccessService(ctx)
   const controller = new SessionController(ctx, { nativeOpen: false }, { canOpenPath: () => false })
   return { ctx, controller }
 }

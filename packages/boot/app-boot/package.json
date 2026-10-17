@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-app-boot",
   "description": "Shared boot glue for the app bins: .env loading, fail-loud Loader guards, snapshot-aware config resolution, and the Loader boot sequence",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -47,7 +47,7 @@
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-home-paths": "workspace:*",
-    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/cordis": "workspace:~"
     "@hy/cordis": "workspace:~"
   },
   "devDependencies": {

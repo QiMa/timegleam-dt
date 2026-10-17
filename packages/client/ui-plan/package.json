@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-plan",
   "description": "Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,8 @@
       "default": "./lib/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
   },
   "dsh": {
     "client": {
@@ -57,7 +58,7 @@
     "@hy/dsh-client-ui-primitives": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-plan-mode": "workspace:*",
-    "@types/react": "~18.3.1",
+    "@hy/cordis": "workspace:~",
     "@hy/cordis": "workspace:~",
     "react": "^18.2.0",
     "@hy/dsh-session": "workspace:*",
@@ -74,6 +75,7 @@
     "@hy/dsh-util-crypto": "workspace:*"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"

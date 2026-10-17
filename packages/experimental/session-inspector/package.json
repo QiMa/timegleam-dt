@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-session-inspector",
   "description": "Experimental virtualized Session log and live Chat group/node inspectors",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -55,7 +55,6 @@
   "devDependencies": {
     "@hy/dsh-client-test-runtime": "workspace:*",
     "@testing-library/react": "^16.3.3",
-    "@types/react-dom": "~18.3.0",
     "react-dom": "^18.2.0",
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-client-store": "workspace:*",
@@ -66,7 +65,6 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@tanstack/react-virtual": "^3.14.10",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-client-locale": "workspace:*",

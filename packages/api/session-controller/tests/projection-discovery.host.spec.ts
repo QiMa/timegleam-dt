@@ -9,7 +9,7 @@ import AgentRegistry from '@hy/dsh-agent'
 import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@hy/dsh-session'
 import type { SessionHeader } from '@hy/dsh-session'
 import type { SessionPersistenceSnapshot } from '@hy/dsh-session-persistence'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import SessionProjectionCache, {
   checkpointRecord,

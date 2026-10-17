@@ -1,3 +1,4 @@
+import { setSandboxMode } from '@hy/dsh-sandbox-policy'
 /** Actual request admission follows directory and permission changes made after assembly. */
 import { mkdtemp, mkdir, realpath, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -6,7 +7,7 @@ import { Context } from '@hy/cordis'
 import { createUserMessage } from '@hy/dsh-llm'
 import { Session, SessionId } from '@hy/dsh-session'
 import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@hy/dsh-agent-loop-testkit'
-import SandboxPolicy, { setSandboxMode } from '@hy/dsh-sandbox-policy'
+import SandboxPolicy from '@hy/dsh-sandbox-policy'
 import ApprovalService from '@hy/dsh-user-approval'
 import { describe, expect, it, vi } from 'vitest'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'

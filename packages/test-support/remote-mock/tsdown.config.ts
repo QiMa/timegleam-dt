@@ -1,6 +1,6 @@
 import { clientLibrary } from '../../client/tsdown.client.ts'
 
 export default clientLibrary(
-  '@hy/dsh-remote-mock',
+  import.meta.dirname,
   ['lib/types/index.js'],
 )

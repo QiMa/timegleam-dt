@@ -1,0 +1,89 @@
+{
+  "name": "@hy/dsh-plugin-market",
+  "description": "Configured plugin market indexes for the Web Discover page and the plugin_market agent tool",
+  "version": "0.2.1-alpha.5",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/boot/plugin-market"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./tools": {
+      "types": "./lib/types/tools.d.ts",
+      "default": "./lib/types/tools.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/worker.cjs",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-package-manifest": "workspace:*",
+    "@hy/dsh-plugin-market-index": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/schemastery": "workspace:~",
+    "minisearch": "^7.2.0",
+    "semver": "^7.8.5",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-plugin-manager": "workspace:*",
+    "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@hy/dsh-settings": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/cosmokit": "workspace:~",
+    "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-config-editor": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-plugin-manager": "workspace:*",
+    "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@types/semver": "^7.8.0"
+  }
+}

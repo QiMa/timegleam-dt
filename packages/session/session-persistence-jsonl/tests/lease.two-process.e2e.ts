@@ -16,7 +16,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import { SessionId, SessionSeq } from '@hy/dsh-session'
 import { SessionAlreadyOwnedError } from '@hy/dsh-session-persistence'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 
 const SESSION = 'two-process-lease'
 

@@ -7,7 +7,7 @@ import type { Agent } from '@hy/dsh-agent'
 import AgentRegistry from '@hy/dsh-agent'
 import SessionStore from '@hy/dsh-session'
 import SessionProjections from '@hy/dsh-session-projection'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import FileSystem from '@hy/dsh-fs-local'
 import Subprocess from '@hy/dsh-subprocess-local'
 import Sandbox from '@hy/dsh-sandbox-local'
@@ -18,7 +18,7 @@ import type { Config as NodeRuntimeConfig } from '@hy/dsh-ptc-runtime-node'
 import { onTestFinished } from 'vitest'
 
 /** Mount real Node execution services with a private working directory and awaited cleanup. */
-export async function mountPtcRuntime(ctx: Context, mode: SandboxMode = 'danger-full-access') {
+export async function mountPtcRuntime(ctx: Context, mode: SandboxMode = 'danger-full-access', executionMode: NodeRuntimeConfig['executionMode'] = 'per-call') {
   const root = await mkdtemp(join(homedir(), '.dsh-workflow-test-'))
   onTestFinished(async () => {
     await ctx.fiber.dispose()
@@ -26,7 +26,7 @@ export async function mountPtcRuntime(ctx: Context, mode: SandboxMode = 'danger-
   })
   const cwd = join(root, 'workspace')
   await mkdir(cwd)
-  await mountWorkflowRuntime(ctx, { cwd, mode, runtimeConfig: { graceMs: 50 } })
+  await mountWorkflowRuntime(ctx, { cwd, mode, runtimeConfig: { graceMs: 50, executionMode } })
   await ctx.plugin(JsonlSessionPersistence, { root: join(root, 'sessions') })
   return { root, cwd }
 }

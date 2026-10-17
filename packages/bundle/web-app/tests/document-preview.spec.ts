@@ -17,11 +17,11 @@ import SandboxPolicyService from '@hy/dsh-sandbox-policy'
 import LocalFileSystem from '@hy/dsh-fs-local'
 import { FsError } from '@hy/dsh-fs'
 import TypertRegistry from '@hy/dsh-typert-registry'
-import type { Converter, ConverterOptions } from '@deepseek-ai/libreoffice-kit'
+import type { Converter, ConverterOptions } from '@hy/libreoffice-kit'
 import { expect, it, onTestFinished, vi } from 'vitest'
 
 const kit = vi.hoisted(() => ({ create: vi.fn<(options?: ConverterOptions) => Promise<Converter>>() }))
-vi.mock('@deepseek-ai/libreoffice-kit', () => ({ createConverter: kit.create }))
+vi.mock('@hy/libreoffice-kit', () => ({ createConverter: kit.create }))
 
 it('loads the shipped Office rows with separately patched settings and authorized PDF output', async () => {
   const directory = await realpath(await mkdtemp(join(tmpdir(), 'dsh-web-office-')))

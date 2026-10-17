@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-web-app",
-  "description": "The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, web-surface prompt, bash runtime variables, URL line)",
-  "version": "0.2.1-alpha.2",
+  "description": "The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line)",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -25,9 +25,13 @@
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./presets/*.patch.yml": "./presets/*.patch.yml",
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./startup/locale/*.json": "./locale/startup/*.json",
+    "./locale/*.json": "./locale/*.json"
   },
   "files": [
+    "locale/*.json",
+    "locale/startup/*.json",
     "lib/index.js",
     "lib/startup.js",
     "cordis.patch.yml",
@@ -92,6 +96,7 @@
     "@hy/dsh-client-ui-plugin-manager": "workspace:*",
     "@hy/dsh-client-ui-reference": "workspace:*",
     "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-secret-mask": "workspace:*",
     "@hy/dsh-client-ui-session": "workspace:*",
     "@hy/dsh-client-ui-schedule": "workspace:*",
     "@hy/dsh-client-ui-settings": "workspace:*",
@@ -139,6 +144,7 @@
     "@hy/dsh-persona": "workspace:*",
     "@hy/dsh-plan-mode": "workspace:*",
     "@hy/dsh-plugin-manager": "workspace:*",
+    "@hy/dsh-plugin-market": "workspace:*",
     "@hy/dsh-schedule": "workspace:*",
     "@hy/dsh-session-log-export": "workspace:*",
     "@hy/dsh-session-reference": "workspace:*",
@@ -180,12 +186,13 @@
     "@hy/dsh-client-ui-shortcuts": "workspace:*",
     "@hy/dsh-client-product-analytics": "workspace:*",
     "@hy/dsh-host-product-telemetry-otel": "workspace:*",
-    "@hy/dsh-client-ui-settings-session-log": "workspace:*"
+    "@hy/dsh-client-ui-settings-session-log": "workspace:*",
+    "@hy/dsh-harness-dev-context": "workspace:*"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
     "@hy/cordis-plugin-loader": "workspace:~",
-    "@hy/dsh-shell-env": "workspace:*",
+    "@hy/dsh-shell-env": "workspace:*"
     "@hy/dsh-system-prompt": "workspace:*"
   },
   "devDependencies": {
@@ -198,9 +205,9 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-shell-env": "workspace:*",
-    "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-typert-registry": "workspace:*",
-    "@deepseek-ai/libreoffice-kit": "^0.1.5",
+    "@hy/dsh-typert-registry": "workspace:*",
+    "@hy/libreoffice-kit": "^0.1.5",
     "@hy/dsh-otel": "workspace:*"
   }
 }

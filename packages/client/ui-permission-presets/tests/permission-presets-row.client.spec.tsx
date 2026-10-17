@@ -3,7 +3,7 @@ import type { GlobalStandardProps } from '@hy/dsh-client-ui-slots'
 import { createSnapshotStore } from '@hy/dsh-client-store'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { bindSnapshotSelector, RemoteError } from '@hy/dsh-client-test-runtime'
+import { allowAllAccess, bindSnapshotSelector, RemoteError } from '@hy/dsh-client-test-runtime'
 import type { SettingsNamespaceView } from '@hy/dsh-api-remotes/client'
 import { PermissionRow, type PermissionRowProps } from '../src/client/PermissionRow.tsx'
 import { zh } from '../src/client/locales.ts'
@@ -63,6 +63,7 @@ const runtime = {
   useSessionStatus,
   usePanelInfo, useSessionRetainInfo: () => undefined, useResource,
   useWorkspaces: (() => { throw new Error('unused') }) as never,
+  ...allowAllAccess,
 }
 
 function mount(controller: PermissionPresetSettingsController) {

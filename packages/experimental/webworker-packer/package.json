@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-webworker-packer",
   "description": "Build-time packer for the browser runtime's base VFS image and ordered data-overlay archives",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -34,8 +34,8 @@
   "license": "MIT",
   "dependencies": {
     "@hy/cordis-plugin-include": "workspace:~",
+    "@hy/dsh-app-boot": "workspace:*",
     "@hy/dsh-experimental-webworker-runtime": "workspace:*",
-    "@hy/dsh-home-paths": "workspace:*",
     "@hy/dsh-session-format": "workspace:*",
     "@hy/dsh-session-format-catalog": "workspace:*",
     "@hy/dsh-session-format-v3-to-v4": "workspace:*",

@@ -70,7 +70,7 @@ export const MODULE_PROXIES: Record<string, string> = {
   'node:worker_threads': './node/builtin_modules/mock/worker_threads.ts',
   'node:sqlite': './node/builtin_modules/mock/sqlite.ts',
   // External npm replacements, named after the package each stands in for.
-  '@deepseek-ai/libreoffice-kit': './node/external_packages/libreoffice-kit.ts',
+  '@hy/libreoffice-kit': './node/external_packages/libreoffice-kit.ts',
   '@hy/node-addon-system/flock': './node/external_packages/node-addon-system-flock.ts',
   'koffi': './node/external_packages/koffi.ts',
   'sharp': './node/external_packages/sharp.ts',
@@ -79,6 +79,8 @@ export const MODULE_PROXIES: Record<string, string> = {
   'got': './node/external_packages/got.ts',
   '@vscode/ripgrep': './node/external_packages/ripgrep.ts',
   '@earendil-works/pi-ai': './node/external_packages/pi-ai.ts',
+  // Node internal modules for callers without `--expose-internals`.
+  'node-addon-require-builtin': './node/external_packages/node-addon-require-builtin.ts',
   // Constructible fakes whose methods are never reached.
   'ws': './node/external_packages/ws.ts',
 }

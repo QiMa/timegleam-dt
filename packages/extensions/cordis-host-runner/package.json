@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-cordis-host-runner",
   "description": "Dynamic package definition registry, host-half sandbox lifecycle, and invoke handler table for model-mounted dual-half packages",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -31,9 +31,11 @@
       "default": "./lib/typert.remote-client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts",
@@ -46,7 +48,7 @@
   "dependencies": {
     "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
@@ -63,6 +65,7 @@
     "@hy/cordis-plugin-timer": "workspace:~",
     "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-api-gateway": "workspace:*",
+    "@hy/dsh-api-remote-access": "workspace:*",
     "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-scope": "workspace:*",

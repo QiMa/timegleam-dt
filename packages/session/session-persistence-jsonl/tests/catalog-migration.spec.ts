@@ -1,7 +1,7 @@
 import { Context } from '@hy/cordis'
 import { SessionId, type SessionHeader } from '@hy/dsh-session'
 import { SessionFormatUnsupportedError, SessionPersistenceCorruptionError } from '@hy/dsh-session-persistence'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'

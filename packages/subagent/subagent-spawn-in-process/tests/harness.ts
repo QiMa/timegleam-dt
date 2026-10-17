@@ -1,6 +1,6 @@
 import { mountWorkingDirectoryFixture } from '../../subagent/tests/working-directory-fixture.ts'
 import { join } from 'node:path'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import { Context } from '@hy/cordis'
 import type { Agent } from '@hy/dsh-agent'
 import AgentLoop from '@hy/dsh-agent-loop'

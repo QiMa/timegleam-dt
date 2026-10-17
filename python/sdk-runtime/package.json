@@ -75,6 +75,7 @@
     "@hy/dsh-persona": "workspace:*",
     "@hy/dsh-plan-mode": "workspace:*",
     "@hy/dsh-plugin-manager": "workspace:*",
+    "@hy/dsh-plugin-market": "workspace:*",
     "@hy/dsh-plugin-package-inventory-deepseek": "workspace:*",
     "@hy/dsh-pwsh-local": "workspace:*",
     "@hy/dsh-repeat-tool-reminder": "workspace:*",

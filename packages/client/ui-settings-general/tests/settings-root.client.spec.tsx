@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { useEffect, useState } from 'react'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { createSettingsShellStore } from '../src/client/shell-store.ts'
-import { bindSnapshotSelector, makeTranslate } from '@hy/dsh-client-test-runtime'
+import { allowAllAccess, bindSnapshotSelector, makeTranslate } from '@hy/dsh-client-test-runtime'
 import type { SessionListState } from '@hy/dsh-api-session-controller/client'
 import { SessionId } from '@hy/dsh-session/types'
 import type { SettingsRootComponentProps } from '../src/client/shell-contract.ts'
@@ -104,6 +104,7 @@ function mount({
     useSessionStatus,
     usePanelInfo, useSessionRetainInfo: () => undefined, useResource,
     useWorkspaces: unusedHook,
+    ...allowAllAccess,
     wide,
     reconnect,
     openDesktopUpdate: () => {},

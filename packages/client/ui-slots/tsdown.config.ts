@@ -1,6 +1,6 @@
 import { staticLinked } from '../tsdown.client.ts'
 
 export default staticLinked(
-  '@hy/dsh-client-ui-slots',
+  import.meta.dirname,
   ['lib/types/index.js'],
 )

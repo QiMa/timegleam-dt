@@ -7,7 +7,7 @@
 
 import { Context } from '@hy/cordis'
 import { SESSION_FORMAT_VERSION } from '@hy/dsh-session'
-import JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
+import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 
 const [root, sessionId] = process.argv.slice(2)
 const ctx = new Context()

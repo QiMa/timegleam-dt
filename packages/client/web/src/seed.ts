@@ -11,6 +11,8 @@ import * as ReactJsxRuntime from 'react/jsx-runtime'
 import * as ReactDom from 'react-dom'
 import * as ReactDomClient from 'react-dom/client'
 import * as Cordis from '@hy/cordis'
+import * as Zod from 'zod'
+import * as ReactVirtual from '@tanstack/react-virtual'
 import * as ClientStore from '@hy/dsh-client-store'
 import * as UiSlots from '@hy/dsh-client-ui-slots'
 import * as UiPrimitives from '@hy/dsh-client-ui-primitives'
@@ -31,6 +33,8 @@ export function getStaticModules(): Record<string, unknown> {
     'react-dom': ReactDom,
     'react-dom/client': ReactDomClient,
     '@hy/cordis': Cordis,
+    'zod': Zod,
+    '@tanstack/react-virtual': ReactVirtual,
     '@hy/dsh-client-store': ClientStore,
     '@hy/dsh-client-ui-slots': UiSlots,
     '@hy/dsh-client-ui-primitives': UiPrimitives,

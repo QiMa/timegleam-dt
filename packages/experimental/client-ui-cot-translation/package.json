@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-client-ui-cot-translation",
   "description": "Optional machine translation of expanded reasoning, preserving original Session text",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -56,7 +56,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/dsh-experimental-translator": "workspace:*"
     "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-experimental-translator": "workspace:*",
     "@hy/dsh-session": "workspace:*",
@@ -64,11 +64,11 @@
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "@hy/dsh-typert-protocol": "workspace:*"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-experimental-translator": "workspace:*",
     "@hy/dsh-api-remotes": "workspace:*",
@@ -81,12 +81,14 @@
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-settings": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/schemastery": "workspace:~",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@testing-library/react": "^16.3.3",
     "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-api-remote-access": "workspace:*",
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-agent-loop-testkit": "workspace:*",
     "@hy/dsh-session-persistence-jsonl": "workspace:*",

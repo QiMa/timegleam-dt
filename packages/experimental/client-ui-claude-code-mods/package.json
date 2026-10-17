@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-client-ui-claude-code-mods",
   "description": "Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -48,7 +48,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@hy/cordis": "workspace:~",
+    "@hy/cordis": "workspace:~"
     "@hy/dsh-api-remotes": "workspace:*",
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",
@@ -76,7 +76,6 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
     "@testing-library/react": "^16.3.3",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

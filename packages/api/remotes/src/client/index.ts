@@ -15,6 +15,7 @@ import llmRemote from '@hy/dsh-llm/remote'
 import dynamicRemote from '@hy/dsh-cordis-host-runner/remote'
 import pluginManagerRemote from '@hy/dsh-plugin-manager/remote'
 import pluginRegistryProbeRemote from '@hy/dsh-client-ui-plugin-manager/remote'
+import pluginMarketRemote from '@hy/dsh-plugin-market/remote'
 import pluginInventoryRemote from '@hy/dsh-host-plugin-inventory/remote'
 import messageFeedbackRemote from '@hy/dsh-message-feedback/remote'
 import permissionPresetsRemote from '@hy/dsh-permission-presets/remote'
@@ -34,10 +35,16 @@ export type {
   BundleInfo, BundleRowInfo, ChangeResult, IncompatiblePlugin, InspectOptions, InstallBundleOptions, InstallSpecKind, ManagementError,
   PackageResult,
   PluginChange, PluginEntryId, PluginInfo, PluginInspectProblem, PluginInstallCancellation, PluginInstallFailureKind,
-  PluginInstallLogChunk, PluginInstallProgress, PluginInstallRequestId, PluginRegistries, PluginSpecInspection, ReadOnlyReason, Registry,
+  PluginInstallLogChunk, PluginInstallProgress, PluginInstallRequestId, PluginRegistries, PluginSpecInspection,
+  ReadOnlyReason, Registry, RestartReason,
 } from '@hy/dsh-plugin-manager/types'
 export type {} from '@hy/dsh-plugin-manager/remote'
 export type {} from '@hy/dsh-client-ui-plugin-manager/remote'
+export type {} from '@hy/dsh-plugin-market/remote'
+export type {
+  MarketCompatibility, MarketIndexSummary, MarketInstallation, MarketInstallationStatus, MarketListingEntry, MarketListingVersion,
+  MarketQuery, MarketSearchResult, MarketSort,
+} from '@hy/dsh-plugin-market/types'
 export type { PluginInventorySnapshot } from '@hy/dsh-host-plugin-inventory/types'
 export type {} from '@hy/dsh-agent-preset-registry/remote'
 export type {} from '@hy/dsh-user-questions/remote'
@@ -144,7 +151,7 @@ export type {
 // Provider registry and discovery vocabulary for the llm namespace.
 export type {
   LlmConfigurableProvider, LlmDiscoveredModel,
-  LlmModelDiscoveryRequest, LlmProviderInfo,
+  LlmModelDiscoveryRequest, LlmNativeAuth, LlmProviderInfo,
 } from '@hy/dsh-llm/types'
 // Reference-discovery result vocabulary for the fileReferences and
 // sessionReferenceResolver namespaces.
@@ -181,7 +188,8 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
     for (const contribution of [
       productAnalyticsRemote, agentPresetsRemote, commandsRemote, settingsControllerRemote, accountRemote,
       goalsRemote, llmRemote, dynamicRemote, scheduleRemote,
-      pluginInventoryRemote, pluginManagerRemote, pluginRegistryProbeRemote, messageFeedbackRemote, sessionFeedbackRemote,
+      pluginInventoryRemote, pluginManagerRemote, pluginMarketRemote, pluginRegistryProbeRemote,
+      messageFeedbackRemote, sessionFeedbackRemote,
       fileUploadsRemote, sessionReferencesRemote,
       permissionPresetsRemote, subagentsRemote, sessionRemote, jobRemote, workspaceRemote, workspaceFilesRemote, terminalRemote,
       officeToPdfRemote, userQuestionsRemote,

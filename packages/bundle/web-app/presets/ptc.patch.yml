@@ -96,23 +96,11 @@
                   provider: spawn
                   toolName: subagent
                   modelSelectionSettings: true
-                  toolFilter:
-                    deny:
-                      - schedule_create
-                      - schedule_delete
-                      - schedule_list
-                      - schedule_update
               - id: tool-subagent-fork
                 name: '@hy/dsh-tool-subagent'
                 config:
                   provider: fork
                   toolName: subagent_fork
-                  toolFilter:
-                    deny:
-                      - schedule_create
-                      - schedule_delete
-                      - schedule_list
-                      - schedule_update
               - id: workflow-ptc
                 name: '@hy/dsh-workflow-ptc'
                 disabled: true
@@ -140,4 +128,7 @@
             name: '@hy/dsh-tool-present'
           - id: tool-plugin-manager
             name: '@hy/dsh-plugin-manager/tools'
+            disabled: true
+          - id: tool-plugin-market
+            name: '@hy/dsh-plugin-market/tools'
             disabled: true

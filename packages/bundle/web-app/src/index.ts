@@ -4,9 +4,9 @@
  * manifest field). The plugin owns the browser-surface glue: it resolves
  * the built frontend dist (workspace knowledge of this bundle, never user
  * config), mounts the `frontend-static` fallback owner over it, registers the
- * harness-source and web-surface prompt sections, the bash-visible web runtime
- * variable, the process-token URL line, and the default-browser handoff. An
- * advertised `publicUrl` replaces the published bind-address URL. Non-loopback
+ * bash-visible web runtime variable, the process-token URL line, and the
+ * default-browser handoff, and provides the `webApp` service. An advertised
+ * `publicUrl` replaces the published bind-address URL. Non-loopback
  * HTTP binds trigger an exposure warning. App command-line values arrive
  * through the `webStartup` service expressions in the bundle patch.
  * @module @hy/dsh-web-app
@@ -14,26 +14,39 @@
 
 import { spawn, type ChildProcess } from 'node:child_process'
 import { createRequire } from 'node:module'
-import { isIP } from 'node:net'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import type { Context } from '@hy/cordis'
 import z from '@hy/schemastery'
-import { addHarnessSourceSection, auditStartupEntries } from '@hy/dsh-app-boot'
+import { auditStartupEntries } from '@hy/dsh-app-boot'
 import type {} from '@hy/dsh-client-connection'
 import * as FrontendStatic from '@hy/dsh-host-frontend-static'
-import { isLoopbackHost, normalizeBindAddress } from '@hy/dsh-host-webserver'
+import { bindUrlHost, isLoopbackHost } from '@hy/dsh-host-webserver'
 import { launchedThroughSsh, launchEnvironmentOf } from '@hy/dsh-launch-environment'
 import { scrubbedParentEnv } from '@hy/dsh-subprocess'
 import type {} from '@hy/cordis-plugin-loader'
 import type {} from '@hy/dsh-shell-env'
+import type {} from '@hy/dsh-shell-env'
 import { parsePublicUrl } from './public-url.ts'
+
+/** The Web GUI this process serves, provided by the `web-runtime` row. */
+export interface WebApp {
+  /**
+   * The URL this GUI advertises, also used for `DSH_WEB_URL` and the startup URL line.
+   * @returns the configured `publicUrl`, otherwise the listener origin.
+   */
+  getAdvertisedUrl(): string
+}
+
+declare module '@hy/cordis' {
+  interface Context {
+    /** The Web GUI this process serves; absent when no Web runtime is mounted. */
+    webApp: WebApp
+  }
+}
 
 /** Stable Cordis plugin name. */
 export const name = 'web-app'
 
-/** This dsh installation's root, from either this package's source or built entry. */
-const SOURCE_ROOT = fileURLToPath(new URL('../../../..', import.meta.url))
 const ANNOUNCED_ROOTS = new WeakSet<Context>()
 
 /** Services required before the web runtime can mount. */
@@ -46,16 +59,14 @@ export interface Config {
   /** Print the URL line on activation; a non-interactive layer can turn it off. */
   printUrl: boolean
   /**
-   * Register the model-visible surface context (the `app:web-surface` prompt
-   * section and the `DSH_WEB_URL` bash variable). A one-shot non-interactive
-   * layer can turn it off when its user is not in the GUI, so the
-   * orientation text would be false.
+   * Register the `DSH_WEB_URL` bash variable naming this GUI. A one-shot
+   * non-interactive layer can turn it off when its user is not in the GUI.
    */
   surfaceContext: boolean
   /**
    * Canonical HTTP(S) root to advertise in the printed and opened URL,
-   * `DSH_WEB_URL`, and the web-surface orientation, e.g.
-   * `https://app.example/ui/`, normalized to end in `/`. Configures no routing
+   * `DSH_WEB_URL`, and `webApp.getAdvertisedUrl()`, which supplies the Web GUI
+   * URL in agent runtime context, e.g. `https://app.example/ui/`, normalized to end in `/`. Configures no routing
    * or authentication; see [public deployments](../README.md#public-deployments).
    * Absent or YAML `null` advertises the bind-address URL.
    */
@@ -227,8 +238,8 @@ export const internals: {
 } = { resolveDistIndex, openBrowser }
 
 /**
- * Mount the Web runtime: dist serving, surface prompt, the bash runtime
- * variable, the URL line, and the default-browser handoff.
+ * Mount the Web runtime: dist serving, the bash runtime variable, the URL
+ * line, and the default-browser handoff.
  * @param ctx - plugin context carrying the webServer service.
  * @param config - validated {@link Config}.
  */
@@ -237,30 +248,30 @@ export function apply(ctx: Context, config: Config): void {
   // the string transform and reaches here, meaning unset.
   const publicUrl = config.publicUrl ?? undefined
   const boundHost = ctx.webServer.host
-  if (publicUrl === undefined) advertisedBindHost(boundHost)
+  if (publicUrl === undefined && bindUrlHost(boundHost) === undefined) {
+    throw new Error(
+      `web-app: bind address ${JSON.stringify(boundHost)} carries an interface zone id, which no URL can express;`
+      + ' pass --public-url with the root browsers actually reach it through',
+    )
+  }
   if (ctx.webServer.protocol === 'http:' && !isLoopbackHost(boundHost)) {
     console.warn(`dsh web: listening on ${boundHost} over plain HTTP; restrict this port to a trusted proxy or network`)
   }
   // The bind URL belongs to this host. Under SSH, the operator reaches it
   // through a local forwarding address that this process cannot derive.
   const handoffBrowser = config.openBrowser && !launchedThroughSsh(launchEnvironmentOf(ctx))
+  /** The advertised root: the canonical `publicUrl`, or the listener's own origin. */
+  const appRootUrl = (): string => publicUrl ?? ctx.webServer.getOrigin()
+  ctx.provide('webApp', { getAdvertisedUrl: appRootUrl } satisfies WebApp)
   ctx.plugin(FrontendStatic, { distIndex: internals.resolveDistIndex() })
   if (config.surfaceContext) {
-    ctx.inject(['systemPrompt'], (promptCtx) => {
-      addHarnessSourceSection(promptCtx, SOURCE_ROOT)
-      promptCtx.systemPrompt.section({
-        name: 'app:web-surface',
-        order: promptCtx.systemPrompt.getSectionOrder('WEB_SURFACE'),
-        text: () => webSurfacePrompt(appRootUrl(promptCtx, publicUrl)),
-      })
-    })
     ctx.inject(['shellEnv'], (runtimeCtx) => {
       runtimeCtx.shellEnv.register({
         name: 'web-runtime',
         variables: {
           [DSH_WEB_URL]: { description: 'Advertised URL of the Huayu AI Web GUI serving this session.' },
         },
-        resolve: () => ({ [DSH_WEB_URL]: appRootUrl(runtimeCtx, publicUrl) }),
+        resolve: () => ({ [DSH_WEB_URL]: appRootUrl() }),
       })
     })
   }
@@ -273,7 +284,7 @@ export function apply(ctx: Context, config: Config): void {
       // hand-built tree without a Loader is already the complete tree.
       const announceReady = (): void => {
         if (ANNOUNCED_ROOTS.has(connectionCtx.root)) return
-        const webUrl = appRootUrl(connectionCtx, publicUrl)
+        const webUrl = appRootUrl()
         const authenticatedUrl = connectionCtx.connection.authenticatedUrl(webUrl)
         ANNOUNCED_ROOTS.add(connectionCtx.root)
         if (config.printUrl) {

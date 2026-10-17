@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-token-meter",
   "description": "Replay-aware token measurement service (ctx.tokenMeter) for the Huayu AI",
-  "version": "0.2.1-alpha.2",
+  "version": "0.2.1-alpha.5",
   "publishConfig": {
     "access": "public"
   },
@@ -27,9 +27,11 @@
     "./estimate": {
       "types": "./lib/types/estimate.d.ts",
       "default": "./lib/types/estimate.js"
-    }
+    },
+    "./locale/*.json": "./locale/*.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
@@ -47,7 +49,7 @@
   "dependencies": {
     "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
-    "zod": "^4.4.3"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",

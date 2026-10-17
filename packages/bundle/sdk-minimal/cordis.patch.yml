@@ -38,6 +38,17 @@
     - id: filesystem
       name: '@hy/dsh-fs-local'
 
+    - id: attachment-local
+      name: '@hy/dsh-attachment-local'
+
+    - id: tool-fs
+      name: '@hy/dsh-tool-fs'
+      config:
+        read: false
+        readImage: true
+        write: false
+        edit: false
+
     - id: working-directory
       name: '@hy/dsh-working-directory'
 
@@ -46,6 +57,15 @@
 
     - id: session-projection
       name: '@hy/dsh-session-projection'
+
+    - id: token-meter
+      name: '@hy/dsh-token-meter'
+
+    - id: compaction-basic
+      name: '@hy/dsh-compaction-basic'
+
+    - id: image-offload
+      name: '@hy/dsh-compaction-image-offload'
 
     - id: sandbox-policy
       name: '@hy/dsh-sandbox-policy'
