@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-commands",
   "description": "Plugin-owned human command registry for Huayu AI UIs",
-  "version": "0.2.1-alpha.5",
+  "version": "0.2.1-rc.2",
   "publishConfig": {
     "access": "public"
   },

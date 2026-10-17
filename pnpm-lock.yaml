@@ -2513,6 +2513,9 @@ importers:
       '@hy/dsh-web':
         specifier: workspace:*
         version: link:../../web/web
+      '@hy/dsh-web-deepseek-api':
+        specifier: workspace:*
+        version: link:../../web/web-deepseek-api
       '@hy/dsh-web-fetch-http':
         specifier: workspace:*
         version: link:../../web/web-fetch-http
@@ -2808,6 +2811,9 @@ importers:
       '@hy/dsh-client-ui-cordis':
         specifier: workspace:*
         version: link:../../extensions/ui-cordis
+      '@hy/dsh-client-ui-deepseek-model-label-1017':
+        specifier: workspace:*
+        version: link:../../client/ui-deepseek-model-label-1017
       '@hy/dsh-client-ui-deliverables':
         specifier: workspace:*
         version: link:../../client/ui-deliverables
@@ -3930,6 +3936,42 @@ importers:
       zod:
         specifier: 4.4.3
         version: 4.4.3
+
+  packages/client/ui-deepseek-model-label-1017:
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@hy/dsh-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-model-selection':
+        specifier: workspace:*
+        version: link:../ui-model-selection
+      '@hy/dsh-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@hy/dsh-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@hy/dsh-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@testing-library/react':
+        specifier: ^16.3.3
+        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
 
   packages/client/ui-deliverables:
     dependencies:
@@ -15186,6 +15228,40 @@ importers:
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
+
+  packages/web/web-deepseek-api:
+    dependencies:
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@hy/dsh-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
+      '@hy/dsh-credentials-local':
+        specifier: workspace:*
+        version: link:../../credentials/credentials-local
+      '@hy/dsh-deepseek-account':
+        specifier: workspace:*
+        version: link:../../credentials/deepseek-account
+      '@hy/dsh-http-proxy':
+        specifier: workspace:*
+        version: link:../../util/http-proxy
+      '@hy/dsh-launch-environment':
+        specifier: workspace:*
+        version: link:../../util/launch-environment
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@hy/dsh-web':
+        specifier: workspace:*
+        version: link:../web
 
   packages/web/web-fetch-http:
     dependencies:

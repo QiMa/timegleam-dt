@@ -74,6 +74,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-chat` | no | Chat Conversation target, node definitions, renderers, and details surface |
 | `@hy/dsh-client-ui-commands` | no | Client command surface: global directory cache, '/' source, three command UI kinds, popupSelect registry |
 | `@hy/dsh-client-ui-conversation` | no | Target-neutral Conversation assembly, shell, composer, queue, and view navigation |
+| `@hy/dsh-client-ui-deepseek-model-label-1017` | no | Temporary 1017 release badge for official DeepSeek Flash model labels |
 | `@hy/dsh-client-ui-deliverables` | no | Changed-files card with per-file comparison tabs, delivery cards, and clickable final-response file references for Web |
 | `@hy/dsh-client-ui-directory-picker-browse` | no | In-app directory browsing surface: the workspace directory-flow owner rendering the host's listing and creation primitives |
 | `@hy/dsh-client-ui-directory-picker-native` | no | Native directory-picker surface: the renderless workspace directory-flow occupant driving the local Desktop or Host OS chooser |
@@ -493,6 +494,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@hy/dsh-tool-web` | yes | Model-facing web tools (web_search, web_fetch) over the Huayu AI web capability seam (ctx.web) |
 | `@hy/dsh-web` | yes | Abstract web access capability seam (ctx.web) for the Huayu AI — search/fetch provider registry, registration-order-independent selection, request/result vocabulary, and the WebError taxonomy |
+| `@hy/dsh-web-deepseek-api` | yes | DeepSeek Search and Fetch API providers for the Huayu AI web capability seam (ctx.web) |
 | `@hy/dsh-web-fetch-http` | yes | Anonymous public HTTP(S) fetch provider for the Huayu AI web capability seam (ctx.web) |
 | `@hy/dsh-web-search-deepseek` | yes | DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the Huayu AI web capability seam (ctx.web) |
 | `@hy/dsh-web-search-exa` | yes | Exa-backed search provider for the Huayu AI web capability seam (ctx.web) |

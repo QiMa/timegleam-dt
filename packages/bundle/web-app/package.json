@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-web-app",
   "description": "The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line)",
-  "version": "0.2.1-alpha.5",
+  "version": "0.2.1-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -90,6 +90,7 @@
     "@hy/dsh-client-ui-layout": "workspace:*",
     "@hy/dsh-client-ui-message-feedback": "workspace:*",
     "@hy/dsh-client-ui-model-selection": "workspace:*",
+    "@hy/dsh-client-ui-deepseek-model-label-1017": "workspace:*",
     "@hy/dsh-client-ui-open-in-app": "workspace:*",
     "@hy/dsh-client-ui-permission-presets": "workspace:*",
     "@hy/dsh-client-ui-plan": "workspace:*",
