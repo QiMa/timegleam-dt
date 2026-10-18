@@ -1,0 +1,16 @@
+diff --git a/lib/index.js b/lib/index.js
+index aac18a0..cc10803 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -1481,7 +1481,10 @@ const ENGINE_PREFIX = "@deepseek-ai/libreoffice-kit";
+ * @returns true when at least one resolution directory holds the package.
+ */
+ function installedPackageExists(name) {
+-	return (require.resolve.paths(name) ?? []).some((directory) => lstatSync(join(directory, name), { throwIfNoEntry: false }) !== void 0);
++	return (require.resolve.paths(name) ?? []).some((directory) => {
++		const entry = lstatSync(join(directory, name), { throwIfNoEntry: false });
++		return entry !== void 0 && entry !== null;
++	});
+ }
+ /**
+ * Return the optional package target for the current process ABI.

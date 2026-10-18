@@ -15,6 +15,11 @@ export const DESKTOP_RUNTIME_PATCHES: Readonly<Record<string, DesktopRuntimePatc
   '@yao-pkg/pkg@6.21.0': { scope: 'workspace-only', reason: 'The executable packer executes on the build host.' },
   'app-builder-lib@26.17.0': { scope: 'workspace-only', reason: 'DMG format validation executes on the build host.' },
   'exceljs@4.4.0': { scope: 'workspace-only', reason: 'The patched parser is embedded in the client bundle and worker.' },
+  '@deepseek-ai/libreoffice-kit@0.1.5': {
+    scope: 'runtime-only',
+    path: 'apps/desktop/patches/libreoffice-kit-engine-probe.patch',
+    reason: 'Electron asar lstatSync returns null for missing paths, which misdetects the missing native engine and skips the WASM fallback.',
+  },
   'node-pty@1.2.0-beta.15': { scope: 'shared', reason: 'Runtime terminals need helper resolution and Windows worker cleanup.' },
 }
 
