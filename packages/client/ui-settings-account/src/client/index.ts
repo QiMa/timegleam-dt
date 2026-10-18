@@ -135,7 +135,9 @@ export function apply(ctx: Context): void {
       frame.accept()
       if (frame.value.status === 'credential-stored') notices.begin()
       else notices.end()
-      if (initialize) void (async () => {
+      // Desktop seeds the Baizor default before login and keeps it as the
+      // default selection; only browser deployments initialize the account model.
+      if (initialize && !desktop) void (async () => {
         try {
           const initialized = await ctx.remote.session.initializeDefaultModel()
           if (!initialized.ok) console.error('[deepseek-account] default model initialization failed', { reason: 'refused' })
