@@ -35,7 +35,7 @@ const LISTING_PAGE_SIZE = 1000
 const execute = promisify(execFile)
 
 /** Artifact name electron-builder writes for one build, on either platform; unsigned builds add a suffix. */
-const ARTIFACT = /(?:^|\/)huayu-ai-(?<version>.+)-(?:mac|win)-(?:arm64|x64)(?:-unsigned)?\.(?:exe|dmg|zip)$/u
+const ARTIFACT = /(?:^|\/)huayu-ai-(?<version>.+)-(?:mac|win|linux)-(?:arm64|x64)(?:-unsigned)?\.(?:exe|dmg|zip|AppImage)$/u
 
 /** Inputs that decide which versions are already taken. */
 export interface DesktopBuildVersionSuggestionOptions {
