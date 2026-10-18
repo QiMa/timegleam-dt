@@ -83,7 +83,7 @@ const sessionWriteMode = recording ? 'record' : refreshing ? 'refresh' : 'replay
 const RUNTIME_WORKSPACE_ENTRIES = [
   '.agents',
   '.child-dsh',
-  '.dsh',
+  '.huayu',
   '.replay-fixtures',
   '.snapshot-patches',
 ] as const
@@ -581,7 +581,7 @@ async function runScenario(scenario: CorpusScenario): Promise<{
     workspacePrefix += '-'.repeat(paddingLength)
   }
   const cwd = await realpath(await mkdtemp(join(workspaceParent, workspacePrefix)))
-  const dshHome = join(cwd, '.dsh')
+  const dshHome = join(cwd, '.huayu')
   const sessionsRoot = join(dshHome, 'sessions')
   const replayFixtures = recording ? [] : await hydrateReplayFixtures(scenario, cwd)
   const fixtureContents = await Promise.all((await fixtureFiles(scenario)).map(file => readFile(file, 'utf8')))

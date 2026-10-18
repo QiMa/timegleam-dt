@@ -1,4 +1,4 @@
-# The snapshot harness supplies scenario-local .dsh and .agents roots.
+# The snapshot harness supplies scenario-local .huayu and .agents roots.
 - id: agent-default-model
   name: '@hy/dsh-agent-default-model'
   config:

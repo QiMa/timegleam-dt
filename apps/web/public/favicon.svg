@@ -1,3 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 96 96" role="img" aria-label="Huayu AI">
-  <image href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAAQlBMVEUAPP7fsFAVR+7DoWerv/8yYv5yk/7////1uz9Yf/5sdKsvVNpLY8SLhJOmkn3u8v/P2v8cUv74zG/88Nb636WNqP+/L/UbAAAC6UlEQVR4nOxYi5KkIAwUfPBSg+P6/796JQoKCJobrbqtswVnJ9R2gCaQoXjx4v+Akn1JSlL2Uj3ATmXJSS/btpV9yYmkN/N3hHRbv5UkvLuTviVEBiZJyG0TRfuj7tKet/fwq1RfOx4O668geZ9uumEM2W5K/rUOyYmmazOST4Ben2ol8Ls4aQ1LaRYDSc5fwgGzgIXfj6d6a14bFFKGHcMQ97/QDNhShDV1uEkawHmoiy7kb1xjtRkJLqR3Dtpw9Jt3qDdry1HbkpkEwxGvz8o2sWlvxulc2U6O0fYg3AC0Z29RwWAdQBy/2s2e8BtKjArNOkWfTxW0TMcTZOI5r0IthHB1HcGHj9pYXNkmiDWLaXlm7mgv9zCYlW3rQvPDR9vd2QYMYOM39rkBZghzNuQcCBZh5D8rvX352JlMwNNsOE8xBf/EpIeANeL6MuNAR//24Rf5Zz0MRy7Yhqj/ToArWEM6I3MkgRXgEuym2qVlDiWApAAQKA5OgnnXviwBRgArwSxzUgINGzTADx8BAberptfpMBRDQYuhKCgdipbLgpqvSz17HK5u2dgjFos+G/Pf44Y0Jwt1TyqYxm8XAHe04qFMBDyIMrel34AwC70bzwogRMN7EaPZ6r6Ipkbyr4cwuCc4AMAvDBqcg4Z9iJ8pWD8pD8gRVCPmEI5S01MMqEOY7c7Ji6gvZ0EWAuegx/KzAcUvnQDgy+upu68aFZItTgDm/z47h+Kd1tX6JF6hBbVInz5jyofPmO7hLfTpJCL6oX0znk5S1L3XhhFo+qLsHv6HA4CSZ3OIX8/Pn+VXD68fOa//ZpqW4tXtdVKbKXlqqnKO39qcXcsdilfXv9xtSuKTwYGDTlElS17O+2dzcIOyx0nzcucZgnDOSb9sn9U5Rd7/YWZElduc4wsWJMJLtQD1l/RwlhmdSXDu4SQzmvYp0PGTbzxJTum3AziTYNBVZYr9PPqWLcj0/cWLFy9e/Dv4EwAA//+14k27Km3W6AAAAABJRU5ErkJggg==" x="0" y="0" width="96" height="96" preserveAspectRatio="xMidYMid meet"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 128 128" role="img" aria-label="Huayu AI"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="清大华宇AI">
+  <defs>
+    <linearGradient id="hy-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00a4db"/>
+      <stop offset="100%" stop-color="#00269e"/>
+    </linearGradient>
+    <linearGradient id="hy-mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#b9f4ff"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="28" fill="url(#hy-bg)"/>
+  <g stroke="url(#hy-mark)" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M40 92 L40 54"/>
+    <path d="M64 92 L64 40"/>
+    <path d="M88 92 L88 66"/>
+  </g>
+  <g fill="url(#hy-mark)">
+    <circle cx="40" cy="44" r="7"/>
+    <circle cx="64" cy="30" r="8"/>
+    <circle cx="88" cy="56" r="7"/>
+  </g>
+</svg>
 </svg>

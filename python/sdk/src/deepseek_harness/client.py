@@ -501,7 +501,7 @@ class HarnessClient:
         elif not env.get("DSH_HOME", "").strip():
             raise ValueError(
                 "HarnessConfig requires an explicit dsh_home or non-empty DSH_HOME; "
-                "the Python SDK never uses ~/.dsh implicitly"
+                "the Python SDK never uses ~/.huayu implicitly"
             )
 
         patches = tuple(

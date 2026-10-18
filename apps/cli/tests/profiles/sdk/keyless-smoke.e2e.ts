@@ -100,7 +100,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
       cwd: repoRoot,
       env: {
         ...launch.env,
-        DSH_HOME: join(root, '.dsh'),
+        DSH_HOME: join(root, '.huayu'),
         DSH_PERMISSION_MODE: 'danger-full-access',
         DSH_TELEMETRY_DISABLED: '1',
         DEEPSEEK_API_KEY: 'keyless-smoke-no-call',
@@ -185,7 +185,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
       expect(shutdown).toMatchObject({ jsonrpc: '2.0', id: 3, result: {} })
       const exit = await child
       expect(exit.exitCode, `signal=${String(exit.signal)}; stderr=${stderr}`).toBe(0)
-      const sessionsRoot = join(root, '.dsh', 'sessions')
+      const sessionsRoot = join(root, '.huayu', 'sessions')
       const files = await readdir(sessionsRoot, { recursive: true })
       const log = files.find(file => file.endsWith('.jsonl.zstd'))
       expect(log).toBeDefined()
@@ -282,7 +282,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
       cwd: repoRoot,
       env: {
         ...launch.env,
-        DSH_HOME: join(root, '.dsh'),
+        DSH_HOME: join(root, '.huayu'),
         DSH_SYSTEM_PROMPT: 'Minimal allowlist prompt.',
         DEEPSEEK_API_KEY: 'keyless-smoke-no-call',
         DEEPSEEK_BASE_URL: `http://127.0.0.1:${address.port}`,
@@ -328,7 +328,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
       })
 
       const profile = JSON.parse(
-        await readFile(join(root, '.dsh', 'profiles', 'sdk-minimal', 'package.json'), 'utf8'),
+        await readFile(join(root, '.huayu', 'profiles', 'sdk-minimal', 'package.json'), 'utf8'),
       ) as { dsh?: { profile?: { bundles?: string[] } } }
       expect(profile.dsh?.profile).toEqual({
         bundles: ['@hy/dsh-sdk-minimal'],
@@ -359,7 +359,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
             { type: 'image', source: { type: 'file', file_id: 'file-minimal-image' } },
           ]))
         }
-        const stored = await readdir(join(root, '.dsh', 'attachments', 'v1', 'objects'), { recursive: true })
+        const stored = await readdir(join(root, '.huayu', 'attachments', 'v1', 'objects'), { recursive: true })
         expect(stored.some(file => /[a-f0-9]{64}$/u.test(file))).toBe(true)
       }
       if (editorEnabled) {
@@ -395,7 +395,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
 
   it.each([false, true])('exits after startup failure with stdin open (logs blocked: %s)', async (blocked) => {
     const root = await mkdtemp(join(tmpdir(), 'dsh-sdk-startup-exit-'))
-    const home = join(root, '.dsh')
+    const home = join(root, '.huayu')
     const patch = join(root, 'failure.yml')
     await mkdir(home)
     if (blocked) await writeFile(join(home, 'logs'), 'blocked')
@@ -445,7 +445,7 @@ describe('Python SDK dsh profile keyless smoke', () => {
         cwd: repoRoot,
         env: {
           ...launch.env,
-          DSH_HOME: join(root, '.dsh'),
+          DSH_HOME: join(root, '.huayu'),
           DEEPSEEK_API_KEY: 'keyless-smoke-no-call',
           DSH_MAX_TOKENS_AS_SUCCESS: 'sometimes',
         },

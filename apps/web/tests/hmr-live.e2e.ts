@@ -94,8 +94,8 @@ it('hot-reloads a real client-plugin source edit without refreshing the page', a
     .map(async path => [path, await readFile(path)] as const))
   const originalClientArtifactPaths = new Set(originalClientArtifacts.map(([path]) => path))
   const originalSource = await readFile(sourcePath)
-  const oldText = 'Into the Unknown'
-  const sourceNeedle = "'hero.headline': 'Into the Unknown'"
+  const oldText = 'Perceive the Unseen'
+  const sourceNeedle = "'hero.headline': 'Perceive the Unseen'"
   const newText = `HMR UPDATED ${'x'.repeat(80)}`
   const updatedSource = originalSource.toString().replace(sourceNeedle, `'hero.headline': '${newText}'`)
   if (updatedSource === originalSource.toString()) throw new Error(`HMR source lacks ${JSON.stringify(sourceNeedle)}`)
@@ -121,7 +121,7 @@ it('hot-reloads a real client-plugin source edit without refreshing the page', a
       world,
       {
         DEEPSEEK_API_KEY: 'keyless-hmr-no-call',
-        DSH_HOME: join(world, '.dsh'),
+        DSH_HOME: join(world, '.huayu'),
       },
     ))
     const baseUrl = await waitForOutput(host, /dsh web: (http:\/\/[^\s]+)/, 'built dsh web')

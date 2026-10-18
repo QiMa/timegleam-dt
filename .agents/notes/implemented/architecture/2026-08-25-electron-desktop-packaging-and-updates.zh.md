@@ -12,7 +12,7 @@ Desktop 按[当前运行时参考](../../../../apps/desktop/README.zh.md)使用 
 
 Huayu AI 需要一个复用 Web UI 的 Electron 桌面应用。该应用无需系统 Node.js 或 pnpm 即可工作，通过应用内置 pnpm 安装 dsh 与桌面插件，并通过一个面向用户的流程更新完整桌面发布。
 
-桌面应用与通过 npm 安装的 dsh 共享 `.dsh` 数据根目录，但两者可能使用不同的 dsh 与插件版本。它们必须共享受支持的产品数据，同时不得共享可执行包、lockfile、`node_modules`、插件激活状态或包管理器配置。
+桌面应用与通过 npm 安装的 dsh 共享 `.huayu` 数据根目录，但两者可能使用不同的 dsh 与插件版本。它们必须共享受支持的产品数据，同时不得共享可执行包、lockfile、`node_modules`、插件激活状态或包管理器配置。
 
 当前 GUI 协议绑定 Web 客户端与后端版本。Electron 产物与其中通过 内置 dsh 如果独立定版本，就会产生未经验证的壳、客户端、后端与插件组合，也无法明确判断更新是否可用。
 
@@ -20,7 +20,7 @@ Huayu AI 需要一个复用 Web UI 的 Electron 桌面应用。该应用无需�
 
 交付小型 Electron 壳和固定版本 pnpm；[运行时参考](../../../../apps/desktop/README.zh.md)持有可执行文件选择。[薄壳决策](2026-09-10-desktop-web-wrapper.zh.md)负责 Host 启动与传输：私有 Host 运行共享 Web profile runner，Electron 加载其认证 HTTP URL，子进程 IPC 承载生命周期消息。
 
-Electron 拥有 `.dsh/profiles/desktop` 保留 profile。[内置运行时决策](2026-09-08-desktop-bundled-runtime-and-external-plugins.zh.md)负责核心资源存储、外部插件依赖、共享包链接和 profile 协调。私有 Desktop Host 保持独立于公共 CLI 包，且不会发布到 npm。
+Electron 拥有 `.huayu/profiles/desktop` 保留 profile。[内置运行时决策](2026-09-08-desktop-bundled-runtime-and-external-plugins.zh.md)负责核心资源存储、外部插件依赖、共享包链接和 profile 协调。私有 Desktop Host 保持独立于公共 CLI 包，且不会发布到 npm。
 
 一个 Desktop 发布号同时标识 Electron 产物及其精确的 `@hy/dsh` 与 `@hy/dsh-desktop-host` 依赖。发布不能在构建或运行时选择不同的核心版本。因此，即使壳代码没有变化，更新 dsh 也必须产生新的 Electron 发布。
 
@@ -35,7 +35,7 @@ Desktop Host 为保留 profile 提供共享 Web 插件管理器，并通过启�
 | Desktop profile | 由内置运行时决策定义的外部插件依赖、已启用 bundle 顺序和共享链接 |
 | 私有 Desktop Host 包 | 与 dsh 一起安装、但不进入公共 CLI 包或 npm 发布的 Electron 专用子进程入口与组合 overlay |
 | 已安装 dsh 包 | 后端、匹配的 Web UI、启动 manifest、客户端包和产品行为 |
-| 共享 `.dsh` owner | 会话、设置、凭据、工作区和存储，由其现有锁与格式版本保护 |
+| 共享 `.huayu` owner | 会话、设置、凭据、工作区和存储，由其现有锁与格式版本保护 |
 | 通过 npm 安装的 dsh | 自己的可执行安装和用户管理的 profile；不能访问保留 desktop profile 或包状态 |
 
 渲染进程使用 `nodeIntegration: false`、`contextIsolation: true` 和 `sandbox: true`。Preload 提供启动就绪与失败报告、原生目录选择、主题同步，以及 Windows 菜单和外观适配。它不暴露原始 `ipcRenderer`、文件系统访问、shell 命令或 pnpm 参数。Electron 菜单与原生对话框使用类型化中英文文案，并以英文回退；Windows 跟随主文档语言。共享 Web 插件管理器负责自身客户端文案。
@@ -45,7 +45,7 @@ Desktop Host 为保留 profile 提供共享 Web 插件管理器，并通过启�
 ## 文件系统布局
 
 ```text
-~/.dsh/
+~/.huayu/
   profiles/
     desktop/
       package.json
@@ -57,7 +57,7 @@ Desktop Host 为保留 profile 提供共享 Web 插件管理器，并通过启�
   storages/
 ```
 
-`.dsh/profiles/desktop` 是唯一活动桌面 profile。其可执行包归属及允许解析的目录遵循[内置运行时决策](2026-09-08-desktop-bundled-runtime-and-external-plugins.zh.md)。pnpm 根据正常配置选择 store 和缓存。
+`.huayu/profiles/desktop` 是唯一活动桌面 profile。其可执行包归属及允许解析的目录遵循[内置运行时决策](2026-09-08-desktop-bundled-runtime-and-external-plugins.zh.md)。pnpm 根据正常配置选择 store 和缓存。
 
 ## 安装与解析
 
@@ -134,7 +134,7 @@ Windows 应用替换遵循[目录安装参考](../../../../apps/desktop/packagin
 
 - 没有系统 Node.js 或 pnpm 的干净离线机器能够启动内置 dsh，无需安装核心依赖。
 - 签名应用记录最终运行时文件清单；每个 macOS 原生文件都具有发布 Developer ID、安全时间戳和 hardened runtime，每个 Windows 产物都具有配置的硬件 EV 签名。
-- `.dsh/profiles/desktop/node_modules` 保存由共享 Web 插件管理器管理的外部插件。
+- `.huayu/profiles/desktop/node_modules` 保存由共享 Web 插件管理器管理的外部插件。
 - Desktop 包操作使用启动器提供的内置 pnpm，以及共享管理器的子进程环境与 profile 配置。
 - 主应用的“插件”页面向共享 Host 服务发送结构化包操作与激活请求。
 - 独立 CLI 仍不能访问保留 Desktop profile。
@@ -142,7 +142,7 @@ Windows 应用替换遵循[目录安装参考](../../../../apps/desktop/packagin
 - 在产品 UI 加载前，活跃后端与 Web UI 报告相同 dsh 版本和兼容壳 API。
 - 共享插件管理器负责包操作失败处理；原生恢复负责 Host 致命故障。
 - 一个 Desktop 版本绑定 Electron 与 dsh；每次 dsh 更新都通过一个 Electron 更新弹窗交付，并产生一次用户可见的重启。
-- 共享 `.dsh` 数据在迁移或修改前拒绝不兼容的读取方。
+- 共享 `.huayu` 数据在迁移或修改前拒绝不兼容的读取方。
 - Web 应用负责 HTTP 认证与服务；沙箱渲染进程不能访问任意文件系统或 Electron API。
 - Workspace 开发无需下载发布资源即可运行当前已构建代码，未封装安装器的应用验证仍保留生产安装路径。
 - Windows 发布打包要求已验证的 SignTool、EV Token、匹配的公开叶证书、Token Password 和明确的密钥容器，绝不会回退到未签名产物或可导出的密钥文件。

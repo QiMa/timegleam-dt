@@ -124,7 +124,7 @@ it('pins Messages Files offload and inline fallback in assembled requests', asyn
     const accessText = (cwd: string): string => {
       const attachmentPath = join(
         cwd,
-        '.dsh',
+        '.huayu',
         'attachments',
         'v1',
         'objects',
