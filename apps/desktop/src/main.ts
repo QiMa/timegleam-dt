@@ -796,6 +796,10 @@ async function main(): Promise<void> {
     assertProductSender(event)
     await openUpdatePrompt()
   })
+  ipcMain.handle(DESKTOP_IPC.updatesCheck, async (event) => {
+    assertProductSender(event)
+    await openUpdatePrompt(true)
+  })
 
   let promptOperation: Promise<void> | undefined
   let policyAuthenticationQueued = false
@@ -959,7 +963,6 @@ async function main(): Promise<void> {
         click: () => { void showAbout().catch((error: unknown) => { console.error(error) }) } }
       : { label: currentDesktopLocale().messages.aboutMenu, role: 'about' },
     { type: 'separator' },
-    { label: currentDesktopLocale().messages.checkUpdatesMenu, click: () => { void openUpdatePrompt(true) } },
     ...process.platform === 'darwin' || process.platform === 'win32'
       ? [{ label: currentDesktopLocale().messages.cliCommandMenu, click: () => { void commandManager.show() } }] : [],
     ...development ? [

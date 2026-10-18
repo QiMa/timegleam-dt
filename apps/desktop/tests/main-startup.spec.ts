@@ -597,7 +597,7 @@ describe('desktop main startup', () => {
     expect(harness.updateDownload).not.toHaveBeenCalled()
   })
 
-  it('checks updates from the application menu without offering disabled test authentication', async () => {
+  it('checks updates without offering disabled test authentication', async () => {
     configureTestAuthPopup(false)
     harness.embeddedPolicy = { origin: 'https://policy.example.com', authentication: 'feishu-test',
       allowedAuthOrigins: ['https://login.example.com'], allowedPageOrigins: ['https://downloads.example.com'] }
@@ -608,8 +608,7 @@ describe('desktop main startup', () => {
     await vi.advanceTimersByTimeAsync(0)
     request.mockClear()
     harness.updateCheck.mockClear()
-    const checkUpdates = applicationMenuItems().find(item => item.label === en.checkUpdatesMenu)!.click as () => void
-    checkUpdates()
+    await invoke(DESKTOP_IPC.updatesCheck, 'app')
     await vi.advanceTimersByTimeAsync(10_000)
     expect(request).toHaveBeenCalled()
     expect(harness.updateCheck).toHaveBeenCalledWith(true)
@@ -785,8 +784,7 @@ describe('desktop main startup', () => {
       vi.stubEnv('DSH_DESKTOP_UPDATE_JOURNAL_DIR', directory)
       await readyForUpdate()
       harness.publishUpdate({ phase: 'error', failedOperation: 'download', version: '1.2.3', message: 'ENOSPC secret-url' })
-      const checkUpdates = applicationMenuItems().find(item => item.label === en.checkUpdatesMenu)!.click as () => void
-      checkUpdates()
+      await invoke(DESKTOP_IPC.updatesCheck, 'app')
       await vi.advanceTimersByTimeAsync(0)
       for (const host of harness.hosts) host.exited.resolve()
       harness.app.quit()
@@ -975,7 +973,7 @@ describe('desktop main startup', () => {
     expect(() => handler(event, 'application', NaN, 34)).toThrow('invalid popup request')
     const application = handler(event, 'application', 48, 34)
     expect(harness.menu.buildFromTemplate.mock.lastCall![0].map(item => item.label ?? item.type)).toEqual([
-      '关于 Huayu AI', 'separator', '检查更新…', '管理 huayu 命令…', 'separator', '退出',
+      '关于 Huayu AI', 'separator', '管理 huayu 命令…', 'separator', '退出',
     ])
     expect(harness.popup.mock.lastCall![0]).toMatchObject({ window, x: 48, y: 34 })
     expect(harness.popup.mock.lastCall![0].callback).toBeTypeOf('function')
@@ -1012,8 +1010,8 @@ describe('desktop main startup', () => {
       : ['Application', 'editMenu'])
     const application = template[0]!.submenu as MenuItemConstructorOptions[]
     expect(application.filter(item => item.visible !== false).map(describeItem)).toEqual(platform === 'darwin'
-      ? ['about', 'separator', en.checkUpdatesMenu, en.cliCommandMenu, 'separator', 'hide', 'hideOthers', 'unhide', 'separator', 'quit']
-      : ['about', 'separator', en.checkUpdatesMenu, 'separator', 'quit'])
+      ? ['about', 'separator', en.cliCommandMenu, 'separator', 'hide', 'hideOthers', 'unhide', 'separator', 'quit']
+      : ['about', 'separator', 'separator', 'quit'])
     expect(harness.menu.setApplicationMenu).toHaveBeenCalledOnce()
   })
 
@@ -1028,7 +1026,6 @@ describe('desktop main startup', () => {
       await harness.preparing.promise
       const commands = applicationMenuItems().filter(item =>
         item.role === 'hide' || item.role === 'hideOthers' || item.role === 'unhide' || item.role === 'quit'
-        || item.label === en.checkUpdatesMenu || item.label === zh.checkUpdatesMenu
         || item.label === en.cliCommandMenu || item.label === zh.cliCommandMenu)
       await expect(JSON.stringify(commands, null, 2) + '\n')
         .toMatchFileSnapshot(`./expected/application-menu-${locale}.json`)
@@ -1587,11 +1584,6 @@ describe('desktop main startup', () => {
       expect((harness.dialog.showMessageBox.mock.calls[0]![0] as { signal: AbortSignal }).signal.aborted).toBe(false)
       return Promise.resolve({ response: 0 })
     })
-    const submenu = applicationMenuItems()
-    const action = submenu.find(item => item.label === 'Check for Updates…')
-    expect(action?.click).toBeTypeOf('function')
-    // Electron supplies menu arguments that this callback does not consume.
-    Reflect.apply(action!.click!, undefined, [])
     const prompt = Promise.resolve(invoke(DESKTOP_IPC.updatesOpen, 'app'))
     const signal = await checking.promise
     await requested.promise
@@ -1672,10 +1664,7 @@ describe('desktop main startup', () => {
       return new Promise((resolve) => { signal.addEventListener('abort', () => { resolve({ response: 0 }) }, { once: true }) })
     })
     await readyForUpdate()
-    const submenu = applicationMenuItems()
-    const action = submenu.find(item => item.label === 'Check for Updates…')
-    Reflect.apply(action!.click!, undefined, [])
-    const operation = Promise.resolve(invoke(DESKTOP_IPC.updatesOpen, 'app'))
+    const operation = Promise.resolve(invoke(DESKTOP_IPC.updatesCheck, 'app'))
     try {
       const signal = await available.promise
       policy.resolve(Response.json({ code: 40005,

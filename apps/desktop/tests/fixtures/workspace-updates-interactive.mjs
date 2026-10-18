@@ -33,7 +33,7 @@ export async function runInteractiveUpdates({ mainWindow, server, fixture, check
   } })
   const select = mode => server.select(mode, '0.1.6-nightly.1')
   select('hold-download')
-  const check = () => checkMenu.click()
+  const check = () => checkMenu()
   panel.setMenu(Menu.buildFromTemplate([
     { label: '更新场景', submenu: [
       action('普通更新（点击下载后保持进度）', () => { server.policy('clear'); select('hold-download'); check() }),
