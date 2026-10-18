@@ -26,7 +26,6 @@ import type { ReactNode } from 'react'
 import type { CredentialInfo, LlmNativeAuth, SettingsNamespaceView, SettingsPathOpView } from '@hy/dsh-api-remotes/client'
 import type { JsonValue } from '@hy/dsh-util-values'
 import { Tooltip } from '@hy/dsh-client-ui-primitives'
-import type { JsonValue } from '@hy/dsh-util-values'
 import {
   DeepSeekModelsEditor, modelDrafts, validateDeepSeekModels,
 } from './DeepSeekModelsEditor.tsx'

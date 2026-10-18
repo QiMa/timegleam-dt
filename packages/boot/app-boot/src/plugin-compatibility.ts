@@ -93,18 +93,6 @@ export function evaluatePluginCompatibility(
   const fields = objectOf(manifest, 'Plugin manifest')
   const requirements = unmetRequirements(fields, runtimeVersion)
   if (Object.keys(requirements).length === 0) return undefined
-  const peers: Record<string, string> = {}
-  for (const [name, range] of Object.entries(dependencies)) {
-    if (typeof range !== 'string') {
-      throw new Error(`Plugin manifest peerDependencies[${JSON.stringify(name)}] must be a string`)
-    }
-    if (name !== '@hy/dsh' && !name.startsWith('@hy/dsh-')) continue
-    const requirement = ['workspace:^', 'workspace:~', 'workspace:*'].includes(range) ? runtimeVersion : range
-    if (requirement.trim() === '' || !semver.satisfies(runtimeVersion, requirement, { includePrerelease: true })) {
-      peers[name] = range
-    }
-  }
-  if (Object.keys(peers).length === 0) return undefined
   const name = identityField(fields, 'name')
   const version = identityField(fields, 'version')
   const key = `${name}@${version}`

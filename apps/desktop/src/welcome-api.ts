@@ -33,7 +33,7 @@ export interface WelcomeOperations {
   analyticsEnabled(): Promise<boolean>
   /** @returns the pending notification, clearing it before another renderer can receive it. */
   takeNotice(): Promise<WelcomeNotice | undefined>
-  /** @returns account state after starting a login attempt. */
+  /** @returns account state after starting a baizor login attempt. */
   startSignIn(): Promise<AccountView>
   /** @param id - attempt to cancel. @returns the settled state. */
   cancelSignIn(id: SignInAttemptId): Promise<AccountView>
@@ -41,7 +41,7 @@ export interface WelcomeOperations {
   copySignInLink(id: SignInAttemptId): Promise<void>
 
   /**
-   * Store the official provider's key before entering the workspace.
+   * Store a baizor API key before entering the workspace.
    * @param value - validated, trimmed API key.
    * @returns whether the write completed, without private error details.
    */

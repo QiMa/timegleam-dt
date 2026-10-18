@@ -46,6 +46,7 @@
     "@hy/dsh-goal-round-driver": "workspace:*",
     "@hy/dsh-headless": "workspace:*",
     "@hy/dsh-home-paths": "workspace:*",
+    "@hy/huayu-extension": "workspace:*",
     "@hy/dsh-jobs-local": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-mcp-client": "workspace:*",

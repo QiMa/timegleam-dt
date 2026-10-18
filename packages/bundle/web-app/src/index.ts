@@ -114,64 +114,6 @@ try {
 }
 `
 
-/**
- * Local root URL of the active Web server, using the browser-compatible form
- * of its bind address and brackets for IPv6 literals. Non-loopback binds such
- * as a container's Pod address advertise that address.
- * @throws when the runtime resolves without a bound webServer, or when the bind
- *   address has no URL form (see {@link advertisedBindHost}).
- */
-function localWebUrl(ctx: Context): string {
-  const webServer = ctx.get('webServer')
-  const port = webServer?.port
-  if (webServer === undefined || port === undefined) {
-    throw new Error('web-app: webServer service missing while resolving Web runtime')
-  }
-  const host = advertisedBindHost(webServer.host)
-  return `${webServer.protocol}//${isIP(host) === 6 ? `[${host}]` : host}:${String(port)}`
-}
-
-/**
- * Bind address in a URL. Loopback addresses use their canonical address text,
- * so browsers treat them as local, trustworthy origins: a genuinely mapped
- * literal such as `::ffff:127.0.0.1` reads as `127.0.0.1`, and a dotted-quad
- * tail reads as the address it names, so `::0.0.0.1` reads as `::1` rather
- * than as `0.0.0.1`. Interface zone IDs cannot appear in a URL; only a
- * redundant loopback zone can be dropped.
- * @param host - webserver bind address.
- * @returns the zone-free URL host.
- * @throws when a non-loopback zone requires an explicit public URL.
- */
-function advertisedBindHost(host: string): string {
-  const zoneAt = host.indexOf('%')
-  const bare = zoneAt === -1 ? host : host.slice(0, zoneAt)
-  if (isLoopbackHost(bare)) return normalizeBindAddress(bare)
-  if (zoneAt === -1) return host
-  throw new Error(
-    `web-app: bind address ${JSON.stringify(host)} carries an interface zone id, which no URL can express;`
-    + ' pass --public-url with the root browsers actually reach it through',
-  )
-}
-
-/** Resolve the advertised root: this plugin's canonical `publicUrl`, or the bind-address URL (loopback when bound to loopback). */
-function appRootUrl(ctx: Context, publicUrl: string | undefined): string {
-  if (publicUrl !== undefined) return publicUrl
-  return localWebUrl(ctx)
-}
-
-/** Model-visible orientation and acceptance boundary for sessions created through `dsh web`. */
-function webSurfacePrompt(webUrl: string): string {
-  const updateContract = 'The client-plugin HMR receiver is active, but client-plugin changes reload without a refresh only while '
-    + '`pnpm run dev:web` is also running from this same checkout to rebuild their bundles; verify that watcher before promising automatic updates. '
-    + 'Every other change — the apps/web shell and plain packages — requires rebuilding the affected Web artifacts and verifying this existing URL after a page refresh. '
-  return `You are interacting with the user through the Huayu AI Web GUI at ${webUrl}. `
-    + 'When the user refers to "this page", "this GUI", or "this app" without naming another target, they mean this GUI. '
-    + 'The browser provides no implicit DOM, route, or screenshot context. '
-    + updateContract
-    + 'Starting another server does not update this GUI. '
-    + 'The apps/web Vite entry builds the shell but is not a standalone application because only dsh web injects window.__DSH_BOOT__. '
-    + 'Do not start a replacement server unless the user asks; if one is needed, use a managed background job and verify its exact URL.'
-}
 
 /**
  * Dist location is workspace knowledge of this bundle: anchored on the

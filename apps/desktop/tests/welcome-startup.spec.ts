@@ -5,7 +5,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import type { BrowserWindowConstructorOptions } from 'electron'
 import type { DesktopLocale } from '../src/locale.ts'
 import type { AccountView } from '@hy/dsh-deepseek-account/types'
-import type { WelcomeOperations } from '../src/welcome-api.ts'
+import { WELCOME_IPC, type WelcomeOperations } from '../src/welcome-api.ts'
 import { DESKTOP_IPC } from '../src/ipc.ts'
 
 const state = vi.hoisted(() => ({
@@ -14,6 +14,9 @@ const state = vi.hoisted(() => ({
   beforeRead: vi.fn(async () => {}),
   beforeWelcome: vi.fn(async () => {}),
   copy: vi.fn(),
+  openExternal: vi.fn(),
+  netFetch: vi.fn(),
+  lastWelcomeState: undefined as AccountView | undefined,
   expiryListener: undefined as (() => void) | undefined,
   accountListener: undefined as ((value: AccountView) => void) | undefined,
   accountState: vi.fn<() => Promise<AccountView>>().mockResolvedValue({
@@ -48,6 +51,8 @@ vi.mock('../src/crash-report.ts', async importOriginal => ({
 }))
 vi.mock('electron', () => ({
   clipboard: { writeText: state.copy },
+  shell: { openExternal: state.openExternal },
+  net: { fetch: state.netFetch },
   app: {
     isPackaged: false,
     name: 'Harness',
@@ -84,7 +89,6 @@ vi.mock('electron', () => ({
     showInactive = state.showInactiveWorkspace
     async loadURL(url: string) { state.contents = this.webContents; await state.loadWorkspace(url); this.ready?.() }
   },
-  net: { fetch: vi.fn() },
   nativeTheme: state.nativeTheme,
   session: { defaultSession: {
     setPermissionCheckHandler: vi.fn(), setPermissionRequestHandler: vi.fn(), webRequest: { onBeforeSendHeaders: vi.fn() },
@@ -131,6 +135,8 @@ vi.mock('../src/welcome-backend.ts', () => ({
       return { loggedIn: false, hasApiKey: state.hasApiKey, writable: true, localePreference: state.preference }
     },
     save: async () => ({ ok: true }),
+    storeBaizorKey: async () => undefined,
+    ensureBaizorConfiguration: async () => undefined,
     account: {
       watch: (listener: (value: AccountView) => void, _failed: () => void, expired: () => void) => {
         state.accountListener = listener
@@ -160,7 +166,9 @@ vi.mock('../src/welcome-window.ts', () => ({
     state.operations = operations
     await state.beforeWelcome()
     return { once: vi.fn(), close: state.closeWelcome, isDestroyed: () => false,
-      show: vi.fn(), focus: vi.fn(), webContents: { send: vi.fn() } }
+      show: vi.fn(), focus: vi.fn(), webContents: { send: (channel: string, value: AccountView) => {
+        if (channel === WELCOME_IPC.state) state.lastWelcomeState = value
+      } } }
   },
 }))
 
@@ -220,20 +228,23 @@ it.each([false, true])('starts welcome onboarding without carrying update focus 
   expect(state.welcomeLocale).toMatchObject({ id: 'zh-CN' })
   expect(await state.operations!.takeNotice()).toBeUndefined()
   expect(state.dialogLocale!().id).toBe('zh-CN')
-  const attemptId = 'login' as NonNullable<AccountView['attempt']>['id']
-  const account: AccountView = { status: 'signed-out', links: { usageUrl: '', topUpUrl: '' },
-    attempt: { id: attemptId, phase: 'waiting-browser', authorizeUrl: 'https://example.test/login' } }
-  state.accountState.mockResolvedValue(account)
-  await state.operations!.copySignInLink(attemptId)
-  expect(state.copy).toHaveBeenCalledExactlyOnceWith('https://example.test/login?theme=light')
-  state.nativeTheme.shouldUseDarkColors = true
-  await state.operations!.copySignInLink(attemptId)
-  expect(state.copy).toHaveBeenLastCalledWith('https://example.test/login?theme=dark')
-  state.nativeTheme.shouldUseDarkColors = false
-  await expect(state.operations!.copySignInLink('stale' as typeof attemptId)).rejects.toThrow('login link is unavailable')
-  state.accountState.mockResolvedValue({ ...account, attempt: { id: attemptId, phase: 'expired' } })
-  await expect(state.operations!.copySignInLink(attemptId)).rejects.toThrow('login link is unavailable')
-  expect(state.copy).toHaveBeenCalledTimes(2)
+  const account: AccountView = { status: 'signed-out', links: { usageUrl: '', topUpUrl: '' }, attempt: null }
+  const staleAttempt = 'stale' as NonNullable<AccountView['attempt']>['id']
+  await expect(state.operations!.copySignInLink(staleAttempt)).rejects.toThrow('login link is unavailable')
+  expect(state.copy).not.toHaveBeenCalled()
+  // A started baizor login publishes its waiting link; the copy action carries it verbatim.
+  state.netFetch.mockResolvedValue(Response.json({ success: true, data: { status: 'pending' } }))
+  state.openExternal.mockResolvedValue(undefined)
+  const starting = state.operations!.startSignIn()
+  await vi.waitFor(() => { expect(state.lastWelcomeState?.attempt?.phase).toBe('waiting-browser') })
+  const waiting = state.lastWelcomeState!.attempt!
+  await state.operations!.copySignInLink(waiting.id)
+  expect(state.copy).toHaveBeenCalledExactlyOnceWith(waiting.authorizeUrl)
+  await expect(state.operations!.copySignInLink('other' as typeof waiting.id)).rejects.toThrow('login link is unavailable')
+  await state.operations!.cancelSignIn(waiting.id)
+  await vi.advanceTimersByTimeAsync(2500)
+  await expect(starting).resolves.toMatchObject({ attempt: { phase: 'cancelled' } })
+  expect(state.copy).toHaveBeenCalledTimes(1)
   await state.operations!.skip()
   expect(state.loadWorkspace).not.toHaveBeenCalled()
   expect(state.showWorkspace).toHaveBeenCalledOnce()
@@ -289,7 +300,11 @@ it.each([false, true])('starts welcome onboarding without carrying update focus 
   state.showWorkspace.mockClear()
   state.focusWorkspace.mockClear()
   vi.stubEnv('DSH_DESKTOP_OPEN_DEVTOOLS', '1')
-  state.accountListener!({ ...account, status: 'credential-stored', attempt: { id: attemptId, phase: 'succeeded' } })
+  // A submitted key completes the login and enters the workspace without activation.
+  state.netFetch.mockResolvedValue(Response.json({ success: true, data: { status: 'done', key: 'sk-baizor-test' } }))
+  console.log('DEBUG: before success startSignIn')
+  await state.operations!.startSignIn()
+  console.log('DEBUG: after success startSignIn')
   await vi.waitFor(() => { expect(state.showInactiveWorkspace).toHaveBeenCalledOnce() })
   expect(state.showWorkspace).not.toHaveBeenCalled()
   expect(state.focusWorkspace).not.toHaveBeenCalled()

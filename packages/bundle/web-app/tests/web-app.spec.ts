@@ -12,7 +12,6 @@ import Loader from '@hy/cordis-plugin-loader'
 import * as AppBoot from '@hy/dsh-app-boot'
 import { createLaunchEnvironmentSnapshot, DSH_LAUNCH_ENVIRONMENT_KEY } from '@hy/dsh-launch-environment'
 import { bindUrlHost, type WebServer } from '@hy/dsh-host-webserver'
-import type { WebServer } from '@hy/dsh-host-webserver'
 import { apply, Config, internals } from '../src/index.ts'
 
 vi.mock('node:child_process', async importOriginal => ({

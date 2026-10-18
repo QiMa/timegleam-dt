@@ -55,7 +55,7 @@
     "ws": "^8.21.3"
   },
   "peerDependencies": {
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-client-modules": "workspace:*",
     "@hy/dsh-client-connection": "workspace:*",

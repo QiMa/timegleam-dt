@@ -15,7 +15,6 @@ import {
   PREVIEW_FIXTURE_MANIFEST_FILE, PREVIEW_FIXTURE_MANIFEST_VERSION,
   type PreviewFixtureManifest,
 } from '@hy/dsh-experimental-webworker-runtime'
-import { packVfsImage } from './pack.ts'
 import {
   describePack, packPreviewFixture, packRepositoryImage, previewFixtures,
 } from './repository.ts'

@@ -224,10 +224,6 @@ export function createWorkerHost(options: WorkerHostOptions): WorkerHost {
       const appBoot = require('@hy/dsh-app-boot') as AppBootFace
       const { DSH_LAUNCH_ENVIRONMENT_KEY } = require('@hy/dsh-launch-environment') as {
         DSH_LAUNCH_ENVIRONMENT_KEY: string
-          configPath: string,
-          patches: unknown[],
-          prepare: (ctx: HostContext) => void,
-        ): Promise<HostContext>
       }
       const cmdline = require('@hy/dsh-cmdline') as {
         provideCmdline(ctx: unknown, host: {
@@ -434,24 +430,6 @@ function prepareProfile(
 ): { patches: unknown[]; profile: ProfileContext; environment: unknown } {
   if (manifest.installation === undefined) {
     throw new Error('webworker host: the image names no installation manifest, so no profile bundle can resolve; rebuild the image')
-    load(source: string, options: { schema: unknown }): unknown
-    dump(value: unknown, options: { schema: unknown }): string
-  }
-  let rows: unknown
-  if (configPath.endsWith('.json')) {
-    rows = JSON.parse(text)
-  } else {
-    // The roster's `!!js` scalars need Include's own YAML dialect.
-    rows = yaml.load(text, { schema: include.entryListSchema })
-  }
-  const find = (entries: unknown, id: string): Record<string, unknown> | undefined => {
-    if (!Array.isArray(entries)) return undefined
-    for (const entry of entries as Array<Record<string, unknown>>) {
-      if (entry.id === id) return entry
-      const nested = find(entry.config, id)
-      if (nested !== undefined) return nested
-    }
-    return undefined
   }
   const home = join(root, IMAGE_HOME_DIRECTORY)
   const installAnchor = join(root, 'node_modules', manifest.installation, 'package.json')
@@ -464,15 +442,6 @@ function prepareProfile(
     name: loaded.name, dir: loaded.dir, patchPath: loaded.patchPath, installAnchor, cwd: root, home,
     startedBundles: loaded.layers.map(layer => layer.packageName),
     overlays: [], telemetryDisabledEnv: env.DSH_TELEMETRY_DISABLED,
-    overlays: patches, telemetryDisabledEnv: undefined,
-  }
-  vfs.seed(join(dir, 'package.json'), '{"private":true,"dsh":{"profile":{"bundles":[]}}}\n')
-  vfs.seed(join(dir, 'cordis.yml'), '[]\n')
-  if (!vfs.existsSync(profile.patchPath)) {
-    vfs.seed(profile.patchPath, yaml.dump([{ insert: rows }], { schema: include.entryListSchema }))
-  }
-  const appBoot = loader.load(loader.resolve('@hy/dsh-app-boot', root)) as {
-    readProfilePatches(binName: string, profile: ProfileContext): unknown[]
   }
   return { patches: appBoot.readProfilePatches(BIN_NAME, profile, loaded), profile, environment }
 }

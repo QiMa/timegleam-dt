@@ -134,8 +134,6 @@ export async function paidFixture(cleanups: Array<() => Promise<void>>, options:
     } },
     { id: 'account-custom-id', name: '@hy/dsh-llm-deepseek-account', disabled: !withNativeOwners, config: { baseURL } },
     { id: 'translator', name: '@hy/dsh-experimental-translator', config: translator },
-    } },
-    { id: 'translator', name: '@hy/dsh-experimental-translator', config: translator },
     ...options.withSessionQuery === true ? [
       { id: 'query', name: '@hy/dsh-session-query-sqlite', config: { path: join(root, 'query.sqlite'), openAt: 'never' } },
     ] : [],

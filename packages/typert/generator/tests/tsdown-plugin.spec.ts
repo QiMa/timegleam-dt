@@ -202,7 +202,6 @@ describe('typertPlugin', () => {
     const root = await workspace()
     const output = await packageOutput(root, 'api/gateway', {
       name: '@hy/dsh-tools',
-      name: '@hy/dsh-tools',
       exports: { './typert': './lib/typert.host.js' },
     })
     writeFileSync(join(root, 'packages/api/gateway/tsconfig.host.json'), '{}\n')

@@ -10,7 +10,7 @@ const source: DesktopRetainedSource = {
   preset: 'production', productVersion: '1.0.0', version: '1.0.0', testReleaseId: null, qualification: 'signed',
 }
 const plan: DesktopUploadPlan = {
-  environment: 'production', target: 'win-x64', version: '1.0.0', bucket: 'production-1234567890',
+  environment: 'production', target: 'win-x64', version: '1.0.0', transport: 'cos', bucket: 'production-1234567890',
   publicUrl: 'https://download.example.com/dsh-desk/feeds/win-x64/', secretIdEnvName: 'SECRET_ID', secretKeyEnvName: 'SECRET_KEY',
   artifacts: [
     { path: '/not-read/installer.exe', filename: 'deepseek-harness-1.0.0-win-x64.exe', key: 'dsh-desk/bin/win-x64/latest/deepseek-harness-1.0.0-win-x64.exe',

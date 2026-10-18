@@ -96,7 +96,7 @@ const BUILTINS: Record<string, StaticModuleFactory> = {
 
 /** Exact package or subpath specifiers served by worker stubs and fakes. */
 const EXTERNALS: Record<string, StaticModuleFactory> = {
-  '@hy/libreoffice-kit': () => libreofficeKit,
+  '@deepseek-ai/libreoffice-kit': () => libreofficeKit,
   '@hy/node-addon-system/flock': () => systemFlock,
   'koffi': () => koffi,
   'sharp': () => sharp,

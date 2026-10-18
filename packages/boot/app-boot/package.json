@@ -47,7 +47,7 @@
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-home-paths": "workspace:*",
-    "@hy/cordis": "workspace:~"
+
     "@hy/cordis": "workspace:~"
   },
   "devDependencies": {

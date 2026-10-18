@@ -36,11 +36,6 @@ it.skipIf(!process.env.DEEPSEEK_API_KEY || process.platform === 'win32')(`agent 
       { id: 'session-persistence-jsonl', config: { root: join(root, 'sessions'), compression: 'none' } },
       { id: 'skill-office', disabled: false },
       { id: 'skill-office', config: { ...assetRoot === undefined ? {} : { assetRoot }, ...node === undefined ? {} : { node }, ...cli === undefined ? {} : { cli } } },
-          ...(process.env.DSH_OFFICE_TEST_NODE ? { node: process.env.DSH_OFFICE_TEST_NODE } : {}),
-          ...(process.env.DSH_OFFICE_TEST_CLI ? { cli: process.env.DSH_OFFICE_TEST_CLI } : {}),
-          ...(process.env.DSH_OFFICE_TEST_ASSETS ? { assetRoot: process.env.DSH_OFFICE_TEST_ASSETS } : {}),
-        },
-      }] }],
     ]))
     // A private POSIX tool directory also excludes /usr/bin/node on Linux.
     const path = join(root, 'bin')

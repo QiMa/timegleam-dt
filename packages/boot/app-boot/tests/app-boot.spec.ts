@@ -5,10 +5,10 @@ import { pathToFileURL } from 'node:url'
 import { inspect } from 'node:util'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
-import type {} from '@hy/dsh-system-prompt'
+import SystemPrompt, { renderPrompt } from '@hy/dsh-system-prompt'
 import {
-  auditStartupEntries, boot, StartupError,
-  FAIL_LOUD_RELEASE_TIMEOUT_MS,
+  addHarnessSourceSection, auditStartupEntries, boot, StartupError,
+  FAIL_LOUD_RELEASE_TIMEOUT_MS, HARNESS_SOURCE_SECTION,
   installFailLoud, loadEnv, loadLayeredEnv, loadOverlayPatches, resolveConfigPath, type FailLoudEvent, type FailLoudProcess,
 } from '../src/index.ts'
 

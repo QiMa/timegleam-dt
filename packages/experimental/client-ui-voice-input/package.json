@@ -35,7 +35,7 @@
   "license": "MIT",
   "dependencies": {},
   "peerDependencies": {
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
     "@hy/dsh-api-remotes": "workspace:*",
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",

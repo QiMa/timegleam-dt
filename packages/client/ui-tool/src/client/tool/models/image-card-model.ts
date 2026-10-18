@@ -1,6 +1,5 @@
 /** Pure image-card derivation from raw result content and metadata. @module */
 import type { AttachmentId, ImageAttachmentRef, ImageMediaType } from '@hy/dsh-attachment'
-import { abbreviateHomePath, relativizeToCwd } from '@hy/dsh-util-workspace-path'
 import type { ToolCallBlock } from './tool-call-model.ts'
 import { parsedToolCall } from './raw-tool-call.ts'
 

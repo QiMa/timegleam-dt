@@ -56,7 +56,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-experimental-translator": "workspace:*"
+    "@hy/dsh-experimental-translator": "workspace:*",
     "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-experimental-translator": "workspace:*",
     "@hy/dsh-session": "workspace:*",

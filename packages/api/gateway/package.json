@@ -67,7 +67,7 @@
     "@hy/dsh-typert-protocol": "workspace:*"
   },
   "peerDependencies": {
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
     "@hy/dsh-client-connection": "workspace:*"
   },
   "devDependencies": {

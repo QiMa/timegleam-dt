@@ -36,7 +36,6 @@ import { OPTIONAL_BUNDLES } from '@hy/dsh-app-boot'
 import {
   packPreviewFixture, packRepositoryImage, previewFixtures, WRAPPER_CONTRACT,
 } from '@hy/dsh-experimental-webworker-packer'
-} from '@hy/dsh-experimental-webworker-packer'
 import {
   IMAGE_FILE_NAME, IMAGE_MANIFEST_PATH, parseImageManifest, parseTar, PREVIEW_FIXTURE_MANIFEST_FILE,
   PREVIEW_FIXTURE_MANIFEST_VERSION, type ImageManifest, type PreviewFixtureManifest,

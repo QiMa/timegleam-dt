@@ -57,7 +57,7 @@
     "@hy/dsh-session": "workspace:*"
   },
   "dependencies": {
-    "@hy/libreoffice-kit": "^0.1.5",
+    "@deepseek-ai/libreoffice-kit": "^0.1.5",
     "@hy/schemastery": "workspace:~",
     "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",

@@ -26,6 +26,7 @@ import { requireDesktopToolchain } from './desktop-toolchain-preflight.ts'
 import { withMacOSNotarizationProxy } from './macos-notarization-proxy.ts'
 
 const APP_ROOT = resolve(import.meta.dirname, '..')
+const HUAYU_EXTENSION_ROOT = resolve(APP_ROOT, '..', '..', '..', 'huayu-extension')
 const REPOSITORY_ROOT = resolve(APP_ROOT, '..', '..')
 const WINDOWS_SIGNING_ENV_PREFIX = 'DSH_DESKTOP_WINDOWS_'
 const WINDOWS_SIGNING_ENV_NAMES = [
@@ -482,6 +483,9 @@ export async function packageTarget(
     '--pack-destination',
     buildPaths.packedDsh,
   ], buildEnv, REPOSITORY_ROOT)
+  // Huayu AI extension lives in the sibling huayu-extension checkout and must ride the desktop runtime.
+  // Pack it into the same local core package set so @hy/dsh keeps it off the npm registry.
+  await execute(['pack', '--pack-destination', buildPaths.packedDsh], buildEnv, HUAYU_EXTENSION_ROOT)
   await execute(['run', 'release:pack', '--family', 'vendor', '--out', buildPaths.packedVendor, ...packArguments], buildEnv, REPOSITORY_ROOT)
   rmSync(buildPaths.packedLandlock, { recursive: true, force: true })
   mkdirSync(buildPaths.packedLandlock, { recursive: true })

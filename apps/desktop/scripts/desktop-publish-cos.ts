@@ -29,6 +29,7 @@ export function desktopPublishCos(
   const client = () => createClient(credentials)
   const location = (key: string) => {
     if (!keys.has(key)) throw new Error('desktop publish: object is outside the selected plan')
+    if (plan.transport !== 'cos' || plan.bucket === undefined) throw new Error('desktop publish: COS transport requires a COS plan with a bucket')
     return { Bucket: plan.bucket, Region: DESKTOP_COS_REGION, Key: key }
   }
   return {

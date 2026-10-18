@@ -374,8 +374,6 @@ describe('SubagentModelSelectionConfig', () => {
       modelSelectionSettings: true,
       maxDepth: 'provider-managed',
     })).rejects.toThrow('requires @hy/dsh-tool-subagent/model-selection-settings')
-      })
-    }).toThrow('requires @hy/dsh-tool-subagent/model-selection-settings')
     await withoutSettings.fiber.dispose()
 
     const withoutAgent = await boot(false)

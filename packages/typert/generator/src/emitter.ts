@@ -401,12 +401,6 @@ export class FaceModelEmitter {
     }
     lines.push('')
     lines.push('declare module \'@hy/dsh-typert-protocol\' {')
-      lines.push('type RemoteDecoded<Value> = Value extends Uint8Array ? Uint8Array<ArrayBuffer>')
-      lines.push('  : Value extends string | number | boolean | null | undefined ? Value')
-      lines.push('  : { [Key in keyof Value]: RemoteDecoded<Value[Key]> }')
-      lines.push('')
-    }
-    lines.push('declare module \'@hy/dsh-typert-protocol\' {')
     const direct = packageModel.invocations.filter(invocation => invocation.invocation.kind === 'direct')
     const scoped = packageModel.invocations.filter(invocation =>
       invocation.invocation.kind === 'context' || invocation.scope !== undefined)

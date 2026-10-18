@@ -3,10 +3,6 @@ import type { RemoteResult } from '@hy/dsh-typert-protocol'
 import type { ModelSelection } from '@hy/dsh-api-remotes/client'
 import type { ModelCatalogModel, ModelProviderGroup } from '@hy/dsh-api-session-controller/types'
 import type { SnapshotStore } from '@hy/dsh-client-store'
- */
-import type { RemoteResult } from '@hy/dsh-typert-protocol'
-import type { ModelSelection } from '@hy/dsh-api-remotes/client'
-import type { SnapshotStore } from '@hy/dsh-client-store'
 import type { ModelDirectoryState } from './directory.ts'
 
 /** Catalog data for a model name inside the composer's existing controls. */

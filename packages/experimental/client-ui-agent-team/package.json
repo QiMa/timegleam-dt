@@ -44,7 +44,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
     "@hy/dsh-client-locale": "workspace:*",
     "@hy/dsh-client-ui-conversation": "workspace:*",
     "@hy/dsh-client-ui-primitives": "workspace:*",

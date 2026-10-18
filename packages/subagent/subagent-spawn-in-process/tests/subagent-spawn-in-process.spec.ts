@@ -13,7 +13,6 @@ import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { MockAdapter, maxTokensResponse, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import * as spawn from '../src/index.ts'
 import { STRUCTURED_OUTPUT_TOOL } from '@hy/dsh-subagent'
-import { defineContentToolFixture } from '@hy/dsh-tools'
 
 type Script = ConstructorParameters<typeof MockAdapter>[0]
 

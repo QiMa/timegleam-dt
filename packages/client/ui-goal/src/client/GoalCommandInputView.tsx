@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import type { PropsLocale, PropsRenderFactories, PropsRuntime } from '@hy/dsh-client-ui-slots'
-import type { PropsLocale, PropsRuntime } from '@hy/dsh-client-ui-slots'
 import { GOAL_COMMAND, type GoalCommandInputData } from './goal-command-input.ts'
 import css from './GoalCommandInputView.module.css'
 

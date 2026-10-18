@@ -1,4 +1,5 @@
 import type { ProductEventMap, ProductEvent } from '@hy/dsh-client-product-analytics/types'
+import type { AccountView, SignInAttemptView } from '@hy/dsh-deepseek-account/types'
 import { WINDOWS_TITLEBAR_HEIGHT } from './windows-layout.ts'
 /** Electron shell: desktop project ownership, custom protocol, windows, and lifecycle. */
 
@@ -42,6 +43,7 @@ import { pruneCrashReports, RendererConsoleTail, writeCrashReport, type CrashRep
 import { openWelcomeWindow } from './welcome-window.ts'
 import { WELCOME_IPC, needsWelcome, type WelcomeNotice } from './welcome-api.ts'
 import { connectDesktopWelcome, type DesktopWelcomeBackend } from './welcome-backend.ts'
+import { BaizorLogin } from './baizor-login.ts'
 import { DesktopUpdateJournal } from './update-journal.ts'
 import { DesktopUpdatePreparationError } from './update-error.ts'
 import { DesktopUpdateSchedule, resolveDesktopUpdateScheduleConfig } from './update-schedule.ts'
@@ -189,20 +191,6 @@ function developmentHostInspectPort(enabled: boolean): number | undefined {
  */
 function chromeFallbackFill(): string {
   return nativeTheme.shouldUseDarkColors ? '#1b1b1c' : '#f9fafb'
-}
-
-/**
- * Add the effective Desktop palette to a Platform authorization URL so the
- * login page opens in the application's theme. `system` resolves through
- * `nativeTheme.shouldUseDarkColors`, which follows the theme source the
- * application preload publishes.
- * @param authorizeUrl - validated Platform authorization URL.
- * @returns the authorization URL carrying `theme=light` or `theme=dark`.
- */
-function platformLoginUrl(authorizeUrl: string): string {
-  const url = new URL(authorizeUrl)
-  url.searchParams.set('theme', nativeTheme.shouldUseDarkColors ? 'dark' : 'light')
-  return url.href
 }
 
 function createWindow(preload: string, show = false, primary = false): BrowserWindow {
@@ -414,8 +402,7 @@ async function main(): Promise<void> {
     } catch (_error) { /* Analytics cannot interrupt native actions. */ }
   }
   let stopAccount: (() => void) | undefined
-  let openedAttempt: string | undefined
-  let returnedAttempt: string | undefined
+  let baizorLogin: BaizorLogin | undefined
   let pendingWelcomeNotice: WelcomeNotice | undefined
   let previousAccountStatus: string | undefined
   const assertProductSender = (event: IpcMainInvokeEvent): void => {
@@ -442,6 +429,16 @@ async function main(): Promise<void> {
   }
   const platformView = new DesktopPlatformView(join(app.getAppPath(), 'lib', 'preload-platform-account.cjs'),
     () => locale.id === 'zh-CN' ? 'zh_CN' : 'en_US', process.platform === 'win32' ? 'win32' : 'darwin')
+  /** Project the baizor login controller onto the welcome window's AccountView. */
+  const baizorAccountView = (view?: SignInAttemptView | null): AccountView => {
+    const state = baizorLogin?.state()
+    const attempt = view ?? (state?.active === true ? state.attempt : null) ?? null
+    return {
+      status: attempt?.phase === 'succeeded' ? 'credential-stored' : 'signed-out',
+      links: { usageUrl: 'https://baizor.com/log', topUpUrl: 'https://baizor.com/topup' },
+      attempt,
+    }
+  }
   const backend = new DesktopBackendController((onFailure) => {
     const hostInspectPort = developmentHostInspectPort(development)
     const host = new DesktopHostProcess(resources.node, resources.dsh, activeProject,
@@ -456,23 +453,25 @@ async function main(): Promise<void> {
         if (ready.injections === undefined) throw new Error('Desktop Host did not provide boot injections')
         injections = ready.injections
         welcomeBackend = await connectDesktopWelcome(ready.url, (input, init) => net.fetch(input, init), async () => (await session.defaultSession.cookies.get({ url: ready.url })).map(cookie => `${cookie.name}=${cookie.value}`).join('; '))
+        baizorLogin?.dispose()
+        baizorLogin = new BaizorLogin({
+          now: () => Date.now(),
+          openExternal: url => shell.openExternal(url),
+          fetch: (input, init) => net.fetch(input, init),
+        }, {
+          save: async (key) => {
+            if (welcomeBackend === undefined) throw new Error('desktop welcome: backend unavailable')
+            await welcomeBackend.storeBaizorKey(key)
+          },
+        })
         analyticsEnabled = await welcomeBackend.analyticsEnabled().catch(() => false)
         if (!reportedLaunch) { reportedLaunch = true; void track('desktop_app_launch', {}) }
+        await welcomeBackend.ensureBaizorConfiguration().catch((error: unknown) => { console.warn('desktop welcome: baizor model seeding failed', error) })
         stopAccount?.()
         const accountBackend = welcomeBackend.account
         stopAccount = accountBackend.watch((state) => {
           if (quitting) return
           if (welcomeWindow !== undefined && !welcomeWindow.isDestroyed()) welcomeWindow.webContents.send(WELCOME_IPC.state, state)
-          const attempt = state.attempt
-          if (attempt?.phase === 'waiting-browser' && attempt.authorizeUrl !== undefined && openedAttempt !== attempt.id) {
-            openedAttempt = attempt.id
-            void shell.openExternal(platformLoginUrl(attempt.authorizeUrl)).catch(() => undefined)
-          }
-          if ((attempt?.phase === 'failed' || attempt?.phase === 'expired') && returnedAttempt !== attempt.id) {
-            returnedAttempt = attempt.id
-            focusPrimaryWindow()
-          }
-          if (state.status === 'credential-stored' && attempt?.phase === 'succeeded' && welcomeWindow !== undefined) void enterWorkspace({ activate: false }).catch(() => undefined)
           if (previousAccountStatus === 'credential-stored' && state.status === 'signed-out') {
             void readWelcomeState().then(async (value) => {
               if (needsWelcome(value) && !quitting) {
@@ -500,6 +499,7 @@ async function main(): Promise<void> {
       stop: async () => {
         analyticsEnabled = false
         stopAccount?.()
+        baizorLogin?.dispose()
         try { await host.stop(requireCleanStop) }
         catch (error) {
           if (!requireCleanStop || !(error instanceof DesktopHostUncleanExitError)) throw error
@@ -1158,19 +1158,28 @@ async function main(): Promise<void> {
           return Promise.resolve(notice)
         },
         startSignIn: async () => {
-          if (welcomeBackend === undefined) throw new Error('desktop welcome: backend unavailable')
-          return welcomeBackend.account.start(desktopClientMetadata(locale.id))
+          const login = baizorLogin
+          if (login === undefined) throw new Error('desktop welcome: backend unavailable')
+          const result = await login.start((waiting) => {
+            if (welcomeWindow !== undefined && !welcomeWindow.isDestroyed()) {
+              welcomeWindow.webContents.send(WELCOME_IPC.state, baizorAccountView(waiting))
+            }
+          })
+          if (result.kind === 'succeeded') await enterWorkspace({ activate: false }).catch(() => undefined)
+          return baizorAccountView(result.view)
         },
         cancelSignIn: async (id) => {
-          if (welcomeBackend === undefined) throw new Error('desktop welcome: backend unavailable')
-          return welcomeBackend.account.cancel(id)
+          const login = baizorLogin
+          if (login === undefined) throw new Error('desktop welcome: backend unavailable')
+          return baizorAccountView((await login.cancel(id)).view)
         },
         copySignInLink: async (id) => {
-          const state = await welcomeBackend?.account.state()
-          if (state?.attempt?.id !== id || state.attempt.phase !== 'waiting-browser' || state.attempt.authorizeUrl === undefined) {
+          const login = baizorLogin?.state()
+          if (login?.active !== true || login.attempt.id !== id || login.attempt.phase !== 'waiting-browser'
+            || login.attempt.authorizeUrl === undefined) {
             throw new Error('desktop welcome: login link is unavailable')
           }
-          await clipboard.writeText(platformLoginUrl(state.attempt.authorizeUrl))
+          await clipboard.writeText(login.attempt.authorizeUrl)
         },
         saveApiKey: async (apiKey) => {
           if (backend.host === undefined || welcomeBackend === undefined) return { ok: false }
@@ -1183,10 +1192,10 @@ async function main(): Promise<void> {
       })
       const window = welcomeWindow
       window.once('closed', () => {
-        void welcomeBackend?.account.state().then((state) => {
-          if (state.attempt !== null && !enteredWorkspace) return welcomeBackend?.account.cancel(state.attempt.id)
-          return undefined
-        }).catch(() => undefined)
+        const login = baizorLogin?.state()
+        if (login?.active === true && !enteredWorkspace) {
+          void baizorLogin?.cancel(login.attempt.id).catch(() => undefined)
+        }
       })
       window.once('closed', () => {
         if (welcomeWindow === window) welcomeWindow = undefined

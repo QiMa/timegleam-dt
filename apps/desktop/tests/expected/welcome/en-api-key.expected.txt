@@ -1,7 +1,7 @@
 Huayu AI
 Huayu AI
 Add an API key to get started
-Configure official DeepSeek models to start using Harness
+Configure baizor.com models to start using Huayu AI
 Enter API key [password]
 Save and continue [disabled]
 Set up later

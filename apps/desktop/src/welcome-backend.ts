@@ -4,6 +4,24 @@ import type { ProductEvent } from '@hy/dsh-client-product-analytics/types'
 import { randomUUID } from 'node:crypto'
 import { desktopAccountBackend, type DesktopAccountBackend } from './account-backend.ts'
 
+/** The credential reference the seeded baizor provider route resolves per request. */
+export const BAIZOR_CREDENTIAL_REF = 'DSH_BAIZOR_API_KEY'
+
+/** The baizor provider profile the desktop seeds into the llm-pi-ai settings section. */
+export const BAIZOR_PROVIDER_PROFILE = {
+  displayName: 'Baizor',
+  apiKeyEnv: BAIZOR_CREDENTIAL_REF,
+  api: 'openai-completions',
+  baseURL: 'https://baizor.com/v1',
+  compat: { thinkingFormat: 'deepseek' },
+  defaultContextWindow: 128000,
+  defaultMaxTokens: 8192,
+  models: [{ id: 'huayu-v2', name: 'Huayu v2', contextWindow: 128000, maxTokens: 8192 }],
+} as const
+
+/** The default selection the desktop seeds while the user has chosen none. */
+export const BAIZOR_DEFAULT_SELECTION = { provider: 'baizor', model: 'huayu-v2' } as const
+
 /** Metadata needed before the native entry or workspace becomes visible. */
 export interface WelcomeState {
   readonly loggedIn: boolean
@@ -23,11 +41,19 @@ export interface DesktopWelcomeBackend {
   read(): Promise<WelcomeState>
   /** @returns The saved UI language without account or provider requests. */
   readLocalePreference(): Promise<string | null>
+  /** Seed the baizor provider route and default selection into this desktop profile. */
+  ensureBaizorConfiguration(): Promise<void>
   /**
-   * @param apiKey - User-entered official provider key.
+   * @param apiKey - User-entered provider key.
    * @returns A safe write outcome without provider diagnostics.
    */
   save(apiKey: string): Promise<{ ok: boolean }>
+  /**
+   * Store the baizor login key through the credentials seam; a refused write
+   * rejects instead of swallowing the diagnostic.
+   * @param apiKey - key returned by the baizor CLI login.
+   */
+  storeBaizorKey(apiKey: string): Promise<void>
 }
 
 function record(value: unknown): value is Record<string, unknown> {
@@ -38,6 +64,7 @@ function record(value: unknown): value is Record<string, unknown> {
  * Authenticate the native HTTP client through the Web application's launch URL.
  * @param authenticatedUrl - URL supplied by the running Desktop Host.
  * @param send - Electron session fetch, retaining the Web authentication cookie.
+ * @param cookies - Electron session cookie reader.
  * @returns metadata reads and write-only credential operations over standard RPC.
  */
 export async function connectDesktopWelcome(
@@ -69,15 +96,25 @@ export async function connectDesktopWelcome(
     return envelope.result.value
   }
   const account = desktopAccountBackend(origin, invoke, cookies)
+  /** The `apiKeyEnv` a provider profile stored for this route names, when present. */
+  const providerRef = (namespace: unknown, provider: string): string | undefined => {
+    if (!record(namespace) || !record(namespace.value) || !record(namespace.value.providers)) return undefined
+    const profile: unknown = namespace.value.providers[provider]
+    return record(profile) && typeof profile.apiKeyEnv === 'string' ? profile.apiKeyEnv : undefined
+  }
   const settingsAndReference = async () => {
     const settings = await invoke({ namespace: 'settings', method: 'describe', args: {} })
     if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
-    const official: unknown = settings.namespaces.find((item: unknown) => record(item) && item.ns === 'llm-deepseek')
-    if (official === undefined) return { settings: { namespaces: settings.namespaces }, ref: undefined }
+    const namespaces = settings.namespaces
+    const piAi: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'llm-pi-ai')
+    const baizorRef = providerRef(piAi, 'baizor')
+    if (baizorRef !== undefined) return { settings: { namespaces }, ref: baizorRef }
+    const official: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'llm-deepseek')
+    if (official === undefined) return { settings: { namespaces }, ref: undefined }
     if (!record(official) || !record(official.value) || typeof official.value.apiKeyEnv !== 'string') {
       throw new Error('desktop welcome: missing official DeepSeek credential reference')
     }
-    return { settings: { namespaces: settings.namespaces }, ref: official.value.apiKeyEnv }
+    return { settings: { namespaces }, ref: official.value.apiKeyEnv }
   }
   const localePreference = (namespaces: unknown[]): string | null => {
     const locale: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'locale')
@@ -120,6 +157,12 @@ export async function connectDesktopWelcome(
       localePreference: localePreference(namespaces),
     }
   }
+  const storeBaizorKey = async (apiKey: string): Promise<void> => {
+    if (!/^[\x21-\x7e]+$/.test(apiKey)) throw new Error('desktop welcome: invalid API key')
+    const { ref } = await settingsAndReference()
+    if (ref === undefined) throw new Error('desktop welcome: no writable credential reference')
+    await invoke({ namespace: 'credentials', method: 'set', args: { ref, value: apiKey } })
+  }
   return {
     account,
     read,
@@ -134,17 +177,35 @@ export async function connectDesktopWelcome(
       if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
       return localePreference(settings.namespaces)
     },
+    async ensureBaizorConfiguration() {
+      const signal = AbortSignal.timeout(10_000)
+      const settings = await invoke({ namespace: 'settings', method: 'describe', args: {} }, signal)
+      if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
+      const namespaces = settings.namespaces
+      const namespace = (ns: string): unknown => namespaces.find((item: unknown) => record(item) && item.ns === ns)
+      const piAi = namespace('llm-pi-ai')
+      const providers = record(piAi) && record(piAi.value) && record(piAi.value.providers) ? piAi.value.providers : undefined
+      const baizor = record(providers) ? providers.baizor : undefined
+      if (!record(baizor) || typeof baizor.apiKeyEnv !== 'string') {
+        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { baizor: BAIZOR_PROVIDER_PROFILE } }, expectedRevision: undefined } }, signal)
+      }
+      const defaultModel = namespace('agent-default-model')
+      const user = record(defaultModel) ? defaultModel.user : undefined
+      const selection = record(user) ? user : {}
+      if (selection.provider === undefined && selection.model === undefined) {
+        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'agent-default-model', patch: BAIZOR_DEFAULT_SELECTION, expectedRevision: undefined } }, signal)
+      }
+    },
     async save(apiKey) {
       if (!/^[\x21-\x7e]+$/.test(apiKey)) return { ok: false }
       try {
-        const { ref } = await settingsAndReference()
-        if (ref === undefined) return { ok: false }
-        await invoke({ namespace: 'credentials', method: 'set', args: { ref, value: apiKey } })
+        await storeBaizorKey(apiKey)
         return { ok: true }
       } catch {
         // Provider diagnostics may contain credentials; the native form owns failure copy.
         return { ok: false }
       }
     },
+    storeBaizorKey,
   }
 }

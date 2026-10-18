@@ -3,11 +3,6 @@
 import type { ObservableSnapshot } from '@hy/dsh-client-store'
 import type { CollapseTiming, TranscriptViewMode } from '../chat-settings.ts'
 export { COLLAPSE_TIMINGS, type CollapseTiming } from '../chat-settings.ts'
-/** Available points when a completed Turn returns to its historical presentation. */
-export const COLLAPSE_TIMINGS = ['completion', 'next-input'] as const
-
-/** When a completed Turn returns to its historical presentation. */
-export type CollapseTiming = typeof COLLAPSE_TIMINGS[number]
 
 /** Presentation capabilities that one work-details mode enables. */
 export interface ChatPresentationPolicy {

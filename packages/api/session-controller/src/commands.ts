@@ -23,7 +23,6 @@ import { SessionTitleInvalidError } from '@hy/dsh-session-title'
 import { assertNever } from '@hy/dsh-util-values'
 import { RemoteError, remoteErrorOf } from '@hy/dsh-typert-protocol'
 import type { Workspace } from '@hy/dsh-workspace'
-import type { Workspace } from '@hy/dsh-workspace'
 import {
   ApiSessionAgentController,
   ApiSessionCwdConflict,
