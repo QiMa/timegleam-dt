@@ -55,6 +55,9 @@ export interface AccountSectionInjected {
   /** Desktop-only: show one page in the account feature's shared native host; absent in ordinary browsers. */
   openPlatformPage?: PlatformPages['open']
 
+  /** Desktop-only: the welcome flow owns authentication; hide the launcher's sign-in entry. */
+  hideSignIn?: boolean
+
   /** Account stream owned by the Host and theme snapshots published by the renderer, observed through framework hooks. */
   hooks: {
     account: HostObservable<AccountSnapshot>
