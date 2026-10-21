@@ -24,6 +24,8 @@ import type { DesktopRuntimeDescriptor } from '../src/runtime-tree.ts'
 export async function smokeDesktopRuntime(
   root: string, node: string, runtime: DesktopRuntimeDescriptor, environment: NodeJS.ProcessEnv, resourcesRuntime: string,
 ): Promise<void> {
+  const smokeTimeout = Number(process.env.DSH_DESKTOP_SMOKE_TIMEOUT_MS ?? '120000')
+  if (!Number.isSafeInteger(smokeTimeout) || smokeTimeout < 1 || smokeTimeout > 2_147_483_647) throw new Error('DSH_DESKTOP_SMOKE_TIMEOUT_MS must be an integer from 1 to 2147483647')
   const home = mkdtempSync(join(tmpdir(), 'dsh-desktop-smoke-'))
   const profile = join(home, 'profiles', 'desktop')
   const hostEnvironment = {
@@ -61,7 +63,7 @@ export function apply(ctx) {
     const cli = join(root, 'node_modules', '@hy', 'dsh-desktop-host', 'lib', 'cli.js')
     const runCli = (args: string[]) => promisify(execFile)(node,
       ['--expose-internals', cli, 'plugin', '--profile', 'desktop', ...args],
-      { cwd: home, env: { ...hostEnvironment, ELECTRON_RUN_AS_NODE: '1' }, timeout: 120_000, windowsHide: true })
+      { cwd: home, env: { ...hostEnvironment, ELECTRON_RUN_AS_NODE: '1' }, timeout: smokeTimeout, windowsHide: true })
     await runCli(['add', `file:${installedPlugin}`, '--offline', '--ignore-scripts'])
     const installedEntry = join(profile, 'node_modules', installedName, 'index.js')
     if (readFileSync(installedEntry, 'utf8') !== readFileSync(join(installedPlugin, 'index.js'), 'utf8')) {
@@ -74,7 +76,7 @@ export function apply(ctx) {
     const dependencies = workspaceDependencyPaths(primary, await readPrimaryRuntime(primary))
     await promisify(execFile)(dependencies.python, ['-I', '-B',
       fileURLToPath(new URL('../tests/fixtures/office-conversion-inputs.py', import.meta.url)), home],
-    { env: environment, timeout: 120_000, windowsHide: true })
+    { env: environment, timeout: smokeTimeout, windowsHide: true })
     const inputs = ['docx', 'xlsx', 'pptx'].map(extension => ({ extension,
       bytes: readFileSync(join(home, `input.${extension}`)).toString('base64') }))
     const cordis = runtime.sharedPackages.find(entry => entry.name === '@hy/cordis')
@@ -108,7 +110,7 @@ export function apply(ctx) {
         const json = skill?.content.match(/\\n(\\{\\n[\\s\\S]+)$/u)?.[1]
         if (json === undefined) throw new Error('Office skill did not supply CLI paths')
         const { libreofficeKit: { node, cli } } = JSON.parse(json)
-        const options = { cwd: ${JSON.stringify(home)}, env: { ...process.env, PATH: '' }, timeout: 120_000 }
+        const options = { cwd: ${JSON.stringify(home)}, env: { ...process.env, PATH: '' }, timeout: ${smokeTimeout} }
         const capabilities = await promisify(execFile)(node, [cli, 'capabilities'], options)
         const output = ${JSON.stringify(join(home, 'cli.pdf'))}
         await promisify(execFile)(node, [cli, 'convert', '--input', ${JSON.stringify(join(home, 'input.docx'))}, '--output', output], options)
@@ -146,7 +148,7 @@ export function apply(ctx) {
     writeFileSync(join(profile, 'package.json'), JSON.stringify(manifest))
     writeFileSync(join(profile, 'cordis.patch.yml'), '- id: webserver\n  config:\n    host: 127.0.0.1\n    port: 0\n')
     const ready = await Promise.race([host.start(), new Promise<never>((_, reject) => {
-      timer = setTimeout(() => { reject(new Error('desktop runtime: Host readiness exceeded 120 seconds')) }, 120_000)
+      timer = setTimeout(() => { reject(new Error(`desktop runtime: Host readiness exceeded ${smokeTimeout} ms`)) }, smokeTimeout)
     })])
     clearTimeout(timer)
     const login = await fetch(ready.url, { redirect: 'manual' })
@@ -158,7 +160,7 @@ export function apply(ctx) {
     const pluginResponse = await fetch(new URL('/desktop-smoke', ready.url), { headers: { cookie } })
     if (await pluginResponse.text() !== 'plugin route ready') throw new Error('desktop runtime: plugin HTTP route failed')
     const installation = await fetch(new URL('/desktop-smoke-install', ready.url), {
-      headers: { cookie }, signal: AbortSignal.timeout(120_000),
+      headers: { cookie }, signal: AbortSignal.timeout(smokeTimeout),
     })
     const installationResult = await installation.text()
     const installed = await fetch(new URL('/desktop-smoke-installed', ready.url), { headers: { cookie } })
@@ -167,7 +169,7 @@ export function apply(ctx) {
     }
     for (const { extension } of inputs) {
       const converted = await fetch(new URL(`/desktop-smoke-office/${extension}`, ready.url), {
-        headers: { cookie }, signal: AbortSignal.timeout(120_000),
+        headers: { cookie }, signal: AbortSignal.timeout(smokeTimeout),
       })
       if (!converted.ok) throw new Error(`desktop runtime: ${extension} conversion failed: ${await converted.text()}`)
       const pdf = Buffer.from(await converted.arrayBuffer())
@@ -177,7 +179,7 @@ export function apply(ctx) {
       }
     }
     const cliResponse = await fetch(new URL('/desktop-smoke-office-cli', ready.url), {
-      headers: { cookie }, signal: AbortSignal.timeout(120_000),
+      headers: { cookie }, signal: AbortSignal.timeout(smokeTimeout),
     })
     if (!cliResponse.ok) throw new Error(`desktop runtime: skill CLI failed: ${await cliResponse.text()}`)
     const cliResult = await cliResponse.json() as { capabilities: { runtime: { cliPath: string } }; pdf: string }

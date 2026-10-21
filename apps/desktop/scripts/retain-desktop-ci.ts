@@ -35,7 +35,7 @@ export function desktopReleasesRoot(env: NodeJS.ProcessEnv): string {
 export async function retainDesktopCi(env: NodeJS.ProcessEnv, appRoot = resolve(import.meta.dirname, '..')): Promise<string> {
   const target = resolveDesktopBuildTarget(env)
   const windows = target === 'win-x64'
-  const linux = target === 'linux-x64'
+  const linux = target === 'linux-x64' || target === 'linux-arm64'
   const platform = windows ? 'win32' : linux ? 'linux' : 'darwin'
   const settings = loadDesktopPackageEnvironment(platform, env, appRoot, { unsigned: true })
   const preset = settings.DSH_PACKAGING_PRESET

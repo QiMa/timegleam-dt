@@ -4,6 +4,7 @@ import csv
 import importlib.metadata
 import io
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -25,6 +26,11 @@ from pptx.enum.chart import XL_CHART_TYPE
 from pptx.util import Inches
 
 
+SMOKE_TIMEOUT_MS = int(os.environ.get("DSH_PRIMARY_RUNTIME_SMOKE_TIMEOUT_MS", "120000"))
+CHILD_TIMEOUT = max(30, SMOKE_TIMEOUT_MS // 20)
+VENV_TIMEOUT = max(60, SMOKE_TIMEOUT_MS // 4)
+
+
 def check_interpreters():
     """Exercise command aliases, child execution and a pip-enabled virtual environment."""
     executable = Path(sys.executable)
@@ -35,15 +41,15 @@ def check_interpreters():
             str(interpreter), "-I", "-B", "-c",
             "import subprocess, sys; from pathlib import Path; "
             "assert Path(sys.executable) == Path(sys.argv[1]); "
-            "subprocess.run([sys.executable, '-I', '-B', '-c', 'import ssl, sqlite3, ctypes'], check=True, timeout=30)",
+            f"subprocess.run([sys.executable, '-I', '-B', '-c', 'import ssl, sqlite3, ctypes'], check=True, timeout={CHILD_TIMEOUT})",
             str(interpreter),
-        ], check=True, timeout=60)
+        ], check=True, timeout=VENV_TIMEOUT)
     with tempfile.TemporaryDirectory(prefix="dsh python venv ") as directory:
         environment = Path(directory) / "environment"
-        subprocess.run([str(executable.with_name(names[0])), "-I", "-B", "-m", "venv", str(environment)], check=True, timeout=60)
+        subprocess.run([str(executable.with_name(names[0])), "-I", "-B", "-m", "venv", str(environment)], check=True, timeout=VENV_TIMEOUT)
         python = environment / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
-        subprocess.run([str(python), "-I", "-B", "-c", "import sys; assert sys.prefix != sys.base_prefix"], check=True, timeout=30)
-        subprocess.run([str(python), "-I", "-B", "-m", "pip", "check"], check=True, timeout=30)
+        subprocess.run([str(python), "-I", "-B", "-c", "import sys; assert sys.prefix != sys.base_prefix"], check=True, timeout=CHILD_TIMEOUT)
+        subprocess.run([str(python), "-I", "-B", "-m", "pip", "check"], check=True, timeout=CHILD_TIMEOUT)
 
 
 def main():

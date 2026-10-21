@@ -12,7 +12,7 @@ const { values } = parseArgs({ options: { unsigned: { type: 'boolean', default: 
 const target = resolveDesktopBuildTarget()
 const windows = target === 'win-x64'
 const artifacts = desktopArtifactOutput(paths, { unsigned: values.unsigned, skipNotarization: values['skip-notarization'] }).directory
-const linux = target === 'linux-x64'
+const linux = target === 'linux-x64' || target === 'linux-arm64'
 const application = windows ? join(artifacts, 'win-unpacked')
   : linux ? join(artifacts, 'linux-unpacked')
     : join(artifacts, target === 'mac-arm64' ? 'mac-arm64' : 'mac', 'Huayu AI.app', 'Contents')

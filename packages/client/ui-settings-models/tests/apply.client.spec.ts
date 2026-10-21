@@ -67,6 +67,19 @@ function declare(slots: SlotRegistry): () => void {
 }
 
 describe('ui-settings-models apply', () => {
+  it('skips the DeepSeek onboarding step when the desktop shell owns authentication', async () => {
+    const { ctx, slots } = await bench()
+    declare(slots)
+    try {
+      vi.stubGlobal('dshDesktop', {})
+      await ctx.plugin({ inject: [...inject], apply }).await()
+      expect(slots.entries('settings.onboarding').map(entry => entry.options.id)).toEqual([])
+      expect(slots.entries('settings.section').map(entry => entry.options.id)).toEqual(['models'])
+    } finally {
+      await ctx.fiber.dispose()
+    }
+  })
+
   it('keeps manual credential onboarding available when the native shell owns automatic onboarding', async () => {
     const { ctx, slots } = await bench()
     declare(slots)

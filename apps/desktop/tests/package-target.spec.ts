@@ -29,11 +29,15 @@ describe('desktop package target', () => {
     expect(resolveDesktopPackageTarget('linux-x64', 'linux', 'x64')).toMatchObject({
       platform: 'linux', arch: 'x64', builderPlatform: '--linux', builderArch: '--x64',
     })
+    expect(resolveDesktopPackageTarget('linux-arm64', 'linux', 'x64')).toMatchObject({
+      platform: 'linux', arch: 'arm64', builderPlatform: '--linux', builderArch: '--arm64',
+    })
     expect(() => resolveDesktopPackageTarget('win-x64', 'darwin', 'arm64')).toThrow(/Windows x64/u)
     expect(() => resolveDesktopPackageTarget('mac-arm64', 'darwin', 'x64')).toThrow(/Apple Silicon/u)
     expect(() => resolveDesktopPackageTarget('mac-arm64', 'linux', 'arm64')).toThrow(/macOS/u)
     expect(() => resolveDesktopPackageTarget('mac-x64', 'darwin', 'ppc64')).toThrow(/Rosetta/u)
     expect(() => resolveDesktopPackageTarget('linux-x64', 'win32', 'x64')).toThrow(/Linux build host/u)
+    expect(() => resolveDesktopPackageTarget('linux-arm64', 'win32', 'x64')).toThrow(/Linux build host/u)
   })
 
   it('parses installer and unpacked-directory invocations', () => {
@@ -85,6 +89,10 @@ describe('desktop package target', () => {
     for (const name of ['mac-arm64', 'mac-x64']) {
       expect(parseDesktopPackageInvocation([name, '--unsigned'], 'darwin', 'arm64').unsigned).toBe(true)
       expect(parseDesktopPackageInvocation([name, '--unsigned', '--dir'], 'darwin', 'arm64').directory).toBe(true)
+    }
+    for (const name of ['linux-x64', 'linux-arm64']) {
+      expect(parseDesktopPackageInvocation([name, '--unsigned'], 'linux', 'x64').unsigned).toBe(true)
+      expect(parseDesktopPackageInvocation([name, '--unsigned', '--dir'], 'linux', 'x64').directory).toBe(true)
     }
     expect(() => parseDesktopPackageInvocation(['--unsigned', '--prepare-only'], 'win32', 'x64'))
       .toThrow(/cannot use --prepare-only/u)

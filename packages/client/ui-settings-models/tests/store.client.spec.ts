@@ -571,3 +571,16 @@ it('removes the account row after sign-out and restores it after sign-in', async
   await store.load()
   expect(store.store.getSnapshot().rows[0]?.entry.provider).toBe('deepseek-account')
 })
+
+it('omits provider routes the page is configured to hide', async () => {
+  const { ctx, mirror, seenRefs } = api({ accountAvailable: true })
+  const store = new ModelsSettingsStore(
+    ctx, settingsSchema, mirror, new Set(['deepseek-account', 'deepseek-official']),
+  )
+  await store.load()
+  const providers = store.store.getSnapshot().rows.map(row => row.entry.provider)
+  expect(providers).toEqual(['openai', 'anthropic', 'ghost'])
+  // Hidden rows never reach the credential describe: neither their named nor
+  // their derived references are read.
+  expect(seenRefs).toEqual([['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'GHOST_API_KEY']])
+})

@@ -24,7 +24,7 @@ describe('desktop auto-update environment', () => {
     expect(() => resolveDesktopAutoUpdateConfig(environment, 'darwin', 'arm64')).toThrow(/DOWNLOAD_TEST_RELEASE_ID/u)
   })
 
-  it.each([['darwin', 'arm64', 'mac-arm64'], ['darwin', 'x64', 'mac-x64'], ['win32', 'x64', 'win-x64'], ['linux', 'x64', 'linux-x64']] as const)
+  it.each([['darwin', 'arm64', 'mac-arm64'], ['darwin', 'x64', 'mac-x64'], ['win32', 'x64', 'win-x64'], ['linux', 'x64', 'linux-x64'], ['linux', 'arm64', 'linux-arm64']] as const)
   ('uses one test release directory for %s %s feeds and binaries', (platform, arch, target) => {
     expect(resolveDesktopAutoUpdateConfig({ DOWNLOAD_TEST_ORIGIN: 'https://updates.example.com',
       DOWNLOAD_TEST_RELEASE_ID: RELEASE_ID }, platform, arch)).toMatchObject({
@@ -112,7 +112,9 @@ describe('desktop auto-update environment', () => {
       DSH_DESKTOP_AUTO_UPDATE_ENV: 'staging',
     })).toThrow(/test.*production/u)
     expect(resolveDesktopAutoUpdateTarget('linux', 'x64')).toBe('linux-x64')
+    expect(resolveDesktopAutoUpdateTarget('linux', 'arm64')).toBe('linux-arm64')
     expect(desktopBuildRecordFilename('linux-x64')).toBe('linux-x64-release.json')
+    expect(desktopBuildRecordFilename('linux-arm64')).toBe('linux-arm64-release.json')
   })
 
   it('uses Nightly metadata for stable and prerelease Desktop versions', () => {

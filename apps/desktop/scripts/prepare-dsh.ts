@@ -45,6 +45,9 @@ const PNPM_BUILD_STATE = BUILD_PATHS.dshPnpm
 const PACKAGE_SET_ROOT = BUILD_PATHS.packageSet
 const NODE = join(BUILD_PATHS.electron, process.platform === 'win32' ? 'electron.exe' : process.platform === 'linux' ? 'electron' : 'Electron.app/Contents/MacOS/Electron')
 const PNPM = join(RUNTIME_ROOT, 'primary-runtime', 'dependencies', 'pnpm', 'bin', 'pnpm.mjs')
+// QEMU-emulated builds cannot execute Electron's V8 JIT through TCG; the install phase only
+// selects per-platform/arch prebuilt packages, so an emulated host may supply its own Node.
+const PNPM_NODE = process.env.DSH_DESKTOP_PNPM_NODE ?? NODE
 
 function manifestVersion(path: string, subject: string): string {
   const manifest = JSON.parse(readFileSync(path, 'utf8')) as { version?: unknown }
@@ -77,7 +80,7 @@ function runPnpm(args: readonly string[]): Promise<void> {
     const userConfig = join(config, 'npmrc')
     mkdirSync(config, { recursive: true })
     writeFileSync(userConfig, '')
-    const child = spawn(NODE, [
+    const child = spawn(PNPM_NODE, [
       '--expose-internals',
       PNPM,
       `--config.registry=${registry}`,
@@ -90,7 +93,9 @@ function runPnpm(args: readonly string[]): Promise<void> {
       cwd: BUILD_ROOT,
       env: {
         ...Object.fromEntries(Object.entries(process.env).filter(([name]) => (
-          name !== 'NODE_OPTIONS' && name !== 'NODE_PATH' && !/^DSH_DESKTOP_/u.test(name) && !/^(?:npm|pnpm|corepack)_/iu.test(name)
+          name === 'PNPM_MAX_WORKERS' || (
+            name !== 'NODE_OPTIONS' && name !== 'NODE_PATH' && !/^DSH_DESKTOP_/u.test(name) && !/^(?:npm|pnpm|corepack)_/iu.test(name)
+          )
         ))),
         NPM_CONFIG_REGISTRY: registry,
         NPM_CONFIG_STORE_DIR: STORE_ROOT,

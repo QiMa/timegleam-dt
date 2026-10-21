@@ -23,6 +23,8 @@ export async function smokePreparedRuntime(
   root: string, node: string, resourcesRuntime: string, descriptor: DesktopRuntimeDescriptor,
 ): Promise<void> {
   const cache = await mkdtemp(join(tmpdir(), 'desktop-native-smoke-'))
+  const smokeTimeout = Number(process.env.DSH_DESKTOP_SMOKE_TIMEOUT_MS ?? '120000')
+  if (!Number.isSafeInteger(smokeTimeout) || smokeTimeout < 1 || smokeTimeout > 2_147_483_647) throw new Error('DSH_DESKTOP_SMOKE_TIMEOUT_MS must be an integer from 1 to 2147483647')
   const environment = { ...scrubWindowsSigningEnvironment(process.env), NODE_OPTIONS: '',
     NARB_NATIVE_CACHE_DIR: cache, NARB_DISABLE_NATIVE_CACHE: '0' }
   try {
@@ -30,7 +32,7 @@ export async function smokePreparedRuntime(
     if (archive !== undefined) await verifyRuntimeArchive(archive, descriptor)
     const { stdout } = await promisify(execFile)(node, [
       '--expose-internals', resolve(import.meta.dirname, '../tests/fixtures/runtime-payload-smoke.mjs'), root, resourcesRuntime,
-    ], { timeout: 120_000, windowsHide: true,
+    ], { timeout: smokeTimeout, windowsHide: true,
       env: desktopNodeEnvironment(node, join(resourcesRuntime, 'bin'), environment) }).catch((error: unknown) => {
       if (error instanceof Error) {
         if ('stdout' in error && typeof error.stdout === 'string') process.stdout.write(error.stdout)

@@ -15,6 +15,8 @@ import { delimiter, join } from 'node:path'
 export async function checkPnpm(resourcesRuntime) {
   assert.ok(process.versions.electron, 'Run the package-manager smoke with Electron Node mode')
   assert.equal(existsSync(join(resourcesRuntime, 'pnpm')), false, 'Desktop must ship only primary-runtime pnpm')
+  const smokeTimeout = Number(process.env.DSH_DESKTOP_SMOKE_TIMEOUT_MS ?? '120000')
+  if (!Number.isSafeInteger(smokeTimeout) || smokeTimeout < 1 || smokeTimeout > 2_147_483_647) throw new Error('DSH_DESKTOP_SMOKE_TIMEOUT_MS must be an integer from 1 to 2147483647')
   const primary = join(resourcesRuntime, 'primary-runtime')
   const pnpm = join(primary, 'dependencies', 'pnpm', 'bin', 'pnpm.mjs')
   const versions = JSON.parse(readFileSync(join(resourcesRuntime, 'versions.json'), 'utf8'))
@@ -44,7 +46,7 @@ console.log('desktop-node-script-ok')
     const environment = Object.fromEntries(Object.entries(process.env).filter(([name]) => /^(?:systemroot|windir|comspec|LD_LIBRARY_PATH)$/iu.test(name)))
     const systemBin = process.platform === 'win32' ? join(process.env.SystemRoot, 'System32') : '/usr/bin:/bin'
     const run = args => execFileSync(process.execPath, ['--expose-internals', pnpm, ...args], {
-      cwd: scratch, encoding: 'utf8', timeout: 45_000, windowsHide: true,
+      cwd: scratch, encoding: 'utf8', timeout: smokeTimeout, windowsHide: true,
       env: { ...environment, pnpm_config_verify_deps_before_run: 'false',
         ELECTRON_RUN_AS_NODE: '1', DSH_DESKTOP_NODE_EXECUTABLE: process.execPath,
         PATH: `${join(resourcesRuntime, 'bin')}${delimiter}${systemBin}`,

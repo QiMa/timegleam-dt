@@ -96,7 +96,9 @@ it('shares account actions across seats, publishes dialog ownership, and opens c
   vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
-  expect(c.ctx.slots.entries('settings.models.sign-in')[0]!.inject!()).toBe(actions)
+  // Desktop owns authentication through the shell welcome flow; the
+  // Models onboarding seat the browser declares stays undeclared here.
+  expect(c.ctx.slots.entries('settings.models.sign-in')).toHaveLength(0)
   // The account UI follows the live theme service through the framework hook channel.
   const theme = c.ctx.get('theme') as ThemeRuntime
   const onTheme = vi.fn()

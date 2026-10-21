@@ -20,6 +20,8 @@ assert.equal(process.arch, descriptor.arch)
 const resourcesRuntime = process.argv[3] ?? join(dirname(root), 'runtime')
 const requireRuntime = createRequire(join(root, 'package.json'))
 const scratch = mkdtempSync(join(tmpdir(), 'dsh-runtime-payload-'))
+const smokeTimeout = Number(process.env.DSH_DESKTOP_SMOKE_TIMEOUT_MS ?? '120000')
+if (!Number.isSafeInteger(smokeTimeout) || smokeTimeout < 1 || smokeTimeout > 2_147_483_647) throw new Error('DSH_DESKTOP_SMOKE_TIMEOUT_MS must be an integer from 1 to 2147483647')
 
 /** Spawn only a fixed Node program and await the terminal's drained exit event. */
 async function checkPty() {
@@ -56,8 +58,8 @@ async function checkPty() {
     const deadline = new Promise((_, reject) => {
       timer = setTimeout(() => {
         timedOut = true
-        reject(new Error('Packaged PTY did not exit within 45 seconds'))
-      }, 45_000)
+        reject(new Error(`Packaged PTY did not exit within ${smokeTimeout} ms`))
+      }, smokeTimeout)
     })
     const result = await Promise.race([exit, deadline])
     assert.equal(timedOut, false)
@@ -85,7 +87,7 @@ async function checkSearch() {
   const marker = 'desktop-ripgrep-smoke'
   writeFileSync(join(scratch, name), `${marker}\n`, { flag: 'wx', mode: 0o600 })
   const run = args => execFileSync(executable, ['--no-config', ...args], {
-    cwd: scratch, encoding: 'utf8', timeout: 45_000, windowsHide: true,
+    cwd: scratch, encoding: 'utf8', timeout: smokeTimeout, windowsHide: true,
     env: Object.fromEntries(Object.entries(process.env).filter(([name]) => /^(?:systemroot|windir)$/iu.test(name))),
   }).trim().replaceAll('\\', '/')
   assert.equal(run(['--no-heading', '--no-filename', '--line-number', '--fixed-strings', '--', marker, name]), `1:${marker}`)
