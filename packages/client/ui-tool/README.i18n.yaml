@@ -3,13 +3,13 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-tool/README.md
 /:
-  en: d5ef8fa5a5ebfbc2
+  en: 9b7c8b1bb568ba47
   zh: 9870b3f207a248cc
 /hy-dsh-client-ui-tool:
   en: ed26c59c7d7d5b63
   zh: 469d7e37b3f7287d
 /hy-dsh-client-ui-tool/summary:
-  en: e7ef510d1764f9b2
+  en: a4223f6bb2ef5ffd
   zh: 236bc66607211f0f
 /hy-dsh-client-ui-tool/table-of-contents:
   en: d152484eb41ac6b4

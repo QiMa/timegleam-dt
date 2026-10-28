@@ -15,7 +15,7 @@ Package ownership and naming follow the [experimental package policy](../../../.
 
 ## Migration
 
-1. Install any packages missing from the target profile together with their required peers. Profiles disable automatic peer installation. For example, run `dsh plugin --profile web add @hy/dsh-hooks-claude-code @hy/dsh-hook-protocol`. The Codex bridge needs the same protocol peer; the GitHub adapter needs `@hy/dsh-webhook` alongside `@hy/dsh-webhook-github`.
+1. Install any packages missing from the target profile together with their required peers. Profiles disable automatic peer installation. For example, run `hy plugin --profile web add @hy/dsh-hooks-claude-code @hy/dsh-hook-protocol`. The Codex bridge needs the same protocol peer; the GitHub adapter needs `@hy/dsh-webhook` alongside `@hy/dsh-webhook-github`.
 2. Select an available bundle before overriding its rows. For a capability composed manually, replace an override of a removed row with a complete insertion. Add preset-local tools inside that preset's `config.plugins`, including the services they require. A Host badge insertion is:
 
    ```yaml

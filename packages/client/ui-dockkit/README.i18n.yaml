@@ -3,7 +3,7 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-dockkit/README.md
 /:
-  en: 93fc2e9e86fc50f8
+  en: 7913e8dface01cbf
   zh: 61c7c38a66935ad6
 /hy-dsh-client-ui-dockkit:
   en: 6cc8999512eb72d2

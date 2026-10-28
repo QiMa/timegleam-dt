@@ -28,7 +28,7 @@ This workflow targets developers running macOS Web or unpackaged Desktop from so
 
 ```sh
 pnpm run build
-pnpm dsh web
+pnpm hy web
 ```
 
 For the source Desktop launcher and its separate development profile, follow [Desktop development](../../../apps/desktop/README.md). Enable Computer Use in each profile that needs it.

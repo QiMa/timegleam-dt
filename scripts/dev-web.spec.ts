@@ -103,8 +103,8 @@ describe('parseDevWebArguments', () => {
     expect(parseDevWebArguments(['--no-serve', '--'])).toMatchObject({ serve: false, appArgs: [] })
   })
 
-  it('rejects dsh web arguments when no server is started', () => {
-    expect(() => parseDevWebArguments(['--no-serve', '--no-open'])).toThrow('--no-serve leaves no dsh web process for --no-open')
+  it('rejects hy web arguments when no server is started', () => {
+    expect(() => parseDevWebArguments(['--no-serve', '--no-open'])).toThrow('--no-serve leaves no hy web process for --no-open')
   })
 })
 

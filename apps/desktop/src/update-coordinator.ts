@@ -1,6 +1,7 @@
 /** User-authorized downloads and separate installation of one version-bound Desktop release. */
 
 import { existsSync } from 'node:fs'
+import { URL } from 'node:url'
 import { join } from 'node:path'
 import { app } from 'electron'
 import electronUpdater, { type AppUpdater, type ProgressInfo, type UpdateInfo } from 'electron-updater'
@@ -10,6 +11,27 @@ import { DesktopUpdateHttpExecutor } from './update-http-executor.ts'
 import { DesktopUpdatePreparationError } from './update-error.ts'
 
 const { autoUpdater } = electronUpdater
+
+/** Environment variable that overrides the packaged update feed for offline deployments. */
+export const DESKTOP_UPDATE_FEED_ENV = 'DSH_DESKTOP_UPDATE_FEED_URL'
+
+/**
+ * Validate an explicit feed override without accepting credentials or fragments.
+ * @param value Candidate URL read from the process environment.
+ * @returns Normalized https or loopback-http feed URL, or undefined when unset.
+ */
+export function resolveDesktopUpdateFeedOverride(value: string | undefined): string | undefined {
+  const raw = value?.trim()
+  if (raw === undefined || raw === '') return undefined
+  let parsed: URL
+  try { parsed = new URL(raw) } catch { throw new Error('desktop update: update feed URL is invalid') }
+  const loopback = parsed.protocol === 'http:' && (parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost')
+  if ((parsed.protocol !== 'https:' && !loopback) || parsed.username !== '' || parsed.password !== ''
+    || parsed.search !== '' || parsed.hash !== '') {
+    throw new Error('desktop update: update feed URL must be an https or loopback-http URL without credentials, query, or fragment')
+  }
+  return parsed.href.replace(/\/+$/u, '') + '/'
+}
 
 /** Owns one updater target until its download and installation settle. */
 export class DesktopUpdateCoordinator {
@@ -72,6 +94,8 @@ export class DesktopUpdateCoordinator {
     this.updater.allowPrerelease = channel === 'nightly'
     // Selecting a channel can enable downgrade in electron-updater.
     this.updater.allowDowngrade = false
+    const feedOverride = resolveDesktopUpdateFeedOverride(process.env[DESKTOP_UPDATE_FEED_ENV])
+    if (feedOverride !== undefined) this.updater.setFeedURL({ provider: 'generic', url: feedOverride, channel })
     this.updater.on('download-progress', this.onProgress)
     this.updater.on('update-downloaded', this.onDownloaded)
     this.updater.on('error', this.onError)

@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-The headless bundle reads `--add-dir` through `headlessStartup` before activating its sandbox policy. An overlay that disables `headless-startup` must also remove that dependency from `sandbox-policy`. Otherwise the policy and its dependent tools remain pending. Ordinary `dsh headless` invocations need no configuration change.
+The headless bundle reads `--add-dir` through `headlessStartup` before activating its sandbox policy. An overlay that disables `headless-startup` must also remove that dependency from `sandbox-policy`. Otherwise the policy and its dependent tools remain pending. Ordinary `hy headless` invocations need no configuration change.
 
 ## Migration
 

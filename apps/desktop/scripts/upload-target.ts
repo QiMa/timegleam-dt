@@ -10,6 +10,7 @@ import { loadDesktopPackageEnvironment } from './desktop-package-environment.mjs
 import { createDesktopUploadPlan, type DesktopUploadPlan } from './desktop-upload-plan.ts'
 import { desktopReleaseTag, tagDesktopRelease } from './desktop-release-tag.ts'
 import { uploadDesktopRelease } from './desktop-upload-run.ts'
+import { uploadDesktopReleaseStatic } from './desktop-upload-static.ts'
 import { DesktopPurgeError, purgeDesktopInstaller, resolveDesktopPurgeConfig } from './desktop-edgeone.ts'
 
 const SUPPORTED_TARGETS = new Set<DesktopPackageTargetName>(['mac-arm64', 'mac-x64', 'win-x64'])
@@ -115,12 +116,16 @@ export async function uploadDesktopTarget(args: string[]): Promise<void> {
   }
   const plan = await createDesktopUploadPlan(name, { environment, latest: values.latest === true })
   const purge = plan.environment === 'production' && values.latest ? purgeConfig(environment, name, plan.publicUrl) : undefined
-  const cos = createDesktopCos({
-    secretId: requiredEnvironmentValue(environment, plan.secretIdEnvName),
-    secretKey: requiredEnvironmentValue(environment, plan.secretKeyEnvName),
-  })
   process.stdout.write(`desktop upload: ${plan.target} ${plan.version} -> ${plan.publicUrl}\n`)
-  await uploadDesktopRelease(plan, cos, recordsRoot)
+  if (plan.transport === 'static') {
+    await uploadDesktopReleaseStatic(plan, recordsRoot)
+  } else {
+    const cos = createDesktopCos({
+      secretId: requiredEnvironmentValue(environment, plan.secretIdEnvName),
+      secretKey: requiredEnvironmentValue(environment, plan.secretKeyEnvName),
+    })
+    await uploadDesktopRelease(plan, cos, recordsRoot)
+  }
   if (purge !== undefined) {
     process.stdout.write('desktop upload: installer uploaded; submitting cache purge.\n')
     await purgeDesktopInstaller(purge)

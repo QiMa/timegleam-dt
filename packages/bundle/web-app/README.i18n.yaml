@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/web-app/README.md
 /:
-  en: af2e4e5296596e8f
-  zh: 70c0b5ac93209d00
+  en: f62db17a7316a3ea
+  zh: 56a05e5249e6fe7d
 /hy-dsh-web-app:
   en: b12a7dc8d677519b
   zh: ddf7b5aa58d0cf7c
 /hy-dsh-web-app/summary:
-  en: 0a2a9876194543e5
-  zh: ff472776a44ae260
+  en: 1547984650be8a18
+  zh: 2c1e9d382a7615f0
 /hy-dsh-web-app/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
@@ -18,17 +18,17 @@
   en: 3bd37b85139d2fa7
   zh: ba86c807eb83866e
 /hy-dsh-web-app/use-this-package/starting-the-web-gui:
-  en: e3cac911f080d8ef
-  zh: 60749e9f5c39c1bc
+  en: 9714e648be7fd95d
+  zh: 7ff7e1a763b55896
 /hy-dsh-web-app/use-this-package/configuration:
-  en: b1787804544f2587
-  zh: ce09d2c248ffd999
+  en: b4eb542d7443d82e
+  zh: d131668431945074
 /hy-dsh-web-app/use-this-package/listening-trust-and-public-deployments:
   en: e6ddea1d2fc40501
   zh: ff08b6fa3fc24136
 /hy-dsh-web-app/use-this-package/running-over-ssh:
-  en: df205a26b6d49168
-  zh: e46ed7cf9e06248a
+  en: 885ffa1e1ed665b6
+  zh: db131fdf8d21dcb6
 /hy-dsh-web-app/use-this-package/per-session-agent-setup:
   en: fdf38cb6e1b24464
   zh: c14a8bcac9d4e5cd

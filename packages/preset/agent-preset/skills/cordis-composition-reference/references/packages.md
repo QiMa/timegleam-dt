@@ -88,8 +88,8 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-open-in-app` | no | Web "Open In..." controls: the Session-header split button opening the workspace directory in an installed application, and the document preview's default-application controls for one file |
 | `@hy/dsh-client-ui-permission-presets` | no | Permission surfaces: a new-session default in General settings and a current-session /permission popup over the permissions projection |
 | `@hy/dsh-client-ui-plan` | no | Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews |
-| `@hy/dsh-client-ui-plugin-manager` | yes | Plugin management for the dsh web client: the sidebar Plugins panel installs, enables, disables, retries, and composes installed plugin packages |
-| `@hy/dsh-client-ui-plugin-market` | no | Discover tab of the dsh web Plugins page: browse configured plugin market indexes and install their bundles |
+| `@hy/dsh-client-ui-plugin-manager` | yes | Plugin management for the hy web client: the sidebar Plugins panel installs, enables, disables, retries, and composes installed plugin packages |
+| `@hy/dsh-client-ui-plugin-market` | no | Discover tab of the hy web Plugins page: browse configured plugin market indexes and install their bundles |
 | `@hy/dsh-client-ui-reference` | no | Unified Web @file and @session reference source |
 | `@hy/dsh-client-ui-renderer` | no | Browser UI renderer: React slot bindings, ctx.uiRenderer, and the assembled application root |
 | `@hy/dsh-client-ui-schedule` | no | Host task management page and Session reminder catalog |
@@ -97,15 +97,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-session` | no | Session Controller adapter for React and session-scoped slots |
 | `@hy/dsh-client-ui-settings` | no | Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract |
 | `@hy/dsh-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
-| `@hy/dsh-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the dsh web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
+| `@hy/dsh-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the hy web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
 | `@hy/dsh-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@hy/dsh-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
 | `@hy/dsh-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |
-| `@hy/dsh-client-ui-settings-plugins` | no | Built-in plugins settings section for the dsh web client: the Settings navigation entry and the tab chrome feature-owned tabs register into |
+| `@hy/dsh-client-ui-settings-plugins` | no | Built-in plugins settings section for the hy web client: the Settings navigation entry and the tab chrome feature-owned tabs register into |
 | `@hy/dsh-client-ui-settings-session-log` | no | General settings control for Session-log upload with DeepSeek API requests |
-| `@hy/dsh-client-ui-settings-shell` | no | Settings page of the shell executor on the dsh web client's Plugins page: the command timeout and the per-stream output cap of the shell namespace |
-| `@hy/dsh-client-ui-settings-subagent` | no | Settings page of Subagent delegation on the dsh web client's Plugins page: recursion depth, parallel capacity, and the models agents may choose for subagents |
-| `@hy/dsh-client-ui-settings-web-search` | no | Settings page of the DeepSeek web-search provider on the dsh web client's Plugins page: its API key, endpoint, and per-request search budget |
+| `@hy/dsh-client-ui-settings-shell` | no | Settings page of the shell executor on the hy web client's Plugins page: the command timeout and the per-stream output cap of the shell namespace |
+| `@hy/dsh-client-ui-settings-subagent` | no | Settings page of Subagent delegation on the hy web client's Plugins page: recursion depth, parallel capacity, and the models agents may choose for subagents |
+| `@hy/dsh-client-ui-settings-web-search` | no | Settings page of the DeepSeek web-search provider on the hy web client's Plugins page: its API key, endpoint, and per-request search budget |
 | `@hy/dsh-client-ui-shortcuts` | no | Keyboard shortcut reference, recording, and local preference editing |
 | `@hy/dsh-client-ui-sidebar` | no | Sidebar plugin: session multi-level tree, search, grouping, state dots |
 | `@hy/dsh-client-ui-sidebar-browser` | no | Sandboxed Web browser tabs for the right Sidebar |
@@ -119,7 +119,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
 | `@hy/dsh-client-ui-trajectory` | yes | Trajectory event ledger and timing overview with live tool-result inspection |
 | `@hy/dsh-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
-| `@hy/dsh-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for dsh web |
+| `@hy/dsh-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for hy web |
 | `@hy/dsh-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
 
 ## compaction

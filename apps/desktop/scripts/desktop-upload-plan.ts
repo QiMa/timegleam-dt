@@ -1,5 +1,4 @@
 /** Validate packaged Desktop update artifacts before any network upload begins. */
-
 import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
 import { readFile, stat } from 'node:fs/promises'
@@ -42,7 +41,7 @@ export interface DesktopUploadArtifact {
 
 /** A validated installer or update upload, with any channel metadata ordered last. */
 export interface DesktopUploadPlan {
-  readonly environment: 'test' | 'production'
+  readonly environment: 'test' | 'production' | 'airgap'
   readonly target: DesktopPackageTargetName
   readonly version: string
   /** Update feed directory URL, or the single installer URL for a fixed download. */
@@ -203,6 +202,12 @@ export async function createDesktopUploadPlan(
   }
 
   const update = resolveDesktopUploadConfig(environment, target.platform, target.arch)
+  if (update.environment === 'airgap') {
+    // AirGap feeds live under a fixed huayu-ai subdirectory inside the AirGap public root.
+    update.keyPrefix = `huayu-ai/${update.keyPrefix}`
+    update.binaryKeyPrefix = `huayu-ai/${update.binaryKeyPrefix}`
+    update.publicUrl = `${update.origin}/${update.keyPrefix}/`
+  }
   const buildRecord = await jsonFile(
     join(artifactsRoot, desktopBuildRecordFilename(targetName)),
     `${targetName} package completion record`,

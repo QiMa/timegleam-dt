@@ -1,4 +1,4 @@
-/** End-to-end SDK continuation through built dsh sdk-minimal with an explicitly mounted file editor. */
+/** End-to-end SDK continuation through built hy sdk-minimal with an explicitly mounted file editor. */
 
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'

@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/base/README.md
 /:
-  en: 21c1b63e74134d34
-  zh: 78c69828d5930a86
+  en: db24896e1fa294b0
+  zh: 2fdafa63762f481f
 /hy-dsh-base:
   en: befa8e71a05dd19c
   zh: 3d76e6819b4cff18
 /hy-dsh-base/summary:
-  en: 5c15f68a65aadc7d
-  zh: 7ac9ace622e161ae
+  en: 494df35a2caadda2
+  zh: 0249405fa61ec626
 /hy-dsh-base/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
@@ -18,8 +18,8 @@
   en: 4c0d7045f95ff79c
   zh: 456bb24bd1d35db1
 /hy-dsh-base/use-this-package/a-minimal-custom-profile:
-  en: f493cbd7c710203f
-  zh: 731230a3cc8ddbc4
+  en: 21d106817190a880
+  zh: d139a373fa211e43
 /hy-dsh-base/use-this-package/what-you-get:
   en: 2ef2653d55107eec
   zh: 4936c0fff94b1984

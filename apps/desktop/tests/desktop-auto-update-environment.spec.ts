@@ -107,6 +107,28 @@ describe('desktop auto-update environment', () => {
     }, 'darwin', 'arm64')).toThrow(/HTTPS origin/u)
   })
 
+  it('resolves the airgap deployment to the AirGap public root over static transport', () => {
+    expect(resolveDesktopAutoUpdateConfig({
+      DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap',
+      AIRGAP_BASE_URL: 'https://airgap.example.cn/lanhc/airgap/',
+    }, 'win32', 'x64')).toMatchObject({
+      environment: 'airgap',
+      target: 'win-x64',
+      origin: 'https://airgap.example.cn/lanhc/airgap',
+      publicUrl: 'https://airgap.example.cn/lanhc/airgap/dsh-desk/feeds/win-x64/',
+      binaryKeyPrefix: 'dsh-desk/bin/win-x64',
+    })
+    expect(resolveDesktopUploadConfig({
+      DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap',
+      AIRGAP_BASE_URL: 'https://airgap.example.cn/lanhc/airgap',
+    }, 'win32', 'x64')).toMatchObject({
+      transport: 'static',
+      staticHost: 'baizor',
+      staticRemoteRoot: '/lucky/airgap/data/public',
+    })
+    expect(() => resolveDesktopAutoUpdateConfig({ DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap' }, 'win32', 'x64'))
+      .toThrow(/AIRGAP_BASE_URL/u)
+  })
   it('rejects unknown deployments and targets', () => {
     expect(() => resolveDesktopAutoUpdateEnvironment({
       DSH_DESKTOP_AUTO_UPDATE_ENV: 'staging',

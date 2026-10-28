@@ -3,7 +3,7 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-settings-subagent/README.md
 /:
-  en: 91ac9c71d17a231a
+  en: 4eb295e7d81bb2fc
   zh: c0f89c3d36b51581
 /hy-dsh-client-ui-settings-subagent:
   en: 0a954e9ab6f962c8

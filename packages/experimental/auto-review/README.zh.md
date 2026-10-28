@@ -32,7 +32,7 @@ kind: "package-bundle"
 从源码 checkout 通过既有 CLI 将包安装到 Web profile：
 
 ```sh
-pnpm dsh plugin --profile web add ./packages/experimental/auto-review
+pnpm hy plugin --profile web add ./packages/experimental/auto-review
 ```
 
 CLI 会在需要时初始化 profile，并将本包声明的 patch 追加到 base 与 Web 层之后。Reconciliation 将 patch 激活为 profile 层；没有 `dsh.bundle.patch` 的包只是已安装依赖。在 composer 菜单或 `/permission` 选择器中选择带 `EXP` 标记的「自动审查」，并确认当前会话风险对话框。显式 `/permission auto` 命令直接切换。通用设置与未来会话默认值不提供 Auto。
@@ -40,7 +40,7 @@ CLI 会在需要时初始化 profile，并将本包声明的 patch 追加到 bas
 通过同一 CLI 移除此层：
 
 ```sh
-pnpm dsh plugin --profile web remove @hy/dsh-experimental-auto-review
+pnpm hy plugin --profile web remove @hy/dsh-experimental-auto-review
 ```
 
 <a id="headless-supervision"></a>
@@ -49,8 +49,8 @@ pnpm dsh plugin --profile web remove @hy/dsh-experimental-auto-review
 为 headless profile 显式启用实验层：
 
 ```sh
-dsh plugin --profile headless add @hy/dsh-experimental-auto-review
-dsh headless --permission-mode auto --approval-policy never --json - < task.txt > run.jsonl
+hy plugin --profile headless add @hy/dsh-experimental-auto-review
+hy headless --permission-mode auto --approval-policy never --json - < task.txt > run.jsonl
 ```
 
 如需从此 checkout 单次运行，可传入 `--patch /absolute/path/to/packages/experimental/auto-review/cordis.patch.yml`，无需安装 profile 层。Auto integration 不可用时，权限预设选择会在读取 stdin 或开始模型工作前失败。Auto 使用完全主机访问权限；此模式不需要 `--add-dir`。原生工具让每个工具 body 都经过审查；PTC 的直接 Node 效果仍不在审查范围内。

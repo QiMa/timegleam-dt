@@ -32,6 +32,13 @@ const UPDATE_ENVIRONMENTS = {
     staticHost: 'baizor',
     staticRemoteRoot: '/lucky/lanhc-hugo/lanhc',
   },
+  airgap: {
+    transport: 'static',
+    originEnvName: 'AIRGAP_BASE_URL',
+    fixedOrigin: undefined,
+    staticHost: 'baizor',
+    staticRemoteRoot: '/lucky/airgap/data/public',
+  },
 }
 
 const UPDATE_TARGETS = new Set(['mac-arm64', 'mac-x64', 'win-x64', 'linux-x64', 'linux-arm64'])
@@ -50,12 +57,12 @@ export function desktopLatestInstallerFilename(target) {
 /**
  * Resolve the update deployment, defaulting local release work to test.
  * @param {NodeJS.ProcessEnv} env - Packaging or upload environment.
- * @returns {'test' | 'production'} Validated deployment name.
+ * @returns {'test' | 'production' | 'airgap'} Validated deployment name.
  */
 export function resolveDesktopAutoUpdateEnvironment(env) {
   const value = env[DESKTOP_AUTO_UPDATE_ENV]?.trim() || 'test'
-  if (value !== 'test' && value !== 'production') {
-    throw new Error(`desktop auto-update: ${DESKTOP_AUTO_UPDATE_ENV} must be "test" or "production"`)
+  if (value !== 'test' && value !== 'production' && value !== 'airgap') {
+    throw new Error(`desktop auto-update: ${DESKTOP_AUTO_UPDATE_ENV} must be "test", "production", or "airgap"`)
   }
   return value
 }
@@ -120,6 +127,29 @@ export function requiredEnvironmentValue(env, name) {
 }
 
 /**
+ * Normalize an HTTPS base URL that may carry a base path (used by the AirGap public root).
+ * @param {string} value - Candidate base URL.
+ * @param {string} name - Environment variable used in diagnostics.
+ * @returns {string} Normalized HTTPS base URL without a trailing slash.
+ */
+function httpsBaseUrl(value, name) {
+  let parsed
+  try {
+    parsed = new URL(value)
+  }
+  catch {
+    throw new Error(`desktop auto-update: ${name} must be an absolute HTTPS URL`)
+  }
+  if (parsed.protocol !== 'https:'
+    || parsed.username !== ''
+    || parsed.password !== ''
+    || parsed.search !== ''
+    || parsed.hash !== '') {
+    throw new Error(`desktop auto-update: ${name} must be an absolute HTTPS URL without credentials, query, or fragment`)
+  }
+  return parsed.href.replace(/\/+$/u, '')
+}
+/**
  * Normalize an HTTPS origin and reject paths or credentials.
  * @param {string} value - Candidate origin.
  * @param {string} name - Environment variable used in diagnostics.
@@ -155,7 +185,7 @@ function httpsOrigin(value, name) {
  * @param {NodeJS.ProcessEnv} env - Packaging or upload environment.
  * @param {NodeJS.Platform} platform - Target Node.js platform.
  * @param {string} arch - Target Node.js architecture.
- * @returns {{ environment: 'test' | 'production', channel: 'nightly' | 'latest', target: 'mac-arm64' | 'mac-x64' | 'win-x64' | 'linux-x64' | 'linux-arm64', origin: string, publicUrl: string, keyPrefix: string, binaryKeyPrefix: string }} Resolved updater configuration.
+ * @returns {{ environment: 'test' | 'production' | 'airgap', channel: 'nightly' | 'latest', target: 'mac-arm64' | 'mac-x64' | 'win-x64' | 'linux-x64' | 'linux-arm64', origin: string, publicUrl: string, keyPrefix: string, binaryKeyPrefix: string }} Resolved updater configuration.
  * @throws {Error} When the test deployment lacks a valid HTTPS origin or a 32-character lowercase hexadecimal release ID.
  */
 export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
@@ -167,7 +197,9 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
   if (origin === undefined) {
     const { originEnvName } = deployment
     if (originEnvName === undefined) throw new Error('desktop auto-update: selected deployment has no origin')
-    origin = httpsOrigin(requiredEnvironmentValue(env, originEnvName), originEnvName)
+    origin = environment === 'airgap'
+      ? httpsBaseUrl(requiredEnvironmentValue(env, originEnvName), originEnvName)
+      : httpsOrigin(requiredEnvironmentValue(env, originEnvName), originEnvName)
   }
   let releasePrefix = 'dsh-desk'
   if (environment === 'test') {
@@ -194,7 +226,7 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
  * @param {NodeJS.ProcessEnv} env - Upload environment.
  * @param {NodeJS.Platform} platform - Target Node.js platform.
  * @param {string} arch - Target Node.js architecture.
- * @returns {{ environment: 'test' | 'production', channel: 'nightly' | 'latest', target: 'mac-arm64' | 'mac-x64' | 'win-x64' | 'linux-x64' | 'linux-arm64', origin: string, publicUrl: string, keyPrefix: string, binaryKeyPrefix: string, bucket: string, secretIdEnvName: string, secretKeyEnvName: string }} Resolved upload configuration.
+ * @returns {{ environment: 'test' | 'production' | 'airgap', channel: 'nightly' | 'latest', target: 'mac-arm64' | 'mac-x64' | 'win-x64' | 'linux-x64' | 'linux-arm64', origin: string, publicUrl: string, keyPrefix: string, binaryKeyPrefix: string, bucket: string, secretIdEnvName: string, secretKeyEnvName: string }} Resolved upload configuration.
  * @throws {Error} When the selected deployment lacks a bucket or valid updater configuration.
  */
 export function resolveDesktopUploadConfig(env, platform, arch) {

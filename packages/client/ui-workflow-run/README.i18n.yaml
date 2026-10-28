@@ -3,7 +3,7 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-workflow-run/README.md
 /:
-  en: 1310faa1582887b5
+  en: c536e0fc8b72c660
   zh: 16b77855de7f9292
 /hy-dsh-client-ui-workflow-run:
   en: 19239160a2883689
