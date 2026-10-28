@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-fs-search",
   "description": "Model-facing filesystem discovery tools (glob, grep) backed by the packaged ripgrep binary (@vscode/ripgrep)",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -54,6 +54,8 @@
     "@hy/dsh-spill": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-scope": "workspace:*",

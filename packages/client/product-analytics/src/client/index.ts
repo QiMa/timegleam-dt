@@ -3,7 +3,10 @@ import { Service, type Context } from '@hy/cordis'
 import type {} from '@hy/dsh-api-gateway/client'
 export type {} from '@hy/dsh-client-product-analytics/remote'
 import type { ProductEvent, ProductEventMap } from '../events.ts'
-export type { ProductEvent, ProductEventMap, TrackProductEvent } from '../events.ts'
+export type {
+  AnalyticsPreset, EntryAnalyticsRegion, ProductEvent, ProductEventMap,
+  SidebarAnalyticsEntry, SidebarAnalyticsPosition, TrackProductEvent,
+} from '../events.ts'
 
 declare module '@hy/cordis' {
   interface Context {

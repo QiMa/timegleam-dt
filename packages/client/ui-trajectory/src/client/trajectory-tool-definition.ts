@@ -3,7 +3,7 @@ import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, StartedToolCall,
   ToolResultNode,
 } from '@hy/dsh-client-ui-conversation/client'
-import type {} from '@hy/dsh-tools/types'
+import type {} from '@hy/dsh-tool-executor-ptc/client'
 import { PartialArguments } from '@hy/dsh-util-values'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 

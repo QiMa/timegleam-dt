@@ -1,4 +1,5 @@
 /** Plan text and resource identities derived from logged native or PTC calls. */
+import type {} from '@hy/dsh-tool-executor-ptc/client'
 import type { ToolCallId } from '@hy/dsh-llm/brand'
 import type { SessionId } from '@hy/dsh-session/types'
 import type { SessionAddress } from '@hy/dsh-api-session-controller/types'

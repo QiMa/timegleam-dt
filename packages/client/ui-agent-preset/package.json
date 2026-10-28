@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-agent-preset",
   "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -56,6 +56,7 @@
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-client-connection": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-product-analytics": "workspace:*",
     "@hy/dsh-client-store": "workspace:*",
     "@hy/dsh-client-test-runtime": "workspace:*",
     "@hy/dsh-client-ui-conversation": "workspace:*",
@@ -68,7 +69,6 @@
     "@hy/dsh-client-ui-workspace": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },
   "files": [

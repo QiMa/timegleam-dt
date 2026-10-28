@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { SessionLogOffset, SessionSeq, TOOL_OUTCOME_UNKNOWN, type SessionEvent } from '@hy/dsh-session'
 import { createToolResultMessage, createUserMessage, ToolCallId, type ToolSchema } from '@hy/dsh-llm'
-import type {} from '@hy/dsh-tools/types'
+import type {} from '@hy/dsh-tool-executor-ptc/types'
 import {
   applyUserQuestionEvent, foldUserQuestions, isTimedAskUserQuestionSchema, questionsOf, TIMED_WAIT_PARAMETER,
   userQuestionProjectionDefinition,

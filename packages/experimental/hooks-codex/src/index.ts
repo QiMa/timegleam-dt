@@ -16,7 +16,6 @@ import { readFileSync } from 'node:fs'
 import type { Context } from '@hy/cordis'
 import z from '@hy/schemastery'
 import type { Agent, PreStepDecision } from '@hy/dsh-agent'
-import type {} from '@hy/dsh-session-projection'
 import { createUserMessage } from '@hy/dsh-llm'
 import type { ContextFormed } from '@hy/dsh-llm'
 declare module '@hy/dsh-llm' {
@@ -44,7 +43,7 @@ import { parseCodexConfig, type CodexHookConfig } from './config.ts'
 /* jscpd:ignore-end */
 
 export const name = 'hooks-codex'
-export const inject = ['shell', 'sessionProjections', 'workingDirectory']
+export const inject = ['shell', 'agents', 'workingDirectory']
 
 /** Plugin config: where the Codex hooks.json lives + the model name for payloads. */
 export interface Config {
@@ -281,8 +280,7 @@ export function apply(ctx: Context, config: Config): void {
 /* jscpd:ignore-start */
 function lastTurn(ctx: Context, agent: Agent | undefined): number {
   if (!agent) return 0
-  /* v8 ignore next -- agent-present hook points run inside AgentLoop, which owns this projection. */
-  return ctx.sessionProjections.stateOf(agent.session, 'turnBoundary')?.lastTurn ?? 0
+  return ctx.agents.turnBoundaryOf(agent.session).lastTurn
 }
 
 function blocksToText(content: ContentBlock[]): string {

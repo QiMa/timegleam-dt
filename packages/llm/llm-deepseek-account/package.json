@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-llm-deepseek-account",
   "description": "DeepSeek account provider authentication and discovery",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -30,9 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "@hy/cosmokit": "workspace:~",
-    "@hy/dsh-util-values": "workspace:*",
-    "@hy/schemastery": "workspace:~",
-    "semver": "^7.8.5"
+    "@hy/schemastery": "workspace:~"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
@@ -40,8 +38,7 @@
     "@hy/dsh-llm-deepseek": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
-    "@hy/cordis-plugin-loader": "workspace:~",
-    "@hy/dsh-timeout": "workspace:*"
+    "@hy/cordis-plugin-loader": "workspace:~"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
@@ -51,8 +48,7 @@
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-llm-deepseek-api-key": "workspace:*",
-    "@hy/dsh-timeout": "workspace:*",
-    "@types/semver": "^7.8.0"
+    "@hy/dsh-timeout": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@hy/dsh-deepseek-account": {

@@ -13,6 +13,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context, LoggerLevel } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
 import AgentRegistry from '@hy/dsh-agent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import LocalAttachments from '@hy/dsh-attachment-local'
 import DeepSeekLlmApiExtensionRegistry from '@hy/dsh-deepseek-llm-api-extensions'
 import LlmRuntime, { BlockAssembler, createAssistantMessage, createSystemMessage, createToolResultMessage, ReasoningEffortId, ToolCallId } from '@hy/dsh-llm'
@@ -148,6 +149,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('DeepSeek Messages real API', () 
     const unversionedModule = pathToFileURL(join(pluginRoot, 'plugin.mjs')).href
     const ctx = await boot()
     await ctx.plugin(Loader)
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(AgentRegistry)
     await ctx.plugin(SessionStore)
     await ctx.plugin(DeepSeekLlmApiExtensionRegistry)

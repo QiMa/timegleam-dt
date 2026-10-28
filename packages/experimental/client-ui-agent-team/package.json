@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-client-ui-agent-team",
   "description": "Web Agent Teams roster, task board, and teammate navigation",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -74,7 +74,8 @@
     "@types/react-dom": "~18.3.0",
     "@hy/cordis": "workspace:~",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@hy/dsh-agent": "workspace:*"
   },
   "files": [
     "locale/*.json",

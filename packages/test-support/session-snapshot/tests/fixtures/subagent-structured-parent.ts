@@ -1,6 +1,6 @@
 /** Structured result delivery after a parent correction reaches the child. */
 import type { Context } from '@hy/cordis'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 
 export const name = 'subagent-structured-parent'
 export const inject = ['subagents', 'tools']

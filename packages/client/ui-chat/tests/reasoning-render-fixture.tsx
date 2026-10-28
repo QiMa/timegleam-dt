@@ -10,7 +10,7 @@ import { createSnapshotStore } from '@hy/dsh-client-store'
 import { SessionId } from '@hy/dsh-session/types'
 import type { PropsRenderFactories, PropsRenderSlots } from '@hy/dsh-client-ui-slots'
 import { en, NS, zh } from '../src/client/locale.ts'
-import { derivePresentationPolicy, type CollapseTiming } from '../src/client/presentation-policy.ts'
+import { derivePresentationPolicy, type CollapseTiming, type FoldedReplies } from '../src/client/presentation-policy.ts'
 import { registerChatNodeRenderers } from '../src/client/chat/register-node-renderers.ts'
 import type { PerformanceUsageMode, TranscriptViewMode } from '../src/chat-settings.ts'
 
@@ -44,7 +44,11 @@ export async function createReasoningRenderFixture(language = 'zh') {
     apply: (ctx) => {
       registerChatNodeRenderers(ctx,
         createSnapshotStore<PerformanceUsageMode>('detailed'),
-        derivePresentationPolicy(createSnapshotStore<TranscriptViewMode>('detailed'), createSnapshotStore<CollapseTiming>('completion')))
+        derivePresentationPolicy(
+          createSnapshotStore<TranscriptViewMode>('detailed'),
+          createSnapshotStore<CollapseTiming>('completion'),
+          createSnapshotStore<FoldedReplies>('all'),
+        ))
     },
   })
   await runtime.sessions.add({ id: 'reasoning-fixture' })

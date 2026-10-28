@@ -70,14 +70,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-agent-preset` | no | Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor |
 | `@hy/dsh-client-ui-approval` | no | Approval composer takeover over the scoped Remote Event waterfall |
 | `@hy/dsh-client-ui-attachment` | no | Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots |
-| `@hy/dsh-client-ui-brand-official` | no | Official Huayu AI brand occupants for the Web client's sidebar slots |
+| `@hy/dsh-client-ui-brand-official` | no | Official DeepSeek Harness brand occupants for the Web client's sidebar slots |
 | `@hy/dsh-client-ui-chat` | no | Chat Conversation target, node definitions, renderers, and details surface |
 | `@hy/dsh-client-ui-commands` | no | Client command surface: global directory cache, '/' source, three command UI kinds, popupSelect registry |
 | `@hy/dsh-client-ui-conversation` | no | Target-neutral Conversation assembly, shell, composer, queue, and view navigation |
-| `@hy/dsh-client-ui-deepseek-model-label-1017` | no | Temporary 1017 release badge for official DeepSeek Flash model labels |
 | `@hy/dsh-client-ui-deliverables` | no | Changed-files card with per-file comparison tabs, delivery cards, and clickable final-response file references for Web |
 | `@hy/dsh-client-ui-directory-picker-browse` | no | In-app directory browsing surface: the workspace directory-flow owner rendering the host's listing and creation primitives |
 | `@hy/dsh-client-ui-directory-picker-native` | no | Native directory-picker surface: the renderless workspace directory-flow occupant driving the local Desktop or Host OS chooser |
+| `@hy/dsh-client-ui-entry-customization` | no | Customize plugin entries in the left sidebar, conversation views, and right sidebar, and quickly create new plugins. |
+| `@hy/dsh-client-ui-file-drag` | no | Application-owned file drag transfers and localized failure feedback |
 | `@hy/dsh-client-ui-goal` | no | Session goal surface: GoalBar docked above the composer, read from the goal session projection |
 | `@hy/dsh-client-ui-input-trigger` | no | Input trigger pipeline: '/' and '@' detection, candidate menu, pick routing to registered sources |
 | `@hy/dsh-client-ui-jobs` | no | Session-header background-job list with on-demand streaming record panels |
@@ -114,9 +115,9 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-sidebar-terminal` | no | Interactive shell tabs for the right Sidebar |
 | `@hy/dsh-client-ui-skill` | no | Web skill references and the dedicated skill tool row |
 | `@hy/dsh-client-ui-subagent` | no | Subagent conversation catalog, continuation routing UI, and '@' reference source |
-| `@hy/dsh-client-ui-theme` | yes | Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free ThemeRuntime for light/dark/system state; --dsw-* token styles and Appearance settings row |
+| `@hy/dsh-client-ui-theme` | yes | Theme plugin: Host bootstrap for the pre-plugin palette; ThemeRuntime for light/dark/system state and icon replacements; --dsw-* token styles and Appearance settings row |
 | `@hy/dsh-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
-| `@hy/dsh-client-ui-trajectory` | no | Trajectory event ledger with an interactive timing overview: pure-consumer plugin registering into the conversation ViewMap (no service) |
+| `@hy/dsh-client-ui-trajectory` | yes | Trajectory event ledger and timing overview with live tool-result inspection |
 | `@hy/dsh-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
 | `@hy/dsh-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for dsh web |
 | `@hy/dsh-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
@@ -151,13 +152,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-agent` | no | Agent interface, registry, initiator scope, and event vocabulary for the Huayu AI |
+| `@hy/dsh-agent` | no | Agent interface, registry, initiator scope, and event vocabulary for the DeepSeek Harness |
 | `@hy/dsh-agent-default-model` | yes | Default model selection shared by Agent entry points |
-| `@hy/dsh-agent-loop` | yes | The concrete agent loop plugin for the Huayu AI |
-| `@hy/dsh-agent-tool-presentation` | yes | Agent-plane presentation selector: composes one agent's tools as PTC mode or native tool calls |
-| `@hy/dsh-session` | no | Event-sourced session store for the Huayu AI |
-| `@hy/dsh-system-prompt` | yes | System prompt assembly registry for the Huayu AI |
-| `@hy/dsh-tools` | yes | Tool registry and execution pipeline for the Huayu AI |
+| `@hy/dsh-agent-loop` | yes | The concrete agent loop plugin for the DeepSeek Harness |
+| `@hy/dsh-agent-tool-presentation` | yes | Deprecated tool presentation selector; use dsh-tool-executor-native or dsh-tool-executor-ptc directly |
+| `@hy/dsh-session` | no | Event-sourced session store for the DeepSeek Harness |
+| `@hy/dsh-system-prompt` | yes | System prompt assembly registry for the DeepSeek Harness |
+| `@hy/dsh-tool-executor-native` | no | Native tool execution plugin |
+| `@hy/dsh-tool-executor-ptc` | yes | PTC program execution, tool bindings, and generated SDK prompts |
+| `@hy/dsh-tools` | no | Tool registry and execution pipeline for the DeepSeek Harness |
 
 ## credentials
 
@@ -171,8 +174,9 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-tool-present` | yes | Explicit workspace file delivery declarations for the Huayu AI |
-| `@hy/dsh-workspace-changes` | yes | Per-turn workspace file changes recorded from git working-tree snapshots and whole-file captures, with per-file comparisons, for the Huayu AI |
+| `@hy/dsh-deliverable-file-references` | no | Shared model guidance for file links and deliverables across DeepSeek Harness hosts |
+| `@hy/dsh-tool-present` | yes | Explicit workspace file delivery declarations for the DeepSeek Harness |
+| `@hy/dsh-workspace-changes` | yes | Per-turn workspace file changes recorded from git working-tree snapshots and whole-file captures, with per-file comparisons, for the DeepSeek Harness |
 
 ## document
 
@@ -184,38 +188,52 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
+| `@hy/dsh-action-cards` | yes | Optional action cards below answers: one shared proposal tool, card state, user actions and status notices |
+| `@hy/dsh-client-ui-action-cards` | no | Action cards below completed answers: the shared card frame, kind bodies and the compact tool row |
+| `@hy/dsh-client-ui-creation-recommendations` | no | Body of the personalized page card: location choice, creation progress, Keep, Undo and Restore |
+| `@hy/dsh-client-ui-plugin-recommendations` | no | Official plugin card body with catalog text and enabling |
+| `@hy/dsh-creation-recommendations` | no | Create persistent removable interface plugins from explicit conversation needs |
+| `@hy/dsh-cua` | no | Shared Computer Use application objects, authorization, and logged tool execution |
 | `@hy/dsh-experimental-agent-team` | yes | Implicit-root Agent Teams roster, direct peer messaging, and shared task DAG |
 | `@hy/dsh-experimental-api-speech-to-text` | yes | Authenticated experimental speech transcription for browser clients |
-| `@hy/dsh-experimental-auto-review` | no | Per-tool LLM authorization review for the Huayu AI Auto permission preset |
+| `@hy/dsh-experimental-auto-review` | no | Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset |
 | `@hy/dsh-experimental-browser-use-chrome-devtools-mcp` | yes | Experimental per-Session Chromium browser tools through chrome-devtools-mcp |
 | `@hy/dsh-experimental-browser-use-playwright-mcp` | yes | Experimental per-Session Chromium browser tools through @playwright/mcp |
 | `@hy/dsh-experimental-browser-use-stagehand-native` | yes | Experimental Stagehand browser tools with separately configured native models |
-| `@hy/dsh-experimental-claude-code-mods` | yes | Experimental bridge: load Claude Code mods (hooks modules) and run their hook chains on Huayu AI extension points |
+| `@hy/dsh-experimental-claude-code-mods` | yes | Experimental bridge: load Claude Code mods (hooks modules) and run their hook chains on DeepSeek Harness extension points |
 | `@hy/dsh-experimental-client-ui-agent-team` | no | Web Agent Teams roster, task board, and teammate navigation |
 | `@hy/dsh-experimental-client-ui-claude-code-mods` | no | Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge |
 | `@hy/dsh-experimental-client-ui-cot-translation` | yes | Optional machine translation of expanded reasoning, preserving original Session text |
+| `@hy/dsh-experimental-client-ui-forge` | yes | Sidebar panel for a Session's change requests, with a worktree option for new Sessions and its Host Remote |
+| `@hy/dsh-experimental-client-ui-stats` | no | Per-turn and per-step context, timing, cache, and tool-cost table contributed as an experimental conversation View |
 | `@hy/dsh-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
 | `@hy/dsh-experimental-computer-use-cua-driver-mcp` | yes | Experimental computer use through an installed Cua Driver MCP executable |
 | `@hy/dsh-experimental-computer-use-cua-driver-native` | no | Experimental computer-use provider embedding the Cua Driver native npm SDK |
 | `@hy/dsh-experimental-cua-macos` | yes | macOS native provider for shared Computer Use application and window objects |
+| `@hy/dsh-experimental-forge` | yes | Provider-neutral change request registry with shared status polling |
+| `@hy/dsh-experimental-forge-github` | yes | GitHub provider for the experimental forge registry, read through the GitHub CLI on the host |
+| `@hy/dsh-experimental-forge-session` | yes | Binds change requests to the Session that created, pushed, or tracked them |
 | `@hy/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
-| `@hy/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the Huayu AI PTC execution seam |
+| `@hy/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
 | `@hy/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
 | `@hy/dsh-experimental-speech-to-text` | yes | Experimental speech recognition with independently selectable providers |
 | `@hy/dsh-experimental-speech-to-text-sensevoice` | yes | Local SenseVoice ONNX transcription with a managed sherpa-onnx process |
+| `@hy/dsh-experimental-subagent-oar` | yes | Experimental one-shot subagents through OAR runtimes |
 | `@hy/dsh-experimental-tool-agent-team` | yes | Scoped model-facing Agent Teams tools over ctx.agentTeams |
+| `@hy/dsh-experimental-tool-subagent-oar` | yes | Delegate standalone tasks to configured external subagent providers |
 | `@hy/dsh-experimental-tool-worktree` | no | Model tool that creates and enters a new Git worktree |
 | `@hy/dsh-experimental-translator` | yes | Machine translation with reusable Session results |
 | `@hy/dsh-experimental-worktree` | yes | Creates a named Git worktree and changes the calling Session working directory |
-| `@hy/dsh-hooks-claude-code` | yes | Bridge plugin: run a Claude Code hooks.json / settings hook config on the Huayu AI interception seams |
-| `@hy/dsh-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the Huayu AI interception seams |
-| `@hy/dsh-session-title-all-prompts-llm` | yes | All-user-messages LLM provider plugin for Huayu AI session titles |
-| `@hy/dsh-skill-badge` | no | Bundled dsh badge skill provider for Huayu AI |
+| `@hy/dsh-hooks-claude-code` | yes | Bridge plugin: run a Claude Code hooks.json / settings hook config on the DeepSeek Harness interception seams |
+| `@hy/dsh-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the DeepSeek Harness interception seams |
+| `@hy/dsh-plugin-recommendations` | no | Official plugin suggestions with explicit user activation and persistent conversation decisions |
+| `@hy/dsh-session-title-all-prompts-llm` | yes | All-user-messages LLM provider plugin for DeepSeek Harness session titles |
+| `@hy/dsh-skill-badge` | no | Bundled dsh badge skill provider for DeepSeek Harness |
 | `@hy/dsh-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
 | `@hy/dsh-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
 | `@hy/dsh-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
-| `@hy/dsh-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed Huayu AI Sessions |
-| `@hy/dsh-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the Huayu AI webhook runtime |
+| `@hy/dsh-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed DeepSeek Harness Sessions |
+| `@hy/dsh-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the DeepSeek Harness webhook runtime |
 
 ## extensions
 
@@ -264,14 +282,14 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-host-directory-picker-auto` | no | Adaptive chooser of the directory-picker seam: resolves the host situation at boot and mounts the native or browse backend for the Huayu AI web GUI host |
+| `@hy/dsh-host-directory-picker-auto` | no | Adaptive chooser of the directory-picker seam: resolves the host situation at boot and mounts the native or browse backend for the DeepSeek Harness web GUI host |
 | `@hy/dsh-host-directory-picker-browse` | yes | In-app browsing backend of the directory-picker seam (listing/creation primitives over the host filesystem) |
-| `@hy/dsh-host-directory-picker-native` | no | Native-OS-chooser backend of the directory-picker seam for the Huayu AI web GUI host |
+| `@hy/dsh-host-directory-picker-native` | no | Native-OS-chooser backend of the directory-picker seam for the DeepSeek Harness web GUI host |
 | `@hy/dsh-host-frontend-static` | yes | SPA dist server for the Web shell: owns the webserver fallback seat, serving explicit index entries and static assets with traversal rejection and 404 misses |
 | `@hy/dsh-host-open-in-app` | yes | Host half of open-in-app: resolved application catalog, icons, and the launch endpoint as three webServer routes |
 | `@hy/dsh-host-plugin-inventory` | no | Read-only Remote projection of current Cordis Loader plugin state |
 | `@hy/dsh-host-product-telemetry-otel` | yes | Explicit product usage events exported through OpenTelemetry HTTP logs |
-| `@hy/dsh-host-webserver` | yes | Web route-registration plugin: HTTP and upgrade routes, index transform taps, and static dist fallback; knows no harness concepts |
+| `@hy/dsh-host-webserver` | yes | Web route-registration plugin: HTTP and upgrade routes, per-Peer index transform taps, and static dist fallback |
 
 ## interaction
 
@@ -336,7 +354,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-ptc-runtime-node` | yes | Node PTC execution with per-call sandboxed processes or in-memory REPL state |
+| `@hy/dsh-ptc-runtime-node` | yes | Node PTC execution with async function, REPL and VM Script evaluators and optional retained state |
 
 ## sandbox
 
@@ -362,16 +380,17 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
+| `@hy/dsh-message-quotes` | no | Selected-text quotation and Markdown blockquote presentation |
 | `@hy/dsh-session-checkpoint-policy` | no | Semantic session durability checkpoints before model requests and tool side effects |
 | `@hy/dsh-session-log-deepseek` | yes | Incremental lossless session-log request extension for the official DeepSeek LLM API |
-| `@hy/dsh-session-persistence-jsonl` | yes | JSONL durable session persistence backend for the Huayu AI |
+| `@hy/dsh-session-persistence-jsonl` | yes | JSONL durable session persistence backend for the DeepSeek Harness |
 | `@hy/dsh-session-projection` | no | Session-projection seam: the merge-extensible projection type table, the provider contract, and the ctx.sessionProjections registry serving whole current values of log-derived per-session state |
 | `@hy/dsh-session-projection-cache` | yes | Persisted projection cache (ctx.sessionProjectionCache): durable per-session checkpoint records on the session_projcache storage domain (per-record layout), throttled write-behind, and the cached listing read |
-| `@hy/dsh-session-stats` | no | Whole-log conversation counts and wall times projection (sessionStats) for the Huayu AI |
+| `@hy/dsh-session-stats` | no | Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness |
 | `@hy/dsh-session-telemetry-otel` | yes | Feedback-authorized Session logs over byte-bounded OpenTelemetry HTTP requests |
-| `@hy/dsh-session-title` | yes | Log-backed session title service and provider registry for the Huayu AI |
-| `@hy/dsh-session-title-first-prompt-llm` | yes | First-message LLM provider plugin for Huayu AI session titles |
-| `@hy/dsh-session-turn-outline` | no | Whole-log turn outline projection (turnOutline) for the Huayu AI |
+| `@hy/dsh-session-title` | yes | Log-backed session title service and provider registry for the DeepSeek Harness |
+| `@hy/dsh-session-title-first-prompt-llm` | yes | First-message LLM provider plugin for DeepSeek Harness session titles |
+| `@hy/dsh-session-turn-outline` | no | Whole-log turn outline projection (turnOutline) for the DeepSeek Harness |
 | `@hy/dsh-tool-working-directory` | no | Read and change the active Session working directory |
 | `@hy/dsh-working-directory` | yes | Session working directories with durable changes and model context |
 
@@ -379,7 +398,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-session-log-export` | yes | Web Session-log export command and shared download dialog |
+| `@hy/dsh-session-log-export` | yes | Web Session-log ZIP export and Session Markdown copy |
 | `@hy/dsh-session-query-sqlite` | yes | Concrete ctx.sessionQuery backend with SQLite FTS5 search |
 
 ## settings
@@ -445,11 +464,11 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-subagent-acp` | yes | Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol |
 | `@hy/dsh-subagent-claude-code` | yes | One-shot Claude Code subagent provider over the official Agent SDK |
 | `@hy/dsh-subagent-codex` | yes | One-shot Codex subagent provider over the official app-server protocol |
-| `@hy/dsh-subagent-dsh-sdk` | yes | Out-of-process SDK subagent backend: drives a child Huayu AI runtime subprocess over stdio JSON-RPC through the TypeScript SDK client |
+| `@hy/dsh-subagent-dsh-sdk` | yes | Out-of-process SDK subagent backend: drives a child DeepSeek Harness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client |
 | `@hy/dsh-subagent-fork-in-process` | yes | In-process fork subagent backend: runs a child agent seeded with a prefix of the parent's log |
 | `@hy/dsh-subagent-spawn-in-process` | yes | In-process spawn subagent backend: runs a fresh child agent on ctx.agents |
 | `@hy/dsh-tool-subagent` | yes | Model-facing subagent delegation tool over the ctx.subagents seam |
-| `@hy/dsh-tool-subagent-control` | no | Globally named send_message, interrupt_agent, and list_agents tools over ctx.subagents continuations |
+| `@hy/dsh-tool-subagent-control` | no | Shared messaging, interruption, and child discovery tools for subagents |
 
 ## subprocess
 
@@ -492,13 +511,13 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-tool-web` | yes | Model-facing web tools (web_search, web_fetch) over the Huayu AI web capability seam (ctx.web) |
-| `@hy/dsh-web` | yes | Abstract web access capability seam (ctx.web) for the Huayu AI — search/fetch provider registry, registration-order-independent selection, request/result vocabulary, and the WebError taxonomy |
-| `@hy/dsh-web-deepseek-api` | yes | DeepSeek Search and Fetch API providers for the Huayu AI web capability seam (ctx.web) |
-| `@hy/dsh-web-fetch-http` | yes | Anonymous public HTTP(S) fetch provider for the Huayu AI web capability seam (ctx.web) |
-| `@hy/dsh-web-search-deepseek` | yes | DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the Huayu AI web capability seam (ctx.web) |
-| `@hy/dsh-web-search-exa` | yes | Exa-backed search provider for the Huayu AI web capability seam (ctx.web) |
-| `@hy/dsh-web-search-perplexity` | yes | Perplexity-backed search provider for the Huayu AI web capability seam (ctx.web) |
+| `@hy/dsh-tool-web` | yes | Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web) |
+| `@hy/dsh-web` | yes | Abstract web access capability seam (ctx.web) for the DeepSeek Harness — search/fetch provider registry, registration-order-independent selection, request/result vocabulary, and the WebError taxonomy |
+| `@hy/dsh-web-deepseek-api` | yes | DeepSeek Search and Fetch API providers for the DeepSeek Harness web capability seam (ctx.web) |
+| `@hy/dsh-web-fetch-http` | yes | Anonymous HTTP(S) fetch provider for the DeepSeek Harness web capability seam (ctx.web) |
+| `@hy/dsh-web-search-deepseek` | yes | DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the DeepSeek Harness web capability seam (ctx.web) |
+| `@hy/dsh-web-search-exa` | yes | Exa-backed search provider for the DeepSeek Harness web capability seam (ctx.web) |
+| `@hy/dsh-web-search-perplexity` | yes | Perplexity-backed search provider for the DeepSeek Harness web capability seam (ctx.web) |
 
 ## workflow
 

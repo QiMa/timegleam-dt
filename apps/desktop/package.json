@@ -1,9 +1,12 @@
 {
   "name": "@hy/dsh-desktop",
   "description": "Electron desktop shell for a bundled dsh runtime and external plugins",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "private": true,
   "license": "MIT",
+  "author": {
+    "name": "Hangzhou DeepSeek Artificial Intelligence Co., Ltd."
+  },
   "type": "module",
   "main": "lib/main.js",
   "scripts": {
@@ -44,7 +47,8 @@
     "upload:win:x64": "tsx scripts/upload-target.ts win-x64",
     "upload:latest:mac:arm64": "tsx scripts/upload-target.ts mac-arm64 --latest",
     "upload:latest:mac:x64": "tsx scripts/upload-target.ts mac-x64 --latest",
-    "upload:latest:win:x64": "tsx scripts/upload-target.ts win-x64 --latest"
+    "upload:latest:win:x64": "tsx scripts/upload-target.ts win-x64 --latest",
+    "purge:latest": "tsx scripts/upload-target.ts --latest --purge-only"
   },
   "dependencies": {
     "electron-updater": "^6.8.9",
@@ -58,6 +62,7 @@
     "@hy/dsh-client-ui-settings-general": "workspace:*",
     "@hy/dsh-client-ui-sidebar-browser": "workspace:*",
     "@hy/dsh-home-paths": "workspace:*",
+    "@hy/dsh-official-bundles": "workspace:*",
     "@hy/node-addon-system": "workspace:~",
     "@electron/get": "^5.1.0",
     "@electron/notarize": "2.5.0",
@@ -83,6 +88,10 @@
     "@hy/dsh-client-ui-theme": "workspace:*",
     "@hy/dsh-client-shortcuts": "workspace:*",
     "@hy/dsh-atomic-write": "workspace:*",
-    "@hy/dsh-client-product-analytics": "workspace:*"
+    "@hy/dsh-client-product-analytics": "workspace:*",
+    "@hy/dsh-plugin-manager": "workspace:*",
+    "zod": "4.4.3",
+    "@hy/dsh-util-file-drag": "workspace:*",
+    "tencentcloud-sdk-nodejs-teo": "4.1.330"
   }
 }

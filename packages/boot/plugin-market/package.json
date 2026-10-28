@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-plugin-market",
   "description": "Configured plugin market indexes for the Web Discover page and the plugin_market agent tool",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -35,9 +35,11 @@
       "default": "./lib/typert.remote-client.js"
     },
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/worker.cjs",
     "lib/types/**/*.js",
@@ -50,11 +52,16 @@
   "license": "MIT",
   "dependencies": {
     "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-atomic-write": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-package-manifest": "workspace:*",
+    "@hy/dsh-plugin-detail": "workspace:*",
     "@hy/dsh-plugin-market-index": "workspace:*",
     "@hy/dsh-timeout": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
+    "execa": "^10.0.1",
+    "hosted-git-info": "^9.0.3",
     "minisearch": "^7.2.0",
     "semver": "^7.8.5",
     "zod": "^4.4.3"
@@ -64,6 +71,7 @@
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-plugin-manager": "workspace:*",
     "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*"
   },
@@ -77,13 +85,18 @@
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/cosmokit": "workspace:~",
     "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
     "@hy/dsh-config-editor": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-plugin-manager": "workspace:*",
     "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
+    "@types/hosted-git-info": "^3.0.5",
     "@types/semver": "^7.8.0"
   }
 }

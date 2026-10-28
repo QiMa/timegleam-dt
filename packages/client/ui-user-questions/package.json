@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-user-questions",
   "description": "Web ask_user_question composer takeover and plan-review presentation UI",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -57,13 +57,13 @@
     "@hy/dsh-client-locale": "workspace:*",
     "@hy/dsh-client-store": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-questions": "workspace:*",
     "@hy/dsh-client-ui-primitives": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-session": "workspace:*",
-    "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
     "react": "^18.2.0",
     "@hy/dsh-client-ui-conversation": "workspace:*",
@@ -72,7 +72,8 @@
     "clsx": "^2.0.0",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-client-ui-chat": "workspace:*",
-    "@hy/dsh-client-ui-tool": "workspace:*"
+    "@hy/dsh-client-ui-tool": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*"
   },
   "files": [
     "locale/*.json",

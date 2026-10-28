@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-session-snapshot",
   "description": "Session-log snapshot core with an ACP protocol adapter, expected-output normalization, and fixture invariants",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -52,6 +52,7 @@
     "@hy/dsh-sandbox-policy": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-questions": "workspace:*",
     "@types/js-yaml": "^4.0.9",

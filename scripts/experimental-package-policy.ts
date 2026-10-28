@@ -1,8 +1,13 @@
 /** Experimental package identities, publication policy, and retained npm names. */
 
-/** Existing npm names retained by capabilities now housed under experimental/. */
+/**
+ * Experimental packages whose npm names omit the experimental prefix, by directory: identities retained across
+ * experimental classification and package-role moves, and packages named without the prefix so that leaving
+ * experimental status keeps their names.
+ */
 export const EXPERIMENTAL_PACKAGE_NAME_EXCEPTIONS: Readonly<Record<string, string>> = {
   'packages/experimental/cua': '@hy/dsh-cua',
+  'packages/experimental/cua-bundle': '@hy/dsh-cua-bundle',
   'packages/experimental/tool-session-query': '@hy/dsh-tool-session-query',
   'packages/experimental/session-title-all-prompts-llm': '@hy/dsh-session-title-all-prompts-llm',
   'packages/experimental/tool-terminal': '@hy/dsh-tool-terminal',
@@ -13,6 +18,13 @@ export const EXPERIMENTAL_PACKAGE_NAME_EXCEPTIONS: Readonly<Record<string, strin
   'packages/experimental/hooks-codex': '@hy/dsh-hooks-codex',
   'packages/experimental/webhook': '@hy/dsh-webhook',
   'packages/experimental/webhook-github': '@hy/dsh-webhook-github',
+  'packages/experimental/action-cards': '@hy/dsh-action-cards',
+  'packages/experimental/client-ui-action-cards': '@hy/dsh-client-ui-action-cards',
+  'packages/experimental/creation-recommendations': '@hy/dsh-creation-recommendations',
+  'packages/experimental/client-ui-creation-recommendations': '@hy/dsh-client-ui-creation-recommendations',
+  'packages/experimental/plugin-recommendations': '@hy/dsh-plugin-recommendations',
+  'packages/experimental/client-ui-plugin-recommendations': '@hy/dsh-client-ui-plugin-recommendations',
+  'packages/experimental/personalized-recommendations': '@hy/dsh-personalized-recommendations',
 } satisfies Record<`packages/experimental/${string}`, `@hy/dsh-${string}`>
 
 /** npm namespace for experimental packages without retained-name exceptions. */

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-plan-mode",
   "description": "Logged per-agent plan mode with deployment guidance, a direct slash command, and a user-reviewed exit",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -66,6 +66,9 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-questions": "workspace:*",
     "@hy/cordis": "workspace:~",

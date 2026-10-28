@@ -53,6 +53,7 @@ describe('dsh-sdk-minimal bundle', () => {
       ['session-title', '@hy/dsh-session-title'],
       ['system-prompt', '@hy/dsh-system-prompt'],
       ['tools', '@hy/dsh-tools'],
+      ['tool-executor-native', '@hy/dsh-tool-executor-native'],
       ['mcp-resources', '@hy/dsh-mcp-resources'],
       ['agent', '@hy/dsh-agent'],
       ['llm-retry', '@hy/dsh-llm-retry'],
@@ -61,6 +62,7 @@ describe('dsh-sdk-minimal bundle', () => {
       ['persistent-bash', '@hy/dsh-tool-bash-persistent'],
       ['persistent-pwsh', '@hy/dsh-tool-pwsh-persistent'],
       ['sessions', '@hy/dsh-session-persistence-jsonl'],
+      ['session-checkpoint-policy', '@hy/dsh-session-checkpoint-policy'],
     ])
     expect(rows.find(row => row.id === 'sdk-app-startup')?.config).toEqual({ profile: 'sdk-minimal' })
     expect(rows.find(row => row.id === 'sdk-jsonrpc-server')).toMatchObject({

@@ -4,7 +4,7 @@ import { SessionLogOffset, TOOL_OUTCOME_UNKNOWN } from '@hy/dsh-session'
 import type { SessionEvent, SessionLogOffset as SessionLogOffsetType } from '@hy/dsh-session'
 import type { ProjectionDefinition } from '@hy/dsh-session-projection'
 import type {} from '@hy/dsh-agent/types'
-import type {} from '@hy/dsh-tools/types'
+import type {} from '@hy/dsh-tool-executor-ptc/types'
 import { ToolCallId } from '@hy/dsh-llm'
 import type { ContentBlock, ToolSchema } from '@hy/dsh-llm'
 import type { AskUserQuestionAnswerItem, AskUserQuestionItem, AskUserQuestionOption, PendingUserQuestion, SettledUserQuestion, UserQuestionProjectionView } from './types.ts'
@@ -329,9 +329,3 @@ export const userQuestionProjectionDefinition = {
   wire: { viewSchema: projectionViewSchema, view: state => state.questions },
   stateVersion: 2,
 } satisfies ProjectionDefinition<'userQuestions', UserQuestionProjectionState>
-
-declare module '@hy/dsh-session-projection/types' {
-  interface SessionProjectionStateMap {
-    userQuestions: UserQuestionProjectionState
-  }
-}

@@ -51,21 +51,44 @@ const DUPLICATE_SAFE_PACKAGES: readonly string[] = [
  * prominent heading in the pull request description.
  */
 const SAFE_HOST_DEPENDENCY_EXPORTS = {
+  '@hy/dsh-atomic-write': ['withFileLock', 'writeFileAtomic'],
+  '@hy/dsh-computer-use/brand': ['ComputerUseProviderName'],
   '@hy/dsh-credentials': ['credentialKey'],
   '@hy/dsh-deque': ['Deque'],
+  // The Liveshare wire codec and identity helpers are stateless functions over caller-owned values.
+  '@hy/dsh-experimental-liveshare-protocol': [
+    'LIVESHARE_CAPABILITIES', 'LIVESHARE_PROTOCOL_VERSION', 'parseRelayFrame', 'parseShareAccessState',
+    'parseTunnelWorkerCommand', 'parseTunnelWorkerEvent', 'rawText', 'sendFrame', 'unsupportedFrameRefusal',
+    'viewerRequestFields', 'identityFromKey', 'identityKeyOf',
+  ],
   '@hy/dsh-llm': ['callConfigEquals'],
+  '@hy/dsh-session': ['SessionId'],
   '@hy/dsh-session-format': ['sessionFormatLogFilename'],
+  '@hy/dsh-storage-domain': ['defineDomain'],
   '@hy/dsh-timeout': ['MAX_TIMER_DELAY_MS'],
   '@hy/schemastery': ['default'],
 } as const satisfies HostDependencyExports
 
 /** Runtime exports that require every consumer to resolve the provider's shared peer instance. */
 const PEER_REQUIRED_HOST_EXPORTS = {
+  // Profile settings must match the installed Node provider's configuration schema.
+  '@hy/dsh-ptc-runtime-node/configuration': ['resolvePersistentExecution'],
+  // CUA checks UserQuestionError and preserves AttachmentError from image admission.
+  '@hy/dsh-attachment': ['admitEncodedImages'],
+  '@hy/dsh-user-questions': ['UserQuestionError'],
   // `instanceof` checks need the translator's own class instance.
   '@hy/dsh-experimental-translator': ['TranslationError'],
+  // Stateless; a safe classification would turn the forge panel's forge and worktree peers into dependencies.
+  '@hy/dsh-experimental-forge': ['changeRequestKey'],
+  '@hy/dsh-experimental-worktree': ['generatedWorktreeName'],
+  // The forge panel matches ctx.fs failures with `instanceof FsError`.
+  '@hy/dsh-fs': ['FsError'],
   '@hy/dsh-scope': ['carrierKeyOf', 'createScope', 'scopeOf', 'scopeTarget'],
-  '@hy/dsh-session': ['SESSION_FORMAT_VERSION'],
+  // appendPluginRecord writes through the Session class's private log; pluginRecordOf is stateless.
+  '@hy/dsh-session': ['SESSION_FORMAT_VERSION', 'appendPluginRecord', 'pluginRecordOf'],
   '@hy/dsh-session-persistence': ['SessionPersistenceNotFoundError'],
+  // Readers recognize a deadline's TimeoutReason only by `instanceof` against their own copy.
+  '@hy/dsh-timeout': ['deadline'],
 } as const satisfies HostDependencyExports
 
 /** Exact import specifier to reviewed runtime exports. */

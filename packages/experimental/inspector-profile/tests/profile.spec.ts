@@ -6,7 +6,7 @@ import { entryListSchema } from '@hy/cordis-plugin-include'
 import * as yaml from 'js-yaml'
 
 describe('Inspector profile bundle', () => {
-  it('publishes one layer containing both inspectors', () => {
+  it('publishes one layer containing both inspectors and the Statistics view', () => {
     const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
       publishConfig: { access: string }
       dsh: { bundle: { patch: string } }
@@ -15,6 +15,7 @@ describe('Inspector profile bundle', () => {
     expect(manifest.publishConfig.access).toBe('public')
     expect(manifest.dsh.bundle.patch).toBe('./cordis.patch.yml')
     expect(manifest.dependencies).toEqual({
+      '@hy/dsh-experimental-client-ui-stats': 'workspace:*',
       '@hy/dsh-experimental-inspector': 'workspace:*',
       '@hy/dsh-experimental-session-inspector': 'workspace:*',
     })
@@ -26,6 +27,7 @@ describe('Inspector profile bundle', () => {
         disabled: false, config: { captureFetch: true },
       },
       { id: 'session-inspector', name: '@hy/dsh-experimental-session-inspector' },
+      { id: 'client-ui-stats', name: '@hy/dsh-experimental-client-ui-stats' },
     ] }])
   })
 })

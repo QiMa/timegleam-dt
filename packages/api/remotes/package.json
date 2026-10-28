@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-api-remotes",
   "description": "Remote BFF assembly for application-selected Host capabilities",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -98,6 +98,7 @@
     "@hy/dsh-office-to-pdf": "workspace:*",
     "@hy/dsh-api-account-controller": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
-    "@hy/dsh-client-product-analytics": "workspace:*"
+    "@hy/dsh-client-product-analytics": "workspace:*",
+    "@hy/dsh-client-ui-trajectory": "workspace:*"
   }
 }

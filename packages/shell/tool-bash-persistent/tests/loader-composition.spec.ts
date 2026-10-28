@@ -1,5 +1,7 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
-import { provideWorkingDirectoryFixture, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, provideWorkingDirectoryFixture, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -48,6 +50,7 @@ async function agent(ctx: Context, cwd: string): Promise<Agent> {
     id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
@@ -77,6 +80,7 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
       "- name: '@hy/dsh-agent'",
       "- name: '@hy/dsh-system-prompt'",
       "- name: '@hy/dsh-tools'",
+      "- name: '@hy/dsh-tool-executor-native'",
       "- name: '@hy/dsh-terminal'",
       "- name: '@hy/dsh-test-sandbox'",
       "- name: '@hy/dsh-session-projection'",
@@ -113,6 +117,7 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
       ['@hy/dsh-agent', AgentRegistry],
       ['@hy/dsh-system-prompt', SystemPrompt],
       ['@hy/dsh-tools', ToolRuntime],
+      ['@hy/dsh-tool-executor-native', NativeToolExecutor],
       ['@hy/dsh-terminal', TerminalSessionService],
       ['@hy/dsh-test-sandbox', PassthroughSandbox],
       ['@hy/dsh-session-projection', SessionProjectionRegistry],
@@ -133,7 +138,7 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
 
     const owner = await agent(context, root)
     const signal = new AbortController().signal
-    const execute = (id: string, command: string) => context!.tools.execute({
+    const execute = (id: string, command: string) => executeToolFixture(context!, {
       signal,
       callId: ToolCallId(id),
       name: 'bash',
@@ -159,6 +164,14 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
       "cat <<'EOF'\nalpha\nbeta\nEOF",
     ))
     expect(heredoc).toBe('alpha\nbeta\n[Command finished with exit code 0]')
+
+    // Interactive bash applies history expansion to typed input before parsing;
+    // it must neither rewrite `!` sequences nor drop the whole wrapper line.
+    const history = text(await execute(
+      'history-expansion',
+      "echo '<!doctype html>' > page.html; cat page.html; echo 'it'; echo hi!!",
+    ))
+    expect(history).toBe('<!doctype html>\nit\nhi!!\n[Command finished with exit code 0]')
 
     const pipeline = text(await execute(
       'pipeline',

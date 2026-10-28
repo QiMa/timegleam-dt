@@ -1,6 +1,7 @@
 - name: '@hy/dsh-session'
 - name: '@hy/dsh-system-prompt'
 - name: '@hy/dsh-tools'
+- name: '@hy/dsh-tool-executor-native'
 - name: '@hy/dsh-fs-local'
 - name: '@hy/dsh-session-projection'
 - name: '@hy/dsh-working-directory'

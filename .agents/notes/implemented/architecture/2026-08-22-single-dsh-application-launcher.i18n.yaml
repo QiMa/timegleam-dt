@@ -6,8 +6,8 @@
   en: c0b608af89f3a9b4
   zh: 2995eef6243889d5
 /agent-note-one-dsh-launcher-for-application-profiles/problem:
-  en: 34b82725480cf15b
-  zh: 83cff42d5a38e64f
+  en: ad3a3b3076888869
+  zh: 7ad446755a9e5fc2
 /agent-note-one-dsh-launcher-for-application-profiles/decision:
   en: a15c7c13f167e5ac
   zh: a15c7c13f167e5ac
@@ -15,14 +15,14 @@
   en: 9cea027468d5d37c
   zh: 359c6cb7842b8b7f
 /agent-note-one-dsh-launcher-for-application-profiles/decision/profile-applications:
-  en: b2f0ae09c3343874
-  zh: 189ce711cd3138b3
+  en: 7666a2f6944eaabf
+  zh: b4ed4a91c9fed2ce
 /agent-note-one-dsh-launcher-for-application-profiles/decision/typescript-sdk-customization:
-  en: 8ee88035cf64eeb3
-  zh: 6184e50fc4d47348
+  en: 4e845cad74dc09f3
+  zh: 4312e4106ed13b70
 /agent-note-one-dsh-launcher-for-application-profiles/decision/python-runtime:
-  en: 4b4cf5071b740c85
-  zh: 595e5fe8127f9067
+  en: c3813fa40275ef40
+  zh: 2820b6060241bbc2
 /agent-note-one-dsh-launcher-for-application-profiles/decision/enforcement:
   en: 9ce8d86b65064f38
   zh: 27b8ad426cb319a2
@@ -36,5 +36,5 @@
   en: 0b883651974d3ac3
   zh: 8ed0bb3ee97a25f8
 /agent-note-one-dsh-launcher-for-application-profiles/consequences:
-  en: 8453d34835bf6ada
-  zh: 86308a497c969b81
+  en: ae504a4e82cd0991
+  zh: 5f8f6c46be90d8a9

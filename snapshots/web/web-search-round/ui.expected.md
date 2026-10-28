@@ -6,7 +6,8 @@
   - tablist:
     - tab "Chat" [selected]
     - tab "Trajectory"
-- text: Use web_search once with queries ["Huayu AI snapshot search","Huayu AI multi-query search"]. Then reply exactly SEARCH_DONE and stop. {{clock}}
+  - button "More conversation views"
+- text: Use web_search once with queries ["DeepSeek Harness snapshot search","DeepSeek Harness multi-query search"]. Then reply exactly SEARCH_DONE and stop. {{clock}}
 - button "Copy"
 - status: Completed
 - button "Completed in {{duration}}" [expanded]

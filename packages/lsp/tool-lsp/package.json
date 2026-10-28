@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-lsp",
-  "description": "Model-facing lsp tool over the Huayu AI LSP capability seam (ctx.lsp) \u2014 one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization",
-  "version": "0.2.1-rc.2",
+  "description": "Model-facing lsp tool over the DeepSeek Harness LSP capability seam (ctx.lsp) \u2014 one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -19,9 +19,11 @@
       "default": "./lib/index.js"
     },
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.d.ts"
   ],
@@ -51,6 +53,8 @@
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-timeout": "workspace:*",
     "@hy/dsh-tool-call-timeout-policy": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*",
     "@hy/dsh-agent-loop-testkit": "workspace:*"

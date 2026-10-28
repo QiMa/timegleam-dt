@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-headless",
   "description": "The dsh one-shot bundle: a direct core Agent/Session runner over dsh-base with no Host, HTTP, or browser layer",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -24,9 +24,11 @@
     },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/startup.js",
     "cordis.patch.yml",
@@ -55,7 +57,10 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-query": "workspace:*",
     "@hy/dsh-fs": "workspace:*",
-    "@hy/dsh-subagent": "workspace:*"
+    "@hy/dsh-permission-presets": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-user-approval": "workspace:*"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
@@ -68,9 +73,18 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-query": "workspace:*",
     "@hy/dsh-fs": "workspace:*",
-    "@hy/dsh-subagent": "workspace:*"
+    "@hy/dsh-permission-presets": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-user-approval": "workspace:*"
   },
   "peerDependenciesMeta": {
+    "@hy/dsh-permission-presets": {
+      "optional": true
+    },
+    "@hy/dsh-sandbox-policy": {
+      "optional": true
+    },
     "@hy/dsh-subagent": {
       "optional": true
     }

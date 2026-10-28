@@ -3,53 +3,56 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/sdk/client/README.md
 /:
-  en: 09cb25e4bcf56851
-  zh: a0a5913941d23eff
-/deepseek-ai-dsh-sdk-client:
-  en: b786affe03adf63c
-  zh: aacb5d4af10ca477
-/deepseek-ai-dsh-sdk-client/summary:
-  en: 05b18f61ad4c2f54
-  zh: 19f88d7bcd2cca0f
-/deepseek-ai-dsh-sdk-client/table-of-contents:
+  en: 0d4d98c7cbb26aa6
+  zh: c83f13b85fb3d6c8
+/hy-dsh-sdk-client:
+  en: ec236a68b8de222e
+  zh: 22df72c986a67be6
+/hy-dsh-sdk-client/summary:
+  en: 183cf3feafee461c
+  zh: 2ef213e718ec9dfe
+/hy-dsh-sdk-client/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-dsh-sdk-client/use-this-package:
-  en: ff421f12a5db28a4
-  zh: 2ca9b71a3458b5e0
-/deepseek-ai-dsh-sdk-client/use-this-package/running-agent-turns-with-deepseekharness:
+/hy-dsh-sdk-client/use-this-package:
+  en: 6c37c21a2e53376b
+  zh: e707d3e81c1242bd
+/hy-dsh-sdk-client/use-this-package/running-agent-turns-with-deepseekharness:
   en: 01c58dddd7e62de2
   zh: 6dbd46e244f3f135
-/deepseek-ai-dsh-sdk-client/use-this-package/lower-level-control-with-harnessclient:
-  en: 8778901987da6e59
-  zh: 3d09fe4b0b393a15
-/deepseek-ai-dsh-sdk-client/understand-the-implementation:
+/hy-dsh-sdk-client/use-this-package/lower-level-control-with-harnessclient:
+  en: 2eb13706964444cb
+  zh: a2640ec27b83113f
+/hy-dsh-sdk-client/use-this-package/native-user-questions:
+  en: ea40f378444c8153
+  zh: 96e29c99aa5c15f0
+/hy-dsh-sdk-client/understand-the-implementation:
   en: 8773f50c51da85f0
   zh: 4649ebc69357deb0
-/deepseek-ai-dsh-sdk-client/understand-the-implementation/design-concept:
+/hy-dsh-sdk-client/understand-the-implementation/design-concept:
   en: 6632c06d819233cc
   zh: 207d55d8217ec6b1
-/deepseek-ai-dsh-sdk-client/understand-the-implementation/source-map:
+/hy-dsh-sdk-client/understand-the-implementation/source-map:
   en: a3c7978a80f5aba3
   zh: fdc4dfdafd2eccfa
-/deepseek-ai-dsh-sdk-client/understand-the-implementation/owned-activity-flow:
+/hy-dsh-sdk-client/understand-the-implementation/owned-activity-flow:
   en: 94a42babac5f1c7d
   zh: df9e42ed02f7d002
-/deepseek-ai-dsh-sdk-client/understand-the-implementation/errors-and-teardown:
+/hy-dsh-sdk-client/understand-the-implementation/errors-and-teardown:
   en: 165364de2cee0a9f
   zh: c4dc37b44e1e621e
-/deepseek-ai-dsh-sdk-client/further-exploration:
+/hy-dsh-sdk-client/further-exploration:
   en: 1048b6b2c0954717
   zh: 7ce29dd1ca545e06
-/deepseek-ai-dsh-sdk-client/model-experience:
+/hy-dsh-sdk-client/model-experience:
   en: e82a55513d3cd30e
   zh: ecd8c0875ff2fb87
-/deepseek-ai-dsh-sdk-client/model-experience/kv-cache-effect:
+/hy-dsh-sdk-client/model-experience/kv-cache-effect:
   en: 7abe0be104a791e7
   zh: 445311f78b1069ca
-/deepseek-ai-dsh-sdk-client/known-limitations-and-deferred-work:
-  en: 3f51394ef0699943
-  zh: 6d4c3180fced8db1
-/deepseek-ai-dsh-sdk-client/known-limitations-and-deferred-work/dev-note:
+/hy-dsh-sdk-client/known-limitations-and-deferred-work:
+  en: b9dca0495c1406c2
+  zh: 64c8748a35f95b8c
+/hy-dsh-sdk-client/known-limitations-and-deferred-work/dev-note:
   en: 6177a56f053936a4
   zh: 0f4b20228c2d15da

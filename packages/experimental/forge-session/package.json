@@ -1,0 +1,88 @@
+{
+  "name": "@hy/dsh-experimental-forge-session",
+  "description": "Binds change requests to the Session that created, pushed, or tracked them",
+  "version": "0.2.2-alpha.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts"
+    },
+    "./locale/*.json": "./locale/*.json",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/experimental/forge-session"
+  },
+  "dependencies": {
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/schemastery": "workspace:~",
+    "shell-quote": "^1.12.0",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-experimental-forge": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-shell": "workspace:*",
+    "@hy/dsh-shell-env": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*"
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-include": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-bash-local": "workspace:*",
+    "@hy/dsh-experimental-forge": "workspace:*",
+    "@hy/dsh-experimental-forge-github": "workspace:*",
+    "@hy/dsh-fs-local": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-shell-env": "workspace:*",
+    "@hy/dsh-subprocess-local": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-bash": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-working-directory": "workspace:*",
+    "@hy/dsh-shell": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@hy/dsh-shell": {
+      "optional": true
+    },
+    "@hy/dsh-shell-env": {
+      "optional": true
+    },
+    "@hy/dsh-tools": {
+      "optional": true
+    },
+    "@hy/dsh-sandbox-policy": {
+      "optional": true
+    }
+  }
+}

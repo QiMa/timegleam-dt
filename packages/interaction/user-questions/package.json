@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-user-questions",
   "description": "Abstract user-questions seam (ctx.userQuestions) for asking the human during agent runs",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -59,11 +59,11 @@
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-scope": "workspace:*",
     "@hy/cordis": "workspace:~",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
-    "@hy/dsh-session-persistence-jsonl": "workspace:*",
-    "@hy/dsh-tools": "workspace:*"
+    "@hy/dsh-session-persistence-jsonl": "workspace:*"
   },
   "dependencies": {
     "zod": "4.4.3",

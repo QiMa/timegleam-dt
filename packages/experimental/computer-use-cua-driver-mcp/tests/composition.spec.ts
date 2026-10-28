@@ -1,4 +1,6 @@
 /** Loader composition with a real stdio child and a scripted external model. */
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -63,11 +65,13 @@ async function load(mode?: string): Promise<{ ctx: Context; root: string; model:
     ['@hy/dsh-computer-use', ComputerUse],
     ['@hy/dsh-system-prompt', SystemPrompt],
     ['@hy/dsh-tools', ToolRuntime],
+    ['@hy/dsh-tool-executor-native', NativeToolExecutor],
     ['@hy/dsh-llm', LlmRuntime],
     ['@hy/dsh-session', SessionStore],
     ['@hy/dsh-agent', AgentRegistry],
     ['@hy/dsh-agent-loop', AgentLoop],
     ['@hy/dsh-session-projection', SessionProjectionRegistry],
+
     ['@hy/dsh-attachment-local', LocalAttachmentStore],
     ['@fixture/model', { inject: ['llm'], apply(ctx: Context) { ctx.effect(() => ctx.llm.registerAdapter(['fixture'], model)) } }],
     ['@hy/dsh-experimental-computer-use-cua-driver-mcp', Provider],
@@ -163,14 +167,14 @@ describe('installed Cua Driver Loader composition', () => {
 
   it('retains exclusive ownership when the external process disconnects and reconnects', async () => {
     const { ctx, root } = await load()
-    await ctx.tools.execute({ name: 'mcp__cua-driver-mcp__disconnect', arguments: {}, callId: ToolCallId('disconnect'), signal: new AbortController().signal })
+    await executeToolFixture(ctx, { name: 'mcp__cua-driver-mcp__disconnect', arguments: {}, callId: ToolCallId('disconnect'), signal: new AbortController().signal })
     expect(ctx.computerUse.providerName).toBe('cua-driver-mcp')
     expect(() => ctx.computerUse.register(ComputerUseProviderName('replacement'))).toThrow('already registered')
     await vi.waitFor(async () => {
       expect((await driverEvents(root)).filter(event => event.event === 'initialize')).toHaveLength(2)
     }, { timeout: 10_000 })
     await vi.waitFor(async () => {
-      const result = await ctx.tools.execute({ name: TOOL, arguments: { display: 2 }, callId: ToolCallId('reconnected'), signal: new AbortController().signal })
+      const result = await executeToolFixture(ctx, { name: TOOL, arguments: { display: 2 }, callId: ToolCallId('reconnected'), signal: new AbortController().signal })
       expect(result.isError).not.toBe(true)
       expect(result.content[0]).toEqual({ type: 'text', text: 'Display 2' })
     })

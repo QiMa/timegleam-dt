@@ -1,6 +1,9 @@
+import { ToolExecutionPipeline } from '@hy/dsh-tools/pipeline'
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context, type Fiber } from '@hy/cordis'
-import type { Agent } from '@hy/dsh-agent'
+import AgentRegistry, { type Agent } from '@hy/dsh-agent'
 import { createUserMessage, ToolCallId, HarnessError , createMessage } from '@hy/dsh-llm'
 import type { ContextFormed } from '@hy/dsh-llm'
 import { MAX_TIMER_DELAY_MS, TimeoutReason } from '@hy/dsh-timeout'
@@ -15,7 +18,6 @@ import SessionStore, {
   type SessionId as SessionIdValue,
 } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
-import { turnBoundaryProjectionDefinition } from '@hy/dsh-agent-loop'
 import SessionQueryEngine, {
   SessionQueryError,
   SessionSearchCursor,
@@ -31,6 +33,7 @@ import SessionQueryEngine, {
 } from '@hy/dsh-session-query'
 import SystemPrompt from '@hy/dsh-system-prompt'
 import ToolRuntime, { type ToolExecutionResult } from '@hy/dsh-tools'
+import type { Config as ToolSessionQueryConfig } from '@hy/dsh-tool-session-query'
 import * as ToolSessionQuery from '@hy/dsh-tool-session-query'
 
 declare module '@hy/dsh-llm' {
@@ -207,12 +210,12 @@ interface Mounted {
   call(name: string, args: unknown, options?: { agent?: Agent; signal?: AbortSignal }): Promise<ToolExecutionResult>
 }
 
-function registerTurnBoundary(ctx: Context): void {
-  ctx.sessionProjections.register(turnBoundaryProjectionDefinition)
+async function registerTurnBoundary(ctx: Context): Promise<void> {
+  await ctx.plugin(AgentRegistry)
 }
 
 async function mount(
-  config: ToolSessionQuery.Config = {},
+  config: ToolSessionQueryConfig = {},
   callerCwd: string | null = '/work',
   enforceTimeout = false,
 ): Promise<Mounted> {
@@ -220,9 +223,10 @@ async function mount(
   activeContexts.push(ctx)
   await ctx.plugin(SessionStore)
   await ctx.plugin(SessionProjectionRegistry)
-  registerTurnBoundary(ctx)
+  await registerTurnBoundary(ctx)
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(NativeToolExecutor)
   if (enforceTimeout) await ctx.plugin(TimeoutPolicy)
   await ctx.plugin(FakeQuery)
   const fiber = await ctx.plugin(ToolSessionQuery, config)
@@ -233,7 +237,7 @@ async function mount(
     ctx,
     fiber,
     caller,
-    call: (toolName, args, options = {}) => ctx.tools.execute({
+    call: (toolName, args, options = {}) => executeToolFixture(ctx, {
       name: toolName,
       arguments: args,
       callId: ToolCallId(`call-${++calls}`),
@@ -315,13 +319,14 @@ describe('registration and schemas', () => {
       ['session_event_read', { seq: 0 }, 'parallel'],
     ] as const
 
+    const agent = fakeAgent(mounted.caller)
     for (const [name, args, kind] of classifications) {
-      expect(mounted.ctx.tools.executionMode({
+      expect(new ToolExecutionPipeline(mounted.ctx, { get: (name, scope) => mounted.ctx.tools.get(name, scope) }).executionMode({
         name,
         arguments: args,
         callId: ToolCallId(`mode-${name}`),
         signal: new AbortController().signal,
-        agent: fakeAgent(mounted.caller),
+        agent,
       })).toEqual({ kind })
     }
   })
@@ -594,7 +599,7 @@ describe('workspace authority and lineage redaction', () => {
   it('fails closed without an agent and for direct cross-workspace targets', async () => {
     const mounted = await mount()
     createSession(mounted.ctx, 'outside', '/outside')
-    const missing = await mounted.ctx.tools.execute({
+    const missing = await executeToolFixture(mounted.ctx, {
       name: 'session_trace',
       arguments: {},
       callId: ToolCallId('missing-agent'),
@@ -1652,24 +1657,27 @@ describe('search paging, prior-history bounds, titles, and cancellation', () => 
     expect(text(result)).toContain('Result cap reached')
   })
 
-  it('rejects current-session search without the turnBoundary fold', async () => {
+  it('rejects current-session search before any step has started', async () => {
     const ctx = new Context()
     activeContexts.push(ctx)
     await ctx.plugin(SessionStore)
     await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
+    await ctx.plugin(NativeToolExecutor)
     await ctx.plugin(FakeQuery)
+    await ctx.plugin(AgentRegistry)
     await ctx.plugin(ToolSessionQuery)
     const session = createSession(ctx, 'no-boundary-caller', '/work')
-    const result = await ctx.tools.execute({
+    const result = await executeToolFixture(ctx, {
       name: 'session_event_search',
       arguments: { query: 'q' },
       callId: ToolCallId('call-no-boundary'),
       signal: new AbortController().signal,
       agent: fakeAgent(session),
     })
-    expect(errorCode(result)).toBe('SESSION_QUERY_TOOL_NO_CURRENT_STEP')
+    expect(ctx.sessionProjections.checkpoint(session).turnBoundary).toBeDefined()
+    expect(errorCode(result)).toBe('SESSION_QUERY_INVALID_FILTER')
   })
 
   it('preserves base results when a title read fails, annotates the code, and logs the full error', async () => {

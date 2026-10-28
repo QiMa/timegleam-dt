@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-time-context",
   "description": "Durable per-step context with the current time and elapsed time",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +38,8 @@
     "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
-    "@hy/dsh-session-projection": "workspace:*"
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-util-time": "workspace:*"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
@@ -55,6 +56,8 @@
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
-    "@hy/dsh-tools": "workspace:*"
+    "@hy/dsh-tool-testkit": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-util-time": "workspace:*"
   }
 }

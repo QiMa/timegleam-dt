@@ -12,6 +12,7 @@ import * as LlmPiAi from '@hy/dsh-llm-pi-ai'
 import SessionStore, { SessionId } from '@hy/dsh-session'
 import type { Session, SessionSeq } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
+import AgentRegistry from '@hy/dsh-agent'
 import SessionTitleService from '@hy/dsh-session-title'
 import * as providerPlugin from '@hy/dsh-session-title-first-prompt-llm'
 import { anthropicTextEvents, closeMockServers, mockServer } from '../../../llm/llm-pi-ai/tests/mock-server.ts'
@@ -56,6 +57,7 @@ async function loadComposition(
     "- name: '@hy/dsh-llm'",
     "- name: '@hy/dsh-session'",
     "- name: '@hy/dsh-session-projection'",
+    "- name: '@hy/dsh-agent'",
     "- name: '@hy/dsh-session-title'",
     '  config:',
     '    fallbackMaxWords: 5',
@@ -78,6 +80,7 @@ async function loadComposition(
     ['@hy/dsh-llm', LlmRuntime],
     ['@hy/dsh-session', SessionStore],
     ['@hy/dsh-session-projection', SessionProjectionRegistry],
+    ['@hy/dsh-agent', AgentRegistry],
     ['@hy/dsh-session-title', SessionTitleService],
     ['@hy/dsh-session-title-first-prompt-llm', providerPlugin],
     ...entryModules,

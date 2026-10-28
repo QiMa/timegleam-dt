@@ -2,7 +2,7 @@ diff --git a/lib/index.js b/lib/index.js
 index aac18a0..cc10803 100644
 --- a/lib/index.js
 +++ b/lib/index.js
-@@ -1481,7 +1481,10 @@ const ENGINE_PREFIX = "@deepseek-ai/libreoffice-kit";
+@@ -1481,7 +1481,10 @@ const ENGINE_PREFIX = "@hy/libreoffice-kit";
  * @returns true when at least one resolution directory holds the package.
  */
  function installedPackageExists(name) {

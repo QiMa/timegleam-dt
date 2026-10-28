@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-sandbox",
-  "description": "Abstract process-sandbox seam (ctx.sandbox) for the Huayu AI: same-world confinement vocabulary and the SandboxProvider contract",
-  "version": "0.2.1-rc.2",
+  "description": "Abstract process-sandbox seam (ctx.sandbox) for the DeepSeek Harness: same-world confinement vocabulary and the SandboxProvider contract",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },

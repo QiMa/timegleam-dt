@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-base",
   "description": "The shared dsh core as a profile bundle: the first patch layer of base-backed profiles, inserting core rows over the empty profile root",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -98,6 +98,8 @@
     "@hy/dsh-token-meter": "workspace:*",
     "@hy/dsh-tool-bash": "workspace:*",
     "@hy/dsh-tool-present": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-tool-fs": "workspace:*",
     "@hy/dsh-tool-fs-search": "workspace:*",
     "@hy/dsh-tool-goal": "workspace:*",

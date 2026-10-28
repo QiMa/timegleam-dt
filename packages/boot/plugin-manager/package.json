@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-plugin-manager",
   "description": "Current-profile plugin and bundle management shared by dsh CLI, Web and agent tools",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -45,7 +45,11 @@
       "default": "./lib/types/tools.js"
     },
     "./tools/locale/*.json": "./locale/tools/*.json",
-    "./locale/*.json": "./locale/*.json"
+    "./locale/*.json": "./locale/*.json",
+    "./diagnostic": {
+      "types": "./lib/types/diagnostic.d.ts",
+      "default": "./lib/types/diagnostic.js"
+    }
   },
   "files": [
     "locale/*.json",
@@ -62,11 +66,16 @@
   "dependencies": {
     "@hy/dsh-app-boot": "workspace:*",
     "@hy/dsh-atomic-write": "workspace:*",
+    "@hy/dsh-official-bundles": "workspace:*",
     "@hy/schemastery": "workspace:~",
     "execa": "^10.0.1",
+    "semver": "^7.8.5",
     "yaml": "^2.9.0",
     "zod": "4.4.3",
-    "@hy/dsh-util-values": "workspace:*"
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/dsh-plugin-detail": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "hosted-git-info": "^9.0.3"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
@@ -91,12 +100,15 @@
   },
   "devDependencies": {
     "chokidar": "^4.0.3",
+    "@types/semver": "^7.8.0",
     "@hy/dsh-package-manifest": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-host-plugin-inventory": "workspace:*",
     "@hy/dsh-subprocess": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-hmr": "workspace:*",
@@ -107,6 +119,8 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-sandbox": "workspace:*",
-    "@hy/dsh-user-approval": "workspace:*"
+    "@hy/dsh-user-approval": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
+    "@types/hosted-git-info": "^3.0.5"
   }
 }

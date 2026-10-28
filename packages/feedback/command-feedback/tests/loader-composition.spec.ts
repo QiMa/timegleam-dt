@@ -6,13 +6,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
 import Include from '@hy/cordis-plugin-include'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import AgentRegistry from '@hy/dsh-agent'
 import type { Agent, AgentStatus } from '@hy/dsh-agent'
 import CommandRuntime from '@hy/dsh-commands'
 import SessionStore, { SessionId } from '@hy/dsh-session'
 import * as CommandFeedback from '@hy/dsh-command-feedback'
 import { getOrCreateAnonymousUserId } from '@hy/dsh-anonymous-user-id'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -35,6 +36,7 @@ async function agent(ctx: Context): Promise<Agent> {
     id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     ctx: scope.ctx,
     get status() { return status },
@@ -56,7 +58,9 @@ describe('/feedback real Loader composition through cordis.yml', () => {
     vi.stubEnv('DSH_HOME', root)
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
+      "- name: '@hy/dsh-session-projection'",
       "- name: '@hy/dsh-agent'",
+      "- name: '@hy/dsh-session-projection'",
       "- name: '@hy/dsh-session'",
       "- name: '@hy/dsh-commands'",
       "- name: '@hy/dsh-command-feedback'",
@@ -68,7 +72,9 @@ describe('/feedback real Loader composition through cordis.yml', () => {
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
+      ['@hy/dsh-session-projection', SessionProjectionRegistry],
       ['@hy/dsh-agent', AgentRegistry],
+      ['@hy/dsh-session-projection', SessionProjectionRegistry],
       ['@hy/dsh-session', SessionStore],
       ['@hy/dsh-commands', CommandRuntime],
       ['@hy/dsh-command-feedback', CommandFeedback],

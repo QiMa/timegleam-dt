@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-skill",
-  "description": "Agent skill provider registry for the Huayu AI",
-  "version": "0.2.1-rc.2",
+  "description": "Agent skill provider registry for the DeepSeek Harness",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },

@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import type {} from '@hy/dsh-agent/types'
 import type { SessionId } from '@hy/dsh-session/types'
 import type {
   TeamMemberProjection,

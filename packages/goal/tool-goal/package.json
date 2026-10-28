@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-goal",
   "description": "Model-facing same-session goal tools with execution-time authority checks",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -35,8 +35,7 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
-    "@hy/cordis": "workspace:~",
-    "@hy/dsh-session-projection": "workspace:*"
+    "@hy/cordis": "workspace:~"
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~"
@@ -50,6 +49,8 @@
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-session-projection": "workspace:*"

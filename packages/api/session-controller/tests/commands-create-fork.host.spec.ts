@@ -1,5 +1,6 @@
 import { Context } from '@hy/cordis'
 import AgentRegistry from '@hy/dsh-agent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import type { Agent, AgentHandle, CreateAgentOptions } from '@hy/dsh-agent'
 import type {} from '@hy/dsh-agent-preset-registry'
 import { createUserMessage } from '@hy/dsh-llm'
@@ -47,6 +48,7 @@ async function baseContext(): Promise<Context> {
   const ctx = new Context()
   await ctx.plugin(TypertRegistry)
   await ctx.plugin(SessionStore)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
   installSessionReadTestServices(ctx)
   ctx.provide('agentDefaultModel', {

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import { Session, SessionId } from '@hy/dsh-session'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import type { Agent } from '@hy/dsh-agent'
 import { ScopedLayers, bindScopeParent, createScope, scopeOf } from '@hy/dsh-scope'
 import type { ScopeKey } from '@hy/dsh-scope'
@@ -22,6 +22,7 @@ function agentIn(ctx: Context, rawId: string, presetScope?: ScopeKey): Agent {
     id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     status: 'idle',
     ctx: agentCtx,

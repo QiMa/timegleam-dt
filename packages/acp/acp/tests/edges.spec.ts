@@ -3,7 +3,7 @@ import { PROTOCOL_VERSION } from '@agentclientprotocol/sdk'
 import { createUserMessage, ToolCallId, type StreamChunk  } from '@hy/dsh-llm'
 import type { ContextFormed } from '@hy/dsh-llm'
 import { SessionId } from '@hy/dsh-session'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import { makeBridgeHarness, textResponse, type BridgeHarness } from './harness.ts'
 
 declare module '@hy/dsh-llm' {

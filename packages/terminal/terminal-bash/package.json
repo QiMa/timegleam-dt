@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-terminal-bash",
-  "description": "Persistent shell PTY backend over the Huayu AI subprocess terminal primitive",
-  "version": "0.2.1-rc.2",
+  "description": "Persistent shell PTY backend over the DeepSeek Harness subprocess terminal primitive",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -36,7 +36,6 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subprocess": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*"
   },
   "dependencies": {
@@ -52,6 +51,7 @@
     "@hy/dsh-sandbox": "workspace:*",
     "@hy/dsh-sandbox-policy": "workspace:*",
     "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-subprocess": "workspace:*",
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/cordis": "workspace:~",

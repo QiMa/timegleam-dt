@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-user-approval",
-  "description": "User-approval seam (ctx.approval) for the Huayu AI: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default",
-  "version": "0.2.1-rc.2",
+  "description": "User-approval seam (ctx.approval) for the DeepSeek Harness: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -40,10 +40,12 @@
     "@hy/dsh-scope": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-session-projection": "workspace:*"
   },
   "dependencies": {
-    "@hy/schemastery": "workspace:~"
+    "@hy/schemastery": "workspace:~",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@hy/dsh-agent": "workspace:*",
@@ -52,6 +54,7 @@
     "@hy/dsh-scope": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-session-projection": "workspace:*"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-auto-review",
-  "description": "Per-tool LLM authorization review for the Huayu AI Auto permission preset",
-  "version": "0.2.1-rc.2",
+  "description": "Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset",
+  "version": "0.2.2-alpha.2",
   "icon": "./icon.svg",
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   "files": [
     "icon.svg",
     "locale/*.json",
+    "docs",
     "lib/index.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
@@ -67,8 +68,11 @@
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-tool-bash": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-tool-fs": "workspace:*",
     "@hy/dsh-tool-subagent": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-approval": "workspace:*",
     "@hy/cordis": "workspace:~",

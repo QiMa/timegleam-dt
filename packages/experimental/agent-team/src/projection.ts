@@ -158,12 +158,6 @@ export interface TeamProjectionState extends TeamState {
   readonly failure?: string
 }
 
-declare module '@hy/dsh-session-projection/types' {
-  interface SessionProjectionStateMap {
-    agentTeam: TeamProjectionState
-  }
-}
-
 const teamProjectionEntrySchema = z.object({
   id: teamIdSchema,
   members: z.array(teamMemberSnapshotSchema),

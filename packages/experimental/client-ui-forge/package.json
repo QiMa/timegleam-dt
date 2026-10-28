@@ -1,0 +1,126 @@
+{
+  "name": "@hy/dsh-experimental-client-ui-forge",
+  "description": "Sidebar panel for a Session's change requests, with a worktree option for new Sessions and its Host Remote",
+  "version": "0.2.2-alpha.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/experimental/client-ui-forge"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./types": {
+      "types": "./lib/types/types.d.ts"
+    }
+  },
+  "dsh": {
+    "client": {
+      "inject": [
+        "@hy/dsh-api-remotes",
+        "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-conversation",
+        "@hy/dsh-client-ui-layout",
+        "@hy/dsh-client-ui-sidebar-right",
+        "@hy/dsh-client-ui-workspace"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-experimental-worktree": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-experimental-forge": "workspace:*",
+    "@hy/dsh-fs": "workspace:*"
+  },
+  "dependencies": {
+    "@hy/schemastery": "workspace:~",
+    "@hy/dsh-util-values": "workspace:*",
+    "diff": "^9.0.0",
+    "zod": "^4.4.3",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/dsh-storage-domain": "workspace:*"
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-api-remotes": "workspace:*",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-store": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-client-ui-conversation": "workspace:*",
+    "@hy/dsh-client-ui-layout": "workspace:*",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-session": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-client-ui-workspace": "workspace:*",
+    "@hy/dsh-experimental-forge": "workspace:*",
+    "@hy/dsh-experimental-forge-session": "workspace:*",
+    "@hy/dsh-experimental-worktree": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-fs-local": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-sandbox": "workspace:*",
+    "@hy/dsh-sandbox-local": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-subprocess": "workspace:*",
+    "@hy/dsh-subprocess-local": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-util-workspace-path": "workspace:*",
+    "@hy/dsh-working-directory": "workspace:*",
+    "@testing-library/react": "^16.3.3",
+    "clsx": "^2.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-session-projection-cache": "workspace:*",
+    "@hy/dsh-session-query": "workspace:*",
+    "@hy/dsh-api-remote-access": "workspace:*"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ]
+}

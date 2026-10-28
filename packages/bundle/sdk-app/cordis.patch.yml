@@ -39,3 +39,36 @@
         assetRoot: !!js "process.env.DSH_BUNDLED_OFFICE_SKILLS ?? process.getBuiltinModule('node:path').resolve(process.env.DSH_PRIMARY_RUNTIME ?? process.env.DSH_BUNDLED_PRIMARY_RUNTIME ?? '', '..', 'office-skills')"
         cli: !!js "process.env.DSH_BUNDLED_OFFICE_CLI === '' ? false : process.env.DSH_BUNDLED_OFFICE_CLI"
         node: !!js "process.env.DSH_BUNDLED_OFFICE_NODE ?? process.getBuiltinModule('node:path').resolve(process.env.DSH_PRIMARY_RUNTIME ?? process.env.DSH_BUNDLED_PRIMARY_RUNTIME ?? '', 'dependencies', 'node', 'bin', process.platform === 'win32' ? 'node.exe' : 'node')"
+
+# Share native desktop tools and model context without starting a Web server.
+- insert:
+    - id: connection
+      name: '@hy/dsh-client-connection'
+
+    - id: file-upload
+      name: '@hy/dsh-client-file-upload'
+
+    - id: workspace
+      name: '@hy/dsh-workspace'
+
+    - id: schedule
+      name: '@hy/dsh-schedule'
+      inject: [sdkSessionActivation]
+
+    - id: time-context
+      name: '@hy/dsh-time-context'
+
+    - id: tool-schedule
+      name: '@hy/dsh-tool-schedule'
+
+    - id: tool-ask-user
+      name: '@hy/dsh-tool-ask-user'
+
+    - id: present
+      name: '@hy/dsh-tool-present'
+
+    - id: file-reference-local
+      name: '@hy/dsh-file-reference-local'
+
+    - id: deliverable-file-references
+      name: '@hy/dsh-deliverable-file-references'

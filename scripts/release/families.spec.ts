@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { officialClientBuildEnvironment, writeClientBuildRecord } from '../client-build-environment.ts'
-import { ON_DEMAND_BUNDLES } from '../../packages/boot/app-boot/src/official-bundles.ts'
+import { ON_DEMAND_BUNDLES } from '../../packages/util/official-bundles/src/bundles.ts'
 import { releaseFamily, type ReleaseMember } from './families.ts'
 import { compareVersions, nextVendorVersion, planShared, reachesPayload } from './bump.ts'
 
@@ -49,6 +49,7 @@ describe('release families', () => {
     expect(members
       .filter(member => member.directory.startsWith('packages/experimental/'))
       .map(member => member.name)).toEqual([
+      '@hy/dsh-action-cards',
       '@hy/dsh-experimental-agent-team-profile',
       '@hy/dsh-experimental-agent-team',
       '@hy/dsh-experimental-api-speech-to-text',
@@ -59,21 +60,36 @@ describe('release families', () => {
       '@hy/dsh-experimental-browser-use-runtime',
       '@hy/dsh-experimental-browser-use-stagehand-native',
       '@hy/dsh-experimental-claude-code-mods',
+      '@hy/dsh-client-ui-action-cards',
       '@hy/dsh-experimental-client-ui-agent-team',
       '@hy/dsh-experimental-client-ui-claude-code-mods',
       '@hy/dsh-experimental-client-ui-cot-translation',
+      '@hy/dsh-client-ui-creation-recommendations',
+      '@hy/dsh-experimental-client-ui-forge',
+      '@hy/dsh-client-ui-plugin-recommendations',
+      '@hy/dsh-experimental-client-ui-stats',
       '@hy/dsh-experimental-client-ui-voice-input',
       '@hy/dsh-experimental-computer-use-cua-driver-mcp',
       '@hy/dsh-experimental-computer-use-cua-driver-native',
       '@hy/dsh-experimental-cot-translation-bundle',
+      '@hy/dsh-creation-recommendations',
+      '@hy/dsh-cua-bundle',
       '@hy/dsh-experimental-cua-macos',
       '@hy/dsh-cua',
+      '@hy/dsh-experimental-forge-bundle',
+      '@hy/dsh-experimental-forge-github',
+      '@hy/dsh-experimental-forge-session',
+      '@hy/dsh-experimental-forge',
       '@hy/dsh-hook-protocol',
       '@hy/dsh-hooks-claude-code',
       '@hy/dsh-hooks-codex',
       '@hy/dsh-experimental-inspector-profile',
       '@hy/dsh-experimental-inspector',
+      '@hy/dsh-experimental-liveshare-protocol',
+      '@hy/dsh-experimental-liveshare',
+      '@hy/dsh-personalized-recommendations',
       '@hy/dsh-experimental-plugin-market-bundle',
+      '@hy/dsh-plugin-recommendations',
       '@hy/dsh-experimental-ptc-runtime-python',
       '@hy/dsh-experimental-ralph-bundle',
       '@hy/dsh-experimental-session-inspector',
@@ -83,10 +99,12 @@ describe('release families', () => {
       '@hy/dsh-skill-badge',
       '@hy/dsh-experimental-speech-to-text-sensevoice',
       '@hy/dsh-experimental-speech-to-text',
+      '@hy/dsh-experimental-subagent-oar',
       '@hy/dsh-experimental-terminal-bundle',
       '@hy/dsh-experimental-tool-agent-team',
       '@hy/dsh-tool-ralph',
       '@hy/dsh-tool-session-query',
+      '@hy/dsh-experimental-tool-subagent-oar',
       '@hy/dsh-tool-terminal',
       '@hy/dsh-experimental-tool-worktree',
       '@hy/dsh-experimental-translator',

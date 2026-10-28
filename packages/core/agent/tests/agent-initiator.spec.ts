@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import { runInNewContext } from 'node:vm'
 import AgentRegistry from '@hy/dsh-agent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import type { Agent } from '@hy/dsh-agent'
 import { SessionId } from '@hy/dsh-session'
 
@@ -15,6 +16,7 @@ async function harness(): Promise<{
   dispose: () => Promise<void>
 }> {
   const ctx = new Context()
+  await ctx.plugin(SessionProjectionRegistry)
   const fiber = await ctx.plugin(AgentRegistry)
   return {
     ctx,

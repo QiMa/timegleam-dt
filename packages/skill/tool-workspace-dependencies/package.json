@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-workspace-dependencies",
   "description": "The load_workspace_dependencies tool: absolute paths into a bundled Python, Node.js, and pnpm payload",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -18,9 +18,11 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.d.ts"
   ],
@@ -30,6 +32,8 @@
     "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/cordis-plugin-loader": "workspace:~",

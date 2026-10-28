@@ -13,7 +13,7 @@ Name Python scripts for their task, such as `edit_docx.py`; avoid module names s
 
 ## Create and edit
 
-For text edits, locate the target by its text or position and inspect only its runs and formatting. A title can be an ordinary paragraph without a Title style or document-property title. Update the relevant runs; assigning paragraph `.text` destroys run formatting. Save a new file unless an in-place edit is requested. Read other structures only when the edit involves them; rebuilding a document can lose unsupported features.
+For text edits, locate the target by its text or position and inspect only its runs and formatting. A title can be an ordinary paragraph without a Title style or document-property title. Update the relevant runs; assigning paragraph `.text` destroys run formatting. Save a new file unless an in-place edit is requested. For ordinary text edits, do not unzip the document, enumerate ZIP members, dump raw XML, or inspect core properties, headers, or footers unrelated to the target. Investigate these only for a concrete failure, an ambiguous target, an unsupported feature, or an explicit user requirement. Rebuilding a document can lose unsupported features.
 
 Run-preserving edits must use the bundled helper, not `paragraph.text = ...` assignment:
 
@@ -43,7 +43,7 @@ python-docx does not paginate or render documents. Do not represent ordinary rep
 
 ## Check and deliver
 
-After saving, reopen the output with `$PY <skill>/scripts/docx_edit.py inspect out.docx` and verify: every requested change is present, run counts and bold/italic match the source, and unchanged content is intact. Never declare completion from a file listing alone; `inspect` must show the expected runs before delivering.
+Reopen the saved document with python-docx and verify the requested content, related formatting, and unchanged content that must be preserved. When these checks pass, stop validation and deliver the file. Do not add ZIP integrity checks, package inventories, or metadata inspection as routine final verification.
 
 Creating a file or changing content with incidental basic formatting does not require additional operations. Load `office-render` for requested images or visual inspection. When styling, font color, spacing, sizing, or text alignment is the requested edit, load `office-render` and inspect the changed page even without a separate visual-check request, unless the user explicitly skips rendering. For PDF output load `office-export-pdf`.
 

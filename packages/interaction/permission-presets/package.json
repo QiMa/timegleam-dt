@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-permission-presets",
-  "description": "User-facing permission presets (ctx.permissionPresets) for the Huayu AI: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events",
-  "version": "0.2.1-rc.2",
+  "description": "User-facing permission presets (ctx.permissionPresets) for the DeepSeek Harness: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -50,6 +50,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-shell": "workspace:*",
     "@hy/dsh-commands": "workspace:*",
     "@hy/dsh-sandbox": "workspace:*",
@@ -65,6 +66,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-shell": "workspace:*",
     "@hy/dsh-commands": "workspace:*",
     "@hy/dsh-sandbox": "workspace:*",
@@ -74,6 +76,7 @@
     "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-user-approval": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-settings": "workspace:*"
+    "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*"
   }
 }

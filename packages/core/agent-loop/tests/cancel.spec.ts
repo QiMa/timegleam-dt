@@ -1,4 +1,3 @@
-import { ToolCallId, createUserMessage, expandAssistantStream } from '@hy/dsh-llm'
 /**
  * Tests for the queue-aware `Agent.cancel()` primitive. The default clears
  * queued and steering work, while `keepInbox` preserves pending input for a
@@ -7,13 +6,16 @@ import { ToolCallId, createUserMessage, expandAssistantStream } from '@hy/dsh-ll
  * the cause each cancelled turn records.
  * @module dsh-agent-loop/tests/cancel
  */
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
+import { ToolCallId, createUserMessage, expandAssistantStream } from '@hy/dsh-llm'
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import LlmRuntime from '@hy/dsh-llm'
 import SessionStore, { Session, SessionId, SessionLogOffset, TurnEndReason } from '@hy/dsh-session'
 import SystemPrompt from '@hy/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED_BEFORE_DISPATCH } from '@hy/dsh-tools'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import AgentRegistry, { type Agent, type AgentCancelCause } from '@hy/dsh-agent'
 import AgentLoop from '@hy/dsh-agent-loop'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
@@ -30,6 +32,7 @@ async function harness(adapter: MockAdapter) {
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
   ctx.llm.registerAdapter(['mock'], adapter)
@@ -828,6 +831,7 @@ describe('Agent.cancel()', () => {
     await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
+    await ctx.plugin(NativeToolExecutor)
     await ctx.plugin(AgentRegistry)
     await ctx.plugin(AgentLoop, { agents: [] })
     ctx.llm.registerAdapter(['mock'], adapter)

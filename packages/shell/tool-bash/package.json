@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-bash",
   "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -62,7 +62,10 @@
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-jobs": "workspace:*",
     "@hy/dsh-jobs-local": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-tool-jobs": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-approval": "workspace:*",
     "@hy/cordis": "workspace:~",

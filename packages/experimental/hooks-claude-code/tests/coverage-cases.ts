@@ -1,3 +1,4 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
 import { createUserMessage } from '@hy/dsh-llm'
 import type { ContextFormed } from '@hy/dsh-llm'
 import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
@@ -8,7 +9,7 @@ import { join } from 'node:path'
 import { Context } from '@hy/cordis'
 import { SessionId, type SessionEvent } from '@hy/dsh-session'
 import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import type { Agent } from '@hy/dsh-agent'
 import AgentLoop from '@hy/dsh-agent-loop'
 import { LocalBashExecutor } from '@hy/dsh-bash-local'
@@ -160,7 +161,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       let ran = false
       ctx.tools.register(defineContentToolFixture({ name: 'echo', description: 'e', parameters: {}, async execute() { ran = true; return [{ type: 'text', text: 'x' }] } }))
       const { ToolCallId } = await import('@hy/dsh-llm')
-      const result = await ctx.tools.execute({ signal: testToolSignal, callId: ToolCallId('c1'), name: 'echo', arguments: {} })
+      const result = await executeToolFixture(ctx, { signal: testToolSignal, callId: ToolCallId('c1'), name: 'echo', arguments: {} })
       expect(ran).toBe(false)
       expect(result.isError).toBe(true)
     })

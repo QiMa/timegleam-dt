@@ -1,3 +1,4 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -16,7 +17,7 @@ import * as SubagentFork from '@hy/dsh-subagent-fork-in-process'
 import * as SubagentSpawn from '@hy/dsh-subagent-spawn-in-process'
 import { renderPrompt, renderContextSnapshot } from '@hy/dsh-system-prompt'
 import * as ToolSubagentControl from '@hy/dsh-tool-subagent-control'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import { resolveAdapterOptions } from '@hy/dsh-llm-deepseek'
 import { serialize } from '@hy/dsh-llm-deepseek/src/serialize.ts'
 import type { GenerateOptions } from '@hy/dsh-llm'
@@ -98,7 +99,7 @@ function execute(
   args: unknown,
   signal: AbortSignal = SIGNAL,
 ) {
-  return ctx.tools.execute({
+  return executeToolFixture(ctx, {
     callId: ToolCallId(`team-call-${++callNumber}`),
     name,
     arguments: args,

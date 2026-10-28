@@ -1,3 +1,4 @@
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import { Session, SessionId } from '@hy/dsh-session'
@@ -14,7 +15,7 @@ import type {
   TerminalSessionStatus,
   TerminalSignal,
 } from '@hy/dsh-terminal'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 
 const agentScopeDisposers = new WeakMap<Agent, () => Promise<void>>()
 const ptyServiceDisposers = new WeakMap<Context, () => Promise<void>>()
@@ -27,6 +28,7 @@ function stubAgent(ctx: Context, rawId: string): Agent {
     id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scopeFiber.ctx,
@@ -120,6 +122,7 @@ function backend(type = 'stub') {
 
 async function harness() {
   const ctx = new Context()
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
   const fiber = await ctx.plugin(TerminalSessionService)
   ptyServiceDisposers.set(ctx, async () => { await fiber.dispose() })

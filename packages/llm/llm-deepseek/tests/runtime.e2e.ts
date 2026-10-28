@@ -8,6 +8,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
 import AgentRegistry from '@hy/dsh-agent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import LlmRuntime, { createToolResultMessage, createUserMessage, ToolCallId, ReasoningEffortId, createMessage, createSystemMessage } from '@hy/dsh-llm'
 import type { Message, ToolSchema } from '@hy/dsh-llm'
 import AttachmentStore, { AttachmentId, ImageVariantId } from '@hy/dsh-attachment'
@@ -228,6 +229,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('llm-deepseek e2e (real API)', ()
     const ctx = new Context()
     contexts.push(ctx)
     await ctx.plugin(Loader)
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(AgentRegistry)
     await ctx.plugin(LlmRuntime)
     await ctx.plugin(SessionStore)

@@ -1,0 +1,70 @@
+{
+  "name": "@hy/dsh-personalized-recommendations",
+  "description": "Personalized pages and built-in plugin recommendations offered as cards below answers",
+  "version": "0.2.2-alpha.2",
+  "icon": "./icon.svg",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/experimental/personalized-recommendations"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "icon.svg",
+    "locale/*.json",
+    "docs",
+    "lib/index.js",
+    "cordis.patch.yml",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@hy/dsh-action-cards": "workspace:*",
+    "@hy/dsh-client-ui-action-cards": "workspace:*",
+    "@hy/dsh-creation-recommendations": "workspace:*",
+    "@hy/dsh-client-ui-creation-recommendations": "workspace:*",
+    "@hy/dsh-plugin-recommendations": "workspace:*",
+    "@hy/dsh-client-ui-plugin-recommendations": "workspace:*"
+  },
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~"
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-include": "workspace:~",
+    "js-yaml": "^4.3.2",
+    "@hy/cordis-plugin-timer": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-api-remote-access": "workspace:*",
+    "@hy/dsh-app-boot": "workspace:*",
+    "@hy/dsh-hmr": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-plugin-manager": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-skill": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tools": "workspace:*"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

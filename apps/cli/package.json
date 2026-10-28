@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh",
   "description": "dsh CLI: profile launch, plugin management, and configuration inspection",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -46,10 +46,10 @@
     "@hy/dsh-goal-round-driver": "workspace:*",
     "@hy/dsh-headless": "workspace:*",
     "@hy/dsh-home-paths": "workspace:*",
-    "@hy/huayu-extension": "workspace:*",
     "@hy/dsh-jobs-local": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-mcp-client": "workspace:*",
+    "@hy/dsh-official-bundles": "workspace:*",
     "@hy/dsh-persona": "workspace:*",
     "@hy/dsh-plan-mode": "workspace:*",
     "@hy/dsh-pwsh-local": "workspace:*",
@@ -105,9 +105,13 @@
     "@hy/dsh-experimental-ralph-bundle": "workspace:*",
     "@hy/dsh-experimental-session-titles-bundle": "workspace:*",
     "@hy/dsh-experimental-terminal-bundle": "workspace:*",
+    "@hy/dsh-experimental-liveshare": "workspace:*",
     "@hy/dsh-experimental-session-search": "workspace:*",
     "@hy/dsh-experimental-tool-worktree": "workspace:*",
-    "@hy/dsh-experimental-plugin-market-bundle": "workspace:*"
+    "@hy/dsh-cua-bundle": "workspace:*",
+    "@hy/dsh-experimental-plugin-market-bundle": "workspace:*",
+    "@hy/dsh-personalized-recommendations": "workspace:*",
+    "@hy/dsh-experimental-forge-bundle": "workspace:*"
   },
   "devDependencies": {
     "@hy/dsh-skill-badge": "workspace:*",
@@ -156,6 +160,7 @@
     "@hy/dsh-subagent-spawn-in-process": "workspace:*",
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-approval": "workspace:*",
     "@types/js-yaml": "^4.0.9",
@@ -171,5 +176,8 @@
     },
     "./lib/*": "./lib/*",
     "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=24.9.0"
   }
 }

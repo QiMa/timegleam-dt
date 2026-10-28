@@ -48,9 +48,6 @@ declare module '@hy/dsh-typert-protocol' {
 }
 
 declare module '@hy/dsh-session-projection/types' {
-  interface SessionProjectionStateMap {
-    agentPreset: string | null
-  }
   interface SessionProjectionMap {
     /** Preset the Session runs, or null when the deployment composes none. */
     agentPreset: string | null

@@ -1,10 +1,11 @@
 /** Real Loader composition: the bridge mounted from a cordis.yml row beside the shipped core plugins. */
 
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
 import Include from '@hy/cordis-plugin-include'
@@ -17,9 +18,13 @@ import LlmRuntime, { createUserMessage } from '@hy/dsh-llm'
 import SessionStore, { SessionId } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import SystemPrompt from '@hy/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@hy/dsh-tools'
+import ToolRuntime from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import * as ClaudeCodeMods from '../src/index.ts'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
+
+// Keep workspace imports in Vitest's source graph even when the config has a package scope.
+vi.mock('@hy/cordis-plugin-loader/src/resolve.ts', () => ({ createResolve: () => undefined }))
 
 const FIXTURES = resolve(import.meta.dirname, 'fixtures')
 
@@ -35,15 +40,18 @@ afterEach(async () => {
 
 it('loads from cordis.yml, counts the model\'s tool calls, and answers /tally through the composed command registry', async () => {
   root = await mkdtemp(join(tmpdir(), 'dsh-cc-mods-composition-'))
+  await writeFile(join(root, 'package.json'), JSON.stringify({ type: 'module' }))
   const configPath = join(root, 'cordis.yml')
   const modules = new Map<string, unknown>([
     ['@hy/dsh-llm', LlmRuntime],
     ['@hy/dsh-session', SessionStore],
     ['@hy/dsh-session-projection', SessionProjectionRegistry],
+
     ['@hy/dsh-system-prompt', SystemPrompt],
     ['@hy/dsh-fs-local', LocalFileSystem],
     ['@hy/dsh-working-directory', WorkingDirectory],
     ['@hy/dsh-tools', ToolRuntime],
+    ['@hy/dsh-tool-executor-native', NativeToolExecutor],
     ['@hy/dsh-agent', AgentRegistry],
     ['@hy/dsh-agent-loop', AgentLoop],
     ['@hy/dsh-commands', CommandRuntime],
@@ -62,8 +70,6 @@ it('loads from cordis.yml, counts the model\'s tool calls, and answers /tally th
   context.baseUrl = pathToFileURL(root).href + '/'
   await context.plugin(Loader)
   context.loader.builtins.include = Include
-  // Without a Node internal loader the Loader imports bare names through this
-  // test runner's module graph, which resolves workspace packages to `src`.
   context.loader.internal = undefined
   await context.loader.create({ name: 'cordis:include', config: { path: pathToFileURL(configPath).href } })
   await context.loader.await()

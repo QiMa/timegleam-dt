@@ -1,7 +1,8 @@
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import AgentRegistry from '@hy/dsh-agent'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import type { Agent } from '@hy/dsh-agent'
 import { JobId } from '@hy/dsh-jobs'
 import LocalJobRegistry from '@hy/dsh-jobs-local'
@@ -215,6 +216,7 @@ describe('JobController', () => {
   async function controllerHarness() {
     const ctx = new Context()
     await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(AgentRegistry)
     await ctx.plugin(LocalJobRegistry)
     await ctx.plugin(TypertRegistry)
@@ -229,6 +231,7 @@ describe('JobController', () => {
       id: session.id,
       options: {},
       session,
+      model: unsupportedModel(),
       inbox: unsupportedInbox(),
       status: 'idle',
       ctx,
@@ -247,6 +250,7 @@ describe('JobController', () => {
   it('waits for the job registry instead of serving without one', async () => {
     const ctx = new Context()
     await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(AgentRegistry)
     await ctx.plugin(TypertRegistry)
     ctx.plugin(JobController, {})

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-llm-deepseek",
   "description": "DeepSeek Messages adapter",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -44,7 +44,8 @@
     "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
-    "eventsource-parser": "^3.1.0"
+    "eventsource-parser": "^3.1.0",
+    "semver": "^7.8.5"
   },
   "devDependencies": {
     "@hy/dsh-llm-deepseek-api-key": "workspace:*",
@@ -71,10 +72,13 @@
     "@hy/dsh-agent-loop": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-credentials-local": "workspace:*",
     "@hy/dsh-settings": "workspace:*",
-    "@hy/dsh-deepseek-account": "workspace:*"
+    "@hy/dsh-deepseek-account": "workspace:*",
+    "@types/semver": "^7.8.0"
   },
   "peerDependenciesMeta": {
     "@hy/cordis-plugin-loader": {

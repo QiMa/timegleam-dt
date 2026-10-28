@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-sdk-app",
   "description": "The dsh SDK profile bundle: stdio JSON-RPC serving and process lifecycle over dsh-base",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -20,9 +20,11 @@
     },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
@@ -39,7 +41,17 @@
     "@hy/schemastery": "workspace:~",
     "commander": "^15.0.0",
     "@hy/dsh-skill-office": "workspace:*",
-    "@hy/dsh-tool-workspace-dependencies": "workspace:*"
+    "@hy/dsh-tool-workspace-dependencies": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
+    "@hy/dsh-client-file-upload": "workspace:*",
+    "@hy/dsh-workspace": "workspace:*",
+    "@hy/dsh-schedule": "workspace:*",
+    "@hy/dsh-time-context": "workspace:*",
+    "@hy/dsh-tool-schedule": "workspace:*",
+    "@hy/dsh-tool-ask-user": "workspace:*",
+    "@hy/dsh-tool-present": "workspace:*",
+    "@hy/dsh-file-reference-local": "workspace:*",
+    "@hy/dsh-deliverable-file-references": "workspace:*"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~"

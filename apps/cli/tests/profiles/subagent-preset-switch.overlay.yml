@@ -1,0 +1,27 @@
+- insert:
+    - id: preset-delegate-a
+      name: '@hy/dsh-agent-preset'
+      config:
+        id: delegate-a
+        plugins:
+          - name: '@hy/dsh-tool-subagent'
+            config:
+              provider: spawn
+              allowedAgentPresets: [standard, ptc, minimal]
+          - name: '@hy/dsh-tool-subagent'
+            config:
+              provider: fork
+              toolName: subagent_fork
+    - id: preset-delegate-b
+      name: '@hy/dsh-agent-preset'
+      config:
+        id: delegate-b
+        plugins:
+          - name: '@hy/dsh-tool-subagent'
+            config:
+              provider: spawn
+              allowedAgentPresets: [standard, ptc, minimal]
+          - name: '@hy/dsh-tool-subagent'
+            config:
+              provider: fork
+              toolName: subagent_fork

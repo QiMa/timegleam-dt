@@ -42,6 +42,7 @@
     "@hy/dsh-storage-domain": "workspace:*",
     "@hy/dsh-storage-json": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-token-meter": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",

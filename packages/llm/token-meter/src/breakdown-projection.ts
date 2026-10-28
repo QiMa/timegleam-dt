@@ -13,14 +13,8 @@ import type { ProjectionDefinition } from '@hy/dsh-session-projection'
 // Type-only: the `compaction/*` SessionEventMap merges (shadow-price events).
 import type {} from '@hy/dsh-compaction'
 import { estimateMessage, estimateToolsTokens } from './estimate.ts'
-// Import for the `contextBreakdown` SessionProjectionStateMap key merge.
+// Type-only: the client projection key and value declaration.
 import type {} from './projection.ts'
-
-declare module '@hy/dsh-session-projection/types' {
-  interface SessionProjectionStateMap {
-    contextBreakdown: ContextBreakdownState
-  }
-}
 
 const tokenCount = z.number().int().nonnegative()
 const sessionSeq = z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER).transform(SessionSeq)

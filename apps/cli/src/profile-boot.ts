@@ -26,12 +26,12 @@ import {
   reportSkippedBundles,
   PluginPackages,
   PROFILE_PATCH_FILENAME,
-  PROFILE_TEMPLATES,
   resolveProfileDir,
   type ProfileContext,
   type Profile,
   type RuntimeResolution,
 } from '@hy/dsh-app-boot'
+import { PROFILE_TEMPLATES } from '@hy/dsh-official-bundles'
 import { resolveDshHome } from '@hy/dsh-home-paths'
 import { installProxyFromEnvironment } from '@hy/dsh-http-proxy'
 import { DSH_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@hy/dsh-launch-environment'

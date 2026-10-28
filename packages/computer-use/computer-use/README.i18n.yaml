@@ -5,33 +5,33 @@
 /:
   en: 5c5d7b5f1329ac1b
   zh: b68d332df957109f
-/deepseek-ai-dsh-computer-use:
-  en: 2efee0c5f0d577bc
-  zh: fef4b81bfc121052
-/deepseek-ai-dsh-computer-use/summary:
-  en: 4de047849e68701f
-  zh: 90a32c0e279b4b05
-/deepseek-ai-dsh-computer-use/table-of-contents:
+/hy-dsh-computer-use:
+  en: 0cfeede3a4eb63e4
+  zh: e96396297909e608
+/hy-dsh-computer-use/summary:
+  en: 4cb331c550852b23
+  zh: d638995ab250397b
+/hy-dsh-computer-use/table-of-contents:
   en: d152484eb41ac6b4
   zh: 405b30feaf48c087
-/deepseek-ai-dsh-computer-use/use-this-package:
-  en: 0a298fbbcd8dbc00
-  zh: 950de2af46c87f82
-/deepseek-ai-dsh-computer-use/understand-the-implementation:
+/hy-dsh-computer-use/use-this-package:
+  en: 9b0821d51c7df417
+  zh: 7bb8be2fdb76e3d4
+/hy-dsh-computer-use/understand-the-implementation:
   en: 181679887837591a
   zh: cc2e96766ce0aa63
-/deepseek-ai-dsh-computer-use/further-exploration:
-  en: b1bdbcbc150036b3
-  zh: 1d356e0522587abc
-/deepseek-ai-dsh-computer-use/model-experience:
+/hy-dsh-computer-use/further-exploration:
+  en: 987295d677466c04
+  zh: 9d7b40a04786490e
+/hy-dsh-computer-use/model-experience:
   en: 8780c250dfaefaaa
   zh: 1c4b3598a131fb65
-/deepseek-ai-dsh-computer-use/model-experience/kv-cache-effect:
+/hy-dsh-computer-use/model-experience/kv-cache-effect:
   en: 0cc866a67a19d08b
   zh: e1c3bb5ee2fed596
-/deepseek-ai-dsh-computer-use/known-limitations-and-deferred-work:
+/hy-dsh-computer-use/known-limitations-and-deferred-work:
   en: 6b8a90585a227a46
   zh: 7e0e3bf026fd67e9
-/deepseek-ai-dsh-computer-use/known-limitations-and-deferred-work/dev-note:
+/hy-dsh-computer-use/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 6c5f9788c6536776

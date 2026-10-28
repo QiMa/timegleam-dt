@@ -1,0 +1,171 @@
+{
+  "name": "@hy/dsh-experimental-liveshare",
+  "description": "Opt-in LiveShare host bundle: share a Session through a separate Relay at the view or bounded-write tier, with forking and attachment uploads as independent switches",
+  "version": "0.2.2-alpha.2",
+  "icon": "./icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/experimental/liveshare"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./viewer-declarations": {
+      "types": "./lib/types/viewer-declarations.d.ts",
+      "default": "./lib/viewer-declarations.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./types": {
+      "types": "./lib/types/share-api-types.d.ts"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "icon.svg",
+    "locale/*.json",
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "lib/owner-gateway/cli.js",
+    "lib/retry-backoff-*.js",
+    "lib/viewer-declarations.js",
+    "lib/viewer-declarations-*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@hy/dsh-atomic-write": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-experimental-liveshare-protocol": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/dsh-util-values": "workspace:*",
+    "ws": "^8.18.3",
+    "zod": "4.4.3"
+  },
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-scope": "workspace:*"
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-api-gateway": "workspace:*",
+    "@hy/dsh-api-remote-access": "workspace:*",
+    "@hy/dsh-api-remotes": "workspace:*",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-api-settings-controller": "workspace:*",
+    "@hy/dsh-api-workspace-controller": "workspace:*",
+    "@hy/dsh-api-workspace-files": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
+    "@hy/dsh-client-file-upload": "workspace:*",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-modules": "workspace:*",
+    "@hy/dsh-client-resources": "workspace:*",
+    "@hy/dsh-client-shortcuts": "workspace:*",
+    "@hy/dsh-client-store": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-client-ui-agent-preset": "workspace:*",
+    "@hy/dsh-client-ui-approval": "workspace:*",
+    "@hy/dsh-client-ui-attachment": "workspace:*",
+    "@hy/dsh-client-ui-brand-official": "workspace:*",
+    "@hy/dsh-client-ui-chat": "workspace:*",
+    "@hy/dsh-client-ui-commands": "workspace:*",
+    "@hy/dsh-client-ui-conversation": "workspace:*",
+    "@hy/dsh-client-ui-deliverables": "workspace:*",
+    "@hy/dsh-client-ui-input-trigger": "workspace:*",
+    "@hy/dsh-client-ui-jobs": "workspace:*",
+    "@hy/dsh-client-ui-layout": "workspace:*",
+    "@hy/dsh-client-ui-plan": "workspace:*",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/dsh-client-ui-reference": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-session": "workspace:*",
+    "@hy/dsh-client-ui-settings": "workspace:*",
+    "@hy/dsh-client-ui-sidebar": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-client-ui-subagent": "workspace:*",
+    "@hy/dsh-client-ui-theme": "workspace:*",
+    "@hy/dsh-client-ui-tool": "workspace:*",
+    "@hy/dsh-client-ui-trajectory": "workspace:*",
+    "@hy/dsh-client-ui-user-questions": "workspace:*",
+    "@hy/dsh-client-ui-workflow-run": "workspace:*",
+    "@hy/dsh-client-ui-workspace": "workspace:*",
+    "@hy/dsh-client-web": "workspace:*",
+    "@hy/dsh-cua": "workspace:*",
+    "@hy/dsh-experimental-api-speech-to-text": "workspace:*",
+    "@hy/dsh-experimental-claude-code-mods": "workspace:*",
+    "@hy/dsh-experimental-client-ui-cot-translation": "workspace:*",
+    "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-fs-local": "workspace:*",
+    "@hy/dsh-fs-observation-policy": "workspace:*",
+    "@hy/dsh-fs-sandbox": "workspace:*",
+    "@hy/dsh-host-webserver": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-sandbox": "workspace:*",
+    "@hy/dsh-sandbox-policy": "workspace:*",
+    "@hy/dsh-scope": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-settings": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-fs": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-typert-registry": "workspace:*",
+    "@hy/dsh-workspace": "workspace:*",
+    "@types/ws": "^8.18.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml",
+      "listedByDefault": false
+    },
+    "client": {
+      "inject": [
+        "@hy/dsh-api-remote-access",
+        "@hy/dsh-api-remotes",
+        "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-conversation",
+        "@hy/dsh-client-ui-primitives",
+        "@hy/dsh-client-ui-renderer",
+        "@hy/dsh-client-ui-session"
+      ],
+      "platform": "web"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

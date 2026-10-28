@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-agent-preset-registry",
   "description": "Declarative Agent preset registry and profile-backed editing",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -81,14 +81,20 @@
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/cordis": "workspace:~",
+    "@hy/dsh-fs-local": "workspace:*",
     "@hy/dsh-hmr": "workspace:*",
+    "@hy/dsh-ptc-runtime": "workspace:*",
     "@hy/dsh-sandbox": "workspace:*",
     "@hy/dsh-sandbox-policy": "workspace:*",
     "@hy/dsh-user-approval": "workspace:*",
     "@hy/dsh-agent-preset": "workspace:*",
+    "@hy/dsh-working-directory": "workspace:*",
     "@types/js-yaml": "^4.0.9"
   }
 }

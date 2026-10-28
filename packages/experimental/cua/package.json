@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-cua",
   "description": "Shared Computer Use application objects, authorization, and logged tool execution",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -19,6 +19,7 @@
       "default": "./lib/index.js"
     },
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json",
     "./api": {
       "types": "./lib/types/api.d.ts",
@@ -28,6 +29,18 @@
       "types": "./lib/types/bridge.d.ts",
       "default": "./lib/bridge.js"
     },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./types": {
+      "types": "./lib/types/remote-types.d.ts",
+      "default": "./lib/remote-types.js"
+    },
     "./native-client": {
       "types": "./lib/types/native-client.d.ts",
       "default": "./lib/native-client.js"
@@ -35,34 +48,42 @@
     "./protocol": {
       "types": "./lib/types/protocol.d.ts",
       "default": "./lib/protocol.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
     }
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
+    "lib/client.js",
+    "lib/remote-types.js",
     "lib/api.js",
     "lib/bridge.js",
     "lib/native-client.js",
     "lib/protocol.js",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-computer-use": "workspace:*",
-    "@hy/dsh-system-prompt": "workspace:*",
-    "@hy/dsh-tools": "workspace:*",
-    "@hy/dsh-agent": "workspace:*",
-    "@hy/dsh-subprocess": "workspace:*",
     "@hy/dsh-user-questions": "workspace:*",
     "@hy/dsh-attachment": "workspace:*",
-    "@hy/dsh-llm": "workspace:*"
+    "@hy/dsh-scope": "workspace:*",
+    "@hy/dsh-ptc-runtime-node": "workspace:*"
   },
   "dependencies": {
-    "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
     "zod": "^4.4.3",
-    "@hy/dsh-brand": "workspace:*",
-    "@hy/dsh-atomic-write": "workspace:*"
+    "@hy/dsh-atomic-write": "workspace:*",
+    "@hy/dsh-typert-protocol": "workspace:*",
+    "@hy/dsh-computer-use": "workspace:*",
+    "@hy/dsh-storage-domain": "workspace:*"
   },
   "devDependencies": {
     "@hy/dsh-working-directory": "workspace:*",
@@ -74,7 +95,6 @@
     "@hy/dsh-agent-loop-testkit": "workspace:*",
     "@hy/dsh-attachment": "workspace:*",
     "@hy/dsh-attachment-local": "workspace:*",
-    "@hy/dsh-computer-use": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
@@ -90,10 +110,52 @@
     "sharp": "^0.35.3",
     "@hy/dsh-ptc-runtime": "workspace:*",
     "@hy/dsh-user-questions": "workspace:*",
-    "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-app-boot": "workspace:*",
     "@hy/dsh-config-editor": "workspace:*",
     "@hy/dsh-hmr": "workspace:*",
-    "@hy/cordis-plugin-timer": "workspace:~"
+    "@hy/cordis-plugin-timer": "workspace:~",
+    "@hy/dsh-scope": "workspace:*",
+    "@hy/dsh-agent-preset-registry": "workspace:*",
+    "@hy/dsh-api-remotes": "workspace:*",
+    "@hy/dsh-api-gateway": "workspace:*",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-store": "workspace:*",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-client-ui-plugin-manager": "workspace:*",
+    "@hy/dsh-client-ui-settings": "workspace:*",
+    "@hy/dsh-client-ui-layout": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@testing-library/react": "^16.1.0",
+    "@hy/dsh-loader-smoke": "workspace:*",
+    "@hy/dsh-util-values": "workspace:*",
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-storage": "workspace:*",
+    "@hy/dsh-storage-json": "workspace:*",
+    "@hy/dsh-client-ui-user-questions": "workspace:*",
+    "@hy/dsh-client-ui-approval": "workspace:*",
+    "@hy/dsh-client-ui-conversation": "workspace:*"
+  },
+  "dsh": {
+    "client": {
+      "inject": [
+        "@hy/dsh-api-remotes",
+        "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-plugin-manager",
+        "@hy/dsh-client-ui-settings",
+        "@hy/dsh-client-ui-layout",
+        "@hy/dsh-client-ui-user-questions",
+        "@hy/dsh-client-ui-approval",
+        "@hy/dsh-client-ui-conversation"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
   }
 }

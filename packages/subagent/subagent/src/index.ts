@@ -29,7 +29,7 @@
  */
 import type { Volatile } from '@hy/cordis'
 
-import { Context } from '@hy/cordis'
+import { Context, Service } from '@hy/cordis'
 import z from '@hy/schemastery'
 import type {} from '@hy/dsh-working-directory'
 import type {} from '@hy/dsh-attachment'
@@ -196,7 +196,7 @@ export class SubagentRuntime extends TypertRemoteService {
     maxDepth: z.number().step(1).min(0).max(Number.MAX_SAFE_INTEGER).default(1).volatile(),
     maxActiveSubagents: z.number().step(1).min(1).max(Number.MAX_SAFE_INTEGER).default(8).volatile(),
   })
-  static inject = ['workingDirectory']
+  static inject = ['workingDirectory', 'sessionProjections']
   private providers = new Map<string, SubagentProvider>()
   private manager: SubagentManager | undefined
   /**
@@ -224,14 +224,16 @@ export class SubagentRuntime extends TypertRemoteService {
         if (this.manager === manager) this.manager = undefined
       }, 'subagents.managerBinding()')
     })
-    ctx.inject(['sessionProjections'], (projectionCtx) => {
-      projectionCtx.sessionProjections.register(subagentCatalogProjectionDefinition)
-      projectionCtx.sessionProjections.register(subagentTimingProjectionDefinition)
-      projectionCtx.sessionProjections.register(subagentIdentityProjectionDefinition)
-    })
     // Archive admission: this runtime is the owner that knows which live
     // children descend from a Session and how a parent stops them.
     ctx.inject(['agents'], (agentsCtx: Context) => { installSubagentArchiveAdmission(agentsCtx) })
+  }
+
+  protected async [Service.init](): Promise<void> {
+    const { sessionProjections } = this.ctx
+    await sessionProjections.register(subagentCatalogProjectionDefinition)
+    await sessionProjections.register(subagentTimingProjectionDefinition)
+    await sessionProjections.register(subagentIdentityProjectionDefinition)
   }
 
   /**

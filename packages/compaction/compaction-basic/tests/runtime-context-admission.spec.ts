@@ -8,7 +8,7 @@ import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@hy/dsh
 import { SessionId } from '@hy/dsh-session'
 import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@hy/dsh-agent-loop-testkit'
 import TokenMeter from '@hy/dsh-token-meter'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import BasicCompaction from '@hy/dsh-compaction-basic'
 import { expect, it } from 'vitest'
 

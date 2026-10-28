@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-llm-pi-ai",
-  "description": "pi-ai-backed DeepSeek adapter for the Huayu AI LLM seam (design-verification twin of dsh-llm-deepseek)",
-  "version": "0.2.1-rc.2",
+  "description": "pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam (design-verification twin of dsh-llm-deepseek)",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -30,35 +30,39 @@
   "license": "MIT",
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
     "@hy/dsh-attachment": "workspace:*",
     "@hy/dsh-authorization": "workspace:*",
     "@hy/dsh-credentials": "workspace:*",
     "@hy/dsh-fs": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
-    "@hy/dsh-timeout": "workspace:*",
-    "@hy/cordis-plugin-loader": "workspace:~"
+    "@hy/dsh-timeout": "workspace:*"
   },
   "dependencies": {
     "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
-    "@earendil-works/pi-ai": "^1.1.0"
+    "@earendil-works/pi-ai": "^1.3.0"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
     "@hy/dsh-attachment": "workspace:*",
     "@hy/dsh-authorization": "workspace:*",
     "@hy/dsh-credentials": "workspace:*",
     "@hy/dsh-fs": "workspace:*",
+    "@hy/dsh-http-proxy": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-llm-deepseek": "workspace:*",
     "@hy/dsh-llm-deepseek-api-key": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-timeout": "workspace:*",
-    "@hy/dsh-http-proxy": "workspace:*",
-    "@hy/cordis-plugin-loader": "workspace:~",
-    "@hy/dsh-settings": "workspace:*"
+    "@hy/dsh-tool-testkit": "workspace:*",
+    "@hy/dsh-tools": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@hy/cordis-plugin-loader": {

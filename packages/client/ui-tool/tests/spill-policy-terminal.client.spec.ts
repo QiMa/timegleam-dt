@@ -1,4 +1,7 @@
 /** Producer-to-UI regression for shell results bounded by the real spill policy. */
+import { executeModelToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
+import * as PtcToolExecutor from '@hy/dsh-tool-executor-ptc'
 import { Context } from '@hy/cordis'
 import type { Agent } from '@hy/dsh-agent'
 import type { ToolResultNode } from '@hy/dsh-client-ui-chat/client'
@@ -11,7 +14,8 @@ import { SpillLocator, SpillStore, type SaveTextSpill, type SpillRef } from '@hy
 import * as SpillPolicy from '@hy/dsh-spill-policy'
 import { formatSpillNotice } from '@hy/dsh-spill-policy/notice'
 import SystemPrompt from '@hy/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@hy/dsh-tools'
+import ToolRuntime from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import { PartialArguments } from '@hy/dsh-util-values'
 import { describe, expect, it } from 'vitest'
 import { isSpilledShellCall, terminalCardModel } from '../src/client/tool/models/terminal-card-model.ts'
@@ -40,7 +44,8 @@ async function executeShell(text: string, nested: boolean, name = 'bash', maxInl
   const ctx = new Context()
   try {
     await ctx.plugin(SystemPrompt)
-    await ctx.plugin(ToolRuntime, { mode: nested ? 'ptc' : 'native' })
+    await ctx.plugin(ToolRuntime)
+    await ctx.plugin((nested ? 'ptc' : 'native') === 'ptc' ? PtcToolExecutor : NativeToolExecutor)
     ctx.provide('workingDirectory', { ensure: async () => process.cwd() })
     await ctx.plugin(MemorySpillStore)
     await ctx.plugin(SpillPolicy, { maxInlineTokens })
@@ -75,7 +80,7 @@ async function executeShell(text: string, nested: boolean, name = 'bash', maxInl
     // Nested PTC registers retained-environment cleanup on the owning context.
     const agent = { ctx, session } as Agent
     const callId = ToolCallId('shell-call')
-    const result = await ctx.tools.execute({
+    const result = await executeModelToolFixture(ctx, {
       callId,
       agent,
       signal: new AbortController().signal,

@@ -5,6 +5,7 @@
  * content and reports the reason through the logger.
  * @module @hy/dsh-spill-policy
  */
+import type {} from '@hy/dsh-tool-executor-ptc'
 import type { Context } from '@hy/cordis'
 import z from '@hy/schemastery'
 import { createUserMessage, resolveImageAttachmentAccess } from '@hy/dsh-llm'

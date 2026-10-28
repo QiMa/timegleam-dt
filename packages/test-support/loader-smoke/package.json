@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-loader-smoke",
   "description": "Shared subprocess and direct-agent harness for keyless real-Loader example smoke tests",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -43,6 +43,7 @@
     "@hy/dsh-app-boot": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-http-proxy": "workspace:*"
   }
 }

@@ -33,10 +33,13 @@ describe('THIRD_PARTY_NOTICES.md', () => {
   }, async () => {
     const generated = await render()
     expect(generated).toContain('It depends on the third-party software listed below.')
+    expect(generated).toContain('| [`cross-spawn`](https://github.com/moxystudio/node-cross-spawn) | MIT |')
+    expect(generated).not.toContain('https://github.com/git@')
     expect(generated).toContain(`| [\`numpy\`](https://github.com/numpy/numpy) | ${primaryRuntimeLock.pythonPackages.numpy} | BSD-3-Clause |`)
     expect(generated).toContain('## LibreOffice conversion kit')
     expect(generated).toContain('Recipients must have access to those corresponding sources and notices.')
     expect(generated.split('## Development-only npm dependencies')[0]).toContain('| [`chrome-devtools-frontend`]')
+    expect(generated.split('## Development-only npm dependencies')[0]).toContain('| [`@botiverse/oar`]')
     expect(generated).toContain('third-party license and notice files supplied by the npm source')
     expect(readFileSync(resolve(root, 'THIRD_PARTY_NOTICES.md'), 'utf8'), 'stale notices — run `pnpm run gen-third-party-notices`').toBe(generated)
   })
@@ -53,11 +56,48 @@ function workspace(entries: Record<string, Manifest>): { manifests: Map<string, 
 }
 
 describe('tierExternalDeps', () => {
+  it('discloses host-bundled OAR as runtime code and applies runtime license checks', () => {
+    const { manifests, names } = workspace({
+      'packages/experimental/subagent-oar/package.json': {
+        name: '@hy/dsh-experimental-subagent-oar',
+        devDependencies: { '@botiverse/oar': '0.67.0', 'host-build-tool': '^1' },
+      },
+    })
+    const tiers = tierExternalDeps(manifests, names)
+    expect(tiers.get('@botiverse/oar')).toBe(true)
+    expect(tiers.get('host-build-tool')).toBe(false)
+    const dependencies = [{ name: '@botiverse/oar', license: 'GPL-3.0-only' }]
+      .filter(dependency => tiers.get(dependency.name))
+    expect(() => { assertRuntimeLicenses(dependencies) }).toThrow('@botiverse/oar (GPL-3.0-only)')
+    expect(() => { assertRuntimeLicenses([{ name: '@botiverse/oar', license: 'Apache-2.0' }]) }).not.toThrow()
+  })
+
+  it('keeps unrelated OAR development declarations out of runtime disclosure', () => {
+    const { manifests, names } = workspace({
+      'packages/experimental/unrelated/package.json': {
+        name: '@hy/dsh-experimental-unrelated',
+        devDependencies: { '@botiverse/oar': '0.67.0' },
+      },
+    })
+    expect(tierExternalDeps(manifests, names).get('@botiverse/oar')).toBe(false)
+  })
+
+  it('rejects an OAR embedding owner that omits its required dependency declaration', () => {
+    const { manifests, names } = workspace({
+      'packages/experimental/subagent-oar/package.json': {
+        name: '@hy/dsh-experimental-subagent-oar',
+        devDependencies: { 'host-build-tool': '^1' },
+      },
+    })
+    expect(() => tierExternalDeps(manifests, names))
+      .toThrow('@hy/dsh-experimental-subagent-oar embeds @botiverse/oar but does not declare it')
+  })
+
   it('limits the LibreOffice exception to its reviewed package identity and MPL terms', () => {
     for (const name of [
-      '@deepseek-ai/libreoffice-kit', '@deepseek-ai/libreoffice-kit-wasm',
-      '@deepseek-ai/libreoffice-kit-darwin-arm64', '@deepseek-ai/libreoffice-kit-darwin-x64',
-      '@deepseek-ai/libreoffice-kit-win32-arm64', '@deepseek-ai/libreoffice-kit-win32-x64',
+      '@hy/libreoffice-kit', '@hy/libreoffice-kit-wasm',
+      '@hy/libreoffice-kit-darwin-arm64', '@hy/libreoffice-kit-darwin-x64',
+      '@hy/libreoffice-kit-win32-arm64', '@hy/libreoffice-kit-win32-x64',
     ]) {
       expect(() => { assertRuntimeLicenses([{ name, license: 'MPL-2.0' }]) }).not.toThrow()
       expect(() => { assertRuntimeLicenses([{ name, license: 'GPL-3.0-only' }]) }).toThrow(name)
@@ -65,9 +105,9 @@ describe('tierExternalDeps', () => {
     for (const dependency of [
       { name: 'unrelated-library', license: 'MPL-2.0' },
       { name: '@hy/dsh-libreoffice-kit', license: 'MPL-2.0' },
-      { name: '@deepseek-ai/libreoffice-kit-unreviewed', license: 'MPL-2.0' },
-      { name: '@deepseek-ai/libreoffice-kit', license: 'GPL-3.0-only' },
-      { name: '@deepseek-ai/libreoffice-kit', license: 'UNKNOWN' },
+      { name: '@hy/libreoffice-kit-unreviewed', license: 'MPL-2.0' },
+      { name: '@hy/libreoffice-kit', license: 'GPL-3.0-only' },
+      { name: '@hy/libreoffice-kit', license: 'UNKNOWN' },
     ]) {
       expect(() => { assertRuntimeLicenses([dependency]) }).toThrow(`${dependency.name} (${dependency.license})`)
     }

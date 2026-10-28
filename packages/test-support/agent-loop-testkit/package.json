@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-agent-loop-testkit",
   "description": "Prerequisite mounting, production AgentLoop drivers, and Inbox stubs for tests",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -38,11 +38,15 @@
     "@hy/dsh-working-directory": "workspace:*",
     "@hy/dsh-fs-local": "workspace:*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*"
+  },
   "devDependencies": {
     "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-agent-loop": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-ptc-runtime": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",

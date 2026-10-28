@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-pwsh-persistent",
   "description": "Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -56,6 +56,8 @@
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-timeout": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-working-directory": "workspace:*"

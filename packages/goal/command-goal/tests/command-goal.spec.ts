@@ -9,7 +9,7 @@ import type { GoalRef } from '@hy/dsh-goal'
 import SessionStore, { Session, SessionId, type SessionEvent } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import * as commandGoal from '@hy/dsh-command-goal'
-import { createInboxStub } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, createInboxStub } from '@hy/dsh-agent-loop-testkit'
 
 interface Harness {
   readonly ctx: Context
@@ -28,6 +28,7 @@ function stubAgent(ctx: Context, id: string): { agent: Agent; session: Session }
     id: session.id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox,
     ctx: new Context(),
     get status() { return status },

@@ -3,62 +3,62 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/locale/README.md
 /:
-  en: d2aaa955e01c2679
-  zh: 9d264cf8be1536cf
-/deepseek-ai-dsh-client-locale:
-  en: 9365090d78467dea
-  zh: 74b6fbb9769d795f
-/deepseek-ai-dsh-client-locale/summary:
-  en: d8cc5ae25160ca20
-  zh: e8fc2b9fb663cdee
-/deepseek-ai-dsh-client-locale/table-of-contents:
+  en: 5dea50fae7364d1e
+  zh: dc788b9ce6ffd101
+/hy-dsh-client-locale:
+  en: aa8641b0c1697292
+  zh: a08e1a9cc4a55da2
+/hy-dsh-client-locale/summary:
+  en: cbbe8f61f5e19f39
+  zh: 2cec7ec41f1a7e84
+/hy-dsh-client-locale/table-of-contents:
   en: d152484eb41ac6b4
   zh: bda879a892f240f0
-/deepseek-ai-dsh-client-locale/use-this-package:
+/hy-dsh-client-locale/use-this-package:
   en: 7fedfbcbc3ad8cea
   zh: e29ba5230e0b9ecb
-/deepseek-ai-dsh-client-locale/use-this-package/choosing-a-language:
-  en: 8527d77583824eff
-  zh: 2ac53ced0a32ba19
-/deepseek-ai-dsh-client-locale/use-this-package/registering-a-dictionary:
-  en: 9b2fcfa8cae8dc4b
-  zh: 293012a4d364ef59
-/deepseek-ai-dsh-client-locale/use-this-package/resolving-package-text:
+/hy-dsh-client-locale/use-this-package/choosing-a-language:
+  en: 2b82458e185ba321
+  zh: e55a7e709a3f0158
+/hy-dsh-client-locale/use-this-package/registering-a-dictionary:
+  en: f19407c3ce8a94cc
+  zh: 3e5300ce7fa02987
+/hy-dsh-client-locale/use-this-package/resolving-package-text:
   en: 3b63e84fe0fdf8f4
   zh: e97b5d1b92dff7ec
-/deepseek-ai-dsh-client-locale/use-this-package/registering-a-language-pack:
+/hy-dsh-client-locale/use-this-package/registering-a-language-pack:
   en: aa4e9c70523339cc
   zh: 3359eddc4e9ef15e
-/deepseek-ai-dsh-client-locale/use-this-package/what-the-host-half-does:
+/hy-dsh-client-locale/use-this-package/what-the-host-half-does:
   en: 784035ca4b4838b8
   zh: 4a258795f408528f
-/deepseek-ai-dsh-client-locale/understand-the-implementation:
+/hy-dsh-client-locale/understand-the-implementation:
   en: 288d8db39f9acfc5
   zh: d65cf2ffae8ad35c
-/deepseek-ai-dsh-client-locale/understand-the-implementation/design-concept:
+/hy-dsh-client-locale/understand-the-implementation/design-concept:
   en: c2e0ab8bb6bcb26a
   zh: 508dec4db2c0fde6
-/deepseek-ai-dsh-client-locale/understand-the-implementation/preference-resolution:
+/hy-dsh-client-locale/understand-the-implementation/preference-resolution:
   en: d602d957654641c6
   zh: 2db822b746a6471d
-/deepseek-ai-dsh-client-locale/understand-the-implementation/dictionary-lookup:
-  en: f8dcc4035830e738
-  zh: 8452ac63ee148c61
-/deepseek-ai-dsh-client-locale/understand-the-implementation/source-map:
-  en: a382e032c06ced3f
-  zh: 419cb5f60b075388
-/deepseek-ai-dsh-client-locale/further-exploration:
+/hy-dsh-client-locale/understand-the-implementation/dictionary-lookup:
+  en: 68373e745761494c
+  zh: 43a5b8c19d03268a
+/hy-dsh-client-locale/understand-the-implementation/source-map:
+  en: 6f329e4872398634
+  zh: 9d8364dc4c03d055
+/hy-dsh-client-locale/further-exploration:
   en: f73d411c9e90dead
   zh: 8dd05f13e081af88
-/deepseek-ai-dsh-client-locale/model-experience:
+/hy-dsh-client-locale/model-experience:
   en: 209321ba2d2e6710
   zh: 21deb6c973f69b66
-/deepseek-ai-dsh-client-locale/model-experience/kv-cache-effect:
+/hy-dsh-client-locale/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-ai-dsh-client-locale/known-limitations-and-deferred-work:
+/hy-dsh-client-locale/known-limitations-and-deferred-work:
   en: 500ede048ef44c6a
   zh: f741fae55b29a627
-/deepseek-ai-dsh-client-locale/known-limitations-and-deferred-work/dev-note:
+/hy-dsh-client-locale/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-chat",
   "description": "Chat Conversation target, node definitions, renderers, and details surface",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -22,6 +22,7 @@
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
     },
+    "./assets/*": "./lib/assets/*",
     "./src/*": "./src/*",
     "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json"
@@ -31,6 +32,7 @@
       "inject": [
         "@hy/dsh-api-session-controller",
         "@hy/dsh-api-workspace-controller",
+        "@hy/dsh-client-connection",
         "@hy/dsh-client-locale",
         "@hy/dsh-client-ui-conversation",
         "@hy/dsh-client-ui-input-trigger",
@@ -39,7 +41,8 @@
         "@hy/dsh-client-ui-session",
         "@hy/dsh-client-ui-settings",
         "@hy/dsh-client-ui-sidebar-right",
-        "@hy/dsh-client-ui-workspace"
+        "@hy/dsh-client-ui-workspace",
+        "@hy/dsh-client-ui-file-drag"
       ],
       "platform": "web"
     }
@@ -61,6 +64,7 @@
     "@hy/dsh-api-workspace-files": "workspace:*",
     "@hy/dsh-attachment": "workspace:*",
     "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-client-connection": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",
     "@hy/dsh-client-store": "workspace:*",
     "@hy/dsh-client-ui-approval": "workspace:*",
@@ -85,8 +89,8 @@
     "@hy/dsh-session-turn-outline": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
     "@hy/dsh-token-meter": "workspace:*",
-    "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-util-workspace-path": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
     "@tanstack/react-virtual": "3.14.10",
     "@types/react": "~18.3.1",
@@ -94,7 +98,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@hy/dsh-settings": "workspace:*",
-    "@hy/dsh-client-product-analytics": "workspace:*"
+    "@hy/dsh-client-product-analytics": "workspace:*",
+    "@hy/dsh-client-ui-file-drag": "workspace:*"
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~"
@@ -103,6 +108,7 @@
     "locale/*.json",
     "lib/index.js",
     "lib/client.js",
+    "lib/assets",
     "lib/types/**/*.d.ts"
   ]
 }

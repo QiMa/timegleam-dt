@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-attachment",
   "description": "Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,7 +34,8 @@
         "@hy/dsh-client-ui-conversation",
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-trajectory",
-        "@hy/dsh-client-ui-tool"
+        "@hy/dsh-client-ui-tool",
+        "@hy/dsh-client-ui-file-drag"
       ],
       "platform": "web"
     }
@@ -58,7 +59,9 @@
     "react-dom": "^18.2.0",
     "@hy/dsh-attachment": "workspace:*",
     "@hy/dsh-client-ui-tool": "workspace:*",
-    "clsx": "^2.0.0"
+    "clsx": "^2.0.0",
+    "@hy/dsh-client-ui-file-drag": "workspace:*",
+    "@hy/dsh-util-file-drag": "workspace:*"
   },
   "files": [
     "locale/*.json",

@@ -9,13 +9,13 @@ Archived: 2026-09-04
 
 agent（智能体）产品已趋同于一种 skill（技能）模式：保持请求提示词精简，仅列出可用的指令包，当模型判定某任务匹配时再加载完整正文。Codex、Claude Code、OpenCode 与 Kimi Code 在细节上各有不同，但都将发现元数据与完整指令分离，使工作区能承载可复用的行为而无需在每个轮次支付全量提示词开销。
 
-Huayu AI 使用同一原语，使项目特定的评审、插件编写和工具使用指南存放在工作区或用户的 agent 配置旁，而非硬编码到 agent loop（智能体循环）中。
+DeepSeek Harness 使用同一原语，使项目特定的评审、插件编写和工具使用指南存放在工作区或用户的 agent 配置旁，而非硬编码到 agent loop（智能体循环）中。
 
 ## 决策
 
-`@hy/dsh-skill` 是纯提供方注册表（`ctx.skills`），`@hy/dsh-skill-filesystem` 是随附的本地文件系统提供方，`@hy/dsh-tool-skill` 负责持久化会话目录与面向模型的 loader 工具。`dsh-base` 将注册表、本地提供方和消费方作为独立配置行加载，使其各 profile 获得相同行为，同时嵌入式或远程提供方可在不修改注册表或消费方的前提下贡献 skill。每个配置行只暴露其所属包的配置。
+`@deepseek-ai/dsh-skill` 是纯提供方注册表（`ctx.skills`），`@deepseek-ai/dsh-skill-filesystem` 是随附的本地文件系统提供方，`@deepseek-ai/dsh-tool-skill` 负责持久化会话目录与面向模型的 loader 工具。`dsh-base` 将注册表、本地提供方和消费方作为独立配置行加载，使其各 profile 获得相同行为，同时嵌入式或远程提供方可在不修改注册表或消费方的前提下贡献 skill。每个配置行只暴露其所属包的配置。
 
-专用的随包提供方可以贡献不可变的 skill，无需文件系统发现。交付的 CLI（命令行界面）默认将 `@hy/dsh-skill-badge` 声明为禁用；启用其组合配置行，就会通过同一个注册表和消费方贡献官方徽章指令（见[包约定](../../../../packages/skill/skill-badge/README.zh.md)）。
+专用的随包提供方可以贡献不可变的 skill，无需文件系统发现。交付的 CLI（命令行界面）默认将 `@deepseek-ai/dsh-skill-badge` 声明为禁用；启用其组合配置行，就会通过同一个注册表和消费方贡献官方徽章指令（见[包约定](../../../../packages/skill/skill-badge/README.zh.md)）。
 
 提供方插件在 `apply()` 期间同步注册。提供方成员资格是由直接 effect 持有的状态：注册与 dispose（资源释放）同步地使已完成的目录失效，发现操作按需读取当前提供方映射而非监听注册表变更事件。提供方目录从等待的 `list()` 调用返回排序后的候选项，远程提供方在此过程中执行初始化、认证和发现，同时遵守查找的 abort 信号。注册表校验每个候选项，按排名、提供方注册顺序和提供方内部顺序以先到先得方式解决同名 skill 冲突，然后按 skill 名称排序摘要以保证消费方获得确定性结果。它仅缓存已完成的目录快照，并在发现过程中提供方／运行时修订版本发生变化时重试，因此卸载操作不会将一个陈旧且不可解析的 skill 冻结到会话目录中。运行时 `ctx.skills.register(...)` 仍作为嵌入式进程内 skill 的便捷方式保留，使用 project 优先于 user 的优先级；`runtime` 保留为注册表拥有的提供方名称。
 

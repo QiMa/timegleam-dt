@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-subagent-control",
-  "description": "Globally named send_message, interrupt_agent, and list_agents tools over ctx.subagents continuations",
-  "version": "0.2.1-rc.2",
+  "description": "Shared messaging, interruption, and child discovery tools for subagents",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -18,20 +18,13 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./list-agents": {
-      "types": "./lib/types/list-agents.d.ts",
-      "default": "./lib/types/list-agents.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json",
-    "./locale/*.json": "./locale/*.json",
-    "./list-agents/locale/*.json": "./locale/list-agents/*.json"
+    "./locale/*.json": "./locale/*.json"
   },
   "files": [
     "locale/*.json",
-    "locale/list-agents/*.json",
     "lib/index.js",
-    "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
@@ -40,7 +33,8 @@
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
-    "@hy/dsh-tools": "workspace:*"
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-agent": "workspace:*"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
@@ -56,6 +50,7 @@
     "@hy/dsh-subagent": "workspace:*",
     "@hy/dsh-subagent-fork-in-process": "workspace:*",
     "@hy/dsh-subagent-spawn-in-process": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*"
   },
   "dependencies": {

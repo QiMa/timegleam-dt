@@ -443,6 +443,9 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
   }, SPAWN_TIMEOUT_MS + 30_000)
 
   it('serves the SDK protocol with an absolute-path overlay plugin and exits after shutdown', async () => {
+    // On the official endpoint the route requests its model listing with this key;
+    // the loopback mock keeps the run offline and records any model call.
+    const server = await startMockLlmServer({ sequence: ['success'] })
     const home = mkdtempSync(join(tmpdir(), 'dsh-built-sdk-'))
     const pluginPath = join(home, 'plugin #100%.mjs')
     const marker = join(home, 'plugin-loaded')
@@ -465,6 +468,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
         DSH_HOME: home,
         DSH_TELEMETRY_DISABLED: '1',
         DEEPSEEK_API_KEY: 'built-sdk-profile-no-call',
+        DEEPSEEK_BASE_URL: server.baseURL,
       },
       extendEnv: false,
     })
@@ -504,10 +508,12 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
       expect(result.signal, stderr).toBeUndefined()
       expect(result.exitCode, stderr).toBe(0)
       expect(stderr).toBe('')
+      expect(server.requests).toEqual([])
       expect(readFileSync(marker, 'utf8')).toBe('loaded')
     } finally {
       child.kill('SIGKILL')
       await child
+      await server.close()
       rmSync(home, { recursive: true, force: true })
     }
   }, SPAWN_TIMEOUT_MS + 30_000)
@@ -1268,6 +1274,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
         ['session-title', '@hy/dsh-session-title'],
         ['system-prompt', '@hy/dsh-system-prompt'],
         ['tools', '@hy/dsh-tools'],
+        ['tool-executor-native', '@hy/dsh-tool-executor-native'],
         ['mcp-resources', '@hy/dsh-mcp-resources'],
         ['agent', '@hy/dsh-agent'],
         ['llm-retry', '@hy/dsh-llm-retry'],
@@ -1276,6 +1283,7 @@ describe.skipIf(!existsSync(dshBin))('dsh BUILT bin (node lib/bin.js, no tsx)', 
         ['persistent-bash', '@hy/dsh-tool-bash-persistent'],
         ['persistent-pwsh', '@hy/dsh-tool-pwsh-persistent'],
         ['sessions', '@hy/dsh-session-persistence-jsonl'],
+        ['session-checkpoint-policy', '@hy/dsh-session-checkpoint-policy'],
       ])
       expect(stdout).toContain('# == @hy/dsh-sdk-minimal')
       expect(stdout).not.toContain('@hy/dsh-base')

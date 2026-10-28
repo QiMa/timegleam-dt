@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-web-app",
   "description": "The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line)",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -58,7 +58,6 @@
     "@hy/dsh-agent-instructions": "workspace:*",
     "@hy/dsh-agent-preset": "workspace:*",
     "@hy/dsh-agent-preset-registry": "workspace:*",
-    "@hy/dsh-agent-tool-presentation": "workspace:*",
     "@hy/dsh-api-job-controller": "workspace:*",
     "@hy/dsh-api-remotes": "workspace:*",
     "@hy/dsh-api-session-controller": "workspace:*",
@@ -77,6 +76,7 @@
     "@hy/dsh-client-ui-approval": "workspace:*",
     "@hy/dsh-client-ui-attachment": "workspace:*",
     "@hy/dsh-client-ui-brand-official": "workspace:*",
+    "@hy/dsh-message-quotes": "workspace:*",
     "@hy/dsh-client-ui-chat": "workspace:*",
     "@hy/dsh-client-ui-commands": "workspace:*",
     "@hy/dsh-client-ui-conversation": "workspace:*",
@@ -84,13 +84,13 @@
     "@hy/dsh-client-ui-deliverables": "workspace:*",
     "@hy/dsh-client-ui-directory-picker-browse": "workspace:*",
     "@hy/dsh-client-ui-directory-picker-native": "workspace:*",
+    "@hy/dsh-client-ui-entry-customization": "workspace:*",
     "@hy/dsh-client-ui-goal": "workspace:*",
     "@hy/dsh-client-ui-input-trigger": "workspace:*",
     "@hy/dsh-client-ui-jobs": "workspace:*",
     "@hy/dsh-client-ui-layout": "workspace:*",
     "@hy/dsh-client-ui-message-feedback": "workspace:*",
     "@hy/dsh-client-ui-model-selection": "workspace:*",
-    "@hy/dsh-client-ui-deepseek-model-label-1017": "workspace:*",
     "@hy/dsh-client-ui-open-in-app": "workspace:*",
     "@hy/dsh-client-ui-permission-presets": "workspace:*",
     "@hy/dsh-client-ui-plan": "workspace:*",
@@ -160,6 +160,7 @@
     "@hy/dsh-tool-bash": "workspace:*",
     "@hy/dsh-tool-bash-persistent": "workspace:*",
     "@hy/dsh-tool-cordis": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-tool-fs": "workspace:*",
     "@hy/dsh-tool-fs-search": "workspace:*",
     "@hy/dsh-tool-goal": "workspace:*",
@@ -188,7 +189,9 @@
     "@hy/dsh-client-product-analytics": "workspace:*",
     "@hy/dsh-host-product-telemetry-otel": "workspace:*",
     "@hy/dsh-client-ui-settings-session-log": "workspace:*",
-    "@hy/dsh-harness-dev-context": "workspace:*"
+    "@hy/dsh-harness-dev-context": "workspace:*",
+    "@hy/dsh-deliverable-file-references": "workspace:*",
+    "@hy/dsh-client-ui-file-drag": "workspace:*"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
@@ -208,7 +211,7 @@
     "@hy/dsh-shell-env": "workspace:*",
     "@hy/dsh-typert-registry": "workspace:*",
     "@hy/dsh-typert-registry": "workspace:*",
-    "@deepseek-ai/libreoffice-kit": "^0.1.5",
+    "@hy/libreoffice-kit": "^0.1.5",
     "@hy/dsh-otel": "workspace:*"
   }
 }

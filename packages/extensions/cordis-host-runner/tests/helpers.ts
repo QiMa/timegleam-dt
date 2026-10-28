@@ -1,3 +1,5 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { Context } from '@hy/cordis'
 import Timer from '@hy/cordis-plugin-timer'
 import { ToolCallId } from '@hy/dsh-llm'
@@ -56,6 +58,7 @@ export async function setup(config?: Config): Promise<Harness> {
   await ctx.plugin(Timer)
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRegistry)
+  await ctx.plugin(NativeToolExecutor)
   const gateway: Gateway = { events: [] }
   ctx.on('cordis/request-run', (request) => {
     gateway.events.push(['cordis/request-run', request])
@@ -145,7 +148,7 @@ let callCounter = 0
 
 /** Execute a registered tool through the real registry pipeline. */
 export function call(ctx: Context, name: string, args: unknown): Promise<ToolExecutionResult> {
-  return ctx.tools.execute({
+  return executeToolFixture(ctx, {
     signal: new AbortController().signal,
     callId: ToolCallId(`call-${++callCounter}`),
     name,

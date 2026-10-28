@@ -84,10 +84,6 @@
   name: '@hy/dsh-tool-subagent-control'
   disabled: true
 
-- id: tool-subagent-list-agents
-  name: '@hy/dsh-tool-subagent-control/list-agents'
-  disabled: true
-
 - id: tool-subagent
   name: '@hy/dsh-tool-subagent'
   disabled: true

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-skill",
-  "description": "Model-facing skill loading tool for the Huayu AI",
-  "version": "0.2.1-rc.2",
+  "description": "Model-facing skill loading tool for the DeepSeek Harness",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -47,6 +47,8 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-skill": "workspace:*",
     "@hy/dsh-skill-filesystem": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-working-directory": "workspace:*"

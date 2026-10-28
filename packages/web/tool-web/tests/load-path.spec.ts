@@ -5,6 +5,7 @@
  * postmortem 0001.
  */
 
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
@@ -29,6 +30,7 @@ describe('dsh-tool-web real-load-path guard', () => {
     const ctx = new Context()
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
+    await ctx.plugin(NativeToolExecutor)
     await ctx.plugin(WebRuntime, {})
 
     const loader = Object.create(Loader.prototype) as Loader

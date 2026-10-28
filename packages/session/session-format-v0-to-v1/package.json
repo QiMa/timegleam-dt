@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-session-format-v0-to-v1",
   "description": "Frozen released-v0 Session codec and identity migration to v1",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@hy/dsh-session-format": "workspace:*",
+    "@hy/dsh-util-time": "workspace:*",
     "@hy/dsh-util-values": "workspace:*"
   },
   "peerDependencies": {

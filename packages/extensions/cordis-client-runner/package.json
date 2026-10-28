@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-cordis-client-runner",
   "description": "Browser half of dynamic dual-half plugin packages: event subscription, closure evaluation, guard facade, and loader entries",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -47,11 +47,11 @@
   },
   "devDependencies": {
     "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/cordis-plugin-timer": "workspace:~",
     "@hy/dsh-api-remotes": "workspace:*",
     "@hy/dsh-client-modules": "workspace:*",
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-theme": "workspace:*",
-    "@hy/cordis": "workspace:~",
     "@hy/cordis": "workspace:~",
     "react": "^18.2.0",
     "@hy/dsh-util-values": "workspace:*"

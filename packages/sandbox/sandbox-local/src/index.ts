@@ -34,7 +34,7 @@ import {
 } from '@hy/node-addon-system/landlock-run'
 import { Context } from '@hy/cordis'
 import z from '@hy/schemastery'
-import { SandboxProvider, SandboxUnavailableError, canonicalPath } from '@hy/dsh-sandbox'
+import { SandboxProvider, SandboxUnavailableError, SandboxUnsupportedPolicyError, canonicalPath } from '@hy/dsh-sandbox'
 import type { ConfinedArgv, ConfinedSandboxMode, RunnerFailureRule, SandboxEnforcement, SandboxPolicy } from '@hy/dsh-sandbox'
 import type { SessionId } from '@hy/dsh-session'
 import { AclWriteGrant, assertTempRootOutsideWorkspace, registerAclDiagnosisSkill, tempWriteSid, workspaceWriteSid } from '@hy/dsh-sandbox-windows-acl'
@@ -367,6 +367,9 @@ export class LocalSandboxProvider extends SandboxProvider {
    * @returns the runner invocation.
    */
   private windowsAclRunnerArgv(policy: SandboxPolicy): string[] {
+    if (policy.mode === 'workspace-write' && (policy.additionalWritableRoots?.length ?? 0) > 0) {
+      throw new SandboxUnsupportedPolicyError('Windows ACL confinement does not support additional writable directories; remove the extra grants or use a supported host')
+    }
     const sessionId = policy.sessionId
     if (sessionId === undefined || policy.mode === 'read-only') {
       return [

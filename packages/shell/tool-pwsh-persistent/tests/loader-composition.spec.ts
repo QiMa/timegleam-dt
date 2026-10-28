@@ -1,5 +1,7 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { spawnSync } from 'node:child_process'
-import { provideWorkingDirectoryFixture, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, provideWorkingDirectoryFixture, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import { mkdtemp, realpath, rm, writeFile } from 'node:fs/promises'
 import { release, tmpdir, version } from 'node:os'
 import { join } from 'node:path'
@@ -83,6 +85,7 @@ async function agent(ctx: Context, cwd: string): Promise<Agent> {
     id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
@@ -110,6 +113,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       "- name: '@hy/dsh-agent'",
       "- name: '@hy/dsh-system-prompt'",
       "- name: '@hy/dsh-tools'",
+      "- name: '@hy/dsh-tool-executor-native'",
       "- name: '@hy/dsh-terminal'",
       "- name: '@hy/dsh-test-sandbox'",
       "- name: '@hy/dsh-session-projection'",
@@ -157,6 +161,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       ['@hy/dsh-agent', AgentRegistry],
       ['@hy/dsh-system-prompt', SystemPrompt],
       ['@hy/dsh-tools', ToolRegistry],
+      ['@hy/dsh-tool-executor-native', NativeToolExecutor],
       ['@hy/dsh-terminal', TerminalSessionService],
       ['@hy/dsh-test-sandbox', PassthroughSandbox],
       ['@hy/dsh-session-projection', SessionProjectionRegistry],
@@ -214,7 +219,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
     const signal = new AbortController().signal
     const execute = (id: string, command: string) => {
       timeline.label(id)
-      return context!.tools.execute({
+      return executeToolFixture(context!, {
         signal,
         callId: ToolCallId(id),
         name: 'pwsh',

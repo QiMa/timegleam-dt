@@ -17,8 +17,8 @@ The model-facing bash package owns a `ctx.shellEnv` registry. A contributor decl
 
 The registry rebuilds a trusted overlay for every foreground and background bash `ToolExecution`:
 
-- `DSH_HOME` is always the absolute configured Harness home. The standalone [`@hy/dsh-home-paths`](../../../../packages/util/home-paths/README.md) utility owns its precedence: explicit `dshHome`, then ambient `$DSH_HOME`, then `~/.dsh`.
-- `DSH_SHELL=1` is always present and identifies a model bash child managed by Huayu AI.
+- `DSH_HOME` is always the absolute configured Harness home. The standalone [`@deepseek-ai/dsh-home-paths`](../../../../packages/util/home-paths/README.md) utility owns its precedence: explicit `dshHome`, then ambient `$DSH_HOME`, then `~/.dsh`.
+- `DSH_SHELL=1` is always present and identifies a model bash child managed by DeepSeek Harness.
 - `DSH_SESSION_ID` is present when the execution has an agent and equals `agent.session.header.id`.
 
 A transcript-location fact is deliberately absent. An earlier form of this decision also extended the persistence seam with a `locate()` path query feeding a `DSH_SESSION_JSONL` variable and the hook bridges' `transcript_path`; the [persistence export and pre-release trims](../simplification/2026-08-27-persistence-export-and-pre-release-trims.md) note owns removing that half — the paths were only readable with compression disabled, and the seam no longer exposes artifact locations.
@@ -39,7 +39,7 @@ Peer products separate stable identity from physical storage. Codex injects stab
 
 A fresh session receives its id before the first turn, so its first bash call can read `DSH_SESSION_ID`. Resume reuses the loaded header and therefore the same id. Fork and spawn create new session ids. Parent and child calls resolve from their own `ToolExecution.agent`; each command receives an immutable snapshot even when calls overlap. The registry is effect-scoped and HMR-safe.
 
-`dshHome` is session-independent deployment context. Agent-core resolves one value through `@hy/dsh-home-paths` and routes it to both tool-bash and local skill discovery; standalone consumers call the same resolver. If top-level `dshHome` and `skills.local.dshHome` are both supplied and resolve differently, composition fails instead of exposing contradictory homes. Persistence may change independently without freezing its facts into the session prefix.
+`dshHome` is session-independent deployment context. Agent-core resolves one value through `@deepseek-ai/dsh-home-paths` and routes it to both tool-bash and local skill discovery; standalone consumers call the same resolver. If top-level `dshHome` and `skills.local.dshHome` are both supplied and resolve differently, composition fails instead of exposing contradictory homes. Persistence may change independently without freezing its facts into the session prefix.
 
 ## Testing
 

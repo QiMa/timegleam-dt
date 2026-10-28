@@ -1,3 +1,4 @@
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -62,8 +63,10 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
     ['@hy/dsh-llm', LlmRuntime],
     ['@hy/dsh-session', SessionStore],
     ['@hy/dsh-session-projection', SessionProjectionRegistry],
+
     ['@hy/dsh-system-prompt', SystemPrompt],
     ['@hy/dsh-tools', ToolRuntime],
+    ['@hy/dsh-tool-executor-native', NativeToolExecutor],
     ['@hy/dsh-agent', AgentRegistry],
     ['@hy/dsh-llm-retry', retry],
     ['@hy/dsh-agent-loop', AgentLoop],
@@ -94,6 +97,7 @@ describe('real Loader composition', () => {
       "- name: '@hy/dsh-session-projection'",
       "- name: '@hy/dsh-system-prompt'",
       "- name: '@hy/dsh-tools'",
+      "- name: '@hy/dsh-tool-executor-native'",
       "- name: '@hy/dsh-agent'",
       "- name: '@hy/dsh-llm-retry'",
       "- name: '@hy/dsh-agent-loop'",

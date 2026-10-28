@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-hooks-claude-code",
-  "description": "Bridge plugin: run a Claude Code hooks.json / settings hook config on the Huayu AI interception seams",
-  "version": "0.2.1-rc.2",
+  "description": "Bridge plugin: run a Claude Code hooks.json / settings hook config on the DeepSeek Harness interception seams",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -19,9 +19,11 @@
       "default": "./lib/index.js"
     },
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.d.ts"
   ],
@@ -37,7 +39,6 @@
     "@hy/dsh-subagent": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*"
   },
   "devDependencies": {
@@ -52,6 +53,7 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-persistence-jsonl": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-session-projection": "workspace:*",

@@ -1,3 +1,4 @@
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
@@ -8,7 +9,7 @@ import SessionStore, { foldSurface, Session, SessionId } from '@hy/dsh-session'
 import * as commandFeedback from '@hy/dsh-command-feedback'
 import type { FeedbackRecord } from '@hy/dsh-command-feedback/types'
 import { remoteMethods } from '@hy/dsh-typert-protocol'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 
 const { USER_ID, getOrCreateAnonymousUserId } = vi.hoisted(() => {
   const USER_ID = '01234567-89ab-4cde-8f01-23456789abcd'
@@ -36,6 +37,7 @@ function stubAgent(ctx: Context, id: string): { agent: Agent; session: Session }
     id: session.id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     ctx: new Context(),
     get status() { return status },
@@ -53,6 +55,7 @@ function stubAgent(ctx: Context, id: string): { agent: Agent; session: Session }
 async function harness(): Promise<Harness> {
   const ctx = new Context()
   await ctx.plugin(CommandRuntime)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(SessionStore)
   const plugin = await ctx.plugin(commandFeedback)

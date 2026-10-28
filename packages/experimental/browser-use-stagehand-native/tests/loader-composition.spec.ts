@@ -1,5 +1,6 @@
 /** A real Loader and AgentLoop exercise independently configured browser inference and durable screenshots. */
 
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -78,8 +79,10 @@ it('loads browser tools from cordis.yml, logs browser results, and admits the sc
     ['@hy/dsh-llm', LlmRuntime],
     ['@hy/dsh-session', SessionStore],
     ['@hy/dsh-session-projection', SessionProjectionRegistry],
+
     ['@hy/dsh-system-prompt', SystemPrompt],
     ['@hy/dsh-tools', ToolRuntime],
+    ['@hy/dsh-tool-executor-native', NativeToolExecutor],
     ['@hy/dsh-agent', AgentRegistry],
     ['@hy/dsh-agent-loop', AgentLoop],
     ['@hy/dsh-attachment-local', LocalAttachmentStore],

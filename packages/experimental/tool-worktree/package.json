@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-tool-worktree",
   "description": "Model tool that creates and enters a new Git worktree",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -21,6 +21,7 @@
   "files": [
     "icon.svg",
     "locale/*.json",
+    "docs",
     "lib/index.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
@@ -51,6 +52,8 @@
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*",
     "@hy/dsh-experimental-worktree": "workspace:*",

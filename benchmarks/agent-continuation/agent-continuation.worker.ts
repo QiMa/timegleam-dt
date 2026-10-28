@@ -10,7 +10,7 @@ import { createUserMessage, LlmAdapter } from '@hy/dsh-llm'
 import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@hy/dsh-llm'
 import { SESSION_FORMAT_VERSION } from '@hy/dsh-session'
 import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import { assertBuiltBenchmarkRuntime } from '../support/built-worker.ts'
 import { PARENT_ID, response, resultText, syntheticHistory, TIME_ZERO, WORKLOAD } from './workload.ts'
 

@@ -1,10 +1,12 @@
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { createUserMessage } from '@hy/dsh-llm'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@hy/cordis'
 import LlmRuntime from '@hy/dsh-llm'
 import SessionStore, { SessionId } from '@hy/dsh-session'
 import SystemPrompt from '@hy/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@hy/dsh-tools'
+import ToolRuntime from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import AgentRegistry, { type Agent } from '@hy/dsh-agent'
 
 import AgentLoop from '@hy/dsh-agent-loop'
@@ -45,6 +47,7 @@ async function loopHarness(): Promise<Context> {
   await created.plugin(SessionProjectionRegistry)
   await created.plugin(SystemPrompt, { personaPrefix: SYSTEM })
   await created.plugin(ToolRuntime)
+  await created.plugin(NativeToolExecutor)
   await created.plugin(AgentRegistry)
   await created.plugin(AgentLoop, { agents: [] })
   await created.plugin(LlmDeepSeek)

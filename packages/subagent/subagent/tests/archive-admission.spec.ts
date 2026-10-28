@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import AgentRegistry from '@hy/dsh-agent'
 import type { Agent, AgentCancelCause, AgentStatus, CancelOptions } from '@hy/dsh-agent'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import SessionStore, { SessionId } from '@hy/dsh-session'
 import type { Session } from '@hy/dsh-session'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
@@ -34,6 +34,7 @@ async function liveAgent(ctx: Context, session: Session, initial: AgentStatus): 
     id: session.id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     get status() { return status },
     ctx,

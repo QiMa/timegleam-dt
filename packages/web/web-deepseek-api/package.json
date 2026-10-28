@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-web-deepseek-api",
-  "description": "DeepSeek Search and Fetch API providers for the Huayu AI web capability seam (ctx.web)",
-  "version": "0.2.1-rc.2",
+  "description": "DeepSeek Search and Fetch API providers for the DeepSeek Harness web capability seam (ctx.web)",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -47,6 +47,7 @@
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
     "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-web": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-http-proxy": "workspace:*"

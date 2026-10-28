@@ -1,6 +1,7 @@
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { Context } from '@hy/cordis'
 import AgentRegistry from '@hy/dsh-agent'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import type { Agent } from '@hy/dsh-agent'
 import type { JobAppendOptions, JobHandle, JobOutcome } from '@hy/dsh-jobs'
 import LocalJobRegistry from '@hy/dsh-jobs-local'
@@ -9,6 +10,7 @@ import { Session, SessionId } from '@hy/dsh-session'
 /** A registry with a tiny ring so eviction is cheap to reach. */
 export async function harness(): Promise<Context> {
   const ctx = new Context()
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(LocalJobRegistry, { retainBytes: 64, settledRetainBytes: 64 })
   ctx.jobs.attachController('job-controller-test')
@@ -24,6 +26,7 @@ export async function registerAgent(ctx: Context, rawId: string): Promise<Agent 
     id,
     options: {},
     session,
+    model: unsupportedModel(),
     inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scopeFiber.ctx,

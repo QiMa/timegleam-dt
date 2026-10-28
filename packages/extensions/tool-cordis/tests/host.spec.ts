@@ -1,3 +1,4 @@
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { Context } from '@hy/cordis'
 import { CordisInspectRegistryService } from '@hy/dsh-cordis-host-runner'
 import SystemPrompt from '@hy/dsh-system-prompt'
@@ -17,6 +18,7 @@ async function host(): Promise<Context> {
   // The tool registry injects `systemPrompt`; nothing under test registers a prompt section.
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRegistry)
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(CordisInspectRegistryService, 10_000)
   return ctx
 }

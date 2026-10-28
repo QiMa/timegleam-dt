@@ -1,3 +1,4 @@
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@hy/cordis'
 import LlmRuntime, { createUserMessage, ToolCallId  } from '@hy/dsh-llm'
@@ -9,7 +10,8 @@ import SessionStore, {
   type UserMessage,
 } from '@hy/dsh-session'
 import SystemPrompt from '@hy/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture, type PostToolDecision, type PreToolDecision } from '@hy/dsh-tools'
+import ToolRuntime, { type PostToolDecision, type PreToolDecision } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import AgentRegistry, {
   type Agent,
   type PreStepDecision,
@@ -47,6 +49,7 @@ async function harness(adapter: MockAdapter) {
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
   ctx.llm.registerAdapter(['mock'], adapter)

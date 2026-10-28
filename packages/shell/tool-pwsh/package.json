@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-pwsh",
   "description": "Model-facing pwsh tool over the bash executor seam",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -63,7 +63,9 @@
     "@hy/dsh-shell-env": "workspace:*",
     "@hy/dsh-subprocess-local": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
     "@hy/dsh-tool-jobs": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-user-approval": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*",

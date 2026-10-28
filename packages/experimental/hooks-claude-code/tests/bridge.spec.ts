@@ -1,3 +1,4 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
 import { createUserMessage, ToolCallId } from '@hy/dsh-llm'
 import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -7,7 +8,7 @@ import { join } from 'node:path'
 import { Context, type Fiber } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
 import { SessionId, type SessionEvent } from '@hy/dsh-session'
-import { defineContentToolFixture } from '@hy/dsh-tools'
+import { defineContentToolFixture } from '@hy/dsh-tool-testkit'
 import type { Agent } from '@hy/dsh-agent'
 import AgentLoop from '@hy/dsh-agent-loop'
 import { LocalBashExecutor } from '@hy/dsh-bash-local'
@@ -106,7 +107,7 @@ describe('unmatched hooks and directory recovery', () => {
         async execute(args) { return [{ type: 'text', text: args.cd }] },
       }))
       const agent = await ctx.agentLoop.create(SessionId('recovery'), { provider: 'mock', model: 'mock' })
-      const result = await ctx.tools.execute({
+      const result = await executeToolFixture(ctx, {
         name: 'working_directory', callId: ToolCallId('recover'), arguments: { cd: dir },
         agent, signal: new AbortController().signal,
       })
@@ -467,12 +468,12 @@ describe('hooks-claude-code bridge — load resilience', () => {
     // "cannot get property … without inject". Guard the shape directly.
     expect('default' in HooksClaude).toBe(false)
     expect(HooksClaude.name).toBe('hooks-claude-code')
-    expect(HooksClaude.inject).toEqual(['shell', 'sessionProjections', 'workingDirectory'])
+    expect(HooksClaude.inject).toEqual(['shell', 'agents', 'workingDirectory'])
     const loader = Object.create(Loader.prototype) as Loader
     const unwrapped = loader.unwrapExports(HooksClaude) as Record<string, unknown>
     expect(unwrapped).toBe(HooksClaude)
     expect(unwrapped.name).toBe('hooks-claude-code')
-    expect(unwrapped.inject).toEqual(['shell', 'sessionProjections', 'workingDirectory'])
+    expect(unwrapped.inject).toEqual(['shell', 'agents', 'workingDirectory'])
     expect(typeof unwrapped.apply).toBe('function')
   })
 })

@@ -1,5 +1,6 @@
 import { Context } from '@hy/cordis'
 import AgentRegistry from '@hy/dsh-agent'
+import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import type { Agent } from '@hy/dsh-agent'
 import type { JobId, JobOutcome } from '@hy/dsh-jobs'
@@ -45,6 +46,7 @@ async function harness(): Promise<{
 }> {
   const ctx = new Context()
   await ctx.plugin(SessionStore)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(LocalJobRegistry)
   ctx.jobs.attachController('kill-test')

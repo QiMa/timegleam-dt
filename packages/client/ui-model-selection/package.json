@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-model-selection",
   "description": "Model selection over the shared model catalog, Session projection, and session.selectModel",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -46,6 +46,7 @@
     "@hy/cordis": "workspace:~"
   },
   "devDependencies": {
+    "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-api-remotes": "workspace:*",
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",
@@ -56,7 +57,6 @@
     "@hy/dsh-client-ui-primitives": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
-    "@hy/cordis": "workspace:~",
     "@hy/cordis": "workspace:~",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

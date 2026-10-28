@@ -14,6 +14,7 @@ import scheduleRemote from '@hy/dsh-schedule/remote'
 import llmRemote from '@hy/dsh-llm/remote'
 import dynamicRemote from '@hy/dsh-cordis-host-runner/remote'
 import pluginManagerRemote from '@hy/dsh-plugin-manager/remote'
+import toolResultsRemote from '@hy/dsh-client-ui-trajectory/remote'
 import pluginRegistryProbeRemote from '@hy/dsh-client-ui-plugin-manager/remote'
 import pluginMarketRemote from '@hy/dsh-plugin-market/remote'
 import pluginInventoryRemote from '@hy/dsh-host-plugin-inventory/remote'
@@ -32,18 +33,20 @@ import type { ClientRemote } from '@hy/dsh-api-gateway/client'
 
 export type { ClientRemote } from '@hy/dsh-api-gateway/client'
 export type {
-  BundleInfo, BundleRowInfo, ChangeResult, IncompatiblePlugin, InspectOptions, InstallBundleOptions, InstallSpecKind, ManagementError,
-  PackageResult,
+  BundleDetail, BundleInfo, BundleRowInfo, ChangeResult, IncompatiblePlugin, InspectOptions, InstallBundleOptions, InstallSpecKind,
+  ManagementError, PackageResult,
   PluginChange, PluginEntryId, PluginInfo, PluginInspectProblem, PluginInstallCancellation, PluginInstallFailureKind,
   PluginInstallLogChunk, PluginInstallProgress, PluginInstallRequestId, PluginRegistries, PluginSpecInspection,
+  PluginUpdateProgress, PluginUpdateResult, PluginUpdateStep, PluginVersion, PluginVersionList, RegistryAttempt,
   ReadOnlyReason, Registry, RestartReason,
 } from '@hy/dsh-plugin-manager/types'
 export type {} from '@hy/dsh-plugin-manager/remote'
 export type {} from '@hy/dsh-client-ui-plugin-manager/remote'
+export type {} from '@hy/dsh-client-ui-trajectory/remote'
 export type {} from '@hy/dsh-plugin-market/remote'
 export type {
   MarketCompatibility, MarketIndexSummary, MarketInstallation, MarketInstallationStatus, MarketListingEntry, MarketListingVersion,
-  MarketQuery, MarketSearchResult, MarketSort,
+  MarketQuery, MarketSearchResult, MarketSort, PluginDetail, PluginDetailDocumentId, PluginDetailOrigin,
 } from '@hy/dsh-plugin-market/types'
 export type { PluginInventorySnapshot } from '@hy/dsh-host-plugin-inventory/types'
 export type {} from '@hy/dsh-agent-preset-registry/remote'
@@ -188,7 +191,7 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
     for (const contribution of [
       productAnalyticsRemote, agentPresetsRemote, commandsRemote, settingsControllerRemote, accountRemote,
       goalsRemote, llmRemote, dynamicRemote, scheduleRemote,
-      pluginInventoryRemote, pluginManagerRemote, pluginMarketRemote, pluginRegistryProbeRemote,
+      pluginInventoryRemote, pluginManagerRemote, pluginMarketRemote, pluginRegistryProbeRemote, toolResultsRemote,
       messageFeedbackRemote, sessionFeedbackRemote,
       fileUploadsRemote, sessionReferencesRemote,
       permissionPresetsRemote, subagentsRemote, sessionRemote, jobRemote, workspaceRemote, workspaceFilesRemote, terminalRemote,

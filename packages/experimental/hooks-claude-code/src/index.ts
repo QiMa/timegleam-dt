@@ -12,8 +12,7 @@ import type {} from '@hy/dsh-working-directory'
 import { readFileSync } from 'node:fs'
 import type { Context } from '@hy/cordis'
 import z from '@hy/schemastery'
-import type { Agent, PreStepDecision, TurnBoundaryProjection } from '@hy/dsh-agent'
-import type {} from '@hy/dsh-session-projection'
+import type { Agent, PreStepDecision } from '@hy/dsh-agent'
 import { createUserMessage } from '@hy/dsh-llm'
 import type { ContextFormed } from '@hy/dsh-llm'
 declare module '@hy/dsh-llm' {
@@ -43,9 +42,9 @@ import type { SubagentRunId } from '@hy/dsh-subagent'
 import { parseClaudeCodeConfig, type ClaudeCodeHookConfig } from './config.ts'
 
 export const name = 'hooks-claude-code'
-// `shell` runs hooks and `sessionProjections` supplies turn numbers; the rest
+// `shell` runs hooks and `agents` supplies turn numbers; the rest
 // are read opportunistically via ctx.get so a deployment can omit them.
-export const inject = ['shell', 'sessionProjections', 'workingDirectory']
+export const inject = ['shell', 'agents', 'workingDirectory']
 
 /** Plugin config: where the CC hook config lives + substitution roots. */
 export interface Config {
@@ -317,8 +316,7 @@ const SUBAGENT_TYPE = 'general-purpose'
 /** The last open turn number in the agent's log, or 0 without an agent. */
 function lastTurn(ctx: Context, agent: Agent | undefined): number {
   if (!agent) return 0
-  const boundary = ctx.sessionProjections.stateOf(agent.session, 'turnBoundary') as TurnBoundaryProjection
-  return boundary.lastTurn
+  return ctx.agents.turnBoundaryOf(agent.session).lastTurn
 }
 
 /** Flatten content blocks to the text a hook payload carries (the common case). */

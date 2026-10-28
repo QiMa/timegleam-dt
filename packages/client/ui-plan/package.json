@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-client-ui-plan",
   "description": "Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -69,9 +69,9 @@
     "@hy/dsh-client-ui-sidebar-right": "workspace:*",
     "@hy/dsh-client-ui-user-questions": "workspace:*",
     "@hy/dsh-client-resources": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
-    "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-util-crypto": "workspace:*"
   },
   "files": [

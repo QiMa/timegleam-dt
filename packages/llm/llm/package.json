@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-llm",
-  "description": "Provider-neutral LLM service interface for the Huayu AI",
-  "version": "0.2.1-rc.2",
+  "description": "Provider-neutral LLM service interface for the DeepSeek Harness",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-package-manifest": "workspace:*",
     "@hy/cordis": "workspace:~"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-web",
-  "description": "Model-facing web tools (web_search, web_fetch) over the Huayu AI web capability seam (ctx.web)",
-  "version": "0.2.1-rc.2",
+  "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -36,6 +36,7 @@
     "@hy/dsh-web": "workspace:*"
   },
   "dependencies": {
+    "@hy/dsh-output-retention": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
     "@hy/schemastery": "workspace:~",
     "@joplin/turndown-plugin-gfm": "^1.0.67",
@@ -50,6 +51,8 @@
     "@hy/dsh-spill-policy": "workspace:*",
     "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-tool-call-timeout-policy": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-web": "workspace:*",
     "@hy/dsh-web-fetch-http": "workspace:*",

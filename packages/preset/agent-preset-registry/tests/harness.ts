@@ -1,3 +1,4 @@
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { Context } from '@hy/cordis'
 import Loader from '@hy/cordis-plugin-loader'
 import Group from '@hy/cordis-plugin-group'
@@ -26,6 +27,7 @@ export async function harness(options: { live?: boolean } = {}): Promise<Context
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SystemPrompt, { personaPrefix: '' })
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
   if (options.live) liveRegistries.set(ctx, await liveConfig(ctx, AgentPresets, { default: 'standard' }))

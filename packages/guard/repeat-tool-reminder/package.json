@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-repeat-tool-reminder",
   "description": "Repeat-tool-call guard plugin: advisory reminders when an agent loops on identical tool calls",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -42,6 +42,7 @@
     "@hy/dsh-agent-loop-testkit": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-session-projection": "workspace:*"

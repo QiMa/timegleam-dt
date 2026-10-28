@@ -22,6 +22,8 @@ export { JsonRpcResponseError } from '@hy/dsh-sdk-protocol'
 export type {
   ContentBlock,
   SdkPromptContentBlock,
+  SdkUserQuestionAnswer,
+  SdkUserQuestionRequest,
   DeepSeekHarnessOptions,
   HarnessClientOptions,
   HarnessNotification,

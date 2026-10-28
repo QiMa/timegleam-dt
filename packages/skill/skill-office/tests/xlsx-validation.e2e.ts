@@ -80,6 +80,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || !runtime).each(['native', 'ptc'
       tsconfigPath: join(repo, 'tsconfig.base.json'),
       configPath,
       binArgs: ['--profile', 'headless', '--patch', configPath,
+        ...mode === 'ptc' ? ['--patch', join(repo, 'apps/cli/config/examples/ptc.yml')] : [],
         `${task} Use input.xlsx and save the finished workbook as result.xlsx. Preserve the Notes sheet and leave input.xlsx unchanged. Respond briefly in English.`,
       ],
       processTimeoutMs: 110_000,
@@ -89,7 +90,6 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || !runtime).each(['native', 'ptc'
         DSH_HOME: join(controlRoot, 'home'),
         DSH_AGENTS_HOME: join(controlRoot, 'agents'),
         DSH_TELEMETRY_DISABLED: '1',
-        DSH_TOOLS_MODE: mode,
         HTTP_PROXY: process.env.DSH_OFFICE_TEST_PROXY,
         HTTPS_PROXY: process.env.DSH_OFFICE_TEST_PROXY,
       },
@@ -156,7 +156,7 @@ else:
           : event.type === 'user/message' && event.data.source.kind === 'ptc-mode'
             ? event.data.content.filter(block => block.type === 'image') : [])
         if (kind === 'layout' && imageBlocks.length === 0) {
-          const kit = fileURLToPath(import.meta.resolve('@deepseek-ai/libreoffice-kit/cli'))
+          const kit = fileURLToPath(import.meta.resolve('@hy/libreoffice-kit/cli'))
           const previewDir = join(cwd, '.verification-preview')
           await execa(process.execPath, [kit, 'render', '--input', join(cwd, 'result.xlsx'),
             '--output-dir', previewDir, '--sheet', 'Revenue', '--range', 'A1:B3'], { cwd })

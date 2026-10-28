@@ -87,14 +87,13 @@
             config:
               - id: tool-subagent-control
                 name: '@hy/dsh-tool-subagent-control'
-              - id: tool-subagent-list-agents
-                name: '@hy/dsh-tool-subagent-control/list-agents'
               - id: tool-subagent
                 name: '@hy/dsh-tool-subagent'
                 config:
                   provider: spawn
                   toolName: subagent
-                  modelSelectionSettings: true
+                  modelSelection: true
+                  modelDiscovery: true
               - id: tool-subagent-fork
                 name: '@hy/dsh-tool-subagent'
                 config:

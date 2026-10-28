@@ -5,6 +5,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import SessionStore, { SessionId } from '@hy/dsh-session'
+import AgentRegistry from '@hy/dsh-agent'
 import SessionProjectionRegistry from '@hy/dsh-session-projection'
 import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
 import SessionTitleService, { foldSessionTitle } from '@hy/dsh-session-title'
@@ -68,6 +69,7 @@ describe('session title persistence round trips', () => {
     const writer = new Context()
     await writer.plugin(SessionStore)
     await writer.plugin(SessionProjectionRegistry)
+    await writer.plugin(AgentRegistry)
     await writer.plugin(JsonlSessionPersistence, { root, compression: 'none' })
     await writer.plugin(SessionTitleService, CONFIG)
     await appendPersistedTitle(writer, id)

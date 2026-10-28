@@ -1,3 +1,5 @@
+import { executeToolFixture } from '@hy/dsh-tool-testkit'
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { execFile } from 'node:child_process'
 import { mkdir, mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -54,9 +56,11 @@ describe('worktree tool through real Loader composition', () => {
       ['@hy/dsh-agent', AgentRegistry],
       ['@hy/dsh-session', SessionStore],
       ['@hy/dsh-session-projection', SessionProjectionRegistry],
+
       ['@hy/dsh-system-prompt', SystemPrompt],
       ['@hy/dsh-llm', LlmRuntime],
       ['@hy/dsh-tools', ToolRuntime],
+      ['@hy/dsh-tool-executor-native', NativeToolExecutor],
       ['@hy/dsh-fs-local', LocalFileSystem],
       ['@hy/dsh-subprocess-local', LocalSubprocessRuntime],
       ['@hy/dsh-sandbox-local', LocalSandbox],
@@ -82,7 +86,7 @@ describe('worktree tool through real Loader composition', () => {
     await context.loader.await()
 
     const agent = await context.agentLoop.create(SessionId('worktree-loader'), {}, { cwd: repository })
-    const invoke = (name: string, agentValue = agent) => context!.tools.execute({
+    const invoke = (name: string, agentValue = agent) => executeToolFixture(context!, {
       name: 'create_worktree', callId: ToolCallId(name), arguments: { name }, agent: agentValue, signal: new AbortController().signal,
     })
     const result = await invoke('new-checkout')
@@ -93,7 +97,7 @@ describe('worktree tool through real Loader composition', () => {
     expect(context.workingDirectory.get(agent.session)).toBe(path)
     expect(await readFile(join(path, 'file.txt'), 'utf8')).toBe('committed\n')
 
-    const failure = await context.tools.execute({
+    const failure = await executeToolFixture(context, {
       name: 'create_worktree', callId: ToolCallId('no-agent'), arguments: {}, signal: new AbortController().signal,
     })
     expect(failure.isError).toBe(true)

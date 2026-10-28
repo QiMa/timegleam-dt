@@ -1,4 +1,5 @@
 /** HTTP lifecycle, routing and optional Cordis services under real composition. */
+import * as NativeToolExecutor from '@hy/dsh-tool-executor-native'
 import { installAccountTaskCancellation, type DeepSeekAccount } from '@hy/dsh-deepseek-account'
 import type { AnonymousUserId } from '@hy/dsh-anonymous-user-id'
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
@@ -8,8 +9,8 @@ import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context, LoggerLevel, Service } from '@hy/cordis'
 import LocalAttachments from '@hy/dsh-attachment-local'
-import AgentRegistry, { installModelSelection } from '@hy/dsh-agent'
-import type { Agent, ModelSelectionRef } from '@hy/dsh-agent'
+import AgentRegistry from '@hy/dsh-agent'
+import type { Agent } from '@hy/dsh-agent'
 import AgentLoop from '@hy/dsh-agent-loop'
 import SystemPrompt from '@hy/dsh-system-prompt'
 import ToolRuntime from '@hy/dsh-tools'
@@ -315,6 +316,7 @@ describe('Cordis provider composition', () => {
       ['@hy/dsh-agent', AgentRegistry], ['@hy/dsh-agent-loop', AgentLoop],
       ['@hy/dsh-session', SessionStore], ['@hy/dsh-session-projection', SessionProjectionRegistry],
       ['@hy/dsh-system-prompt', SystemPrompt], ['@hy/dsh-tools', ToolRuntime],
+      ['@hy/dsh-tool-executor-native', NativeToolExecutor],
     ])
     // The importer supplies source modules while Loader still owns configuration and effects.
     for (const name of modules.keys()) {
@@ -475,9 +477,8 @@ describe('Cordis provider composition', () => {
     ctx.on('system-prompt/assemble', async (_assembly, _context, next) => ({
       ...await next(), sections: [{ name: 'test', text: prompt, order: 0 }],
     }))
-    const selection: ModelSelectionRef = { current: { provider: 'deepseek-official', model: MODEL }, assembled: undefined }
-    const agent = await ctx.agentLoop.create(SessionId('capability-switch'), selection.current)
-    installModelSelection(agent.ctx, selection)
+    const agentOptions = { provider: 'deepseek-official', model: MODEL }
+    const agent = await ctx.agentLoop.create(SessionId('capability-switch'), agentOptions)
     await send(agent, 'first')
     prompt = 'current prompt'
     await send(agent, 'second')
@@ -485,9 +486,8 @@ describe('Cordis provider composition', () => {
     const seed = [...agent.session.snapshotEvents()]
     const saved = JSON.stringify(seed)
     await ctx.settings.update(Messages.name, { models: [{ id: MODEL, ...inHistory ? { systemPromptUpdate: 'in-history' } : {} }] })
-    selection.current = { provider: 'deepseek-official', model: MODEL }
     await send(agent, 'switch')
-    const { agent: resumed } = await ctx.agents.create({ sessionId: SessionId('switch-resume'), agentOptions: selection.current, seed })
+    const { agent: resumed } = await ctx.agents.create({ sessionId: SessionId('switch-resume'), agentOptions: agentOptions, seed })
     await send(resumed, 'resume')
     for (const request of http.requests.slice(2)) {
       expect(request.path).toBe('/anthropic/v1/messages')

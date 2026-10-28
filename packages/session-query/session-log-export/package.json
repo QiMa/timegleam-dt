@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-session-log-export",
-  "description": "Web Session-log export command and shared download dialog",
-  "version": "0.2.1-rc.2",
+  "description": "Web Session-log ZIP export and Session Markdown copy",
+  "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
   },
@@ -58,6 +58,7 @@
     "@hy/dsh-client-store": "workspace:*",
     "@hy/dsh-client-ui-commands": "workspace:*",
     "@hy/dsh-client-ui-conversation": "workspace:*",
+    "@hy/dsh-client-ui-layout": "workspace:*",
     "@hy/dsh-client-ui-message-feedback": "workspace:*",
     "@hy/dsh-client-ui-primitives": "workspace:*",
     "@hy/dsh-client-ui-renderer": "workspace:*",
@@ -67,7 +68,7 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-persistence": "workspace:*",
     "@hy/dsh-session-query": "workspace:*",
-    "@types/react": "~18.3.1",
+    "@hy/dsh-session-title": "workspace:*",
     "react": "^18.2.0"
   },
   "dsh": {
@@ -76,6 +77,7 @@
         "@hy/dsh-client-locale",
         "@hy/dsh-client-ui-commands",
         "@hy/dsh-client-ui-conversation",
+        "@hy/dsh-client-ui-layout",
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-session"
       ],

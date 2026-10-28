@@ -9,7 +9,7 @@ import AgentLoop from '@hy/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@hy/dsh-agent-loop-testkit'
 import { agentPresetProjectionDefinition } from '@hy/dsh-agent-preset-registry'
 import RemoteAccessService from '@hy/dsh-api-remote-access'
-import SessionController from '@hy/dsh-api-session-controller'
+import type SessionController from '@hy/dsh-api-session-controller'
 import { currentSessionMessageProjections } from '@hy/dsh-session-format-catalog/message-projections'
 import { Session, SessionLogOffset } from '@hy/dsh-session'
 import type { SessionId } from '@hy/dsh-session'
@@ -28,6 +28,7 @@ import TokenMeter from '@hy/dsh-token-meter'
 import { assertBuiltBenchmarkRuntime } from '../support/built-worker.ts'
 import { serializeRecord } from '../../packages/storage/storage-json/src/format.ts'
 import { ANCHOR_COUNT } from './corpus-shape.ts'
+import { createBenchmarkSessionController } from './session-controller.ts'
 import {
   anchorHeader,
   corpusSessionId,
@@ -141,7 +142,7 @@ async function mountHost(root: string): Promise<{ readonly ctx: Context; readonl
   await ctx.plugin(SessionProjectionCache, { writeEveryEvents: 200, writeIntervalMs: 5_000 })
   // Content search is opt-in; enabled deployments defer the in-memory index to the first search.
   await ctx.plugin(SqliteSessionQueryEngine, { path: ':memory:', openAt: 'first-search' })
-  ctx.sessionProjections.register(agentPresetProjectionDefinition)
+  await ctx.sessionProjections.register(agentPresetProjectionDefinition)
   await ctx.plugin(SessionTitleService, { fallbackMaxWords: 5, fallbackMaxBytes: 40, maxTitleBytes: 80 })
   await ctx.plugin(SessionStatsPlugin)
   await ctx.plugin(SessionTurnOutlinePlugin)
@@ -158,7 +159,7 @@ async function mountHost(root: string): Promise<{ readonly ctx: Context; readonl
   ctx.provide('agentDefaultModel', { currentSelection: () => BENCH_MODEL } as never)
   ctx.provide('workspaceRegistry', { list: () => [], archivedSessionIds: [] } as never)
   new RemoteAccessService(ctx)
-  const controller = new SessionController(ctx, { nativeOpen: false }, { canOpenPath: () => false })
+  const controller = await createBenchmarkSessionController(ctx, { nativeOpen: false })
   return { ctx, controller }
 }
 

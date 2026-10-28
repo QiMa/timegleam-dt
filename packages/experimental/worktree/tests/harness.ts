@@ -6,7 +6,7 @@ import { promisify } from 'node:util'
 import { Context } from '@hy/cordis'
 import AgentRegistry from '@hy/dsh-agent'
 import type { Agent } from '@hy/dsh-agent'
-import { unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
+import { unsupportedModel, unsupportedInbox } from '@hy/dsh-agent-loop-testkit'
 import LocalFileSystem from '@hy/dsh-fs-local'
 import SandboxProvider from '@hy/dsh-sandbox'
 import type { ConfinedArgv, SandboxMode, SandboxPolicy } from '@hy/dsh-sandbox'
@@ -42,7 +42,8 @@ export function testAgent(ctx: Context, cwd: string, name = 'worktree-test'): Ag
   const id = SessionId(name)
   const session = Session.create(id, [], { version: SESSION_FORMAT_VERSION, id, createdAt: 0, isSeeded: false, cwd })
   const agent: Agent = {
-    id, session, options: {}, status: 'idle', ctx: scope.ctx, inbox: unsupportedInbox(),
+    id, session, options: {}, status: 'idle', ctx: scope.ctx, model: unsupportedModel(),
+    inbox: unsupportedInbox(),
     send() {}, followup() {}, steer() {}, inject() {}, cancel() {},
     whenIdle: async () => {}, runMaintenance: task => task(new AbortController().signal),
   }
@@ -71,8 +72,8 @@ export async function repository(parent = tmpdir()): Promise<string> {
 export async function harness(root: string, config: Config = {}, mode: SandboxMode = 'danger-full-access'): Promise<Context> {
   const ctx = new Context()
   try {
-    await ctx.plugin(AgentRegistry)
     await ctx.plugin(SessionProjectionRegistry)
+    await ctx.plugin(AgentRegistry)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(LocalFileSystem, { cwd: root })
     await ctx.plugin(LocalSubprocessRuntime)
