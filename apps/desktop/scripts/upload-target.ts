@@ -107,7 +107,7 @@ export async function uploadDesktopTarget(args: string[]): Promise<void> {
   try {
     resolveDesktopAutoUpdateEnvironment(environment)
   } catch (error) {
-    throw new DesktopUploadUsageError('DSH_DESKTOP_AUTO_UPDATE_ENV must be "test" or "production".')
+    throw new DesktopUploadUsageError('DSH_DESKTOP_AUTO_UPDATE_ENV must be "test", "production", or "airgap".')
   }
   const recordsRoot = resolve(import.meta.dirname, '../.desktop-build/upload-records')
   if (values['purge-only']) {

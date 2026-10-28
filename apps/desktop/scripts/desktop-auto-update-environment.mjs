@@ -5,6 +5,9 @@ import { valid } from 'semver'
 /** Environment variable that selects the Desktop update deployment. */
 export const DESKTOP_AUTO_UPDATE_ENV = 'DSH_DESKTOP_AUTO_UPDATE_ENV'
 
+/** Environment variable that selects the distributed product edition. */
+export const DESKTOP_EDITION_ENV = 'DSH_DESKTOP_EDITION'
+
 /**
  * Resolve the channel embedded in the installer; omitted local settings retain nightly.
  * @param {NodeJS.ProcessEnv} env Packaging or upload settings.
@@ -14,6 +17,17 @@ export function resolveDesktopUpdateChannel(env) {
   const channel = env.DSH_DESKTOP_UPDATE_CHANNEL || 'nightly'
   if (channel !== 'nightly' && channel !== 'latest') throw new Error('desktop auto-update: invalid update channel')
   return channel
+}
+
+/**
+ * Resolve the distributed product edition; omitted settings retain the standard edition.
+ * @param {NodeJS.ProcessEnv} env Packaging or upload settings.
+ * @returns {'standard' | 'enterprise'} Validated edition.
+ */
+export function resolveDesktopEdition(env) {
+  const edition = env[DESKTOP_EDITION_ENV] || 'standard'
+  if (edition !== 'standard' && edition !== 'enterprise') throw new Error('desktop auto-update: invalid product edition')
+  return edition
 }
 
 const UPDATE_ENVIRONMENTS = {
@@ -182,6 +196,8 @@ function httpsOrigin(value, name) {
  * path maps to the static host root. The returned `origin` is therefore either
  * an origin (test) or an origin plus a base path (production); both are intended
  * to be joined with a slash and an object prefix.
+ * AirGap deployments select the `huayu-ai` catalog by default; `DSH_DESKTOP_EDITION=enterprise`
+ * routes them to the separate `huayu-enterprise` catalog.
  * @param {NodeJS.ProcessEnv} env - Packaging or upload environment.
  * @param {NodeJS.Platform} platform - Target Node.js platform.
  * @param {string} arch - Target Node.js architecture.
@@ -201,7 +217,7 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
       ? httpsBaseUrl(requiredEnvironmentValue(env, originEnvName), originEnvName)
       : httpsOrigin(requiredEnvironmentValue(env, originEnvName), originEnvName)
   }
-  let releasePrefix = environment === 'airgap' ? 'huayu-ai/dsh-desk' : 'dsh-desk'
+  let releasePrefix = environment === 'airgap' ? (resolveDesktopEdition(env) === 'enterprise' ? 'huayu-enterprise' : 'huayu-ai') + '/dsh-desk' : 'dsh-desk'
   if (environment === 'test') {
     const releaseId = requiredEnvironmentValue(env, 'DOWNLOAD_TEST_RELEASE_ID')
     if (!/^[a-f0-9]{32}$/u.test(releaseId)) {

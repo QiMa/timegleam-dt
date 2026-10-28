@@ -115,8 +115,8 @@ describe('desktop auto-update environment', () => {
       environment: 'airgap',
       target: 'win-x64',
       origin: 'https://airgap.example.cn/lanhc/airgap',
-      publicUrl: 'https://airgap.example.cn/lanhc/airgap/dsh-desk/feeds/win-x64/',
-      binaryKeyPrefix: 'dsh-desk/bin/win-x64',
+      publicUrl: 'https://airgap.example.cn/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/',
+      binaryKeyPrefix: 'huayu-ai/dsh-desk/bin/win-x64',
     })
     expect(resolveDesktopUploadConfig({
       DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap',
@@ -128,6 +128,17 @@ describe('desktop auto-update environment', () => {
     })
     expect(() => resolveDesktopAutoUpdateConfig({ DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap' }, 'win32', 'x64'))
       .toThrow(/AIRGAP_BASE_URL/u)
+  })
+
+  it('routes airgap enterprise builds to the separate huayu-enterprise catalog', () => {
+    expect(resolveDesktopAutoUpdateConfig({
+      DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap',
+      DSH_DESKTOP_EDITION: 'enterprise',
+      AIRGAP_BASE_URL: 'https://airgap.example.cn/lanhc/airgap',
+    }, 'win32', 'x64')).toMatchObject({
+      publicUrl: 'https://airgap.example.cn/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/',
+      binaryKeyPrefix: 'huayu-enterprise/dsh-desk/bin/win-x64',
+    })
   })
   it('rejects unknown deployments and targets', () => {
     expect(() => resolveDesktopAutoUpdateEnvironment({

@@ -58,6 +58,7 @@ AirGap 是封闭网络环境下的内网更新仓库。Desktop 通过 `DSH_DESKT
 - feed 落在 `huayu-ai/dsh-desk/feeds/<target>/`，二进制落在 `huayu-ai/dsh-desk/bin/<target>/`；整个目录由 AirGap 的 `/repo/<path>` 静态分发
 - 封闭网络客户端设置 `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/`（Windows x64）或 `/mac-arm64/`、`/mac-x64/`，也可用内网直连 `http://<airgap-host>:8001/repo/...`
 - `airgap` 部署不嵌入强制更新策略，不请求 feishu/生产策略服务
+- `DSH_DESKTOP_EDITION=enterprise` 把 AirGap 目录从 `huayu-ai` 切换到独立的企业分发目录 `huayu-enterprise`，企业版构建不会混入公开 feed
 - 跨网闸搬运：在联机侧 `/api/pack` 生成签名 `.airgap` 包，U 盘带入后 `/api/import` 验签入库；验签失败拒绝合并
 
 **构建（联机侧）**
