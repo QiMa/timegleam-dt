@@ -202,12 +202,6 @@ export async function createDesktopUploadPlan(
   }
 
   const update = resolveDesktopUploadConfig(environment, target.platform, target.arch)
-  if (update.environment === 'airgap') {
-    // AirGap feeds live under a fixed huayu-ai subdirectory inside the AirGap public root.
-    update.keyPrefix = `huayu-ai/${update.keyPrefix}`
-    update.binaryKeyPrefix = `huayu-ai/${update.binaryKeyPrefix}`
-    update.publicUrl = `${update.origin}/${update.keyPrefix}/`
-  }
   const buildRecord = await jsonFile(
     join(artifactsRoot, desktopBuildRecordFilename(targetName)),
     `${targetName} package completion record`,

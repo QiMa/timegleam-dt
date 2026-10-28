@@ -48,6 +48,41 @@ node --input-type=module -e "import { randomBytes } from 'node:crypto'; console.
 
 通过完整下载链接分发每个测试批次。已安装的测试客户端保留当前批次的清单地址，不会自动发现新 ID。格式校验无法判断随机性，请使用生成器的输出。随机路径降低被猜中的概率，不限制持有链接者访问；撤下批次需要删除其 COS 对象并清除对应 CDN 目录缓存。
 
+<a id="airgap"></a>
+
+## AirGap 封闭网络部署
+
+AirGap 是封闭网络环境下的内网更新仓库。Desktop 通过 `DSH_DESKTOP_AUTO_UPDATE_ENV=airgap` 把更新 feed 与安装包直接发布到 baizor 的 `/lucky/airgap/data/public`，客户端通过 `DSH_DESKTOP_UPDATE_FEED_URL` 覆盖内置 feed 地址后即可在离线环境完成检查、下载与安装。
+
+- 打包/上传共用 `AIRGAP_BASE_URL` 指定客户端可达的 AirGap 公共 URL（含 base path，例如 `https://lanhc.com/lanhc/airgap`）
+- feed 落在 `huayu-ai/dsh-desk/feeds/<target>/`，二进制落在 `huayu-ai/dsh-desk/bin/<target>/`；整个目录由 AirGap 的 `/repo/<path>` 静态分发
+- 封闭网络客户端设置 `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/`（Windows x64）或 `/mac-arm64/`、`/mac-x64/`，也可用内网直连 `http://<airgap-host>:8001/repo/...`
+- `airgap` 部署不嵌入强制更新策略，不请求 feishu/生产策略服务
+- 跨网闸搬运：在联机侧 `/api/pack` 生成签名 `.airgap` 包，U 盘带入后 `/api/import` 验签入库；验签失败拒绝合并
+
+**构建（联机侧）**
+
+```sh
+DSH_DESKTOP_AUTO_UPDATE_ENV=airgap AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
+pnpm run upload:win:x64
+```
+
+上传器通过 `scp` 把产物写入 `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...`，不需要 COS 凭据。
+
+**客户端（封闭网络侧）**
+
+```sh
+# PowerShell
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/'
+# 或内网直连（仅 127.0.0.1/localhost 允许 http）
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-ai/dsh-desk/feeds/win-x64/'
+```
+
+```sh
+# Linux
+export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/linux-x64/'
+```
+
 <a id="publish-feeds"></a>
 
 ## 发布安装包与更新清单

@@ -12,7 +12,7 @@ vi.mock('electron-updater', () => ({
   default: { autoUpdater: { autoDownload: true, autoInstallOnAppQuit: true } },
 }))
 
-const { DesktopUpdateCoordinator } = await import('../src/update-coordinator.ts')
+const { DesktopUpdateCoordinator, resolveDesktopUpdateFeedOverride } = await import('../src/update-coordinator.ts')
 
 describe('desktop release metadata', () => {
   it('accepts one exact release identity for Electron and dsh', () => {
@@ -71,6 +71,20 @@ function fixture(channel: 'nightly' | 'latest' = 'nightly', version = '1.1.0-alp
   coordinators.push(coordinator)
   return { coordinator, updater, events, states, checkForUpdates, downloadUpdate, quitAndInstall, beforeRestart, downloadResult }
 }
+
+describe('desktop update feed override', () => {
+  it.each(['https://airgap.lanhc.com/feed/', 'https://lanhc.com/lanhc/airgap/dsh-desk/feeds/win-x64',
+    'http://127.0.0.1:8001/repo/feeds', 'http://localhost:8080/feed'])('accepts explicit HTTPS or loopback feeds %s', (value) => {
+    expect(resolveDesktopUpdateFeedOverride(value)).toBe(value.replace(/\/+$/u, '') + '/')
+  })
+  it.each([undefined, '', '  '])('keeps unset feeds on the packaged default %j', (value) => {
+    expect(resolveDesktopUpdateFeedOverride(value)).toBeUndefined()
+  })
+  it.each(['ftp://x/feed', 'http://192.168.1.2/feed', 'https://user:pass@x/feed', 'https://x/feed?token=1', 'https://x/feed#frag', 'not a url'])
+  ('rejects insecure or credential-bearing feed %s', (value) => {
+    expect(() => resolveDesktopUpdateFeedOverride(value)).toThrow()
+  })
+})
 
 describe('desktop update coordinator', () => {
   it.each(['stop-failed', 'fullscreen-timeout'] as const)('keeps safe %s diagnostics separate and clears them on an explicit retry', async (kind) => {

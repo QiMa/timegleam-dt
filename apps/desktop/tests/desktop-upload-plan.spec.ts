@@ -37,7 +37,7 @@ function digest(contents: string): string {
 async function fixture(
   target: DesktopPackageTargetName,
   version = '1.2.3',
-  environment: 'test' | 'production' = 'test',
+  environment: 'test' | 'production' | 'airgap' = 'test',
   channel: 'nightly' | 'latest' = 'nightly',
 ): Promise<Fixture> {
   const root = await mkdtemp(join(tmpdir(), 'dsh-desktop-upload-'))
@@ -53,14 +53,17 @@ async function fixture(
   const base = `huayu-ai-${version}-${os}-${arch}`
   const origin = environment === 'test'
     ? TEST_ORIGIN
-    : 'https://lanhc.com/lanhc'
+    : environment === 'airgap'
+      ? 'https://lanhc.com/lanhc/airgap'
+      : 'https://lanhc.com/lanhc'
+  const airgapPrefix = environment === 'airgap' ? 'huayu-ai/' : ''
   await writeFile(join(artifactsRoot, `${target}-release.json`), `${JSON.stringify({
     schemaVersion: 1,
     channel,
     target,
     version,
     environment,
-    publicUrl: `${origin}/dsh-desk/${environment === 'test' ? `${RELEASE_ID}/` : ''}feeds/${target}/`,
+    publicUrl: `${origin}/${airgapPrefix}dsh-desk/${environment === 'test' ? `${RELEASE_ID}/` : ''}feeds/${target}/`,
   })}\n`)
 
   if (os === 'mac') {
@@ -101,10 +104,16 @@ async function fixture(
         DOWNLOAD_TEST_RELEASE_ID: RELEASE_ID,
         DOWNLOAD_TEST_COS_BUCKET: TEST_BUCKET,
       }
-      : {
-        DSH_DESKTOP_UPDATE_CHANNEL: channel,
-        DSH_DESKTOP_AUTO_UPDATE_ENV: 'production',
-      },
+      : environment === 'airgap'
+        ? {
+          DSH_DESKTOP_UPDATE_CHANNEL: channel,
+          DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap',
+          AIRGAP_BASE_URL: 'https://lanhc.com/lanhc/airgap',
+        }
+        : {
+          DSH_DESKTOP_UPDATE_CHANNEL: channel,
+          DSH_DESKTOP_AUTO_UPDATE_ENV: 'production',
+        },
   }
 }
 
@@ -116,6 +125,20 @@ afterEach(async () => {
 })
 
 describe('desktop upload plan', () => {
+
+  it('stages airgap feeds under the huayu-ai prefix with a fixed AirGap base URL', async () => {
+    const paths = await fixture('win-x64', '1.2.3', 'airgap')
+    const plan = await createDesktopUploadPlan('win-x64', paths)
+    expect(plan).toMatchObject({
+      environment: 'airgap',
+      publicUrl: 'https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/',
+      transport: 'static',
+      staticHost: 'baizor',
+      staticRemoteRoot: '/lucky/airgap/data/public',
+    })
+    expect(plan.artifacts.map(artifact => artifact.key)).toContain('huayu-ai/dsh-desk/feeds/win-x64/nightly.yml')
+  })
+
   it('uploads only the selected latest installer to each deployment through its transport', async () => {
     const published = []
     for (const environment of ['production', 'test'] as const) {

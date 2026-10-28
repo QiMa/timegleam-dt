@@ -48,6 +48,41 @@ node --input-type=module -e "import { randomBytes } from 'node:crypto'; console.
 
 Distribute each test batch through its complete download links. Installed test clients retain their batch feed and do not discover a new ID automatically. Format validation cannot establish randomness; use the generator output. Random paths reduce guessing, not access by link holders; withdrawing a batch requires deleting its COS objects and purging its CDN directory.
 
+<a id="airgap"></a>
+
+## AirGap closed-network deployment
+
+AirGap is the in-network update repository for closed environments. Desktop publishes update feeds and installers directly to `/lucky/airgap/data/public` on baizor when `DSH_DESKTOP_AUTO_UPDATE_ENV=airgap`; clients override the baked-in feed with `DSH_DESKTOP_UPDATE_FEED_URL` and then check, download, and install fully offline.
+
+- Both packaging and upload read `AIRGAP_BASE_URL`, the AirGap public URL reachable from clients, including a base path such as `https://lanhc.com/lanhc/airgap`
+- Feeds land at `huayu-ai/dsh-desk/feeds/<target>/` and binaries at `huayu-ai/dsh-desk/bin/<target>/`; the whole tree is served by AirGap's `/repo/<path>`
+- Closed-network clients set `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/` (Windows x64), `/mac-arm64/`, or `/mac-x64/`, or the in-network `http://<airgap-host>:8001/repo/...`
+- The `airgap` deployment embeds no mandatory-update policy and never calls the feishu/production policy services
+- Cross-gap transport: pack a signed `.airgap` bundle on the online side with `/api/pack`, carry it across, then `/api/import` verifies the signature before merging
+
+**Build (online side)**
+
+```sh
+DSH_DESKTOP_AUTO_UPDATE_ENV=airgap AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
+pnpm run upload:win:x64
+```
+
+The uploader `scp`s artifacts to `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...`; no COS credentials are required.
+
+**Client (closed-network side)**
+
+```sh
+# PowerShell
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/'
+# or in-network loopback (http is allowed only for 127.0.0.1/localhost)
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-ai/dsh-desk/feeds/win-x64/'
+```
+
+```sh
+# Linux
+export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/linux-x64/'
+```
+
 <a id="publish-feeds"></a>
 
 ## Publish installers and update feeds

@@ -201,7 +201,7 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
       ? httpsBaseUrl(requiredEnvironmentValue(env, originEnvName), originEnvName)
       : httpsOrigin(requiredEnvironmentValue(env, originEnvName), originEnvName)
   }
-  let releasePrefix = 'dsh-desk'
+  let releasePrefix = environment === 'airgap' ? 'huayu-ai/dsh-desk' : 'dsh-desk'
   if (environment === 'test') {
     const releaseId = requiredEnvironmentValue(env, 'DOWNLOAD_TEST_RELEASE_ID')
     if (!/^[a-f0-9]{32}$/u.test(releaseId)) {
