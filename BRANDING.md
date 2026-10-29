@@ -9,7 +9,7 @@
 ## Namespace
 
 - npm scope：`@hy`
-- 当前品牌包：`@hy/huayu-extension`
+- 当前品牌包：`@hy/dsh-experimental-huayu-cadcraft`（由 `@hy/huayu-extension` 迁移而来）
 
 ## Logo
 

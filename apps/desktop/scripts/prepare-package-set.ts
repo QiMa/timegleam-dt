@@ -30,8 +30,6 @@ import { desktopTargetPlatform, resolveDesktopBuildTarget, resolveDesktopTargetB
 const DSH_PACKAGE = '@hy/dsh'
 const ROOT_PACKAGES = [DSH_PACKAGE, DESKTOP_HOST_PACKAGE] as const
 
-/** Huayu AI extension packed from the sibling checkout; absent upstream, the closure simply skips it. */
-const HUAYU_EXTENSION_PACKAGE = '@hy/huayu-extension'
 const APP_ROOT = resolve(import.meta.dirname, '..')
 const REPOSITORY_ROOT = resolve(APP_ROOT, '..', '..')
 
@@ -99,8 +97,6 @@ export function selectDesktopPackageClosure(
     }
   }
   for (const name of ROOT_PACKAGES) {
-    // Carry the Huayu AI extension whenever the packaging step packed it beside dsh.
-    if (available.has(HUAYU_EXTENSION_PACKAGE)) visit(HUAYU_EXTENSION_PACKAGE)
     if (!available.has(name)) throw new Error(`desktop package set: packed inputs omit ${name}`)
     visit(name)
   }

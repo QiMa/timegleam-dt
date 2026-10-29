@@ -10,7 +10,7 @@ Both language versions of this file are GENERATED from source (`scripts/gen-conf
 Each package entry labels its data with three identifiers: `inject` lists the service keys the plugin injects, so its `cordis.yml` tree must also load providers for those services; `refs` lists the referenced types that are not pasted here; `source` links the file that declares the config. Scope is the harness tier (`packages/`); the vendored cordis plugins a config tree may also load (the console logger, …) are pinned upstream source ([vendoring policy](../vendor/README.md)) and not catalogued here.
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-acp -->
-<a id="deepseek-aidsh-acp"></a>
+<a id="hydsh-acp"></a>
 
 ## `@hy/dsh-acp`
 
@@ -34,7 +34,7 @@ export interface AcpConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-acp -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-action-cards -->
-<a id="deepseek-aidsh-action-cards"></a>
+<a id="hydsh-action-cards"></a>
 
 ## `@hy/dsh-action-cards`
 
@@ -49,7 +49,7 @@ export type Config = z.infer<typeof Config>
 <!-- END GENERATED config-catalog:@hy/dsh-action-cards -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-agent-default-model -->
-<a id="deepseek-aidsh-agent-default-model"></a>
+<a id="hydsh-agent-default-model"></a>
 
 ## `@hy/dsh-agent-default-model`
 
@@ -70,7 +70,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-agent-default-model -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-agent-instructions -->
-<a id="deepseek-aidsh-agent-instructions"></a>
+<a id="hydsh-agent-instructions"></a>
 
 ## `@hy/dsh-agent-instructions`
 
@@ -105,7 +105,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-agent-instructions -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-agent-loop -->
-<a id="deepseek-aidsh-agent-loop"></a>
+<a id="hydsh-agent-loop"></a>
 
 ## `@hy/dsh-agent-loop`
 
@@ -137,7 +137,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-agent-loop -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-agent-preset -->
-<a id="deepseek-aidsh-agent-preset"></a>
+<a id="hydsh-agent-preset"></a>
 
 ## `@hy/dsh-agent-preset`
 
@@ -152,7 +152,7 @@ export type Config = PresetDefinition
 <!-- END GENERATED config-catalog:@hy/dsh-agent-preset -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-agent-preset-registry -->
-<a id="deepseek-aidsh-agent-preset-registry"></a>
+<a id="hydsh-agent-preset-registry"></a>
 
 ## `@hy/dsh-agent-preset-registry`
 
@@ -172,7 +172,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-agent-preset-registry -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-agent-tool-presentation -->
-<a id="deepseek-aidsh-agent-tool-presentation"></a>
+<a id="hydsh-agent-tool-presentation"></a>
 
 ## `@hy/dsh-agent-tool-presentation`
 
@@ -198,7 +198,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-agent-tool-presentation -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-gateway -->
-<a id="deepseek-aidsh-api-gateway"></a>
+<a id="hydsh-api-gateway"></a>
 
 ## `@hy/dsh-api-gateway`
 
@@ -219,7 +219,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-api-gateway -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-job-controller -->
-<a id="deepseek-aidsh-api-job-controller"></a>
+<a id="hydsh-api-job-controller"></a>
 
 ## `@hy/dsh-api-job-controller`
 
@@ -238,7 +238,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-api-job-controller -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-session-controller -->
-<a id="deepseek-aidsh-api-session-controller"></a>
+<a id="hydsh-api-session-controller"></a>
 
 ## `@hy/dsh-api-session-controller`
 
@@ -257,7 +257,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-api-session-controller -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-settings-controller -->
-<a id="deepseek-aidsh-api-settings-controller"></a>
+<a id="hydsh-api-settings-controller"></a>
 
 ## `@hy/dsh-api-settings-controller`
 
@@ -273,7 +273,7 @@ export interface SettingsControllerInternals {
 <!-- END GENERATED config-catalog:@hy/dsh-api-settings-controller -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-terminal-controller -->
-<a id="deepseek-aidsh-api-terminal-controller"></a>
+<a id="hydsh-api-terminal-controller"></a>
 
 ## `@hy/dsh-api-terminal-controller`
 
@@ -319,7 +319,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-api-terminal-controller -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-workspace-controller -->
-<a id="deepseek-aidsh-api-workspace-controller"></a>
+<a id="hydsh-api-workspace-controller"></a>
 
 ## `@hy/dsh-api-workspace-controller`
 
@@ -338,7 +338,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-api-workspace-controller -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-api-workspace-files -->
-<a id="deepseek-aidsh-api-workspace-files"></a>
+<a id="hydsh-api-workspace-files"></a>
 
 ## `@hy/dsh-api-workspace-files`
 
@@ -367,7 +367,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-api-workspace-files -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-attachment-local -->
-<a id="deepseek-aidsh-attachment-local"></a>
+<a id="hydsh-attachment-local"></a>
 
 ## `@hy/dsh-attachment-local`
 
@@ -404,7 +404,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-attachment-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-bash-local -->
-<a id="deepseek-aidsh-bash-local"></a>
+<a id="hydsh-bash-local"></a>
 
 ## `@hy/dsh-bash-local`
 
@@ -432,12 +432,12 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-bash-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-bash-sandbox -->
-<a id="deepseek-aidsh-bash-sandbox"></a>
+<a id="hydsh-bash-sandbox"></a>
 
 ## `@hy/dsh-bash-sandbox`
 
 - `inject`: `subprocess` · `sandbox` · `sandboxPolicy`
-- `refs`: [`LocalConfig`](#deepseek-aidsh-bash-local)
+- `refs`: [`LocalConfig`](#hydsh-bash-local)
 - `source`: [`packages/shell/bash-sandbox/src/index.ts:36`](../packages/shell/bash-sandbox/src/index.ts)
 
 ```ts config-catalog
@@ -453,7 +453,7 @@ export type Config = LocalConfig
 <!-- END GENERATED config-catalog:@hy/dsh-bash-sandbox -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-connection -->
-<a id="deepseek-aidsh-client-connection"></a>
+<a id="hydsh-client-connection"></a>
 
 ## `@hy/dsh-client-connection`
 
@@ -498,7 +498,7 @@ export interface ConnectionRecoveryConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-client-connection -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-hmr -->
-<a id="deepseek-aidsh-client-hmr"></a>
+<a id="hydsh-client-hmr"></a>
 
 ## `@hy/dsh-client-hmr`
 
@@ -515,7 +515,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-hmr -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-product-analytics -->
-<a id="deepseek-aidsh-client-product-analytics"></a>
+<a id="hydsh-client-product-analytics"></a>
 
 ## `@hy/dsh-client-product-analytics`
 
@@ -539,7 +539,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-product-analytics -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-shortcuts -->
-<a id="deepseek-aidsh-client-shortcuts"></a>
+<a id="hydsh-client-shortcuts"></a>
 
 ## `@hy/dsh-client-shortcuts`
 
@@ -555,7 +555,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-shortcuts -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-ui-plugin-manager -->
-<a id="deepseek-aidsh-client-ui-plugin-manager"></a>
+<a id="hydsh-client-ui-plugin-manager"></a>
 
 ## `@hy/dsh-client-ui-plugin-manager`
 
@@ -575,7 +575,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-ui-plugin-manager -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-ui-settings-account -->
-<a id="deepseek-aidsh-client-ui-settings-account"></a>
+<a id="hydsh-client-ui-settings-account"></a>
 
 ## `@hy/dsh-client-ui-settings-account`
 
@@ -625,7 +625,7 @@ export type OnboardingProcess = 'compact' | 'standard' | 'detailed'
 <!-- END GENERATED config-catalog:@hy/dsh-client-ui-settings-account -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-ui-settings-models -->
-<a id="deepseek-aidsh-client-ui-settings-models"></a>
+<a id="hydsh-client-ui-settings-models"></a>
 
 ## `@hy/dsh-client-ui-settings-models`
 
@@ -641,7 +641,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-ui-settings-models -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-ui-sidebar-documentpreview -->
-<a id="deepseek-aidsh-client-ui-sidebar-documentpreview"></a>
+<a id="hydsh-client-ui-sidebar-documentpreview"></a>
 
 ## `@hy/dsh-client-ui-sidebar-documentpreview`
 
@@ -675,7 +675,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-ui-sidebar-documentpreview -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-ui-theme -->
-<a id="deepseek-aidsh-client-ui-theme"></a>
+<a id="hydsh-client-ui-theme"></a>
 
 ## `@hy/dsh-client-ui-theme`
 
@@ -707,7 +707,7 @@ export type ThemePreference = typeof THEME_PREFERENCES[number]
 <!-- END GENERATED config-catalog:@hy/dsh-client-ui-theme -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-client-ui-trajectory -->
-<a id="deepseek-aidsh-client-ui-trajectory"></a>
+<a id="hydsh-client-ui-trajectory"></a>
 
 ## `@hy/dsh-client-ui-trajectory`
 
@@ -724,7 +724,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-client-ui-trajectory -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-compaction-basic -->
-<a id="deepseek-aidsh-compaction-basic"></a>
+<a id="hydsh-compaction-basic"></a>
 
 ## `@hy/dsh-compaction-basic`
 
@@ -773,7 +773,7 @@ export interface ModelCompactPolicyConfig extends CompactionPolicyConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-compaction-basic -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-compaction-tool-result-pruner -->
-<a id="deepseek-aidsh-compaction-tool-result-pruner"></a>
+<a id="hydsh-compaction-tool-result-pruner"></a>
 
 ## `@hy/dsh-compaction-tool-result-pruner`
 
@@ -794,7 +794,7 @@ export interface ToolResultPruneConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-compaction-tool-result-pruner -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-cordis-host-runner -->
-<a id="deepseek-aidsh-cordis-host-runner"></a>
+<a id="hydsh-cordis-host-runner"></a>
 
 ## `@hy/dsh-cordis-host-runner`
 
@@ -813,7 +813,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-cordis-host-runner -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-credentials-local -->
-<a id="deepseek-aidsh-credentials-local"></a>
+<a id="hydsh-credentials-local"></a>
 
 ## `@hy/dsh-credentials-local`
 
@@ -835,7 +835,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-credentials-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-deepseek-account-platform -->
-<a id="deepseek-aidsh-deepseek-account-platform"></a>
+<a id="hydsh-deepseek-account-platform"></a>
 
 ## `@hy/dsh-deepseek-account-platform`
 
@@ -876,7 +876,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-deepseek-account-platform -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-agent-team -->
-<a id="deepseek-aidsh-experimental-agent-team"></a>
+<a id="hydsh-experimental-agent-team"></a>
 
 ## `@hy/dsh-experimental-agent-team`
 
@@ -899,7 +899,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-agent-team -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-api-speech-to-text -->
-<a id="deepseek-aidsh-experimental-api-speech-to-text"></a>
+<a id="hydsh-experimental-api-speech-to-text"></a>
 
 ## `@hy/dsh-experimental-api-speech-to-text`
 
@@ -918,7 +918,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-api-speech-to-text -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-browser-use-chrome-devtools-mcp -->
-<a id="deepseek-aidsh-experimental-browser-use-chrome-devtools-mcp"></a>
+<a id="hydsh-experimental-browser-use-chrome-devtools-mcp"></a>
 
 ## `@hy/dsh-experimental-browser-use-chrome-devtools-mcp`
 
@@ -933,7 +933,7 @@ export type Config = BrowserMcpConfig
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-browser-use-chrome-devtools-mcp -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-browser-use-playwright-mcp -->
-<a id="deepseek-aidsh-experimental-browser-use-playwright-mcp"></a>
+<a id="hydsh-experimental-browser-use-playwright-mcp"></a>
 
 ## `@hy/dsh-experimental-browser-use-playwright-mcp`
 
@@ -948,7 +948,7 @@ export type Config = BrowserMcpConfig
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-browser-use-playwright-mcp -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-browser-use-stagehand-native -->
-<a id="deepseek-aidsh-experimental-browser-use-stagehand-native"></a>
+<a id="hydsh-experimental-browser-use-stagehand-native"></a>
 
 ## `@hy/dsh-experimental-browser-use-stagehand-native`
 
@@ -990,7 +990,7 @@ export interface StagehandModelConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-browser-use-stagehand-native -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-claude-code-mods -->
-<a id="deepseek-aidsh-experimental-claude-code-mods"></a>
+<a id="hydsh-experimental-claude-code-mods"></a>
 
 ## `@hy/dsh-experimental-claude-code-mods`
 
@@ -1017,7 +1017,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-claude-code-mods -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-client-ui-cot-translation -->
-<a id="deepseek-aidsh-experimental-client-ui-cot-translation"></a>
+<a id="hydsh-experimental-client-ui-cot-translation"></a>
 
 ## `@hy/dsh-experimental-client-ui-cot-translation`
 
@@ -1045,7 +1045,7 @@ export interface CotTranslationPreferences {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-client-ui-cot-translation -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-client-ui-forge -->
-<a id="deepseek-aidsh-experimental-client-ui-forge"></a>
+<a id="hydsh-experimental-client-ui-forge"></a>
 
 ## `@hy/dsh-experimental-client-ui-forge`
 
@@ -1083,7 +1083,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-client-ui-forge -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-computer-use-cua-driver-mcp -->
-<a id="deepseek-aidsh-experimental-computer-use-cua-driver-mcp"></a>
+<a id="hydsh-experimental-computer-use-cua-driver-mcp"></a>
 
 ## `@hy/dsh-experimental-computer-use-cua-driver-mcp`
 
@@ -1107,7 +1107,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-computer-use-cua-driver-mcp -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-cua-macos -->
-<a id="deepseek-aidsh-experimental-cua-macos"></a>
+<a id="hydsh-experimental-cua-macos"></a>
 
 ## `@hy/dsh-experimental-cua-macos`
 
@@ -1122,7 +1122,7 @@ export type Config = CuaConfig
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-cua-macos -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-forge -->
-<a id="deepseek-aidsh-experimental-forge"></a>
+<a id="hydsh-experimental-forge"></a>
 
 ## `@hy/dsh-experimental-forge`
 
@@ -1144,7 +1144,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-forge -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-forge-github -->
-<a id="deepseek-aidsh-experimental-forge-github"></a>
+<a id="hydsh-experimental-forge-github"></a>
 
 ## `@hy/dsh-experimental-forge-github`
 
@@ -1167,7 +1167,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-forge-github -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-forge-session -->
-<a id="deepseek-aidsh-experimental-forge-session"></a>
+<a id="hydsh-experimental-forge-session"></a>
 
 ## `@hy/dsh-experimental-forge-session`
 
@@ -1183,8 +1183,29 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-forge-session -->
 
+<!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-huayu-cadcraft -->
+<a id="hydsh-experimental-huayu-cadcraft"></a>
+
+## `@hy/dsh-experimental-huayu-cadcraft`
+
+- `inject`: `webServer` · `workspaceRegistry`
+- `source`: [`packages/experimental/huayu-cadcraft/src/index.ts:31`](../packages/experimental/huayu-cadcraft/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: where the CADCraft dist lives and the URL prefix it is served under. */
+export interface Config {
+  /** Absolute path of index.html inside the CADCraft web dist root; empty serves the package's bundled assets/web. */
+  distIndex: string
+  /** URL prefix the dist is served under, without trailing slash. */
+  mountPath: string
+  /** Directory that new CADCraft projects are created under; empty falls back to the DSH home. */
+  projectsRoot: string
+}
+```
+<!-- END GENERATED config-catalog:@hy/dsh-experimental-huayu-cadcraft -->
+
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-inspector -->
-<a id="deepseek-aidsh-experimental-inspector"></a>
+<a id="hydsh-experimental-inspector"></a>
 
 ## `@hy/dsh-experimental-inspector`
 
@@ -1253,7 +1274,7 @@ export interface InspectorOptions {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-inspector -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-ptc-runtime-python -->
-<a id="deepseek-aidsh-experimental-ptc-runtime-python"></a>
+<a id="hydsh-experimental-ptc-runtime-python"></a>
 
 ## `@hy/dsh-experimental-ptc-runtime-python`
 
@@ -1322,7 +1343,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-ptc-runtime-python -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-speech-to-text -->
-<a id="deepseek-aidsh-experimental-speech-to-text"></a>
+<a id="hydsh-experimental-speech-to-text"></a>
 
 ## `@hy/dsh-experimental-speech-to-text`
 
@@ -1341,7 +1362,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-speech-to-text -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-speech-to-text-sensevoice -->
-<a id="deepseek-aidsh-experimental-speech-to-text-sensevoice"></a>
+<a id="hydsh-experimental-speech-to-text-sensevoice"></a>
 
 ## `@hy/dsh-experimental-speech-to-text-sensevoice`
 
@@ -1402,7 +1423,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-speech-to-text-sensevoice -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-subagent-oar -->
-<a id="deepseek-aidsh-experimental-subagent-oar"></a>
+<a id="hydsh-experimental-subagent-oar"></a>
 
 ## `@hy/dsh-experimental-subagent-oar`
 
@@ -1431,7 +1452,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-subagent-oar -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-tool-agent-team -->
-<a id="deepseek-aidsh-experimental-tool-agent-team"></a>
+<a id="hydsh-experimental-tool-agent-team"></a>
 
 ## `@hy/dsh-experimental-tool-agent-team`
 
@@ -1452,7 +1473,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-tool-agent-team -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-tool-subagent-oar -->
-<a id="deepseek-aidsh-experimental-tool-subagent-oar"></a>
+<a id="hydsh-experimental-tool-subagent-oar"></a>
 
 ## `@hy/dsh-experimental-tool-subagent-oar`
 
@@ -1471,7 +1492,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-tool-subagent-oar -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-translator -->
-<a id="deepseek-aidsh-experimental-translator"></a>
+<a id="hydsh-experimental-translator"></a>
 
 ## `@hy/dsh-experimental-translator`
 
@@ -1510,7 +1531,7 @@ export type PaidTranslationProvider = 'deepseek-account' | 'deepseek-official'
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-translator -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-experimental-worktree -->
-<a id="deepseek-aidsh-experimental-worktree"></a>
+<a id="hydsh-experimental-worktree"></a>
 
 ## `@hy/dsh-experimental-worktree`
 
@@ -1539,7 +1560,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-experimental-worktree -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-file-reference-local -->
-<a id="deepseek-aidsh-file-reference-local"></a>
+<a id="hydsh-file-reference-local"></a>
 
 ## `@hy/dsh-file-reference-local`
 
@@ -1560,7 +1581,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-file-reference-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-fs-local -->
-<a id="deepseek-aidsh-fs-local"></a>
+<a id="hydsh-fs-local"></a>
 
 ## `@hy/dsh-fs-local`
 
@@ -1581,12 +1602,12 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-fs-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-fs-sandbox -->
-<a id="deepseek-aidsh-fs-sandbox"></a>
+<a id="hydsh-fs-sandbox"></a>
 
 ## `@hy/dsh-fs-sandbox`
 
 - `inject`: `sandboxPolicy`
-- `refs`: [`LocalConfig`](#deepseek-aidsh-fs-local)
+- `refs`: [`LocalConfig`](#hydsh-fs-local)
 - `source`: [`packages/fs/fs-sandbox/src/index.ts:45`](../packages/fs/fs-sandbox/src/index.ts)
 
 ```ts config-catalog
@@ -1601,7 +1622,7 @@ export type Config = LocalConfig
 <!-- END GENERATED config-catalog:@hy/dsh-fs-sandbox -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-goal -->
-<a id="deepseek-aidsh-goal"></a>
+<a id="hydsh-goal"></a>
 
 ## `@hy/dsh-goal`
 
@@ -1618,7 +1639,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-goal -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-headless -->
-<a id="deepseek-aidsh-headless"></a>
+<a id="hydsh-headless"></a>
 
 ## `@hy/dsh-headless`
 
@@ -1644,7 +1665,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-headless -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-hmr -->
-<a id="deepseek-aidsh-hmr"></a>
+<a id="hydsh-hmr"></a>
 
 ## `@hy/dsh-hmr`
 
@@ -1667,7 +1688,7 @@ export interface HmrConfig extends ChokidarOptions {
 <!-- END GENERATED config-catalog:@hy/dsh-hmr -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-hooks-claude-code -->
-<a id="deepseek-aidsh-hooks-claude-code"></a>
+<a id="hydsh-hooks-claude-code"></a>
 
 ## `@hy/dsh-hooks-claude-code`
 
@@ -1706,7 +1727,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-hooks-claude-code -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-hooks-codex -->
-<a id="deepseek-aidsh-hooks-codex"></a>
+<a id="hydsh-hooks-codex"></a>
 
 ## `@hy/dsh-hooks-codex`
 
@@ -1734,7 +1755,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-hooks-codex -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-host-directory-picker-browse -->
-<a id="deepseek-aidsh-host-directory-picker-browse"></a>
+<a id="hydsh-host-directory-picker-browse"></a>
 
 ## `@hy/dsh-host-directory-picker-browse`
 
@@ -1750,7 +1771,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-host-directory-picker-browse -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-host-frontend-static -->
-<a id="deepseek-aidsh-host-frontend-static"></a>
+<a id="hydsh-host-frontend-static"></a>
 
 ## `@hy/dsh-host-frontend-static`
 
@@ -1767,7 +1788,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-host-frontend-static -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-host-open-in-app -->
-<a id="deepseek-aidsh-host-open-in-app"></a>
+<a id="hydsh-host-open-in-app"></a>
 
 ## `@hy/dsh-host-open-in-app`
 
@@ -1799,7 +1820,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-host-open-in-app -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-host-product-telemetry-otel -->
-<a id="deepseek-aidsh-host-product-telemetry-otel"></a>
+<a id="hydsh-host-product-telemetry-otel"></a>
 
 ## `@hy/dsh-host-product-telemetry-otel`
 
@@ -1836,7 +1857,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-host-product-telemetry-otel -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-host-webserver -->
-<a id="deepseek-aidsh-host-webserver"></a>
+<a id="hydsh-host-webserver"></a>
 
 ## `@hy/dsh-host-webserver`
 
@@ -1889,7 +1910,7 @@ export interface TlsConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-host-webserver -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-jobs-local -->
-<a id="deepseek-aidsh-jobs-local"></a>
+<a id="hydsh-jobs-local"></a>
 
 ## `@hy/dsh-jobs-local`
 
@@ -1918,7 +1939,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-jobs-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-llm-deepseek-account -->
-<a id="deepseek-aidsh-llm-deepseek-account"></a>
+<a id="hydsh-llm-deepseek-account"></a>
 
 ## `@hy/dsh-llm-deepseek-account`
 
@@ -1936,7 +1957,7 @@ export interface Config extends Omit<ProtocolConfig, 'models'>, ModelListingConf
 <!-- END GENERATED config-catalog:@hy/dsh-llm-deepseek-account -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-llm-deepseek-api-key -->
-<a id="deepseek-aidsh-llm-deepseek-api-key"></a>
+<a id="hydsh-llm-deepseek-api-key"></a>
 
 ## `@hy/dsh-llm-deepseek-api-key`
 
@@ -1954,7 +1975,7 @@ export interface Config extends ProtocolConfig, ModelListingConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-llm-deepseek-api-key -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-llm-pi-ai -->
-<a id="deepseek-aidsh-llm-pi-ai"></a>
+<a id="hydsh-llm-pi-ai"></a>
 
 ## `@hy/dsh-llm-pi-ai`
 
@@ -2229,7 +2250,7 @@ export type PiAiThinkingTokenBudgetField = NonNullable<OpenAICompletionsCompat['
 <!-- END GENERATED config-catalog:@hy/dsh-llm-pi-ai -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-llm-replay -->
-<a id="deepseek-aidsh-llm-replay"></a>
+<a id="hydsh-llm-replay"></a>
 
 ## `@hy/dsh-llm-replay`
 
@@ -2312,7 +2333,7 @@ export interface ReplayModelConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-llm-replay -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-llm-retry -->
-<a id="deepseek-aidsh-llm-retry"></a>
+<a id="hydsh-llm-retry"></a>
 
 ## `@hy/dsh-llm-retry`
 
@@ -2326,7 +2347,7 @@ export type Config = Readonly<Record<string, never>>
 <!-- END GENERATED config-catalog:@hy/dsh-llm-retry -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-lsp-stdio -->
-<a id="deepseek-aidsh-lsp-stdio"></a>
+<a id="hydsh-lsp-stdio"></a>
 
 ## `@hy/dsh-lsp-stdio`
 
@@ -2369,7 +2390,7 @@ export interface LspLocalServerConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-lsp-stdio -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-mcp-client -->
-<a id="deepseek-aidsh-mcp-client"></a>
+<a id="hydsh-mcp-client"></a>
 
 ## `@hy/dsh-mcp-client`
 
@@ -2447,7 +2468,7 @@ export interface ReconnectConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-mcp-client -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-message-feedback -->
-<a id="deepseek-aidsh-message-feedback"></a>
+<a id="hydsh-message-feedback"></a>
 
 ## `@hy/dsh-message-feedback`
 
@@ -2464,7 +2485,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-message-feedback -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-office-to-pdf -->
-<a id="deepseek-aidsh-office-to-pdf"></a>
+<a id="hydsh-office-to-pdf"></a>
 
 ## `@hy/dsh-office-to-pdf`
 
@@ -2516,7 +2537,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-office-to-pdf -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-permission-presets -->
-<a id="deepseek-aidsh-permission-presets"></a>
+<a id="hydsh-permission-presets"></a>
 
 ## `@hy/dsh-permission-presets`
 
@@ -2556,7 +2577,7 @@ export interface PresetSpec {
 <!-- END GENERATED config-catalog:@hy/dsh-permission-presets -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-persona -->
-<a id="deepseek-aidsh-persona"></a>
+<a id="hydsh-persona"></a>
 
 ## `@hy/dsh-persona`
 
@@ -2586,7 +2607,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-persona -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-plan-mode -->
-<a id="deepseek-aidsh-plan-mode"></a>
+<a id="hydsh-plan-mode"></a>
 
 ## `@hy/dsh-plan-mode`
 
@@ -2603,7 +2624,7 @@ export interface PlanModeConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-plan-mode -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-plugin-manager -->
-<a id="deepseek-aidsh-plugin-manager"></a>
+<a id="hydsh-plugin-manager"></a>
 
 ## `@hy/dsh-plugin-manager`
 
@@ -2653,7 +2674,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-plugin-manager -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-plugin-market -->
-<a id="deepseek-aidsh-plugin-market"></a>
+<a id="hydsh-plugin-market"></a>
 
 ## `@hy/dsh-plugin-market`
 
@@ -2693,7 +2714,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-plugin-market -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-plugin-package-inventory-deepseek -->
-<a id="deepseek-aidsh-plugin-package-inventory-deepseek"></a>
+<a id="hydsh-plugin-package-inventory-deepseek"></a>
 
 ## `@hy/dsh-plugin-package-inventory-deepseek`
 
@@ -2710,7 +2731,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-plugin-package-inventory-deepseek -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-ptc-runtime-node -->
-<a id="deepseek-aidsh-ptc-runtime-node"></a>
+<a id="hydsh-ptc-runtime-node"></a>
 
 ## `@hy/dsh-ptc-runtime-node`
 
@@ -2760,7 +2781,7 @@ export type LaunchConfig = {
 <!-- END GENERATED config-catalog:@hy/dsh-ptc-runtime-node -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-pwsh-local -->
-<a id="deepseek-aidsh-pwsh-local"></a>
+<a id="hydsh-pwsh-local"></a>
 
 ## `@hy/dsh-pwsh-local`
 
@@ -2795,12 +2816,12 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-pwsh-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-pwsh-sandbox -->
-<a id="deepseek-aidsh-pwsh-sandbox"></a>
+<a id="hydsh-pwsh-sandbox"></a>
 
 ## `@hy/dsh-pwsh-sandbox`
 
 - `inject`: `subprocess` · `sandbox` · `sandboxPolicy`
-- `refs`: [`LocalConfig`](#deepseek-aidsh-pwsh-local)
+- `refs`: [`LocalConfig`](#hydsh-pwsh-local)
 - `source`: [`packages/shell/pwsh-sandbox/src/index.ts:40`](../packages/shell/pwsh-sandbox/src/index.ts)
 
 ```ts config-catalog
@@ -2817,7 +2838,7 @@ export type Config = LocalConfig
 <!-- END GENERATED config-catalog:@hy/dsh-pwsh-sandbox -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-repeat-tool-reminder -->
-<a id="deepseek-aidsh-repeat-tool-reminder"></a>
+<a id="hydsh-repeat-tool-reminder"></a>
 
 ## `@hy/dsh-repeat-tool-reminder`
 
@@ -2853,7 +2874,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-repeat-tool-reminder -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-sandbox-local -->
-<a id="deepseek-aidsh-sandbox-local"></a>
+<a id="hydsh-sandbox-local"></a>
 
 ## `@hy/dsh-sandbox-local`
 
@@ -2887,7 +2908,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-sandbox-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-sandbox-policy -->
-<a id="deepseek-aidsh-sandbox-policy"></a>
+<a id="hydsh-sandbox-policy"></a>
 
 ## `@hy/dsh-sandbox-policy`
 
@@ -2925,7 +2946,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-sandbox-policy -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-schedule -->
-<a id="deepseek-aidsh-schedule"></a>
+<a id="hydsh-schedule"></a>
 
 ## `@hy/dsh-schedule`
 
@@ -2950,7 +2971,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-schedule -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-sdk-app -->
-<a id="deepseek-aidsh-sdk-app"></a>
+<a id="hydsh-sdk-app"></a>
 
 ## `@hy/dsh-sdk-app`
 
@@ -2967,7 +2988,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-sdk-app -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-sdk-jsonrpc-server -->
-<a id="deepseek-aidsh-sdk-jsonrpc-server"></a>
+<a id="hydsh-sdk-jsonrpc-server"></a>
 
 ## `@hy/dsh-sdk-jsonrpc-server`
 
@@ -2991,7 +3012,7 @@ export interface JsonRpcConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-sdk-jsonrpc-server -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-log-deepseek -->
-<a id="deepseek-aidsh-session-log-deepseek"></a>
+<a id="hydsh-session-log-deepseek"></a>
 
 ## `@hy/dsh-session-log-deepseek`
 
@@ -3015,7 +3036,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-session-log-deepseek -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-log-export -->
-<a id="deepseek-aidsh-session-log-export"></a>
+<a id="hydsh-session-log-export"></a>
 
 ## `@hy/dsh-session-log-export`
 
@@ -3035,7 +3056,7 @@ export type SessionLogCompressionLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 <!-- END GENERATED config-catalog:@hy/dsh-session-log-export -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-persistence-jsonl -->
-<a id="deepseek-aidsh-session-persistence-jsonl"></a>
+<a id="hydsh-session-persistence-jsonl"></a>
 
 ## `@hy/dsh-session-persistence-jsonl`
 
@@ -3068,7 +3089,7 @@ export type JsonlCompression = 'zstd' | 'none'
 <!-- END GENERATED config-catalog:@hy/dsh-session-persistence-jsonl -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-projection-cache -->
-<a id="deepseek-aidsh-session-projection-cache"></a>
+<a id="hydsh-session-projection-cache"></a>
 
 ## `@hy/dsh-session-projection-cache`
 
@@ -3093,7 +3114,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-session-projection-cache -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-query-sqlite -->
-<a id="deepseek-aidsh-session-query-sqlite"></a>
+<a id="hydsh-session-query-sqlite"></a>
 
 ## `@hy/dsh-session-query-sqlite`
 
@@ -3141,7 +3162,7 @@ export type JournalMode = 'wal' | 'delete' | 'truncate' | 'persist'
 <!-- END GENERATED config-catalog:@hy/dsh-session-query-sqlite -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-reference -->
-<a id="deepseek-aidsh-session-reference"></a>
+<a id="hydsh-session-reference"></a>
 
 ## `@hy/dsh-session-reference`
 
@@ -3164,7 +3185,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-session-reference -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-telemetry-otel -->
-<a id="deepseek-aidsh-session-telemetry-otel"></a>
+<a id="hydsh-session-telemetry-otel"></a>
 
 ## `@hy/dsh-session-telemetry-otel`
 
@@ -3211,7 +3232,7 @@ export enum SessionTelemetryMode {
 <!-- END GENERATED config-catalog:@hy/dsh-session-telemetry-otel -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-title -->
-<a id="deepseek-aidsh-session-title"></a>
+<a id="hydsh-session-title"></a>
 
 ## `@hy/dsh-session-title`
 
@@ -3232,7 +3253,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-session-title -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-title-all-prompts-llm -->
-<a id="deepseek-aidsh-session-title-all-prompts-llm"></a>
+<a id="hydsh-session-title-all-prompts-llm"></a>
 
 ## `@hy/dsh-session-title-all-prompts-llm`
 
@@ -3252,7 +3273,7 @@ export interface Config extends SessionTitleLlmConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-session-title-all-prompts-llm -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-session-title-first-prompt-llm -->
-<a id="deepseek-aidsh-session-title-first-prompt-llm"></a>
+<a id="hydsh-session-title-first-prompt-llm"></a>
 
 ## `@hy/dsh-session-title-first-prompt-llm`
 
@@ -3272,7 +3293,7 @@ export interface Config extends SessionTitleLlmConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-session-title-first-prompt-llm -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-shell-env -->
-<a id="deepseek-aidsh-shell-env"></a>
+<a id="hydsh-shell-env"></a>
 
 ## `@hy/dsh-shell-env`
 
@@ -3288,7 +3309,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-shell-env -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-skill -->
-<a id="deepseek-aidsh-skill"></a>
+<a id="hydsh-skill"></a>
 
 ## `@hy/dsh-skill`
 
@@ -3304,7 +3325,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-skill -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-skill-filesystem -->
-<a id="deepseek-aidsh-skill-filesystem"></a>
+<a id="hydsh-skill-filesystem"></a>
 
 ## `@hy/dsh-skill-filesystem`
 
@@ -3343,7 +3364,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-skill-filesystem -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-skill-office -->
-<a id="deepseek-aidsh-skill-office"></a>
+<a id="hydsh-skill-office"></a>
 
 ## `@hy/dsh-skill-office`
 
@@ -3364,7 +3385,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-skill-office -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-spill-local -->
-<a id="deepseek-aidsh-spill-local"></a>
+<a id="hydsh-spill-local"></a>
 
 ## `@hy/dsh-spill-local`
 
@@ -3395,7 +3416,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-spill-local -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-spill-policy -->
-<a id="deepseek-aidsh-spill-policy"></a>
+<a id="hydsh-spill-policy"></a>
 
 ## `@hy/dsh-spill-policy`
 
@@ -3412,7 +3433,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-spill-policy -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-ssh -->
-<a id="deepseek-aidsh-ssh"></a>
+<a id="hydsh-ssh"></a>
 
 ## `@hy/dsh-ssh`
 
@@ -3459,7 +3480,7 @@ export type HelperLaunch = {
 <!-- END GENERATED config-catalog:@hy/dsh-ssh -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-storage-domain -->
-<a id="deepseek-aidsh-storage-domain"></a>
+<a id="hydsh-storage-domain"></a>
 
 ## `@hy/dsh-storage-domain`
 
@@ -3483,7 +3504,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-storage-domain -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-storage-json -->
-<a id="deepseek-aidsh-storage-json"></a>
+<a id="hydsh-storage-json"></a>
 
 ## `@hy/dsh-storage-json`
 
@@ -3505,7 +3526,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-storage-json -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-storage-sqlite -->
-<a id="deepseek-aidsh-storage-sqlite"></a>
+<a id="hydsh-storage-sqlite"></a>
 
 ## `@hy/dsh-storage-sqlite`
 
@@ -3546,7 +3567,7 @@ export type JournalMode = 'wal' | 'delete' | 'truncate' | 'persist'
 <!-- END GENERATED config-catalog:@hy/dsh-storage-sqlite -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent -->
-<a id="deepseek-aidsh-subagent"></a>
+<a id="hydsh-subagent"></a>
 
 ## `@hy/dsh-subagent`
 
@@ -3566,7 +3587,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-subagent -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent-acp -->
-<a id="deepseek-aidsh-subagent-acp"></a>
+<a id="hydsh-subagent-acp"></a>
 
 ## `@hy/dsh-subagent-acp`
 
@@ -3612,7 +3633,7 @@ export type PermissionPolicy = 'allow' | 'reject'
 <!-- END GENERATED config-catalog:@hy/dsh-subagent-acp -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent-claude-code -->
-<a id="deepseek-aidsh-subagent-claude-code"></a>
+<a id="hydsh-subagent-claude-code"></a>
 
 ## `@hy/dsh-subagent-claude-code`
 
@@ -3648,7 +3669,7 @@ export type ClaudeCodePermissionMode = typeof CLAUDE_CODE_PERMISSION_MODES[numbe
 <!-- END GENERATED config-catalog:@hy/dsh-subagent-claude-code -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent-codex -->
-<a id="deepseek-aidsh-subagent-codex"></a>
+<a id="hydsh-subagent-codex"></a>
 
 ## `@hy/dsh-subagent-codex`
 
@@ -3682,7 +3703,7 @@ export type CodexPermissionMode =
 <!-- END GENERATED config-catalog:@hy/dsh-subagent-codex -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent-dsh-sdk -->
-<a id="deepseek-aidsh-subagent-dsh-sdk"></a>
+<a id="hydsh-subagent-dsh-sdk"></a>
 
 ## `@hy/dsh-subagent-dsh-sdk`
 
@@ -3730,7 +3751,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-subagent-dsh-sdk -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent-fork-in-process -->
-<a id="deepseek-aidsh-subagent-fork-in-process"></a>
+<a id="hydsh-subagent-fork-in-process"></a>
 
 ## `@hy/dsh-subagent-fork-in-process`
 
@@ -3747,7 +3768,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-subagent-fork-in-process -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-subagent-spawn-in-process -->
-<a id="deepseek-aidsh-subagent-spawn-in-process"></a>
+<a id="hydsh-subagent-spawn-in-process"></a>
 
 ## `@hy/dsh-subagent-spawn-in-process`
 
@@ -3764,7 +3785,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-subagent-spawn-in-process -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-system-prompt -->
-<a id="deepseek-aidsh-system-prompt"></a>
+<a id="hydsh-system-prompt"></a>
 
 ## `@hy/dsh-system-prompt`
 
@@ -3798,7 +3819,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-system-prompt -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-terminal-bash -->
-<a id="deepseek-aidsh-terminal-bash"></a>
+<a id="hydsh-terminal-bash"></a>
 
 ## `@hy/dsh-terminal-bash`
 
@@ -3858,7 +3879,7 @@ export type ShellDialect = 'bash' | 'pwsh'
 <!-- END GENERATED config-catalog:@hy/dsh-terminal-bash -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-time-context -->
-<a id="deepseek-aidsh-time-context"></a>
+<a id="hydsh-time-context"></a>
 
 ## `@hy/dsh-time-context`
 
@@ -3877,7 +3898,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-time-context -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tmux-context -->
-<a id="deepseek-aidsh-tmux-context"></a>
+<a id="hydsh-tmux-context"></a>
 
 ## `@hy/dsh-tmux-context`
 
@@ -3894,7 +3915,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tmux-context -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-token-meter -->
-<a id="deepseek-aidsh-token-meter"></a>
+<a id="hydsh-token-meter"></a>
 
 ## `@hy/dsh-token-meter`
 
@@ -3908,7 +3929,7 @@ export type TokenMeterConfig = Record<string, never>
 <!-- END GENERATED config-catalog:@hy/dsh-token-meter -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-ask-user -->
-<a id="deepseek-aidsh-tool-ask-user"></a>
+<a id="hydsh-tool-ask-user"></a>
 
 ## `@hy/dsh-tool-ask-user`
 
@@ -3927,7 +3948,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-ask-user -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-bash -->
-<a id="deepseek-aidsh-tool-bash"></a>
+<a id="hydsh-tool-bash"></a>
 
 ## `@hy/dsh-tool-bash`
 
@@ -3957,7 +3978,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-bash -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-bash-persistent -->
-<a id="deepseek-aidsh-tool-bash-persistent"></a>
+<a id="hydsh-tool-bash-persistent"></a>
 
 ## `@hy/dsh-tool-bash-persistent`
 
@@ -3980,7 +4001,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-bash-persistent -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-executor-ptc -->
-<a id="deepseek-aidsh-tool-executor-ptc"></a>
+<a id="hydsh-tool-executor-ptc"></a>
 
 ## `@hy/dsh-tool-executor-ptc`
 
@@ -3997,7 +4018,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-executor-ptc -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-fs -->
-<a id="deepseek-aidsh-tool-fs"></a>
+<a id="hydsh-tool-fs"></a>
 
 ## `@hy/dsh-tool-fs`
 
@@ -4028,7 +4049,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-fs -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-fs-search -->
-<a id="deepseek-aidsh-tool-fs-search"></a>
+<a id="hydsh-tool-fs-search"></a>
 
 ## `@hy/dsh-tool-fs-search`
 
@@ -4064,7 +4085,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-fs-search -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-goal -->
-<a id="deepseek-aidsh-tool-goal"></a>
+<a id="hydsh-tool-goal"></a>
 
 ## `@hy/dsh-tool-goal`
 
@@ -4081,7 +4102,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-goal -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-jobs -->
-<a id="deepseek-aidsh-tool-jobs"></a>
+<a id="hydsh-tool-jobs"></a>
 
 ## `@hy/dsh-tool-jobs`
 
@@ -4125,7 +4146,7 @@ export type CompletionDelivery = 'quiet' | 'wakeup'
 <!-- END GENERATED config-catalog:@hy/dsh-tool-jobs -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-lsp -->
-<a id="deepseek-aidsh-tool-lsp"></a>
+<a id="hydsh-tool-lsp"></a>
 
 ## `@hy/dsh-tool-lsp`
 
@@ -4146,7 +4167,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-lsp -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-present -->
-<a id="deepseek-aidsh-tool-present"></a>
+<a id="hydsh-tool-present"></a>
 
 ## `@hy/dsh-tool-present`
 
@@ -4163,7 +4184,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-present -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-pwsh -->
-<a id="deepseek-aidsh-tool-pwsh"></a>
+<a id="hydsh-tool-pwsh"></a>
 
 ## `@hy/dsh-tool-pwsh`
 
@@ -4193,7 +4214,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-pwsh -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-pwsh-persistent -->
-<a id="deepseek-aidsh-tool-pwsh-persistent"></a>
+<a id="hydsh-tool-pwsh-persistent"></a>
 
 ## `@hy/dsh-tool-pwsh-persistent`
 
@@ -4216,7 +4237,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-pwsh-persistent -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-ralph -->
-<a id="deepseek-aidsh-tool-ralph"></a>
+<a id="hydsh-tool-ralph"></a>
 
 ## `@hy/dsh-tool-ralph`
 
@@ -4239,7 +4260,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-ralph -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-session-query -->
-<a id="deepseek-aidsh-tool-session-query"></a>
+<a id="hydsh-tool-session-query"></a>
 
 ## `@hy/dsh-tool-session-query`
 
@@ -4258,7 +4279,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-session-query -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-skill -->
-<a id="deepseek-aidsh-tool-skill"></a>
+<a id="hydsh-tool-skill"></a>
 
 ## `@hy/dsh-tool-skill`
 
@@ -4275,7 +4296,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-skill -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-str-replace-editor -->
-<a id="deepseek-aidsh-tool-str-replace-editor"></a>
+<a id="hydsh-tool-str-replace-editor"></a>
 
 ## `@hy/dsh-tool-str-replace-editor`
 
@@ -4294,7 +4315,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-str-replace-editor -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-subagent -->
-<a id="deepseek-aidsh-tool-subagent"></a>
+<a id="hydsh-tool-subagent"></a>
 
 ## `@hy/dsh-tool-subagent`
 
@@ -4352,7 +4373,7 @@ export interface PresetSelectionConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-subagent -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-terminal -->
-<a id="deepseek-aidsh-tool-terminal"></a>
+<a id="hydsh-tool-terminal"></a>
 
 ## `@hy/dsh-tool-terminal`
 
@@ -4371,7 +4392,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-terminal -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-todo -->
-<a id="deepseek-aidsh-tool-todo"></a>
+<a id="hydsh-tool-todo"></a>
 
 ## `@hy/dsh-tool-todo`
 
@@ -4394,7 +4415,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-todo -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-web -->
-<a id="deepseek-aidsh-tool-web"></a>
+<a id="hydsh-tool-web"></a>
 
 ## `@hy/dsh-tool-web`
 
@@ -4425,7 +4446,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-web -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-workflow -->
-<a id="deepseek-aidsh-tool-workflow"></a>
+<a id="hydsh-tool-workflow"></a>
 
 ## `@hy/dsh-tool-workflow`
 
@@ -4452,7 +4473,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-workflow -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-tool-workspace-dependencies -->
-<a id="deepseek-aidsh-tool-workspace-dependencies"></a>
+<a id="hydsh-tool-workspace-dependencies"></a>
 
 ## `@hy/dsh-tool-workspace-dependencies`
 
@@ -4475,7 +4496,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-tool-workspace-dependencies -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-typert-loader -->
-<a id="deepseek-aidsh-typert-loader"></a>
+<a id="hydsh-typert-loader"></a>
 
 ## `@hy/dsh-typert-loader`
 
@@ -4492,7 +4513,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-typert-loader -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-user-approval -->
-<a id="deepseek-aidsh-user-approval"></a>
+<a id="hydsh-user-approval"></a>
 
 ## `@hy/dsh-user-approval`
 
@@ -4526,7 +4547,7 @@ export type ApprovalPolicy = 'ask' | 'never'
 <!-- END GENERATED config-catalog:@hy/dsh-user-approval -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web -->
-<a id="deepseek-aidsh-web"></a>
+<a id="hydsh-web"></a>
 
 ## `@hy/dsh-web`
 
@@ -4552,7 +4573,7 @@ export interface WebRuntimeConfig {
 <!-- END GENERATED config-catalog:@hy/dsh-web -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web-app -->
-<a id="deepseek-aidsh-web-app"></a>
+<a id="hydsh-web-app"></a>
 
 ## `@hy/dsh-web-app`
 
@@ -4584,7 +4605,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-web-app -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web-deepseek-api -->
-<a id="deepseek-aidsh-web-deepseek-api"></a>
+<a id="hydsh-web-deepseek-api"></a>
 
 ## `@hy/dsh-web-deepseek-api`
 
@@ -4610,7 +4631,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-web-deepseek-api -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web-fetch-http -->
-<a id="deepseek-aidsh-web-fetch-http"></a>
+<a id="hydsh-web-fetch-http"></a>
 
 ## `@hy/dsh-web-fetch-http`
 
@@ -4635,7 +4656,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-web-fetch-http -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web-search-deepseek -->
-<a id="deepseek-aidsh-web-search-deepseek"></a>
+<a id="hydsh-web-search-deepseek"></a>
 
 ## `@hy/dsh-web-search-deepseek`
 
@@ -4665,7 +4686,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-web-search-deepseek -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web-search-exa -->
-<a id="deepseek-aidsh-web-search-exa"></a>
+<a id="hydsh-web-search-exa"></a>
 
 ## `@hy/dsh-web-search-exa`
 
@@ -4690,7 +4711,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-web-search-exa -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-web-search-perplexity -->
-<a id="deepseek-aidsh-web-search-perplexity"></a>
+<a id="hydsh-web-search-perplexity"></a>
 
 ## `@hy/dsh-web-search-perplexity`
 
@@ -4715,7 +4736,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-web-search-perplexity -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-webhook-github -->
-<a id="deepseek-aidsh-webhook-github"></a>
+<a id="hydsh-webhook-github"></a>
 
 ## `@hy/dsh-webhook-github`
 
@@ -4738,7 +4759,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-webhook-github -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-workflow-ptc -->
-<a id="deepseek-aidsh-workflow-ptc"></a>
+<a id="hydsh-workflow-ptc"></a>
 
 ## `@hy/dsh-workflow-ptc`
 
@@ -4763,7 +4784,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-workflow-ptc -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-working-directory -->
-<a id="deepseek-aidsh-working-directory"></a>
+<a id="hydsh-working-directory"></a>
 
 ## `@hy/dsh-working-directory`
 
@@ -4780,7 +4801,7 @@ export interface Config {
 <!-- END GENERATED config-catalog:@hy/dsh-working-directory -->
 
 <!-- BEGIN GENERATED config-catalog:@hy/dsh-workspace-changes -->
-<a id="deepseek-aidsh-workspace-changes"></a>
+<a id="hydsh-workspace-changes"></a>
 
 ## `@hy/dsh-workspace-changes`
 

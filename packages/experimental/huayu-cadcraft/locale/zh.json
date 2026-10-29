@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "CADCraft",
+    "description": "在右边栏嵌入 CADCraft 网页绘图引擎。",
+    "detail": "docs/DETAIL.md"
+  }
+}

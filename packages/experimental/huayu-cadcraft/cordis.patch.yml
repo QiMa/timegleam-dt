@@ -1,0 +1,8 @@
+# Huayu AI CADCraft plugin: serve the bundled CADCraft web client under
+# /cadcraft and mount the right-sidebar tab that frames it. Shipped profiles
+# leave this layer off; the plugin manager installs and enables the bundle.
+- insert:
+    - id: huayu-cadcraft
+      name: '@hy/dsh-experimental-huayu-cadcraft'
+      config:
+        mountPath: /cadcraft

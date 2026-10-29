@@ -1,0 +1,85 @@
+{
+  "name": "@hy/dsh-experimental-huayu-cadcraft",
+  "description": "Huayu AI CADCraft plugin: embed the CADCraft web drawing engine in the right sidebar and keep drawings beside each project",
+  "version": "0.2.2-alpha.2",
+  "icon": "./icon.svg",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LanHyperCloud/huayu-ai2.git",
+    "directory": "packages/experimental/huayu-cadcraft"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./assets/web/*": "./assets/web/*",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "icon.svg",
+    "locale/*.json",
+    "docs",
+    "assets/web",
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "lib/types/**/*.d.ts"
+  ],
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-host-webserver": "workspace:*",
+    "@hy/dsh-workspace": "workspace:*",
+    "@hy/schemastery": "workspace:~"
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-ui-renderer": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-host-webserver": "workspace:*",
+    "@hy/dsh-workspace": "workspace:*",
+    "@hy/schemastery": "workspace:~",
+    "@types/node": "^22.20.1",
+    "@types/react": "~18.3.1",
+    "react": "^18.2.0",
+    "tsdown": "^0.22.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml",
+      "listedByDefault": false
+    },
+    "client": {
+      "inject": [
+        "@hy/dsh-client-ui-renderer",
+        "@hy/dsh-client-ui-sidebar-right",
+        "@hy/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  }
+}

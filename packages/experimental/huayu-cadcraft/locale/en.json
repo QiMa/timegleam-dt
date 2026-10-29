@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "CADCraft",
+    "description": "Embed the CADCraft web drawing engine in the right sidebar.",
+    "detail": "docs/DETAIL.md"
+  }
+}

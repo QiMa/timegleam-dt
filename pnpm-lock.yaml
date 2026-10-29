@@ -277,42 +277,6 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
-  ../huayu-extension:
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../huayu-ai/vendor/cordis
-      '@hy/dsh-api-session-controller':
-        specifier: workspace:*
-        version: link:../huayu-ai/packages/api/session-controller
-      '@hy/dsh-client-ui-renderer':
-        specifier: workspace:*
-        version: link:../huayu-ai/packages/client/ui-renderer
-      '@hy/dsh-client-ui-sidebar-right':
-        specifier: workspace:*
-        version: link:../huayu-ai/packages/client/ui-sidebar-right
-      '@hy/dsh-host-webserver':
-        specifier: workspace:*
-        version: link:../huayu-ai/packages/host/webserver
-      '@hy/dsh-workspace':
-        specifier: workspace:*
-        version: link:../huayu-ai/packages/workspace/workspace
-      '@hy/schemastery':
-        specifier: link:../huayu-ai/vendor/schemastery
-        version: link:../huayu-ai/vendor/schemastery
-      '@types/node':
-        specifier: ^22.20.1
-        version: 22.20.1
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      tsdown:
-        specifier: ^0.22.2
-        version: 0.22.2(oxc-resolver@11.20.0)(publint@0.3.24)(tsx@4.23.13)(typescript@6.0.3)
-
   apps/cli:
     dependencies:
       '@hy/cordis':
@@ -576,9 +540,6 @@ importers:
       '@hy/dsh-workflow-ptc':
         specifier: workspace:*
         version: link:../../packages/workflow/workflow-ptc
-      '@hy/huayu-extension':
-        specifier: workspace:*
-        version: link:../../../huayu-extension
       '@hy/schemastery':
         specifier: link:../../vendor/schemastery
         version: link:../../vendor/schemastery
@@ -821,39 +782,6 @@ importers:
       '@electron/notarize':
         specifier: 2.5.0
         version: 2.5.0(supports-color@9.4.0)
-      '@hy/dsh-app-boot':
-        specifier: workspace:*
-        version: link:../../packages/boot/app-boot
-      '@hy/dsh-atomic-write':
-        specifier: workspace:*
-        version: link:../../packages/util/atomic-write
-      '@hy/dsh-client-product-analytics':
-        specifier: workspace:*
-        version: link:../../packages/client/product-analytics
-      '@hy/dsh-client-shortcuts':
-        specifier: workspace:*
-        version: link:../../packages/client/shortcuts
-      '@hy/dsh-client-ui-primitives':
-        specifier: workspace:*
-        version: link:../../packages/client/ui-primitives
-      '@hy/dsh-client-ui-settings-general':
-        specifier: workspace:*
-        version: link:../../packages/client/ui-settings-general
-      '@hy/dsh-client-ui-sidebar-browser':
-        specifier: workspace:*
-        version: link:../../packages/client/ui-sidebar-browser
-      '@hy/dsh-client-ui-theme':
-        specifier: workspace:*
-        version: link:../../packages/client/ui-theme
-      '@hy/dsh-deepseek-account':
-        specifier: workspace:*
-        version: link:../../packages/credentials/deepseek-account
-      '@hy/dsh-home-paths':
-        specifier: workspace:*
-        version: link:../../packages/util/home-paths
-      '@hy/node-addon-system':
-        specifier: workspace:~
-        version: link:../../native/system/packages/entry
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -959,45 +887,6 @@ importers:
       '@hy/libreoffice-kit':
         specifier: ^0.1.5
         version: 0.1.5
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../vendor/cordis
-      '@hy/dsh':
-        specifier: workspace:*
-        version: link:../cli
-      '@hy/dsh-agent':
-        specifier: workspace:*
-        version: link:../../packages/core/agent
-      '@hy/dsh-app-boot':
-        specifier: workspace:*
-        version: link:../../packages/boot/app-boot
-      '@hy/dsh-client-connection':
-        specifier: workspace:*
-        version: link:../../packages/client/connection
-      '@hy/dsh-deepseek-account':
-        specifier: workspace:*
-        version: link:../../packages/credentials/deepseek-account
-      '@hy/dsh-home-paths':
-        specifier: workspace:*
-        version: link:../../packages/util/home-paths
-      '@hy/dsh-host-webserver':
-        specifier: workspace:*
-        version: link:../../packages/host/webserver
-      '@hy/dsh-jobs':
-        specifier: workspace:*
-        version: link:../../packages/jobs/jobs
-      '@hy/dsh-schedule':
-        specifier: workspace:*
-        version: link:../../packages/schedule/schedule
-      '@hy/dsh-skill-office':
-        specifier: workspace:*
-        version: link:../../packages/skill/skill-office
-      '@hy/dsh-tool-workspace-dependencies':
-        specifier: workspace:*
-        version: link:../../packages/skill/tool-workspace-dependencies
-      '@hy/dsh-workspace':
-        specifier: workspace:*
-        version: link:../../packages/workspace/workspace
       koffi:
         specifier: 3.1.1
         version: 3.1.1
@@ -2128,12 +2017,6 @@ importers:
       '@eslint-community/regexpp':
         specifier: ^4.12.2
         version: 4.12.2
-      '@hy/dsh-atomic-write':
-        specifier: workspace:*
-        version: link:../../util/atomic-write
-      '@hy/dsh-package-manifest':
-        specifier: workspace:*
-        version: link:../../util/package-manifest
       ajv:
         specifier: ^8.20.0
         version: 8.20.0
@@ -6273,66 +6156,6 @@ importers:
       '@fortune-sheet/react':
         specifier: 1.0.4
         version: 1.0.4(patch_hash=2932e52e79afcd4ced08cfa123b5eded786c85043da32f622f3e80af6fc96c37)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-api-gateway':
-        specifier: workspace:*
-        version: link:../../api/gateway
-      '@hy/dsh-api-remotes':
-        specifier: workspace:*
-        version: link:../../api/remotes
-      '@hy/dsh-api-workspace-files':
-        specifier: workspace:*
-        version: link:../../api/workspace-files
-      '@hy/dsh-client-connection':
-        specifier: workspace:*
-        version: link:../connection
-      '@hy/dsh-client-locale':
-        specifier: workspace:*
-        version: link:../locale
-      '@hy/dsh-client-resources':
-        specifier: workspace:*
-        version: link:../resources
-      '@hy/dsh-client-store':
-        specifier: workspace:*
-        version: link:../store
-      '@hy/dsh-client-test-runtime':
-        specifier: workspace:*
-        version: link:../../test-support/client-runtime
-      '@hy/dsh-client-ui-dockkit':
-        specifier: workspace:*
-        version: link:../ui-dockkit
-      '@hy/dsh-client-ui-primitives':
-        specifier: workspace:*
-        version: link:../ui-primitives
-      '@hy/dsh-client-ui-renderer':
-        specifier: workspace:*
-        version: link:../ui-renderer
-      '@hy/dsh-client-ui-session':
-        specifier: workspace:*
-        version: link:../ui-session
-      '@hy/dsh-client-ui-settings':
-        specifier: workspace:*
-        version: link:../ui-settings
-      '@hy/dsh-client-ui-sidebar-right':
-        specifier: workspace:*
-        version: link:../ui-sidebar-right
-      '@hy/dsh-client-ui-slots':
-        specifier: workspace:*
-        version: link:../ui-slots
-      '@hy/dsh-host-webserver':
-        specifier: workspace:*
-        version: link:../../host/webserver
-      '@hy/dsh-office-to-pdf':
-        specifier: workspace:*
-        version: link:../../document/office-to-pdf
-      '@hy/dsh-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@hy/dsh-util-workspace-path':
-        specifier: workspace:*
-        version: link:../../util/workspace-path
       '@testing-library/react':
         specifier: ^16.3.3
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -10349,6 +10172,44 @@ importers:
         specifier: workspace:*
         version: link:../../session/working-directory
 
+  packages/experimental/huayu-cadcraft:
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-api-session-controller':
+        specifier: workspace:*
+        version: link:../../api/session-controller
+      '@hy/dsh-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../../client/ui-renderer
+      '@hy/dsh-client-ui-sidebar-right':
+        specifier: workspace:*
+        version: link:../../client/ui-sidebar-right
+      '@hy/dsh-client-ui-slots':
+        specifier: workspace:*
+        version: link:../../client/ui-slots
+      '@hy/dsh-host-webserver':
+        specifier: workspace:*
+        version: link:../../host/webserver
+      '@hy/dsh-workspace':
+        specifier: workspace:*
+        version: link:../../workspace/workspace
+      '@hy/schemastery':
+        specifier: workspace:~
+        version: link:../../../vendor/schemastery
+      '@types/node':
+        specifier: ^22.20.1
+        version: 22.20.1
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      tsdown:
+        specifier: ^0.22.2
+        version: 0.22.2(oxc-resolver@11.20.0)(publint@0.3.24)(tsx@4.23.13)(typescript@6.0.3)
   packages/experimental/inspector:
     dependencies:
       '@hy/dsh-app-boot':

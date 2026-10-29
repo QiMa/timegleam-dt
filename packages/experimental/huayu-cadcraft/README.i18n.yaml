@@ -1,0 +1,28 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/huayu-cadcraft/README.md
+/:
+  en: e70f46d51f24e942
+  zh: 44fc4217fe9eb277
+/hy-dsh-experimental-huayu-cadcraft:
+  en: 29c8d8b509ed62d6
+  zh: 623ca6cfc417b75f
+/hy-dsh-experimental-huayu-cadcraft/summary:
+  en: 337cae13cb13ab04
+  zh: 1d1483f91a572076
+/hy-dsh-experimental-huayu-cadcraft/table-of-contents:
+  en: 9be40445baed505c
+  zh: ca9f0a14b9fe212d
+/hy-dsh-experimental-huayu-cadcraft/use-this-package:
+  en: 3be49e6f7fc0c022
+  zh: f87dbc6003ecfaef
+/hy-dsh-experimental-huayu-cadcraft/understand-the-implementation:
+  en: 9fb1a926cf6d04e6
+  zh: 40e00aec2ba75bc5
+/hy-dsh-experimental-huayu-cadcraft/known-limitations-and-deferred-work:
+  en: c34233572d81f55e
+  zh: 0b76c42e70f6d9d0
+/hy-dsh-experimental-huayu-cadcraft/dev-note:
+  en: c13eff01efc47d3a
+  zh: 17ee8ee3302ac8cd
