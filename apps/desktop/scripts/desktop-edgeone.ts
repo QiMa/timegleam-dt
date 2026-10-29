@@ -1,7 +1,7 @@
 /** Submit one production fixed-installer cache purge to EdgeOne. */
 import type { teo } from 'tencentcloud-sdk-nodejs-teo'
 import type { DesktopPackageTargetName } from './package-target.ts'
-import { desktopLatestInstallerFilename, requiredEnvironmentValue, resolveDesktopAutoUpdateEnvironment, resolveDesktopUploadConfig } from './desktop-auto-update-environment.mjs'
+import { desktopLatestInstallerFilename, requiredEnvironmentValue, resolveDesktopAutoUpdateConfig, resolveDesktopAutoUpdateEnvironment } from './desktop-auto-update-environment.mjs'
 import { desktopTargetPlatform } from './desktop-build-paths.mjs'
 
 /** Validated production destination and credentials; never serialize this value. */
@@ -27,12 +27,12 @@ export function resolveDesktopPurgeConfig(
 ): DesktopPurgeConfig {
   if (resolveDesktopAutoUpdateEnvironment(env) !== 'production') throw new DesktopPurgeError('desktop purge: production is required')
   const { platform, arch } = desktopTargetPlatform(target)
-  const update = resolveDesktopUploadConfig(env, platform, arch)
+  const update = resolveDesktopAutoUpdateConfig(env, platform, arch)
   const zoneId = requiredEnvironmentValue(env, 'DOWNLOAD_PROD_EO_ZONE_ID')
   if (!/^zone-[a-z0-9]+$/u.test(zoneId)) throw new DesktopPurgeError('desktop purge: DOWNLOAD_PROD_EO_ZONE_ID must name one EO zone')
   return {
     zoneId, publicUrl: publicUrl ?? `${update.origin}/desktop/${desktopLatestInstallerFilename(target)}`,
-    secretId: requiredEnvironmentValue(env, update.secretIdEnvName), secretKey: requiredEnvironmentValue(env, update.secretKeyEnvName),
+    secretId: requiredEnvironmentValue(env, 'DOWNLOAD_PROD_COS_SECRET_ID'), secretKey: requiredEnvironmentValue(env, 'DOWNLOAD_PROD_COS_SECRET_KEY'),
   }
 }
 

@@ -58,12 +58,38 @@ export function resolveCredentialUploadEnvironment(
   }
 }
 
+/**
+ * Use the credential launcher's selected production deployment for a cache-only purge.
+ * A purge needs the shared COS identity but no upload bucket, so no upload destination is validated.
+ * @param fileEnvironment Target dotenv settings that own the purge destination.
+ * @param injectedEnvironment Child environment containing the DPAPI-decrypted credential pair.
+ * @param selected Deployment authorized by the launcher operator.
+ * @returns Release settings with only the selected credential pair replaced.
+ */
+export function resolveCredentialPurgeEnvironment(
+  fileEnvironment: NodeJS.ProcessEnv, injectedEnvironment: NodeJS.ProcessEnv,
+  selected: 'test' | 'production',
+): NodeJS.ProcessEnv {
+  if (resolveDesktopAutoUpdateEnvironment(fileEnvironment) !== selected) {
+    throw new DesktopUploadUsageError('desktop upload: credential launcher deployment differs from the packaged release destination')
+  }
+  if (injectedEnvironment.DSH_DESKTOP_AUTO_UPDATE_ENV !== selected) {
+    throw new DesktopUploadUsageError('desktop upload: credential launcher environment differs from its explicit arguments')
+  }
+  const prefix = selected === 'test' ? 'DOWNLOAD_TEST_COS' : 'DOWNLOAD_PROD_COS'
+  return {
+    ...fileEnvironment,
+    [`${prefix}_SECRET_ID`]: requiredEnvironmentValue(injectedEnvironment, `${prefix}_SECRET_ID`),
+    [`${prefix}_SECRET_KEY`]: requiredEnvironmentValue(injectedEnvironment, `${prefix}_SECRET_KEY`),
+  }
+}
+
 function purgeConfig(environment: NodeJS.ProcessEnv, target: DesktopPackageTargetName, publicUrl?: string) {
   try {
     return resolveDesktopPurgeConfig(environment, target, publicUrl)
   } catch (error) {
     if (error instanceof DesktopPurgeError) throw error
-    throw new DesktopUploadUsageError('Invalid production purge settings; check DOWNLOAD_PROD_COS_BUCKET, DOWNLOAD_PROD_COS_SECRET_ID, DOWNLOAD_PROD_COS_SECRET_KEY and DOWNLOAD_PROD_EO_ZONE_ID in the target dotenv.')
+    throw new DesktopUploadUsageError('Invalid production purge settings; check DOWNLOAD_PROD_COS_SECRET_ID, DOWNLOAD_PROD_COS_SECRET_KEY and DOWNLOAD_PROD_EO_ZONE_ID in the target dotenv.')
   }
 }
 
@@ -102,7 +128,9 @@ export async function uploadDesktopTarget(args: string[]): Promise<void> {
     throw new DesktopUploadUsageError('desktop upload: credential launcher environment must be test or production')
   }
   const environment = launcher
-    ? resolveCredentialUploadEnvironment(fileEnvironment, process.env, values.environment as 'test' | 'production', values.bucket!, name)
+    ? values['purge-only'] === true
+      ? resolveCredentialPurgeEnvironment(fileEnvironment, process.env, values.environment as 'test' | 'production')
+      : resolveCredentialUploadEnvironment(fileEnvironment, process.env, values.environment as 'test' | 'production', values.bucket!, name)
     : fileEnvironment
   try {
     resolveDesktopAutoUpdateEnvironment(environment)

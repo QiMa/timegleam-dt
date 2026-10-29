@@ -14,7 +14,7 @@ afterEach(() => vi.restoreAllMocks())
 describe('production EdgeOne configuration', () => {
   it.each([
     [{ DSH_DESKTOP_AUTO_UPDATE_ENV: 'test' }, /production is required/u],
-    [{ DSH_DESKTOP_AUTO_UPDATE_ENV: 'prod' }, /must be "test" or "production"/u],
+    [{ DSH_DESKTOP_AUTO_UPDATE_ENV: 'prod' }, /must be "test", "production", or "airgap"/u],
     [{ DOWNLOAD_PROD_EO_ZONE_ID: '' }, /DOWNLOAD_PROD_EO_ZONE_ID/u],
     [{ DOWNLOAD_PROD_EO_ZONE_ID: 'invalid' }, /must name one EO zone/u],
     [{ DOWNLOAD_PROD_COS_SECRET_KEY: '' }, /DOWNLOAD_PROD_COS_SECRET_KEY/u],
@@ -23,10 +23,10 @@ describe('production EdgeOne configuration', () => {
   })
 
   it('uses the upload plan URL verbatim and derives only cache-only destinations', () => {
-    const url = 'https://download.deepseek.com/changed/installer.dmg'
+    const url = 'https://lanhc.com/lanhc/changed/installer.dmg'
     expect(resolveDesktopPurgeConfig(environment, 'mac-arm64', url).publicUrl).toBe(url)
-    expect(resolveDesktopPurgeConfig(environment, 'win-x64').publicUrl).toBe('https://download.deepseek.com/desktop/dsh-latest-windows-x64.exe')
-    expect(resolveDesktopPurgeConfig(environment, 'mac-x64').publicUrl).toBe('https://download.deepseek.com/desktop/dsh-latest-macos-x64.dmg')
+    expect(resolveDesktopPurgeConfig(environment, 'win-x64').publicUrl).toBe('https://lanhc.com/lanhc/desktop/dsh-latest-windows-x64.exe')
+    expect(resolveDesktopPurgeConfig(environment, 'mac-x64').publicUrl).toBe('https://lanhc.com/lanhc/desktop/dsh-latest-macos-x64.dmg')
   })
 })
 

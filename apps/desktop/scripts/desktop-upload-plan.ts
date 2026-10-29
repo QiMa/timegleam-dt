@@ -39,26 +39,37 @@ export interface DesktopUploadArtifact {
   readonly contents?: string
 }
 
-/** A validated installer or update upload, with any channel metadata ordered last. */
-export interface DesktopUploadPlan {
+/** Fields shared by every validated installer or update upload. */
+interface DesktopUploadPlanBase {
   readonly environment: 'test' | 'production' | 'airgap'
   readonly target: DesktopPackageTargetName
   readonly version: string
   /** Update feed directory URL, or the single installer URL for a fixed download. */
   readonly publicUrl: string
-  /** Publication transport selected by the release environment. */
-  readonly transport: 'cos' | 'static'
-  readonly bucket?: string
-  readonly secretIdEnvName?: string
-  readonly secretKeyEnvName?: string
-  readonly staticHost?: string
-  readonly staticRemoteRoot?: string
   readonly artifacts: readonly DesktopUploadArtifact[]
   /** Commit the artifacts were packaged from, absent for a package built before builds recorded it. */
   readonly commit?: string
   /** Whether that checkout carried uncommitted changes. */
   readonly dirty?: boolean
 }
+
+/** A validated upload published through the COS transport. */
+export interface DesktopCosUploadPlan extends DesktopUploadPlanBase {
+  readonly transport: 'cos'
+  readonly bucket: string
+  readonly secretIdEnvName: string
+  readonly secretKeyEnvName: string
+}
+
+/** A validated upload published through the SSH static transport. */
+export interface DesktopStaticUploadPlan extends DesktopUploadPlanBase {
+  readonly transport: 'static'
+  readonly staticHost: string
+  readonly staticRemoteRoot: string
+}
+
+/** A validated installer or update upload, discriminated by its publication transport. */
+export type DesktopUploadPlan = DesktopCosUploadPlan | DesktopStaticUploadPlan
 
 /** Filesystem and environment inputs used to validate one upload. */
 export interface DesktopUploadPlanOptions {

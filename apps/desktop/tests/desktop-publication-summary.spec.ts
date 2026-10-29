@@ -2,14 +2,14 @@ import { createHash } from 'node:crypto'
 import { expect, it } from 'vitest'
 import { desktopPublicationSummary } from '../scripts/desktop-publication-summary.ts'
 import type { DesktopRetainedSource } from '../scripts/desktop-release-store.ts'
-import type { DesktopUploadPlan } from '../scripts/desktop-upload-plan.ts'
+import type { DesktopCosUploadPlan } from '../scripts/desktop-upload-plan.ts'
 
 const source: DesktopRetainedSource = {
   repository: 'owner/repo', runId: '20', attempt: '3', commit: 'a'.repeat(40), workflowCommit: 'b'.repeat(40),
   sourceRef: 'dsh-v1.0.0', channel: 'latest', runnerName: 'windows-publisher', target: 'win-x64',
   preset: 'production', productVersion: '1.0.0', version: '1.0.0', testReleaseId: null, qualification: 'signed',
 }
-const plan: DesktopUploadPlan = {
+const plan: DesktopCosUploadPlan = {
   environment: 'production', target: 'win-x64', version: '1.0.0', transport: 'cos', bucket: 'production-1234567890',
   publicUrl: 'https://download.example.com/dsh-desk/feeds/win-x64/', secretIdEnvName: 'SECRET_ID', secretKeyEnvName: 'SECRET_KEY',
   artifacts: [

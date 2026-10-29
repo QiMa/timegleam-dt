@@ -146,7 +146,7 @@ export function requiredEnvironmentValue(env, name) {
  * @param {string} name - Environment variable used in diagnostics.
  * @returns {string} Normalized HTTPS base URL without a trailing slash.
  */
-function httpsBaseUrl(value, name) {
+export function httpsBaseUrl(value, name) {
   let parsed
   try {
     parsed = new URL(value)

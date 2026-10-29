@@ -1,8 +1,11 @@
+/** Environment variable that selects the distributed product edition. */
+export const DESKTOP_EDITION_ENV: 'DSH_DESKTOP_EDITION'
+
 /** Environment variable that selects the Desktop update deployment. */
 export const DESKTOP_AUTO_UPDATE_ENV: 'DSH_DESKTOP_AUTO_UPDATE_ENV'
 
 /** Supported Desktop update deployment. */
-export type DesktopAutoUpdateEnvironment = 'test' | 'production'
+export type DesktopAutoUpdateEnvironment = 'test' | 'production' | 'airgap'
 
 /** Directory name of one supported Desktop release target. */
 export type DesktopAutoUpdateTarget = 'mac-arm64' | 'mac-x64' | 'win-x64' | 'linux-x64' | 'linux-arm64'
@@ -109,6 +112,21 @@ export function resolveDesktopUploadConfig(
   platform: NodeJS.Platform,
   arch: string,
 ): DesktopUploadConfig
+
+/**
+ * Read the distributed product edition; omitted settings retain the standard edition.
+ * @param env Packaging or upload settings.
+ * @returns Validated edition.
+ */
+export function resolveDesktopEdition(env: NodeJS.ProcessEnv): 'standard' | 'enterprise'
+
+/**
+ * Normalize an HTTPS base URL that may carry a base path (used by the AirGap public root).
+ * @param value - Candidate base URL.
+ * @param name - Environment variable used in diagnostics.
+ * @returns Normalized HTTPS base URL without a trailing slash.
+ */
+export function httpsBaseUrl(value: string, name: string): string
 
 /**
  * Resolve the packaged update channel, defaulting omitted local settings to nightly.

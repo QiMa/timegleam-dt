@@ -78,6 +78,8 @@ export function desktopTargetPlatform(target) {
   const targets = /** @type {const} */ ({
     'mac-arm64': { platform: 'darwin', arch: 'arm64' },
     'mac-x64': { platform: 'darwin', arch: 'x64' },
+    'linux-x64': { platform: 'linux', arch: 'x64' },
+    'linux-arm64': { platform: 'linux', arch: 'arm64' },
     'win-x64': { platform: 'win32', arch: 'x64' },
   })
   return targets[target]

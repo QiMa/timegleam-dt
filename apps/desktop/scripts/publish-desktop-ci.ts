@@ -48,6 +48,7 @@ export async function prepareDesktopPublication(env: NodeJS.ProcessEnv, verifySi
     : { DSH_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: config.bucket }
   const plan = await createDesktopUploadPlan(source.target, { artifactsRoot: directory,
     packagedProductVersion: source.productVersion, environment: { ...environment, DSH_DESKTOP_UPDATE_CHANNEL: source.channel } })
+  if (plan.transport !== 'cos') throw new Error('desktop publish: retained packages require the COS transport')
   if (plan.version !== source.version || plan.commit !== source.commit || plan.dirty !== false) throw new Error('desktop publish: completion record differs from retained source or has uncommitted changes')
   await verifySignatures(directory, manifest, config)
   const approval = createHash('sha256').update(JSON.stringify({ manifest, plan })).digest('hex')

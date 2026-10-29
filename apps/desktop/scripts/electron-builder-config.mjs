@@ -20,7 +20,7 @@ import {
   resolveWindowsUpdatePublisher,
   scrubWindowsSigningEnvironment,
 } from './windows-sign.mjs'
-import { resolveDesktopAutoUpdateConfig, resolveDesktopAutoUpdateEnvironment } from './desktop-auto-update-environment.mjs'
+import { httpsBaseUrl, requiredEnvironmentValue, resolveDesktopAutoUpdateConfig, resolveDesktopAutoUpdateEnvironment, resolveDesktopEdition } from './desktop-auto-update-environment.mjs'
 import { resolveDesktopBuildCommit } from './desktop-build-commit.mjs'
 import { resolveDesktopBuildVersion } from './desktop-build-version.mjs'
 import { resolveDesktopPolicyEnvironment } from './desktop-policy-environment.mjs'
@@ -66,7 +66,20 @@ export function createElectronBuilderConfig(
   if (skipNotarization && (unsigned || resolvedPlatform !== 'darwin')) throw new Error('Skipping notarization requires a signed macOS build')
   const packagesMacOS = targetPlatform === 'darwin' || (targetPlatform === undefined && hostPlatform === 'darwin')
   const packagesWindows = resolvedPlatform === 'win32'
-  const airgapBuild = !unsigned && resolveDesktopAutoUpdateEnvironment(env) === 'airgap'
+  const updateEnvironment = resolveDesktopAutoUpdateEnvironment(env)
+  const edition = resolveDesktopEdition(env)
+  const airgapBuild = !unsigned && updateEnvironment === 'airgap'
+  if (edition === 'enterprise' && updateEnvironment !== 'airgap') {
+    throw new Error('desktop package: enterprise edition requires the airgap update deployment')
+  }
+  // The enterprise model gateway is sealed beside the edition so the installed
+  // application can route every provider request through its AirGap host.
+  const modelGateway = edition === 'enterprise'
+    ? {
+        baseURL: `${httpsBaseUrl(requiredEnvironmentValue(env, 'AIRGAP_BASE_URL'), 'AIRGAP_BASE_URL')}/v1`,
+        apiKeyEnv: 'DSH_BAIZOR_API_KEY',
+      }
+    : undefined
   const policy = airgapBuild ? undefined : (packagesMacOS || resolvedPlatform === 'linux') && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)
   if (resolvedPlatform === 'win32') installWindowsDirectoryInstaller()
   const macOSSigning = packagesMacOS && !unsigned ? resolveMacOSSigningEnvironment(env) : undefined
@@ -77,7 +90,7 @@ export function createElectronBuilderConfig(
   let dshDestination
   let windowsCode = []
   const unpack = ['**/*.{node,dylib,dll,so,exe}', '**/*.so.*', '**/spawn-helper', '**/@vscode/ripgrep-*/bin/rg',
-    `**/node_modules/@hy/libreoffice-kit-${resolvedPlatform}-${resolvedArch}/**/*`]
+    `**/node_modules/@deepseek-ai/libreoffice-kit-${resolvedPlatform}-${resolvedArch}/**/*`]
   const windowsSigner = packagesWindows && !unsigned
     ? createWindowsTokenSigner({
         certificateFile: env.DSH_DESKTOP_WINDOWS_CER_FILE,
@@ -111,11 +124,13 @@ export function createElectronBuilderConfig(
     extraMetadata: {
       dshDesktopAppId: appId,
       dshDesktopUpdateChannel: update?.channel ?? 'nightly',
+      dshDesktopEdition: edition,
+      ...(modelGateway === undefined ? {} : { dshAirgapModelGateway: modelGateway }),
       ...(policy === undefined ? {} : { dshMandatoryUpdatePolicy: policy }),
       ...buildVersion === productVersion ? {} : { version: buildVersion },
       ...packaged === undefined ? {} : { dshBuildCommit: packaged.commit, dshBuildDirty: packaged.dirty },
     },
-    productName: 'DeepSeek Harness',
+    productName: 'Huayu AI',
     // The default copyright uses author.name; this line names the product instead.
     copyright: `Copyright © ${new Date().getFullYear()} \${productName}`,
     // Unsigned builds carry their own suffix so a shared file can never pass for a release artifact.
@@ -168,7 +183,7 @@ export function createElectronBuilderConfig(
       // macOS matches the application locale against this bundle, not Electron Framework resources.
       extendInfo: {
         CFBundleLocalizations: ['en', 'zh_CN', 'ja', 'es', 'fr', 'de', 'ru', 'pt'],
-        NSMicrophoneUsageDescription: 'DeepSeek Harness uses your microphone to transcribe speech into message drafts.',
+        NSMicrophoneUsageDescription: 'Huayu AI uses your microphone to transcribe speech into message drafts.',
       },
       // Ad-hoc signing keeps the modified Electron executable runnable without a Developer ID.
       identity: unsigned ? '-' : macOSSigning?.signingIdentity,

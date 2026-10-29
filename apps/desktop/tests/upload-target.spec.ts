@@ -4,6 +4,7 @@ import { createDesktopUploadPlan, type DesktopUploadPlan } from '../scripts/desk
 import { loadDesktopPackageEnvironment } from '../scripts/desktop-package-environment.mjs'
 import { tagDesktopRelease } from '../scripts/desktop-release-tag.ts'
 import { uploadDesktopRelease } from '../scripts/desktop-upload-run.ts'
+import { uploadDesktopReleaseStatic } from '../scripts/desktop-upload-static.ts'
 import { runDesktopUploadCommand, uploadDesktopTarget } from '../scripts/upload-target.ts'
 
 vi.mock('../scripts/desktop-edgeone.ts', async importOriginal => ({
@@ -35,12 +36,19 @@ describe('desktop upload command', () => {
   ] as const)('uploads $environment latest=$latest through $transport with tagged=$tagged', async ({ environment, latest, tagged, transport }) => {
     vi.spyOn(process.stdout, 'write').mockReturnValue(true)
     const credentials = { ...productionEnvironment, DSH_DESKTOP_AUTO_UPDATE_ENV: environment, DOWNLOAD_TEST_COS_SECRET_ID: 'fixture-id', DOWNLOAD_TEST_COS_SECRET_KEY: 'fixture-key' }
-    const plan: DesktopUploadPlan = {
-      environment, target: 'win-x64', version: '1.2.3-alpha.4',
-      publicUrl: 'https://desktop-updates.example.com/desktop/dsh-latest-windows-x64.exe',
-      bucket: 'fixture-bucket', secretIdEnvName: 'DOWNLOAD_TEST_COS_SECRET_ID',
-      secretKeyEnvName: 'DOWNLOAD_TEST_COS_SECRET_KEY', artifacts: [], commit: '0'.repeat(40), dirty: false,
-    }
+    const plan: DesktopUploadPlan = transport === 'static'
+      ? {
+        environment, target: 'win-x64', version: '1.2.3-alpha.4',
+        publicUrl: 'https://desktop-updates.example.com/desktop/dsh-latest-windows-x64.exe',
+        transport: 'static', staticHost: 'baizor', staticRemoteRoot: '/lucky/lanhc-hugo/lanhc',
+        artifacts: [], commit: '0'.repeat(40), dirty: false,
+      }
+      : {
+        environment, target: 'win-x64', version: '1.2.3-alpha.4',
+        publicUrl: 'https://desktop-updates.example.com/desktop/dsh-latest-windows-x64.exe',
+        transport: 'cos', bucket: 'fixture-bucket', secretIdEnvName: 'DOWNLOAD_TEST_COS_SECRET_ID',
+        secretKeyEnvName: 'DOWNLOAD_TEST_COS_SECRET_KEY', artifacts: [], commit: '0'.repeat(40), dirty: false,
+      }
     vi.mocked(loadDesktopPackageEnvironment).mockReturnValue(credentials)
     vi.mocked(createDesktopUploadPlan).mockResolvedValue(plan)
     vi.mocked(uploadDesktopRelease).mockResolvedValue('fixture-records')
@@ -50,14 +58,21 @@ describe('desktop upload command', () => {
     await uploadDesktopTarget(['win-x64', ...latest ? ['--latest'] : []])
 
     expect(createDesktopUploadPlan).toHaveBeenCalledWith('win-x64', { environment: credentials, latest })
-    expect(uploadDesktopRelease).toHaveBeenCalledOnce()
-    expect(vi.mocked(uploadDesktopRelease).mock.calls[0]![0]).toBe(plan)
+    if (transport === 'static') {
+      expect(uploadDesktopReleaseStatic).toHaveBeenCalledOnce()
+      expect(vi.mocked(uploadDesktopReleaseStatic).mock.calls[0]![0]).toBe(plan)
+    } else {
+      expect(uploadDesktopRelease).toHaveBeenCalledOnce()
+      expect(vi.mocked(uploadDesktopRelease).mock.calls[0]![0]).toBe(plan)
+    }
     if (environment === 'production' && latest) {
       expect(purgeDesktopInstaller).toHaveBeenCalledWith(
         expect.objectContaining({ publicUrl: plan.publicUrl }),
       )
       expect(vi.mocked(purgeDesktopInstaller).mock.invocationCallOrder[0])
-        .toBeGreaterThan(vi.mocked(uploadDesktopRelease).mock.invocationCallOrder[0]!)
+        .toBeGreaterThan(transport === 'static'
+          ? vi.mocked(uploadDesktopReleaseStatic).mock.invocationCallOrder[0]!
+          : vi.mocked(uploadDesktopRelease).mock.invocationCallOrder[0]!)
     } else {
       expect(purgeDesktopInstaller).not.toHaveBeenCalled()
     }
@@ -89,7 +104,7 @@ describe('cache-only submission command', () => {
     expect(uploadDesktopRelease).not.toHaveBeenCalled()
     expect(tagDesktopRelease).not.toHaveBeenCalled()
     expect(purgeDesktopInstaller).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
-      publicUrl: 'https://download.deepseek.com/desktop/dsh-latest-macos-arm64.dmg',
+      publicUrl: 'https://lanhc.com/lanhc/desktop/dsh-latest-macos-arm64.dmg',
     }))
   })
 
@@ -103,12 +118,12 @@ describe('cache-only submission command', () => {
     const output = vi.spyOn(process.stdout, 'write').mockReturnValue(true)
     vi.mocked(createDesktopUploadPlan).mockResolvedValue({
       environment: 'production', target: 'mac-arm64', version: '1.2.3', publicUrl: 'https://example.com/new-prefix/installer.dmg',
-      bucket: 'fixture-bucket', secretIdEnvName: 'DOWNLOAD_PROD_COS_SECRET_ID', secretKeyEnvName: 'DOWNLOAD_PROD_COS_SECRET_KEY', artifacts: [],
+      transport: 'static', staticHost: 'baizor', staticRemoteRoot: '/lucky/lanhc-hugo/lanhc', artifacts: [],
     })
     vi.mocked(purgeDesktopInstaller).mockRejectedValue(new DesktopPurgeError('desktop purge: submission not confirmed'))
     await expect(uploadDesktopTarget(['mac-arm64', '--latest'])).rejects.toThrow('desktop purge: submission not confirmed')
     expect(output).toHaveBeenCalledWith('desktop upload: installer uploaded; submitting cache purge.\n')
-    expect(uploadDesktopRelease).toHaveBeenCalledOnce()
+    expect(uploadDesktopReleaseStatic).toHaveBeenCalledOnce()
     expect(purgeDesktopInstaller).toHaveBeenCalledOnce()
     expect(tagDesktopRelease).not.toHaveBeenCalled()
   })
@@ -117,6 +132,7 @@ describe('cache-only submission command', () => {
     const previousExitCode = process.exitCode
     const stdout = vi.spyOn(process.stdout, 'write').mockReturnValue(true)
     const stderr = vi.spyOn(process.stderr, 'write').mockReturnValue(true)
+    vi.mocked(loadDesktopPackageEnvironment).mockReturnValue(productionEnvironment)
     vi.stubEnv('DSH_DESKTOP_AUTO_UPDATE_ENV', 'production')
     vi.stubEnv('DOWNLOAD_PROD_COS_BUCKET', 'fixture-bucket')
     vi.stubEnv('DOWNLOAD_PROD_COS_SECRET_ID', 'injected-id')

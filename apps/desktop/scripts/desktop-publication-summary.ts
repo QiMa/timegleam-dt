@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
 import type { DesktopRetainedSource } from './desktop-release-store.ts'
-import type { DesktopUploadPlan } from './desktop-upload-plan.ts'
+import type { DesktopCosUploadPlan } from './desktop-upload-plan.ts'
 
 function text(value: string): string {
   return value.replace(/[&<>"'|`\r\n\\*_\[\]()!~:]/gu, character => `&#${character.charCodeAt(0)};`)
@@ -21,7 +21,7 @@ function link(url: string, label = url): string { return `<a href="${text(url)}"
  * @returns GitHub-flavored Markdown with final URLs and upload-byte fingerprints, without credentials or local paths.
  */
 export async function desktopPublicationSummary(
-  source: DesktopRetainedSource, plan: DesktopUploadPlan, approval: string,
+  source: DesktopRetainedSource, plan: DesktopCosUploadPlan, approval: string,
 ): Promise<string> {
   const origin = new URL(plan.publicUrl).origin
   const url = (key: string) => `${origin}/${key.split('/').map(encodeURIComponent).join('/')}`
