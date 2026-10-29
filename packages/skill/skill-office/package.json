@@ -41,7 +41,7 @@
     "@hy/cordis-plugin-include": "workspace:~"
   },
   "dependencies": {
-    "@hy/libreoffice-kit": "^0.1.5",
+    "@hy/libreoffice-kit": "npm:@deepseek-ai/libreoffice-kit@^0.1.5",
     "@hy/schemastery": "workspace:~",
     "yaml": "^2.4.2"
   }

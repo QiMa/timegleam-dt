@@ -10,9 +10,14 @@ import { isAbsolute, join, relative, sep } from 'node:path'
  * @param {{ platform: string, arch: string }} target - Distribution platform and CPU.
  * @returns {string} Engine package suffix.
  */
+const OFFICE_KIT_SCOPES = ['@hy', '@deepseek-ai']
+
 export function selectOfficeEngine(manifest, target) {
   const native = `${target.platform}-${target.arch}`
-  return Object.hasOwn(manifest.optionalDependencies ?? {}, `@hy/libreoffice-kit-${native}`) ? native : 'wasm'
+  for (const scope of OFFICE_KIT_SCOPES) {
+    if (Object.hasOwn(manifest.optionalDependencies ?? {}, `${scope}/libreoffice-kit-${native}`)) return native
+  }
+  return 'wasm'
 }
 
 /**
@@ -22,9 +27,14 @@ export function selectOfficeEngine(manifest, target) {
  * @returns {Promise<string[]>} Absolute package directories; rejects missing dependencies and paths outside staging.
  */
 export async function officePackageDirectories(staging, target) {
-  const entry = join(staging, 'node_modules', '@deepseek-ai', 'libreoffice-kit')
+  const entry = OFFICE_KIT_SCOPES.map(scope => join(staging, 'node_modules', scope, 'libreoffice-kit'))
+    .find(directory => existsSync(directory))
+  if (entry === undefined) throw new Error('Office kit entry is missing from the deployed closure')
   const manifest = JSON.parse(await readFile(join(entry, 'package.json'), 'utf8'))
-  const engineName = `@hy/libreoffice-kit-${selectOfficeEngine(manifest, target)}`
+  const engine = selectOfficeEngine(manifest, target)
+  const engineName = OFFICE_KIT_SCOPES.map(scope => `${scope}/libreoffice-kit-${engine}`)
+    .find(name => Object.hasOwn(manifest.optionalDependencies ?? {}, name))
+    ?? `@hy/libreoffice-kit-${engine}`
   const packages = new Set()
 
   /** @param {string} packageDirectory - Installed package directory. */
@@ -44,7 +54,7 @@ export async function officePackageDirectories(staging, target) {
       ...Object.keys(manifest.peerDependencies ?? {}),
     ])
     for (const name of dependencies) {
-      if (name.startsWith('@hy/libreoffice-kit-')) continue
+      if (OFFICE_KIT_SCOPES.some(scope => name.startsWith(`${scope}/libreoffice-kit-`))) continue
       const optional = manifest.optionalDependencies?.[name] !== undefined
         || manifest.peerDependenciesMeta?.[name]?.optional === true
       const dependencyDirectory = (require.resolve.paths(name) ?? [])
@@ -63,8 +73,9 @@ export async function officePackageDirectories(staging, target) {
   }
 
   await visit(entry)
-  const engineDirectory = join(staging, 'node_modules', engineName)
-  if (!existsSync(engineDirectory)) throw new Error(`Office engine ${engineName} required for ${target.platform}/${target.arch} is missing.`)
+  const engineDirectory = OFFICE_KIT_SCOPES.map(scope => join(staging, 'node_modules', scope, `libreoffice-kit-${engine}`))
+    .find(directory => existsSync(directory))
+  if (engineDirectory === undefined) throw new Error(`Office engine ${engineName} required for ${target.platform}/${target.arch} is missing.`)
   await visit(engineDirectory)
   return [...packages].sort()
 }

@@ -211,7 +211,7 @@
     "@hy/dsh-shell-env": "workspace:*",
     "@hy/dsh-typert-registry": "workspace:*",
     "@hy/dsh-typert-registry": "workspace:*",
-    "@hy/libreoffice-kit": "^0.1.5",
+    "@hy/libreoffice-kit": "npm:@deepseek-ai/libreoffice-kit@^0.1.5",
     "@hy/dsh-otel": "workspace:*"
   }
 }
