@@ -127,6 +127,12 @@ function updateFileInfo(value: unknown, label: string, expectedFilename: string)
   }
 }
 
+
+async function sha256Hex(path: string): Promise<string> {
+  const hash = createHash('sha256')
+  for await (const chunk of createReadStream(path)) hash.update(chunk)
+  return hash.digest('hex')
+}
 async function sha512(path: string): Promise<string> {
   const hash = createHash('sha512')
   for await (const chunk of createReadStream(path)) hash.update(chunk)
@@ -161,6 +167,19 @@ async function requireArtifact(artifactsRoot: string, filename: string): Promise
   return path
 }
 
+
+/**
+ * Fixed catalog installer filename for AirGap script-based installs (irm/curl one-liners).
+ * Linux targets rely on the AppImage scripts already published under the catalog root.
+ */
+function desktopCatalogInstallerFilename(targetName: DesktopPackageTargetName): string {
+  if (targetName === 'win-x64') return 'huayu-ai-latest-win-x64.exe'
+  if (targetName === 'mac-arm64' || targetName === 'mac-x64') {
+    const arch = targetName === 'mac-arm64' ? 'arm64' : 'x64'
+    return 'huayu-ai-latest-macos-' + arch + '.dmg'
+  }
+  throw new Error('desktop upload: airgap catalog fixed installer is unsupported for ' + targetName)
+}
 function uploadArtifact(
   path: string,
   keyPrefix: string,
@@ -183,6 +202,44 @@ function uploadArtifact(
  * @param options - Optional filesystem roots and environment for tests or release automation.
  * @returns A fixed installer upload or an update plan with channel metadata ordered last.
  */
+
+/**
+ * Build the fixed catalog artifacts consumed by the AirGap install scripts.
+ * The online scripts fetch `<catalog>/huayu-ai-latest-<target>` plus its `.sha256`
+ * sidecar, so every non-latest AirGap publication also refreshes those two objects.
+ */
+async function airgapCatalogArtifacts(
+  environment: NodeJS.ProcessEnv,
+  artifactsRoot: string,
+  targetName: DesktopPackageTargetName,
+  target: { readonly platform: NodeJS.Platform; readonly arch: string },
+  installerArtifact: DesktopUploadArtifact,
+  buildVersion: string,
+): Promise<DesktopUploadArtifact[]> {
+  const catalogPrefix = environment.DSH_DESKTOP_EDITION === 'enterprise' ? 'huayu-enterprise' : 'huayu-ai'
+  const source = targetName === 'linux-x64' || targetName === 'linux-arm64'
+    ? await requireArtifact(artifactsRoot, `huayu-ai-${buildVersion}-linux-${target.arch}.AppImage`)
+    : installerArtifact.path
+  const fixed = desktopCatalogInstallerFilename(targetName)
+  const digest = await sha256Hex(source)
+  const fixedArtifact = {
+    ...installerArtifact,
+    path: source,
+    filename: fixed,
+    key: `${catalogPrefix}/${fixed}`,
+    contentType: targetName === 'win-x64' ? 'application/vnd.microsoft.portable-executable' : 'application/octet-stream',
+    channelMetadata: false,
+  }
+  const sidecar = {
+    ...fixedArtifact,
+    filename: `${fixed}.sha256`,
+    key: `${catalogPrefix}/${fixed}.sha256`,
+    contentType: 'text/plain',
+    contents: `${digest}  ${fixed}\n`,
+  }
+  return [fixedArtifact, sidecar]
+}
+
 export async function createDesktopUploadPlan(
   targetName: DesktopPackageTargetName,
   options: DesktopUploadPlanOptions = {},
@@ -283,6 +340,11 @@ export async function createDesktopUploadPlan(
     contents: dump(published),
   }
   artifacts.push(channelArtifact)
+  if (update.environment === 'airgap' && options.latest !== true) {
+    artifacts.push(...await airgapCatalogArtifacts(
+      environment, artifactsRoot, targetName, target, installerArtifact, buildVersion,
+    ))
+  }
   const latestFilename = desktopLatestInstallerFilename(targetName)
   const latestKey = `desktop/${latestFilename}`
   const publication = update.transport === 'cos'

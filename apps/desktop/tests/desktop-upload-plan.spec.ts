@@ -39,6 +39,7 @@ async function fixture(
   version = '1.2.3',
   environment: 'test' | 'production' | 'airgap' = 'test',
   channel: 'nightly' | 'latest' = 'nightly',
+  edition: 'standard' | 'enterprise' = 'standard',
 ): Promise<Fixture> {
   const root = await mkdtemp(join(tmpdir(), 'dsh-desktop-upload-'))
   temporaryDirectories.push(root)
@@ -56,7 +57,7 @@ async function fixture(
     : environment === 'airgap'
       ? 'https://lanhc.com/lanhc/airgap'
       : 'https://lanhc.com/lanhc'
-  const airgapPrefix = environment === 'airgap' ? 'huayu-ai/' : ''
+  const airgapPrefix = environment === 'airgap' ? `${edition === 'enterprise' ? 'huayu-enterprise' : 'huayu-ai'}/` : ''
   await writeFile(join(artifactsRoot, `${target}-release.json`), `${JSON.stringify({
     schemaVersion: 1,
     channel,
@@ -109,6 +110,7 @@ async function fixture(
           DSH_DESKTOP_UPDATE_CHANNEL: channel,
           DSH_DESKTOP_AUTO_UPDATE_ENV: 'airgap',
           AIRGAP_BASE_URL: 'https://lanhc.com/lanhc/airgap',
+          ...(edition === 'enterprise' ? { DSH_DESKTOP_EDITION: 'enterprise' } : {}),
         }
         : {
           DSH_DESKTOP_UPDATE_CHANNEL: channel,
@@ -137,6 +139,16 @@ describe('desktop upload plan', () => {
       staticRemoteRoot: '/lucky/airgap/data/public',
     })
     expect(plan.artifacts.map(artifact => artifact.key)).toContain('huayu-ai/dsh-desk/feeds/win-x64/nightly.yml')
+  })
+
+  it('stages airgap enterprise feeds under huayu-enterprise with fixed catalog installers', async () => {
+    const paths = await fixture('win-x64', '1.2.3', 'airgap', 'nightly', 'enterprise')
+    const plan = await createDesktopUploadPlan('win-x64', paths)
+    expect(plan.publicUrl).toBe('https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/')
+    const keys = plan.artifacts.map(artifact => artifact.key)
+    expect(keys).toContain('huayu-enterprise/dsh-desk/feeds/win-x64/nightly.yml')
+    expect(keys).toContain('huayu-enterprise/huayu-ai-latest-win-x64.exe')
+    expect(keys).toContain('huayu-enterprise/huayu-ai-latest-win-x64.exe.sha256')
   })
 
   it('uploads only the selected latest installer to each deployment through its transport', async () => {
