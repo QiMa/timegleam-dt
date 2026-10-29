@@ -64,24 +64,40 @@ AirGap is the in-network update repository for closed environments. Desktop publ
 **Build (online side)**
 
 ```sh
+# standard edition -> huayu-ai catalog
 DSH_DESKTOP_AUTO_UPDATE_ENV=airgap AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
+
+# enterprise edition -> huayu-enterprise catalog (never mixed with the public feed)
+DSH_DESKTOP_AUTO_UPDATE_ENV=airgap DSH_DESKTOP_EDITION=enterprise AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
+```
+
+Then publish with the same environment retained in the target dotenv:
+
+```sh
 pnpm run upload:win:x64
 ```
 
-The uploader `scp`s artifacts to `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...`; no COS credentials are required.
+The uploader `scp`s artifacts to `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...` (standard) or `.../huayu-enterprise/dsh-desk/...` (enterprise). No COS credentials are required. Every non-latest publication also refreshes the fixed `huayu-ai-latest-<target>` installer plus its `.sha256` sidecar under the edition catalog root, which the `huayu-ai.ps1` / `huayu-ai.sh` one-line installers download and verify.
 
 **Client (closed-network side)**
 
 ```sh
-# PowerShell
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/'
+# PowerShell (enterprise edition: point at huayu-enterprise)
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/'
 # or in-network loopback (http is allowed only for 127.0.0.1/localhost)
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-ai/dsh-desk/feeds/win-x64/'
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-enterprise/dsh-desk/feeds/win-x64/'
 ```
 
 ```sh
 # Linux
-export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/linux-x64/'
+export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/linux-x64/'
+```
+
+**Enterprise one-line install (fixed catalog installer)**
+
+```sh
+# Windows: irm https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.ps1 | iex
+# Linux:   curl -fsSL https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.sh | sh
 ```
 
 <a id="publish-feeds"></a>

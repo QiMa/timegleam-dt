@@ -73,15 +73,22 @@ pnpm run upload:win:x64
 **客户端（封闭网络侧）**
 
 ```sh
-# PowerShell
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/'
+# PowerShell（企业版：指向 huayu-enterprise）
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/'
 # 或内网直连（仅 127.0.0.1/localhost 允许 http）
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-ai/dsh-desk/feeds/win-x64/'
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-enterprise/dsh-desk/feeds/win-x64/'
 ```
 
 ```sh
 # Linux
-export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/linux-x64/'
+export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/linux-x64/'
+```
+
+**企业版一键安装（固定目录安装包）**
+
+```sh
+# Windows: irm https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.ps1 | iex
+# Linux:   curl -fsSL https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.sh | sh
 ```
 
 <a id="publish-feeds"></a>
