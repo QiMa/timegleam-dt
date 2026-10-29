@@ -135,8 +135,8 @@ vi.mock('../src/welcome-backend.ts', () => ({
       return { loggedIn: false, hasApiKey: state.hasApiKey, writable: true, localePreference: state.preference }
     },
     save: async () => ({ ok: true }),
-    storeBaizorKey: async () => undefined,
-    ensureBaizorConfiguration: async () => undefined,
+    storeProviderKey: async () => undefined,
+    ensureModelConfiguration: async () => undefined,
     account: {
       watch: (listener: (value: AccountView) => void, _failed: () => void, expired: () => void) => {
         state.accountListener = listener
@@ -150,6 +150,11 @@ vi.mock('../src/welcome-backend.ts', () => ({
 vi.mock('node:fs/promises', async importOriginal => ({
   ...await importOriginal<typeof import('node:fs/promises')>(),
   readFile: vi.fn(async () => '{}'),
+}))
+vi.mock('../src/enterprise-gateway-key.ts', () => ({
+  AIRGAP_GATEWAY_KEY_FILENAME: '.airgap-gateway-key',
+  readGatewayKey: vi.fn(async () => undefined),
+  writeGatewayKey: vi.fn(async () => undefined),
 }))
 vi.mock('../src/update-dialog.ts', () => ({ DesktopUpdateDialog: class {
   constructor(_preload: string, locale: () => DesktopLocale) { state.dialogLocale = locale }

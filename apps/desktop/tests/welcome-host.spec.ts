@@ -4,7 +4,7 @@ import { connectDesktopWelcome } from '../src/welcome-backend.ts'
 
 function transport(preference?: string) {
   const keys = new Map<string, string>()
-  const namespaces = [
+  const namespaces: { ns: string; value: Record<string, unknown>; user?: Record<string, unknown> }[] = [
     { ns: 'llm-deepseek', value: { apiKeyEnv: 'CUSTOM_DEEPSEEK_KEY' } },
     { ns: 'llm-pi-ai', value: { profiles: { example: { apiKeyEnv: 'EXAMPLE_API_KEY' } } } },
     { ns: 'locale', value: preference === undefined ? {} : { preference } },
@@ -104,6 +104,119 @@ describe('desktop welcome Web operations', () => {
     expect(init?.credentials).toBe('include')
     expect(init?.signal).toBeInstanceOf(AbortSignal)
     expect(JSON.parse(init!.body as string)).toMatchObject({ payload: { args: { event } } })
+  })
+
+  it('seeds the airgap provider route and default selection for the enterprise edition', async () => {
+    const host = transport()
+    const updates = new Map<string, Record<string, unknown>>()
+    host.send.mockImplementation(async (_input, init) => {
+      if (init?.method !== 'POST') return new Response('index')
+      const { rpcId, method, payload } = JSON.parse(init.body as string) as {
+        rpcId: string
+        method: string
+        payload: { args: { ns?: string; patch?: Record<string, unknown>; ref?: string; value?: string; refs?: string[] } }
+      }
+      let value: unknown
+      if (method === 'account/getState') value = { links: { usageUrl: 'http://localhost/usage', topUpUrl: 'http://localhost/top_up' }, status: 'signed-out', attempt: null }
+      else if (method === 'settings/describe') value = { namespaces: host.namespaces }
+      else if (method === 'settings/update' && payload.args.ns !== undefined && payload.args.patch !== undefined) updates.set(payload.args.ns, payload.args.patch)
+      else if (method === 'llm/listConfigurableProviders') value = []
+      else if (method === 'productAnalytics/enabled') value = true
+      else if (method === 'credentials/set') host.keys.set(payload.args.ref!, payload.args.value!)
+      else value = Object.fromEntries((payload.args.refs ?? []).map((ref: string) => [
+        ref, { configured: host.keys.has(ref), writable: true },
+      ]))
+      return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
+    })
+    const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
+    const backend = await connectDesktopWelcome(url, host.send, () => Promise.resolve(''), gateway)
+    await backend.ensureModelConfiguration()
+    const seeded = { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://airgap.example.com/v1' } } }
+    host.namespaces[1] = { ns: 'llm-pi-ai', value: seeded }
+    expect(updates.get('llm-pi-ai')).toMatchObject({ providers: { airgap: { displayName: 'AirGap',
+      baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY', models: [{ id: 'huayu-v2' }] } } })
+    expect(updates.get('agent-default-model')).toEqual({ provider: 'airgap', model: 'huayu-v2' })
+    expect(await backend.read()).toMatchObject({ writable: true, hasApiKey: false })
+  })
+
+  it('stores enterprise keys through the seeded airgap credential reference', async () => {
+    const host = transport()
+    const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
+    host.namespaces[1] = { ns: 'llm-pi-ai', value: { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://airgap.example.com/v1' } } } }
+    const backend = await connectDesktopWelcome(url, host.send, () => Promise.resolve(''), gateway)
+    await backend.storeProviderKey('ag-secret-key')
+    expect(host.keys.get('DSH_BAIZOR_API_KEY')).toBe('ag-secret-key')
+  })
+
+  it('migrates a stale baizor default selection to the airgap route in the enterprise edition', async () => {
+    const host = transport()
+    const updates = new Map<string, Record<string, unknown>>()
+    host.namespaces.push({ ns: 'agent-default-model', value: {}, user: { provider: 'baizor', model: 'huayu-v2' } })
+    host.namespaces[1] = { ns: 'llm-pi-ai', value: { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://airgap.example.com/v1' }, baizor: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://baizor.com/v1' } } } }
+    host.send.mockImplementation(async (_input, init) => {
+      if (init?.method !== 'POST') return new Response('index')
+      const { rpcId, method, payload } = JSON.parse(init.body as string) as {
+        rpcId: string
+        method: string
+        payload: { args: { ns?: string; patch?: Record<string, unknown>; ref?: string; value?: string; refs?: string[] } }
+      }
+      let value: unknown
+      if (method === 'settings/describe') value = { namespaces: host.namespaces }
+      else if (method === 'settings/update' && payload.args.ns !== undefined && payload.args.patch !== undefined) updates.set(payload.args.ns, payload.args.patch)
+      return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
+    })
+    const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
+    const backend = await connectDesktopWelcome(url, host.send, () => Promise.resolve(''), gateway)
+    await backend.ensureModelConfiguration()
+    expect(updates.get('agent-default-model')).toEqual({ provider: 'airgap', model: 'huayu-v2' })
+    expect(updates.get('llm-pi-ai')).toMatchObject({ providers: { baizor: { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' } } })
+  })
+
+  it('keeps an already migrated airgap default selection untouched', async () => {
+    const host = transport()
+    const updates = new Map<string, Record<string, unknown>>()
+    host.namespaces.push({ ns: 'agent-default-model', value: {}, user: { provider: 'airgap', model: 'huayu-v2' } })
+    host.namespaces[1] = { ns: 'llm-pi-ai', value: { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://airgap.example.com/v1' } } } }
+    host.send.mockImplementation(async (_input, init) => {
+      if (init?.method !== 'POST') return new Response('index')
+      const { rpcId, method, payload } = JSON.parse(init.body as string) as {
+        rpcId: string
+        method: string
+        payload: { args: { ns?: string; patch?: Record<string, unknown>; ref?: string; value?: string; refs?: string[] } }
+      }
+      let value: unknown
+      if (method === 'settings/describe') value = { namespaces: host.namespaces }
+      else if (method === 'settings/update' && payload.args.ns !== undefined && payload.args.patch !== undefined) updates.set(payload.args.ns, payload.args.patch)
+      return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
+    })
+    const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
+    const backend = await connectDesktopWelcome(url, host.send, () => Promise.resolve(''), gateway)
+    await backend.ensureModelConfiguration()
+    expect(updates.has('agent-default-model')).toBe(false)
+  })
+
+  it('refreshes a stale airgap route so the enterprise gateway stays sealed', async () => {
+    const host = transport()
+    const updates = new Map<string, Record<string, unknown>>()
+    host.namespaces.push({ ns: 'agent-default-model', value: {}, user: { provider: 'airgap', model: 'huayu-v2' } })
+    host.namespaces[1] = { ns: 'llm-pi-ai', value: { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://old-gateway.example.com/v1' } } } }
+    host.send.mockImplementation(async (_input, init) => {
+      if (init?.method !== 'POST') return new Response('index')
+      const { rpcId, method, payload } = JSON.parse(init.body as string) as {
+        rpcId: string
+        method: string
+        payload: { args: { ns?: string; patch?: Record<string, unknown>; ref?: string; value?: string; refs?: string[] } }
+      }
+      let value: unknown
+      if (method === 'settings/describe') value = { namespaces: host.namespaces }
+      else if (method === 'settings/update' && payload.args.ns !== undefined && payload.args.patch !== undefined) updates.set(payload.args.ns, payload.args.patch)
+      return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
+    })
+    const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
+    const backend = await connectDesktopWelcome(url, host.send, () => Promise.resolve(''), gateway)
+    await backend.ensureModelConfiguration()
+    expect(updates.get('llm-pi-ai')).toMatchObject({ providers: { airgap: { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' } } })
+    expect(updates.has('agent-default-model')).toBe(false)
   })
 
   it('refuses an unauthenticated Web launch', async () => {

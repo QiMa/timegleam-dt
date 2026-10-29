@@ -394,8 +394,8 @@ vi.mock('../src/welcome-backend.ts', () => ({
     readLocalePreference: async () => null,
     read: async (): Promise<unknown> => (await harness.hosts.at(-1)!.fetch()).json() as Promise<unknown>,
     save: async () => ({ ok: true }),
-    storeBaizorKey: async () => undefined,
-    ensureBaizorConfiguration: async () => undefined,
+    storeProviderKey: async () => undefined,
+    ensureModelConfiguration: async () => undefined,
     account: { watch: harness.watchAccount, state: async () => ({ status: 'signed-out', attempt: null }) },
   }),
 }))

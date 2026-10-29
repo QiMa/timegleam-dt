@@ -3,6 +3,12 @@ import type { ProductEvent } from '@hy/dsh-client-product-analytics/types'
 
 import { randomUUID } from 'node:crypto'
 import { desktopAccountBackend, type DesktopAccountBackend } from './account-backend.ts'
+import {
+  AIRGAP_ENTERPRISE_DEFAULT_SELECTION,
+  AIRGAP_ENTERPRISE_PROVIDER,
+  airgapEnterpriseProviderProfile,
+  type DesktopEnterpriseModelGateway,
+} from './product-edition.ts'
 
 /** The credential reference the seeded baizor provider route resolves per request. */
 export const BAIZOR_CREDENTIAL_REF = 'DSH_BAIZOR_API_KEY'
@@ -41,19 +47,19 @@ export interface DesktopWelcomeBackend {
   read(): Promise<WelcomeState>
   /** @returns The saved UI language without account or provider requests. */
   readLocalePreference(): Promise<string | null>
-  /** Seed the baizor provider route and default selection into this desktop profile. */
-  ensureBaizorConfiguration(): Promise<void>
+  /** Seed the edition provider route and default selection into this desktop profile. */
+  ensureModelConfiguration(): Promise<void>
   /**
    * @param apiKey - User-entered provider key.
    * @returns A safe write outcome without provider diagnostics.
    */
   save(apiKey: string): Promise<{ ok: boolean }>
   /**
-   * Store the baizor login key through the credentials seam; a refused write
+   * Store the edition provider key through the credentials seam; a refused write
    * rejects instead of swallowing the diagnostic.
-   * @param apiKey - key returned by the baizor CLI login.
+   * @param apiKey - key returned by the login or gateway provisioning flow.
    */
-  storeBaizorKey(apiKey: string): Promise<void>
+  storeProviderKey(apiKey: string): Promise<void>
 }
 
 function record(value: unknown): value is Record<string, unknown> {
@@ -65,12 +71,15 @@ function record(value: unknown): value is Record<string, unknown> {
  * @param authenticatedUrl - URL supplied by the running Desktop Host.
  * @param send - Electron session fetch, retaining the Web authentication cookie.
  * @param cookies - Electron session cookie reader.
+ * @param modelGateway - Optional enterprise model gateway; when present the
+ * AirGap provider route is seeded instead of baizor.com.
  * @returns metadata reads and write-only credential operations over standard RPC.
  */
 export async function connectDesktopWelcome(
   authenticatedUrl: string,
   send: (input: string, init?: RequestInit) => Promise<Response>,
   cookies: () => Promise<string> = () => Promise.resolve(''),
+  modelGateway?: DesktopEnterpriseModelGateway,
 ): Promise<DesktopWelcomeBackend> {
   const origin = new URL(authenticatedUrl).origin
   const authenticated = await send(authenticatedUrl, { credentials: 'include' })
@@ -96,10 +105,13 @@ export async function connectDesktopWelcome(
     return envelope.result.value
   }
   const account = desktopAccountBackend(origin, invoke, cookies)
+  const provider = modelGateway === undefined ? 'baizor' : AIRGAP_ENTERPRISE_PROVIDER
+  const providerProfile = modelGateway === undefined ? BAIZOR_PROVIDER_PROFILE : airgapEnterpriseProviderProfile(modelGateway)
+  const defaultSelection = modelGateway === undefined ? BAIZOR_DEFAULT_SELECTION : AIRGAP_ENTERPRISE_DEFAULT_SELECTION
   /** The `apiKeyEnv` a provider profile stored for this route names, when present. */
-  const providerRef = (namespace: unknown, provider: string): string | undefined => {
+  const providerRef = (namespace: unknown, route: string): string | undefined => {
     if (!record(namespace) || !record(namespace.value) || !record(namespace.value.providers)) return undefined
-    const profile: unknown = namespace.value.providers[provider]
+    const profile: unknown = namespace.value.providers[route]
     return record(profile) && typeof profile.apiKeyEnv === 'string' ? profile.apiKeyEnv : undefined
   }
   const settingsAndReference = async () => {
@@ -107,8 +119,9 @@ export async function connectDesktopWelcome(
     if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
     const namespaces = settings.namespaces
     const piAi: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'llm-pi-ai')
-    const baizorRef = providerRef(piAi, 'baizor')
-    if (baizorRef !== undefined) return { settings: { namespaces }, ref: baizorRef }
+    const seededRef = providerRef(piAi, provider)
+    if (seededRef !== undefined) return { settings: { namespaces }, ref: seededRef }
+    if (modelGateway !== undefined) return { settings: { namespaces }, ref: undefined }
     const official: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'llm-deepseek')
     if (official === undefined) return { settings: { namespaces }, ref: undefined }
     if (!record(official) || !record(official.value) || typeof official.value.apiKeyEnv !== 'string') {
@@ -129,13 +142,13 @@ export async function connectDesktopWelcome(
     const providers = await invoke({ namespace: 'llm', method: 'listConfigurableProviders', args: {} })
     if (!Array.isArray(providers)) throw new Error('desktop welcome: invalid provider directory')
     const namespaces = settings.namespaces
-    const refs = providers.flatMap((provider: unknown) => {
-      if (!record(provider) || typeof provider.settingsNs !== 'string' || !Array.isArray(provider.settingsPath)) {
+    const refs = providers.flatMap((entry: unknown) => {
+      if (!record(entry) || typeof entry.settingsNs !== 'string' || !Array.isArray(entry.settingsPath)) {
         throw new Error('desktop welcome: invalid provider settings address')
       }
-      const namespace: unknown = namespaces.find((item: unknown) => record(item) && item.ns === provider.settingsNs)
+      const namespace: unknown = namespaces.find((item: unknown) => record(item) && item.ns === entry.settingsNs)
       let value: unknown = record(namespace) ? namespace.value : undefined
-      for (const key of provider.settingsPath as unknown[]) {
+      for (const key of entry.settingsPath as unknown[]) {
         if (typeof key !== 'string') throw new Error('desktop welcome: invalid provider settings path')
         value = record(value) ? value[key] : undefined
       }
@@ -157,7 +170,7 @@ export async function connectDesktopWelcome(
       localePreference: localePreference(namespaces),
     }
   }
-  const storeBaizorKey = async (apiKey: string): Promise<void> => {
+  const storeProviderKey = async (apiKey: string): Promise<void> => {
     if (!/^[\x21-\x7e]+$/.test(apiKey)) throw new Error('desktop welcome: invalid API key')
     const { ref } = await settingsAndReference()
     if (ref === undefined) throw new Error('desktop welcome: no writable credential reference')
@@ -177,35 +190,50 @@ export async function connectDesktopWelcome(
       if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
       return localePreference(settings.namespaces)
     },
-    async ensureBaizorConfiguration() {
+    async ensureModelConfiguration() {
       const signal = AbortSignal.timeout(10_000)
       const settings = await invoke({ namespace: 'settings', method: 'describe', args: {} }, signal)
       if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
       const namespaces = settings.namespaces
       const namespace = (ns: string): unknown => namespaces.find((item: unknown) => record(item) && item.ns === ns)
       const piAi = namespace('llm-pi-ai')
-      const providers = record(piAi) && record(piAi.value) && record(piAi.value.providers) ? piAi.value.providers : undefined
-      const baizor = record(providers) ? providers.baizor : undefined
-      if (!record(baizor) || typeof baizor.apiKeyEnv !== 'string') {
-        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { baizor: BAIZOR_PROVIDER_PROFILE } }, expectedRevision: undefined } }, signal)
+      const profiles = record(piAi) && record(piAi.value) && record(piAi.value.providers) ? piAi.value.providers : undefined
+      const seeded = record(profiles) ? profiles[provider] : undefined
+      const seededRoute = record(seeded) && typeof seeded.apiKeyEnv === 'string'
+      const gatewayRoute = modelGateway !== undefined && seededRoute
+        && seeded.baseURL === providerProfile.baseURL && seeded.apiKeyEnv === providerProfile.apiKeyEnv
+      if (!seededRoute || (modelGateway !== undefined && !gatewayRoute)) {
+        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { [provider]: providerProfile } }, expectedRevision: undefined } }, signal)
+      }
+      // The enterprise edition is the AirGap distribution channel: an installed
+      // baizor route predates the gateway and no longer reaches the closed
+      // network. Repoint it at the sealed gateway so recorded per-session
+      // selections continue to answer through AirGap instead of failing 401.
+      if (modelGateway !== undefined) {
+        const baizor = record(profiles) ? profiles.baizor : undefined
+        const misrouted = record(baizor) && (baizor.baseURL !== providerProfile.baseURL || baizor.apiKeyEnv !== providerProfile.apiKeyEnv)
+        if (misrouted) {
+          await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { baizor: { ...providerProfile, displayName: 'Baizor' } } }, expectedRevision: undefined } }, signal)
+        }
       }
       const defaultModel = namespace('agent-default-model')
       const user = record(defaultModel) ? defaultModel.user : undefined
       const selection = record(user) ? user : {}
-      if (selection.provider === undefined && selection.model === undefined) {
-        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'agent-default-model', patch: BAIZOR_DEFAULT_SELECTION, expectedRevision: undefined } }, signal)
+      const migrated = selection.provider === provider && selection.model === defaultSelection.model
+      if (modelGateway !== undefined ? !migrated : selection.provider === undefined && selection.model === undefined) {
+        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'agent-default-model', patch: defaultSelection, expectedRevision: undefined } }, signal)
       }
     },
     async save(apiKey) {
       if (!/^[\x21-\x7e]+$/.test(apiKey)) return { ok: false }
       try {
-        await storeBaizorKey(apiKey)
+        await storeProviderKey(apiKey)
         return { ok: true }
       } catch {
         // Provider diagnostics may contain credentials; the native form owns failure copy.
         return { ok: false }
       }
     },
-    storeBaizorKey,
+    storeProviderKey,
   }
 }

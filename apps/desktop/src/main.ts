@@ -37,6 +37,8 @@ import { readDeviceInfo } from './device-info.ts'
 import { desktopUpdateReadyConfirmation, formatDesktopMessage, resolveDesktopLocale, resolveDesktopStartupLocale } from './locale.ts'
 import { claimDesktopSingleInstance } from './single-instance.ts'
 import { desktopUpdateChannel } from './update-channel.ts'
+import { desktopEnterpriseModelGateway } from './product-edition.ts'
+import { readGatewayKey } from './enterprise-gateway-key.ts'
 import { DesktopUpdateCoordinator } from './update-coordinator.ts'
 import { prepareDesktopUpdateWindow } from './update-window.ts'
 import { DesktopCommandManager } from './command-management.ts'
@@ -502,6 +504,10 @@ async function main(): Promise<void> {
   const platformView = new DesktopPlatformView(join(app.getAppPath(), 'lib', 'preload-platform-account.cjs'),
     () => locale.id === 'zh-CN' ? 'zh_CN' : 'en_US', process.platform === 'win32' ? 'win32' : process.platform === 'linux' ? 'linux' : 'darwin',
     owner => isMandatory() || updateOverlays.input(owner).blocked)
+  const manifest: unknown = JSON.parse(await readFile(join(app.getAppPath(), 'package.json'), 'utf8'))
+  const updateChannel = desktopUpdateChannel(manifest)
+  const modelGateway = desktopEnterpriseModelGateway(manifest)
+  const enterpriseEdition = modelGateway !== undefined
   /** Project the baizor login controller onto the welcome window's AccountView. */
   const baizorAccountView = (view?: SignInAttemptView | null): AccountView => {
     const state = baizorLogin?.state()
@@ -530,21 +536,29 @@ async function main(): Promise<void> {
         hostUrl = ready.url
         if (ready.injections === undefined) throw new Error('Desktop Host did not provide boot injections')
         injections = ready.injections
-        welcomeBackend = await connectDesktopWelcome(ready.url, (input, init) => net.fetch(input, init), async () => (await session.defaultSession.cookies.get({ url: ready.url })).map(cookie => `${cookie.name}=${cookie.value}`).join('; '))
+        welcomeBackend = await connectDesktopWelcome(ready.url, (input, init) => net.fetch(input, init), async () => (await session.defaultSession.cookies.get({ url: ready.url })).map(cookie => `${cookie.name}=${cookie.value}`).join('; '), modelGateway)
         baizorLogin?.dispose()
-        baizorLogin = new BaizorLogin({
-          now: () => Date.now(),
-          openExternal: url => shell.openExternal(url),
-          fetch: (input, init) => net.fetch(input, init),
-        }, {
-          save: async (key) => {
-            if (welcomeBackend === undefined) throw new Error('desktop welcome: backend unavailable')
-            await welcomeBackend.storeBaizorKey(key)
-          },
-        })
+        if (!enterpriseEdition) {
+          baizorLogin = new BaizorLogin({
+            now: () => Date.now(),
+            openExternal: url => shell.openExternal(url),
+            fetch: (input, init) => net.fetch(input, init),
+          }, {
+            save: async (key) => {
+              if (welcomeBackend === undefined) throw new Error('desktop welcome: backend unavailable')
+              await welcomeBackend.storeProviderKey(key)
+            },
+          })
+        }
         analyticsEnabled = await welcomeBackend.analyticsEnabled().catch(() => false)
         if (!reportedLaunch) { reportedLaunch = true; void track('desktop_app_launch', {}) }
-        await welcomeBackend.ensureBaizorConfiguration().catch((error: unknown) => { console.warn('desktop welcome: baizor model seeding failed', error) })
+        await welcomeBackend.ensureModelConfiguration().catch((error: unknown) => { console.warn('desktop welcome: model seeding failed', error) })
+        // The installer may have written an AirGap-issued key beside the packaged manifest.
+        // Import after the provider profile is seeded so its credential reference exists.
+        if (modelGateway !== undefined && app.isPackaged) {
+          const gatewayKey = await readGatewayKey(join(process.resourcesPath, '..')).catch(() => undefined)
+          if (gatewayKey !== undefined) await welcomeBackend.storeProviderKey(gatewayKey).catch((error: unknown) => { console.warn('desktop enterprise gateway: installer key import failed', error) })
+        }
         stopAccount?.()
         const accountBackend = welcomeBackend.account
         stopAccount = accountBackend.watch((state) => {
@@ -677,8 +691,6 @@ async function main(): Promise<void> {
     return startup
   }
 
-  const manifest: unknown = JSON.parse(await readFile(join(app.getAppPath(), 'package.json'), 'utf8'))
-  const updateChannel = desktopUpdateChannel(manifest)
   const updates = new DesktopUpdateCoordinator(
     publishUpdate,
     async () => {
@@ -1287,7 +1299,7 @@ async function main(): Promise<void> {
           return { ok: true }
         },
         skip: enterWorkspace,
-      })
+      }, enterpriseEdition)
       const window = welcomeWindow
       window.once('closed', () => {
         const login = baizorLogin?.state()
