@@ -3,11 +3,11 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/rescope.md
 /vendored-package-rescope:
-  en: 08b3791a669a003e
-  zh: 7f3c8f3d94110463
+  en: c8aa4d3384ea1306
+  zh: 5aa030587d5b634d
 /vendored-package-rescope/name-mapping:
-  en: c6b60a43a3e64187
-  zh: 45929d1446ae1854
+  en: 8cf6bffb94913b2f
+  zh: 96fc3a7c11db9a33
 /vendored-package-rescope/what-the-rename-does-not-touch:
   en: a4ee9e920ab36037
   zh: 44c023da780bf35c

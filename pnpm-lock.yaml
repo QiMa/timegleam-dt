@@ -753,6 +753,9 @@ importers:
       '@hy/dsh-client-shortcuts':
         specifier: workspace:*
         version: link:../../packages/client/shortcuts
+      '@hy/dsh-client-ui-file-actions':
+        specifier: workspace:*
+        version: link:../../packages/client/ui-file-actions
       '@hy/dsh-client-ui-primitives':
         specifier: workspace:*
         version: link:../../packages/client/ui-primitives
@@ -3006,6 +3009,9 @@ importers:
       '@hy/dsh-client-ui-commands':
         specifier: workspace:*
         version: link:../../client/ui-commands
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../../client/ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../../client/ui-conversation
@@ -3024,6 +3030,9 @@ importers:
       '@hy/dsh-client-ui-entry-customization':
         specifier: workspace:*
         version: link:../../client/ui-entry-customization
+      '@hy/dsh-client-ui-file-actions':
+        specifier: workspace:*
+        version: link:../../client/ui-file-actions
       '@hy/dsh-client-ui-file-drag':
         specifier: workspace:*
         version: link:../../client/ui-file-drag
@@ -3784,6 +3793,9 @@ importers:
       '@hy/dsh-client-ui-chat':
         specifier: workspace:*
         version: link:../ui-chat
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -3887,6 +3899,9 @@ importers:
       '@hy/dsh-client-ui-approval':
         specifier: workspace:*
         version: link:../ui-approval
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -4038,6 +4053,54 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1
 
+  packages/client/ui-context-menu:
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@hy/dsh-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@hy/dsh-client-shortcuts':
+        specifier: workspace:*
+        version: link:../shortcuts
+      '@hy/dsh-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@hy/dsh-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-dockkit':
+        specifier: workspace:*
+        version: link:../ui-dockkit
+      '@hy/dsh-client-ui-layout':
+        specifier: workspace:*
+        version: link:../ui-layout
+      '@hy/dsh-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@hy/dsh-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@hy/dsh-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+
   packages/client/ui-conversation:
     dependencies:
       '@hy/schemastery':
@@ -4083,6 +4146,9 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-layout':
         specifier: workspace:*
         version: link:../ui-layout
@@ -4219,6 +4285,9 @@ importers:
       '@hy/dsh-client-ui-chat':
         specifier: workspace:*
         version: link:../ui-chat
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -4423,6 +4492,51 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+
+  packages/client/ui-file-actions:
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-api-session-controller':
+        specifier: workspace:*
+        version: link:../../api/session-controller
+      '@hy/dsh-api-workspace-files':
+        specifier: workspace:*
+        version: link:../../api/workspace-files
+      '@hy/dsh-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@hy/dsh-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
+      '@hy/dsh-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@hy/dsh-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@hy/dsh-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@hy/dsh-util-file-drag':
+        specifier: workspace:*
+        version: link:../../util/file-drag
+      '@hy/dsh-util-workspace-path':
+        specifier: workspace:*
+        version: link:../../util/workspace-path
+      mime:
+        specifier: ^4.1.0
+        version: 4.1.1
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
 
   packages/client/ui-file-drag:
     devDependencies:
@@ -4792,6 +4906,9 @@ importers:
       '@hy/dsh-api-session-controller':
         specifier: workspace:*
         version: link:../../api/session-controller
+      '@hy/dsh-api-workspace-files':
+        specifier: workspace:*
+        version: link:../../api/workspace-files
       '@hy/dsh-client-locale':
         specifier: workspace:*
         version: link:../locale
@@ -4804,12 +4921,18 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
       '@hy/dsh-client-ui-deliverables':
         specifier: workspace:*
         version: link:../ui-deliverables
+      '@hy/dsh-client-ui-file-actions':
+        specifier: workspace:*
+        version: link:../ui-file-actions
       '@hy/dsh-client-ui-layout':
         specifier: workspace:*
         version: link:../ui-layout
@@ -4822,15 +4945,24 @@ importers:
       '@hy/dsh-client-ui-session':
         specifier: workspace:*
         version: link:../ui-session
+      '@hy/dsh-client-ui-sidebar-browser':
+        specifier: workspace:*
+        version: link:../ui-sidebar-browser
       '@hy/dsh-client-ui-sidebar-documentpreview':
         specifier: workspace:*
         version: link:../ui-sidebar-documentpreview
       '@hy/dsh-client-ui-sidebar-files':
         specifier: workspace:*
         version: link:../ui-sidebar-files
+      '@hy/dsh-client-ui-sidebar-right':
+        specifier: workspace:*
+        version: link:../ui-sidebar-right
       '@hy/dsh-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
+      '@hy/dsh-client-ui-workspace':
+        specifier: workspace:*
+        version: link:../ui-workspace
       '@hy/dsh-host-open-in-app':
         specifier: workspace:*
         version: link:../../host/open-in-app
@@ -4840,6 +4972,9 @@ importers:
       '@hy/dsh-session':
         specifier: workspace:*
         version: link:../../core/session
+      '@hy/dsh-util-workspace-path':
+        specifier: workspace:*
+        version: link:../../util/workspace-path
       '@types/react':
         specifier: ~18.3.1
         version: 18.3.31
@@ -5219,6 +5354,9 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -5345,6 +5483,9 @@ importers:
       '@hy/dsh-session':
         specifier: workspace:*
         version: link:../../core/session
+      '@hy/dsh-util-time':
+        specifier: workspace:*
+        version: link:../../util/time
       '@hy/dsh-util-values':
         specifier: workspace:*
         version: link:../../util/values
@@ -6118,6 +6259,9 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-dockkit':
         specifier: workspace:*
         version: link:../ui-dockkit
@@ -6136,6 +6280,9 @@ importers:
       '@hy/dsh-client-ui-settings':
         specifier: workspace:*
         version: link:../ui-settings
+      '@hy/dsh-client-ui-sidebar-files':
+        specifier: workspace:*
+        version: link:../ui-sidebar-files
       '@hy/dsh-client-ui-sidebar-right':
         specifier: workspace:*
         version: link:../ui-sidebar-right
@@ -6217,6 +6364,9 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-dockkit':
         specifier: workspace:*
         version: link:../ui-dockkit
@@ -6283,6 +6433,9 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -6608,6 +6761,9 @@ importers:
       '@hy/dsh-api-remotes':
         specifier: workspace:*
         version: link:../../api/remotes
+      '@hy/dsh-api-session-controller':
+        specifier: workspace:*
+        version: link:../../api/session-controller
       '@hy/dsh-api-workspace-controller':
         specifier: workspace:*
         version: link:../../api/workspace-controller
@@ -6626,6 +6782,9 @@ importers:
       '@hy/dsh-client-ui-chat':
         specifier: workspace:*
         version: link:../ui-chat
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -6960,6 +7119,9 @@ importers:
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../ui-conversation
@@ -8083,6 +8245,9 @@ importers:
       '@hy/dsh-fs-local':
         specifier: workspace:*
         version: link:../../fs/fs-local
+      '@hy/dsh-fs-observation-policy':
+        specifier: workspace:*
+        version: link:../../fs/fs-observation-policy
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
@@ -8095,12 +8260,21 @@ importers:
       '@hy/dsh-subprocess-local':
         specifier: workspace:*
         version: link:../../subprocess/subprocess-local
+      '@hy/dsh-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@hy/dsh-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
       '@hy/dsh-tool-fs':
         specifier: workspace:*
         version: link:../../fs/tool-fs
       '@hy/dsh-tool-str-replace-editor':
         specifier: workspace:*
         version: link:../../fs/tool-str-replace-editor
+      '@hy/dsh-tool-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/tool-testkit
       '@hy/dsh-tools':
         specifier: workspace:*
         version: link:../../core/tools
@@ -9956,6 +10130,9 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@hy/dsh-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
       '@hy/dsh-experimental-forge':
         specifier: workspace:*
         version: link:../forge
@@ -10422,6 +10599,9 @@ importers:
       '@hy/dsh-client-ui-commands':
         specifier: workspace:*
         version: link:../../client/ui-commands
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../../client/ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../../client/ui-conversation
@@ -11595,6 +11775,12 @@ importers:
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
+      eslint-scope:
+        specifier: ^9.1.2
+        version: 9.1.2
+      eslint-visitor-keys:
+        specifier: ^5.0.1
+        version: 5.0.1
       picomatch:
         specifier: ^4.0.7
         version: 4.0.7
@@ -11656,6 +11842,9 @@ importers:
       '@hy/node-addon-system':
         specifier: workspace:~
         version: link:../../../native/system/packages/entry
+      '@types/estree':
+        specifier: ^1.0.9
+        version: 1.0.9
       '@types/picomatch':
         specifier: ^4.0.3
         version: 4.0.3
@@ -11956,6 +12145,10 @@ importers:
         version: link:../../typert/protocol
 
   packages/fs/fs:
+    dependencies:
+      '@hy/dsh-fs-patch':
+        specifier: workspace:*
+        version: link:../fs-patch
     devDependencies:
       '@hy/cordis':
         specifier: workspace:~
@@ -11972,6 +12165,9 @@ importers:
 
   packages/fs/fs-local:
     dependencies:
+      '@hy/dsh-fs-patch':
+        specifier: workspace:*
+        version: link:../fs-patch
       '@hy/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
@@ -12004,6 +12200,12 @@ importers:
         specifier: workspace:*
         version: link:../../llm/llm
 
+  packages/fs/fs-patch:
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
   packages/fs/fs-sandbox:
     devDependencies:
       '@hy/cordis':
@@ -12027,9 +12229,15 @@ importers:
 
   packages/fs/tool-fs:
     dependencies:
+      '@hy/dsh-fs-patch':
+        specifier: workspace:*
+        version: link:../fs-patch
       '@hy/dsh-util-code-language':
         specifier: workspace:*
         version: link:../../util/code-language
+      '@hy/dsh-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
       '@hy/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
@@ -12061,6 +12269,9 @@ importers:
       '@hy/dsh-fs-observation-policy':
         specifier: workspace:*
         version: link:../fs-observation-policy
+      '@hy/dsh-fs-sandbox':
+        specifier: workspace:*
+        version: link:../fs-sandbox
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
@@ -13591,19 +13802,6 @@ importers:
         specifier: workspace:*
         version: link:../../core/tools
 
-  packages/memory/tool-memory:
-    dependencies:
-      '@hy/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-tools':
-        specifier: workspace:*
-        version: link:../../core/tools
-
   packages/plan/plan-mode:
     dependencies:
       '@hy/dsh-brand':
@@ -14015,6 +14213,12 @@ importers:
       '@hy/dsh-brand':
         specifier: workspace:*
         version: link:../../util/brand
+      '@hy/dsh-goal':
+        specifier: workspace:*
+        version: link:../../goal/goal
+      '@hy/dsh-goal-round-driver':
+        specifier: workspace:*
+        version: link:../../goal/goal-round-driver
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
@@ -14030,6 +14234,9 @@ importers:
       '@hy/dsh-session-projection':
         specifier: workspace:*
         version: link:../../session/session-projection
+      '@hy/dsh-session-title':
+        specifier: workspace:*
+        version: link:../../session/session-title
       '@hy/dsh-storage':
         specifier: workspace:*
         version: link:../../storage/storage
@@ -14069,9 +14276,15 @@ importers:
       '@hy/dsh-agent':
         specifier: workspace:*
         version: link:../../core/agent
+      '@hy/dsh-agent-preset-registry':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset-registry
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
+      '@hy/dsh-ptc-runtime':
+        specifier: workspace:*
+        version: link:../../ptc-runtime/ptc-runtime
       '@hy/dsh-schedule':
         specifier: workspace:*
         version: link:../schedule
@@ -14084,6 +14297,12 @@ importers:
       '@hy/dsh-subagent':
         specifier: workspace:*
         version: link:../../subagent/subagent
+      '@hy/dsh-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@hy/dsh-tool-executor-ptc':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-ptc
       '@hy/dsh-tool-testkit':
         specifier: workspace:*
         version: link:../../test-support/tool-testkit
@@ -14118,6 +14337,9 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@hy/dsh-commands':
+        specifier: workspace:*
+        version: link:../../interaction/commands
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
@@ -14158,12 +14380,39 @@ importers:
       '@hy/dsh-attachment':
         specifier: workspace:*
         version: link:../../attachment/attachment
+      '@hy/dsh-command-compact':
+        specifier: workspace:*
+        version: link:../../compaction/command-compact
+      '@hy/dsh-command-goal':
+        specifier: workspace:*
+        version: link:../../goal/command-goal
+      '@hy/dsh-commands':
+        specifier: workspace:*
+        version: link:../../interaction/commands
+      '@hy/dsh-compaction-basic':
+        specifier: workspace:*
+        version: link:../../compaction/compaction-basic
+      '@hy/dsh-goal':
+        specifier: workspace:*
+        version: link:../../goal/goal
+      '@hy/dsh-goal-round-driver':
+        specifier: workspace:*
+        version: link:../../goal/goal-round-driver
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
       '@hy/dsh-llm-deepseek-api-key':
         specifier: workspace:*
         version: link:../../llm/llm-deepseek-api-key
+      '@hy/dsh-permission-presets':
+        specifier: workspace:*
+        version: link:../../interaction/permission-presets
+      '@hy/dsh-plan-mode':
+        specifier: workspace:*
+        version: link:../../plan/plan-mode
+      '@hy/dsh-sandbox-policy':
+        specifier: workspace:*
+        version: link:../../sandbox/sandbox-policy
       '@hy/dsh-schedule':
         specifier: workspace:*
         version: link:../../schedule/schedule
@@ -14182,9 +14431,21 @@ importers:
       '@hy/dsh-session-projection':
         specifier: workspace:*
         version: link:../../session/session-projection
+      '@hy/dsh-shell':
+        specifier: workspace:*
+        version: link:../../shell/shell
       '@hy/dsh-subagent':
         specifier: workspace:*
         version: link:../../subagent/subagent
+      '@hy/dsh-token-meter':
+        specifier: workspace:*
+        version: link:../../llm/token-meter
+      '@hy/dsh-tool-goal':
+        specifier: workspace:*
+        version: link:../../goal/tool-goal
+      '@hy/dsh-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
       '@hy/dsh-user-approval':
         specifier: workspace:*
         version: link:../../interaction/user-approval
@@ -16890,6 +17151,9 @@ importers:
       '@hy/dsh-client-ui-chat':
         specifier: workspace:*
         version: link:../../client/ui-chat
+      '@hy/dsh-client-ui-context-menu':
+        specifier: workspace:*
+        version: link:../../client/ui-context-menu
       '@hy/dsh-client-ui-conversation':
         specifier: workspace:*
         version: link:../../client/ui-conversation
@@ -17381,6 +17645,9 @@ importers:
       '@js-temporal/polyfill':
         specifier: 0.5.1
         version: 0.5.1
+      rrule:
+        specifier: 2.8.1
+        version: 2.8.1
     devDependencies:
       '@hy/cordis':
         specifier: workspace:~
@@ -25045,6 +25312,9 @@ packages:
     resolution: {integrity: sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==}
     engines: {node: '>= 18'}
 
+  rrule@2.8.1:
+    resolution: {integrity: sha512-hM3dHSBMeaJ0Ktp7W38BJZ7O1zOgaFEsn41PDk+yHoEtfLV+PoJt9E9xAlZiWgf/iqEqionN0ebHFZIDAp+iGw==}
+
   run-applescript@7.1.0:
     resolution: {integrity: sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7+xC9bGulGI8+TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==}
     engines: {node: '>=18'}
@@ -28681,7 +28951,7 @@ snapshots:
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
 
   '@types/cacheable-request@6.0.3':
     dependencies:
@@ -28698,11 +28968,11 @@ snapshots:
   '@types/compression@1.8.1':
     dependencies:
       '@types/express': 5.0.6
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
 
   '@types/d3-array@3.2.2': {}
 
@@ -28833,7 +29103,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.1.3':
     dependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
       '@types/qs': 6.15.1
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
@@ -28900,7 +29170,7 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
       form-data: 4.0.6
 
   '@types/node@14.18.63': {}
@@ -28950,7 +29220,7 @@ snapshots:
 
   '@types/readable-stream@4.0.24':
     dependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
 
   '@types/regenerator-runtime@0.13.8': {}
 
@@ -28964,12 +29234,12 @@ snapshots:
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
 
   '@types/serve-static@2.2.0':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
 
   '@types/spdx-expression-parse@4.0.0': {}
 
@@ -32737,7 +33007,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.1
-      '@types/node': 22.20.1
+      '@types/node': 26.4.1
       long: 5.3.2
 
   proxy-addr@2.0.8:
@@ -33035,6 +33305,10 @@ snapshots:
       path-to-regexp: 8.4.2
     transitivePeerDependencies:
       - supports-color
+
+  rrule@2.8.1:
+    dependencies:
+      tslib: 2.8.1
 
   run-applescript@7.1.0: {}
 

@@ -92,6 +92,7 @@
     "@hy/dsh-plugin-manager": "workspace:*",
     "zod": "4.4.3",
     "@hy/dsh-util-file-drag": "workspace:*",
+    "@hy/dsh-client-ui-file-actions": "workspace:*",
     "tencentcloud-sdk-nodejs-teo": "4.1.330"
   }
 }

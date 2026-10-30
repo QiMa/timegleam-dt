@@ -64,18 +64,25 @@ AirGap 是封闭网络环境下的内网更新仓库。Desktop 通过 `DSH_DESKT
 **构建（联机侧）**
 
 ```sh
+# standard edition -> huayu-ai catalog
 DSH_DESKTOP_AUTO_UPDATE_ENV=airgap AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
-pnpm run upload:win:x64
+
+# enterprise edition -> huayu-enterprise catalog (never mixed with the public feed)
+DSH_DESKTOP_AUTO_UPDATE_ENV=airgap DSH_DESKTOP_EDITION=enterprise AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
 ```
 
-上传器通过 `scp` 把产物写入 `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...`，不需要 COS 凭据。
+上传器通过 `scp` 把产物写入 `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...`（标准版）或 `.../huayu-enterprise/dsh-desk/...`（企业版），不需要 COS 凭据。每次非 latest 发布还会在对应版本目录根下刷新固定 `huayu-ai-latest-<target>` 安装包及其 `.sha256` 校验文件，供 `huayu-ai.ps1` / `huayu-ai.sh` 一行安装脚本下载校验。
+
+```sh
+pnpm run upload:win:x64
+```
 
 **客户端（封闭网络侧）**
 
 ```sh
-# PowerShell（企业版：指向 huayu-enterprise）
+# PowerShell (enterprise edition: point at huayu-enterprise)
 $env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/'
-# 或内网直连（仅 127.0.0.1/localhost 允许 http）
+# or in-network loopback (http is allowed only for 127.0.0.1/localhost)
 $env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-enterprise/dsh-desk/feeds/win-x64/'
 ```
 

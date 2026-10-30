@@ -28,6 +28,11 @@
     // not declaration path aliases, keep each package/vendor source compiled
     // under its own tsconfig boundary.
     "paths": {
+      "@hy/dsh-client-ui-file-actions": ["./packages/client/ui-file-actions/src/index.ts"],
+      "@hy/dsh-client-ui-file-actions/client": ["./packages/client/ui-file-actions/src/client/index.ts"],
+      "@hy/dsh-client-ui-file-actions/types": ["./packages/client/ui-file-actions/src/types.ts"],
+      "@hy/dsh-client-ui-context-menu": ["./packages/client/ui-context-menu/src/index.ts"],
+      "@hy/dsh-client-ui-context-menu/client": ["./packages/client/ui-context-menu/src/client/index.ts"],
       "@hy/dsh-client-ui-entry-customization": ["./packages/client/ui-entry-customization/src/index.ts"],
       "@hy/dsh-client-ui-entry-customization/client": ["./packages/client/ui-entry-customization/src/client/index.ts"],
       "@hy/dsh-client-ui-entry-customization/src/*": ["./packages/client/ui-entry-customization/src/*"],
@@ -197,6 +202,7 @@
       "@hy/dsh-workflow/types": ["./packages/workflow/workflow/src/types.ts"],
       "@hy/dsh-tool-workflow/types": ["./packages/workflow/tool-workflow/src/types.ts"],
       "@hy/dsh-llm/message": ["./packages/llm/llm/src/message.ts"],
+      "@hy/dsh-commands/builtin": ["./packages/interaction/commands/src/builtin.ts"],
       "@hy/dsh-commands/brand": ["./packages/interaction/commands/src/brand.ts"],
       "@hy/dsh-commands/types": ["./packages/interaction/commands/src/types.ts"],
       "@hy/dsh-jobs/brand": ["./packages/jobs/jobs/src/brand.ts"],
@@ -449,6 +455,7 @@
       "@hy/dsh-fs": ["./packages/fs/fs/src"],
       "@hy/dsh-fs-local": ["./packages/fs/fs-local/src"],
       "@hy/dsh-fs-observation-policy": ["./packages/fs/fs-observation-policy/src"],
+      "@hy/dsh-fs-patch": ["./packages/fs/fs-patch/src"],
       "@hy/dsh-fs-sandbox": ["./packages/fs/fs-sandbox/src"],
       "@hy/dsh-fs-ssh": ["./packages/ssh/fs-ssh/src"],
       "@hy/dsh-goal": ["./packages/goal/goal/src"],

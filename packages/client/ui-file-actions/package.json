@@ -1,0 +1,73 @@
+{
+  "name": "@hy/dsh-client-ui-file-actions",
+  "description": "Original-file saving and image clipboard actions for Web and Desktop",
+  "version": "0.2.2-alpha.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/client/ui-file-actions"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./types": {
+      "types": "./lib/types/types.d.ts"
+    }
+  },
+  "dsh": {
+    "client": {
+      "inject": [
+        "@hy/dsh-client-locale",
+        "@hy/dsh-client-ui-context-menu",
+        "@hy/dsh-api-workspace-files",
+        "@hy/dsh-api-session-controller"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "@hy/dsh-client-ui-primitives": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-client-ui-slots": "workspace:*",
+    "@hy/dsh-api-session-controller": "workspace:*",
+    "@hy/dsh-client-test-runtime": "workspace:*",
+    "@hy/dsh-util-file-drag": "workspace:*",
+    "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*",
+    "@hy/dsh-api-workspace-files": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-util-workspace-path": "workspace:*",
+    "mime": "^4.1.0",
+    "@hy/dsh-client-ui-renderer": "workspace:*"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts"
+  ]
+}

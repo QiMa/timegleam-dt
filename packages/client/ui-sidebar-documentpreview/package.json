@@ -37,7 +37,8 @@
         "@hy/dsh-api-remotes",
         "@hy/dsh-client-locale",
         "@hy/dsh-client-ui-settings",
-        "@hy/dsh-client-ui-file-drag"
+        "@hy/dsh-client-ui-file-drag",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -65,12 +66,12 @@
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-session": "workspace:*",
     "@hy/dsh-client-ui-settings": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-files": "workspace:*",
     "@hy/dsh-client-ui-sidebar-right": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-office-to-pdf": "workspace:*",
     "@hy/dsh-host-webserver": "workspace:*",
     "@hy/dsh-session": "workspace:*",
-    "@hy/dsh-util-workspace-path": "workspace:*",
     "@hy/dsh-util-workspace-path": "workspace:*",
     "@fortune-sheet/core": "1.0.4",
     "@fortune-sheet/react": "1.0.4",
@@ -87,7 +88,8 @@
     "react-dom": "^18.2.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
     "yaml": "^2.9.0",
-    "@hy/dsh-client-ui-file-drag": "workspace:*"
+    "@hy/dsh-client-ui-file-drag": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

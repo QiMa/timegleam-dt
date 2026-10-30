@@ -26,6 +26,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@hy/dsh-commands": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
@@ -33,6 +34,7 @@
     "@hy/dsh-user-questions": "workspace:*"
   },
   "devDependencies": {
+    "@hy/dsh-commands": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",

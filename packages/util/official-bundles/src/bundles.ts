@@ -75,4 +75,5 @@ export const OPTIONAL_BUNDLES: readonly string[] = [
 export const ON_DEMAND_BUNDLES: readonly string[] = [
   '@hy/dsh-subagent-claude-code',
   '@hy/dsh-subagent-codex',
+  '@hy/dsh-cua-bundle',
 ]

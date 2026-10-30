@@ -40,7 +40,8 @@
         "@hy/dsh-client-ui-layout",
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-session",
-        "@hy/dsh-client-ui-sidebar"
+        "@hy/dsh-client-ui-sidebar",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -82,7 +83,8 @@
     "clsx": "^2.0.0",
     "react": "^18.2.0",
     "@hy/dsh-client-shortcuts": "workspace:*",
-    "@hy/dsh-client-product-analytics": "workspace:*"
+    "@hy/dsh-client-product-analytics": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

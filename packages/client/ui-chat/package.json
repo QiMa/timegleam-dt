@@ -42,7 +42,8 @@
         "@hy/dsh-client-ui-settings",
         "@hy/dsh-client-ui-sidebar-right",
         "@hy/dsh-client-ui-workspace",
-        "@hy/dsh-client-ui-file-drag"
+        "@hy/dsh-client-ui-file-drag",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -99,7 +100,8 @@
     "react-dom": "^18.2.0",
     "@hy/dsh-settings": "workspace:*",
     "@hy/dsh-client-product-analytics": "workspace:*",
-    "@hy/dsh-client-ui-file-drag": "workspace:*"
+    "@hy/dsh-client-ui-file-drag": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~"

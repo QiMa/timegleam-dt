@@ -73,6 +73,7 @@
     "@hy/dsh-client-ui-workspace": "workspace:*",
     "@hy/dsh-schedule": "workspace:*",
     "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-util-time": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
     "@testing-library/react": "^16.3.3",
     "clsx": "^2.1.1",

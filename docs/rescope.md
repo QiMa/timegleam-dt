@@ -2,19 +2,19 @@
 
 English | [中文](rescope.zh.md)
 
-The Cordis framework and its foundation libraries are vendored under [`vendor/`](../vendor/README.md) and published under the `@hy` scope, because every harness package declares the framework as a peer dependency: publishing the harness publishes this layer with it, and under the upstream names that publication would squat them on the registry. This page is the name mapping; the decision and its consequences live in the [rescope Agent Note](../.agents/notes/archived/process/2026-08-10-vendor-package-rescope.md), and the upstream commits in [`vendor/README.md`](../vendor/README.md).
+The Cordis framework and its foundation libraries are vendored under [`vendor/`](../vendor/README.md) and published under the `@deepseek-ai` scope, because every harness package declares the framework as a peer dependency: publishing the harness publishes this layer with it, and under the upstream names that publication would squat them on the registry. This page is the name mapping; the decision and its consequences live in the [rescope Agent Note](../.agents/notes/archived/process/2026-08-10-vendor-package-rescope.md), and the upstream commits in [`vendor/README.md`](../vendor/README.md).
 
 ## Name mapping
 
 | Directory | Upstream name | Published name | Upstream version | Role |
 |---|---|---|---|---|
-| `vendor/cordis/` | `cordis` | `@hy/cordis` | 4.0.0-rc.7 | Framework core: `Context`, `Service`, `Fiber`, events |
+| `vendor/cordis/` | `cordis` | `@hy/cordis` | 4.0.0-rc.11 | Framework core: `Context`, `Service`, `Fiber`, events |
 | `vendor/cosmokit/` | `cosmokit` | `@hy/cosmokit` | 1.8.1 | Shared utilities the framework and Schemastery build on |
 | `vendor/schemastery/` | `schemastery` | `@hy/schemastery` | 3.18.0 | Config schemas (`Schema`) behind every plugin's `Config` |
 | `vendor/loader/` | `@cordisjs/plugin-loader` | `@hy/cordis-plugin-loader` | 1.0.0-rc.5 | `cordis.yml` loading, plugin resolution, repository cache |
 | `vendor/include/` | `@cordisjs/plugin-include` | `@hy/cordis-plugin-include` | 1.0.4 | Config includes and patch overlays |
 | `vendor/group/` | `@cordisjs/plugin-group` | `@hy/cordis-plugin-group` | 1.0.0 | Nested plugin groups |
-| `vendor/timer/` | `@cordisjs/plugin-timer` | `@hy/cordis-plugin-timer` | 1.1.2 | Disposal-aware timers on `ctx` |
+| `vendor/timer/` | `@cordisjs/plugin-timer` | `@hy/cordis-plugin-timer` | 1.1.4 | Disposal-aware timers on `ctx` |
 | `vendor/hmr/` | `@cordisjs/plugin-hmr` | `@hy/cordis-plugin-hmr` | 1.0.15 | Hot module replacement for plugins and config |
 | `vendor/logger-console/` | `@cordisjs/plugin-logger-console` | `@hy/cordis-plugin-logger-console` | 1.0.0 | Console logger exporter |
 

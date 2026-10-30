@@ -36,7 +36,8 @@
         "@hy/dsh-client-ui-conversation",
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-input-trigger",
-        "@hy/dsh-client-ui-sidebar-right"
+        "@hy/dsh-client-ui-sidebar-right",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -66,7 +67,8 @@
     "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-util-workspace-path": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-client-ui-sidebar-right": "workspace:*"
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

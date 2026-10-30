@@ -8,7 +8,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-acp` | yes | Automation-only Agent Client Protocol server for driving Huayu AI agents over JSON-RPC stdio |
+| `@hy/dsh-acp` | yes | Automation-only Agent Client Protocol server for driving DeepSeek Harness agents over JSON-RPC stdio |
 
 ## api
 
@@ -73,11 +73,13 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-brand-official` | no | Official DeepSeek Harness brand occupants for the Web client's sidebar slots |
 | `@hy/dsh-client-ui-chat` | no | Chat Conversation target, node definitions, renderers, and details surface |
 | `@hy/dsh-client-ui-commands` | no | Client command surface: global directory cache, '/' source, three command UI kinds, popupSelect registry |
+| `@hy/dsh-client-ui-context-menu` | no | Typed, plugin-extensible context menus with captured targets and shared Web presentation |
 | `@hy/dsh-client-ui-conversation` | no | Target-neutral Conversation assembly, shell, composer, queue, and view navigation |
 | `@hy/dsh-client-ui-deliverables` | no | Changed-files card with per-file comparison tabs, delivery cards, and clickable final-response file references for Web |
 | `@hy/dsh-client-ui-directory-picker-browse` | no | In-app directory browsing surface: the workspace directory-flow owner rendering the host's listing and creation primitives |
 | `@hy/dsh-client-ui-directory-picker-native` | no | Native directory-picker surface: the renderless workspace directory-flow occupant driving the local Desktop or Host OS chooser |
 | `@hy/dsh-client-ui-entry-customization` | no | Customize plugin entries in the left sidebar, conversation views, and right sidebar, and quickly create new plugins. |
+| `@hy/dsh-client-ui-file-actions` | no | Original-file saving and image clipboard actions for Web and Desktop |
 | `@hy/dsh-client-ui-file-drag` | no | Application-owned file drag transfers and localized failure feedback |
 | `@hy/dsh-client-ui-goal` | no | Session goal surface: GoalBar docked above the composer, read from the goal session projection |
 | `@hy/dsh-client-ui-input-trigger` | no | Input trigger pipeline: '/' and '@' detection, candidate menu, pick routing to registered sources |
@@ -110,7 +112,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-sidebar` | no | Sidebar plugin: session multi-level tree, search, grouping, state dots |
 | `@hy/dsh-client-ui-sidebar-browser` | no | Sandboxed Web browser tabs for the right Sidebar |
 | `@hy/dsh-client-ui-sidebar-documentpreview` | yes | Extensible Sidebar previews for Office documents, spreadsheets, Markdown, code, images, PDF, HTML, and plain text |
-| `@hy/dsh-client-ui-sidebar-files` | no | Workspace file tree tab type for the right Sidebar: lazy directory listing over the workspaceFiles Remote namespace, opening files into the Sidebar |
+| `@hy/dsh-client-ui-sidebar-files` | no | The workspace files page and one workspace directory tree per pane beside docked and floating file previews, listed lazily over the workspaceFiles Remote namespace |
 | `@hy/dsh-client-ui-sidebar-right` | no | Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it |
 | `@hy/dsh-client-ui-sidebar-terminal` | no | Interactive shell tabs for the right Sidebar |
 | `@hy/dsh-client-ui-skill` | no | Web skill references and the dedicated skill tool row |
@@ -127,7 +129,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@hy/dsh-command-compact` | no | Human-facing slash command for explicit session compaction |
-| `@hy/dsh-compaction-basic` | yes | Token-meter-driven compaction policy and LLM summarization backend for the Huayu AI |
+| `@hy/dsh-compaction-basic` | yes | Token-meter-driven compaction policy and LLM summarization backend for the DeepSeek Harness |
 | `@hy/dsh-compaction-image-offload` | no | Durable image offload for image-capable routes: replace over-budget request images with placeholders and retry |
 | `@hy/dsh-compaction-tool-result-pruner` | yes | Replay-safe model-free head/middle/tail pruning for tool-result surface nodes |
 
@@ -143,7 +145,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@hy/dsh-agent-instructions` | yes | Workspace context loader for AGENTS.md/CLAUDE.md instruction files |
 | `@hy/dsh-file-reference-local` | yes | Local-filesystem ctx.fileReferences provider with bounded fuzzy indexes |
-| `@hy/dsh-harness-dev-context` | no | Model context naming the Huayu AI checkout and Web GUI URL without letting either change the system prompt |
+| `@hy/dsh-harness-dev-context` | no | Model context naming the DeepSeek Harness checkout and Web GUI URL without letting either change the system prompt |
 | `@hy/dsh-session-reference` | yes | Cross-session snapshot references and durable untrusted model context (ctx.sessionReferenceResolver) |
 | `@hy/dsh-time-context` | yes | Durable per-step context with the current time and elapsed time |
 | `@hy/dsh-tmux-context` | yes | Opt-in durable per-step context with this agent's tmux pane and window location |
@@ -167,7 +169,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@hy/dsh-authorization` | no | Authorization seam (ctx.authorization): plugin-owned flows that obtain a credential through a conversation with the human |
-| `@hy/dsh-credentials-local` | yes | File-backed credentials provider ($DSH_HOME/.env under the live process environment) for the Huayu AI |
+| `@hy/dsh-credentials-local` | yes | File-backed credentials provider ($DSH_HOME/.env under the live process environment) for the DeepSeek Harness |
 | `@hy/dsh-deepseek-account-platform` | yes | Authorize DeepSeek accounts through browser PKCE |
 
 ## deliverables
@@ -255,10 +257,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-fs-local` | yes | Local-filesystem implementation of the Huayu AI filesystem seam (ctx.fs) |
-| `@hy/dsh-fs-observation-policy` | no | File-context policy plugin for the Huayu AI — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API) |
-| `@hy/dsh-fs-sandbox` | yes | Sandbox-enforcing implementation of the Huayu AI filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through |
-| `@hy/dsh-tool-fs` | yes | Model-facing filesystem tools (read, write, edit) over the Huayu AI filesystem seam (ctx.fs) |
+| `@hy/dsh-fs-local` | yes | Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs) |
+| `@hy/dsh-fs-observation-policy` | no | File-context policy plugin for the DeepSeek Harness — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API) |
+| `@hy/dsh-fs-sandbox` | yes | Sandbox-enforcing implementation of the DeepSeek Harness filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through |
+| `@hy/dsh-tool-fs` | yes | Model-facing filesystem tools (read, write, edit) over the DeepSeek Harness filesystem seam (ctx.fs) |
 | `@hy/dsh-tool-fs-search` | yes | Model-facing filesystem discovery tools (glob, grep) backed by the packaged ripgrep binary (@vscode/ripgrep) |
 | `@hy/dsh-tool-str-replace-editor` | yes | Model-facing view, create, literal replace, and line insert tool over the Harness filesystem service |
 
@@ -267,7 +269,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@hy/dsh-command-goal` | no | Human-facing slash command for persisted same-session goals |
-| `@hy/dsh-goal` | yes | Event-sourced same-session goal state and lifecycle service for the Huayu AI |
+| `@hy/dsh-goal` | yes | Event-sourced same-session goal state and lifecycle service for the DeepSeek Harness |
 | `@hy/dsh-goal-round-driver` | no | Race-fenced same-session goal-round driver |
 | `@hy/dsh-tool-goal` | yes | Model-facing same-session goal tools with execution-time authority checks |
 
@@ -295,17 +297,17 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-commands` | no | Plugin-owned human command registry for Huayu AI UIs |
-| `@hy/dsh-permission-presets` | yes | User-facing permission presets (ctx.permissionPresets) for the Huayu AI: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events |
+| `@hy/dsh-commands` | no | Plugin-owned human command registry for DeepSeek Harness UIs |
+| `@hy/dsh-permission-presets` | yes | User-facing permission presets (ctx.permissionPresets) for the DeepSeek Harness: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events |
 | `@hy/dsh-tool-ask-user` | yes | Model-facing ask_user_question tool over the ctx.userQuestions seam |
-| `@hy/dsh-user-approval` | yes | User-approval seam (ctx.approval) for the Huayu AI: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default |
+| `@hy/dsh-user-approval` | yes | User-approval seam (ctx.approval) for the DeepSeek Harness: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default |
 | `@hy/dsh-user-questions` | no | Abstract user-questions seam (ctx.userQuestions) for asking the human during agent runs |
 
 ## jobs
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-jobs-local` | yes | Process-local implementation of the Huayu AI background job registry seam |
+| `@hy/dsh-jobs-local` | yes | Process-local implementation of the DeepSeek Harness background job registry seam |
 | `@hy/dsh-tool-jobs` | yes | Model-facing background job control tools (job_output, job_list, job_kill) over the ctx.jobs registry |
 
 ## llm
@@ -313,21 +315,21 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@hy/dsh-deepseek-llm-api-extensions` | no | Additive request-field registry for the official DeepSeek LLM API adapter |
-| `@hy/dsh-llm` | no | Provider-neutral LLM service interface for the Huayu AI |
+| `@hy/dsh-llm` | no | Provider-neutral LLM service interface for the DeepSeek Harness |
 | `@hy/dsh-llm-deepseek-account` | yes | DeepSeek account provider authentication and discovery |
 | `@hy/dsh-llm-deepseek-api-key` | yes | DeepSeek api-key provider authentication and discovery |
-| `@hy/dsh-llm-pi-ai` | yes | pi-ai-backed DeepSeek adapter for the Huayu AI LLM seam (design-verification twin of dsh-llm-deepseek) |
-| `@hy/dsh-llm-retry` | yes | Provider-routed LLM request retry policy for the Huayu AI |
+| `@hy/dsh-llm-pi-ai` | yes | pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam (design-verification twin of dsh-llm-deepseek) |
+| `@hy/dsh-llm-retry` | yes | Provider-routed LLM request retry policy for the DeepSeek Harness |
 | `@hy/dsh-plugin-package-inventory-deepseek` | yes | Active Loader-backed plugin package inventory for official DeepSeek LLM API requests |
-| `@hy/dsh-token-meter` | yes | Replay-aware token measurement service (ctx.tokenMeter) for the Huayu AI |
+| `@hy/dsh-token-meter` | yes | Replay-aware token measurement service (ctx.tokenMeter) for the DeepSeek Harness |
 
 ## lsp
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-lsp` | no | Abstract LSP capability seam (ctx.lsp) for the Huayu AI — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy |
-| `@hy/dsh-lsp-stdio` | yes | Generic stdio language-server provider for the Huayu AI LSP capability seam (ctx.lsp) — spawns configured servers, translates JSON-RPC, and serves transient-open goToDefinition/findReferences/goToImplementation/hover queries in the host filesystem namespace |
-| `@hy/dsh-tool-lsp` | yes | Model-facing lsp tool over the Huayu AI LSP capability seam (ctx.lsp) — one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization |
+| `@hy/dsh-lsp` | no | Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy |
+| `@hy/dsh-lsp-stdio` | yes | Generic stdio language-server provider for the DeepSeek Harness LSP capability seam (ctx.lsp) — spawns configured servers, translates JSON-RPC, and serves transient-open goToDefinition/findReferences/goToImplementation/hover queries in the host filesystem namespace |
+| `@hy/dsh-tool-lsp` | yes | Model-facing lsp tool over the DeepSeek Harness LSP capability seam (ctx.lsp) — one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization |
 
 ## mcp
 
@@ -348,7 +350,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@hy/dsh-agent-preset` | yes | Declare an Agent capability composition in Cordis YAML |
 | `@hy/dsh-agent-preset-registry` | yes | Declarative Agent preset registry and profile-backed editing |
-| `@hy/dsh-persona` | yes | Composition-authored deployment persona section for the Huayu AI |
+| `@hy/dsh-persona` | yes | Composition-authored deployment persona section for the DeepSeek Harness |
 
 ## ptc-runtime
 
@@ -360,21 +362,21 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-sandbox-local` | yes | Local process-sandbox backends for the Huayu AI sandbox seam: bwrap, the npm-distributed landlock-run launcher, macOS Seatbelt, or the Windows ACL restricted-token runner — functionally probed, fail-closed |
+| `@hy/dsh-sandbox-local` | yes | Local process-sandbox backends for the DeepSeek Harness sandbox seam: bwrap, the npm-distributed landlock-run launcher, macOS Seatbelt, or the Windows ACL restricted-token runner — functionally probed, fail-closed |
 | `@hy/dsh-sandbox-policy` | yes | Per-call sandbox policy resolver and current model context: deployment fallbacks plus each session's mode and workspace root, shared by every enforcing capability family |
 
 ## schedule
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-schedule` | yes | Host-wide durable reminders with shared management and original-Session delivery |
-| `@hy/dsh-tool-schedule` | no | Model-facing reminder management tools (schedule_create, schedule_list, schedule_update, schedule_delete) over the Host ctx.schedule service |
+| `@hy/dsh-schedule` | yes | Host-wide durable reminders with shared management and delivery to existing or new Sessions |
+| `@hy/dsh-tool-schedule` | no | Model-facing scheduled task tools (schedule_create, schedule_list, schedule_view, schedule_edit) over the Host ctx.schedule service |
 
 ## sdk
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-sdk-jsonrpc-server` | yes | Stdio JSON-RPC server plugin for out-of-process Huayu AI SDK clients |
+| `@hy/dsh-sdk-jsonrpc-server` | yes | Stdio JSON-RPC server plugin for out-of-process DeepSeek Harness SDK clients |
 
 ## session
 
@@ -405,16 +407,16 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-settings` | no | Abstract user-settings seam (ctx.settings) for the Huayu AI |
+| `@hy/dsh-settings` | no | Abstract user-settings seam (ctx.settings) for the DeepSeek Harness |
 
 ## shell
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-bash-local` | yes | Local-subprocess implementation of the Huayu AI bash executor seam |
-| `@hy/dsh-bash-sandbox` | yes | Sandbox-consuming implementation of the Huayu AI bash executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
-| `@hy/dsh-pwsh-local` | yes | Local PowerShell implementation of the Huayu AI bash executor seam |
-| `@hy/dsh-pwsh-sandbox` | yes | Sandbox-consuming implementation of the Huayu AI PowerShell executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
+| `@hy/dsh-bash-local` | yes | Local-subprocess implementation of the DeepSeek Harness bash executor seam |
+| `@hy/dsh-bash-sandbox` | yes | Sandbox-consuming implementation of the DeepSeek Harness bash executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
+| `@hy/dsh-pwsh-local` | yes | Local PowerShell implementation of the DeepSeek Harness bash executor seam |
+| `@hy/dsh-pwsh-sandbox` | yes | Sandbox-consuming implementation of the DeepSeek Harness PowerShell executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
 | `@hy/dsh-shell-env` | yes | Tool-independent managed DSH_* shell environment registry |
 | `@hy/dsh-tool-bash` | yes | Model-facing bash tool with optional generic background-job and sandbox-escalation support |
 | `@hy/dsh-tool-bash-persistent` | yes | Model-facing owner-scoped persistent Bash tool backed by the Harness PTY service |
@@ -425,17 +427,17 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-skill` | yes | Agent skill provider registry for the Huayu AI |
-| `@hy/dsh-skill-filesystem` | yes | Local filesystem skill provider for the Huayu AI |
+| `@hy/dsh-skill` | yes | Agent skill provider registry for the DeepSeek Harness |
+| `@hy/dsh-skill-filesystem` | yes | Local filesystem skill provider for the DeepSeek Harness |
 | `@hy/dsh-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and LibreOffice Kit operations |
-| `@hy/dsh-tool-skill` | yes | Model-facing skill loading tool for the Huayu AI |
+| `@hy/dsh-tool-skill` | yes | Model-facing skill loading tool for the DeepSeek Harness |
 | `@hy/dsh-tool-workspace-dependencies` | yes | The load_workspace_dependencies tool: absolute paths into a bundled Python, Node.js, and pnpm payload |
 
 ## spill
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-spill-local` | yes | Local-filesystem implementation of the Huayu AI spill storage seam (private session-scoped files) |
+| `@hy/dsh-spill-local` | yes | Local-filesystem implementation of the DeepSeek Harness spill storage seam (private session-scoped files) |
 | `@hy/dsh-spill-policy` | yes | Token-budgeted tool-result retention with recoverable text and image paths |
 
 ## ssh
@@ -451,10 +453,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-storage` | no | Storage hub (ctx.storage): named backend registry plus mounted data-form facilities for the Huayu AI |
-| `@hy/dsh-storage-domain` | yes | Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the Huayu AI |
-| `@hy/dsh-storage-json` | yes | JSON file KV storage backend for the Huayu AI storage hub |
-| `@hy/dsh-storage-sqlite` | yes | SQLite storage backend (kv facet) for the Huayu AI storage hub |
+| `@hy/dsh-storage` | no | Storage hub (ctx.storage): named backend registry plus mounted data-form facilities for the DeepSeek Harness |
+| `@hy/dsh-storage-domain` | yes | Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the DeepSeek Harness |
+| `@hy/dsh-storage-json` | yes | JSON file KV storage backend for the DeepSeek Harness storage hub |
+| `@hy/dsh-storage-sqlite` | yes | SQLite storage backend (kv facet) for the DeepSeek Harness storage hub |
 
 ## subagent
 
@@ -474,7 +476,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-subprocess-local` | no | Local-subprocess implementation of the Huayu AI subprocess seam |
+| `@hy/dsh-subprocess-local` | no | Local-subprocess implementation of the DeepSeek Harness subprocess seam |
 
 ## telemetry
 
@@ -486,8 +488,8 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-terminal` | no | Persistent PTY session seam for the Huayu AI — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup |
-| `@hy/dsh-terminal-bash` | yes | Persistent shell PTY backend over the Huayu AI subprocess terminal primitive |
+| `@hy/dsh-terminal` | no | Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup |
+| `@hy/dsh-terminal-bash` | yes | Persistent shell PTY backend over the DeepSeek Harness subprocess terminal primitive |
 
 ## test-support
 
@@ -499,7 +501,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-tool-todo` | yes | Model-facing todo_write tool over the Huayu AI event-sourced session log |
+| `@hy/dsh-tool-todo` | yes | Model-facing todo_write tool over the DeepSeek Harness event-sourced session log |
 
 ## typert
 
@@ -530,4 +532,4 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@hy/dsh-workspace` | no | Workspace entity registry (ctx.workspaceRegistry): durable workspace records with validated session attachment over the domain data form for the Huayu AI |
+| `@hy/dsh-workspace` | no | Workspace entity registry (ctx.workspaceRegistry): durable workspace records with validated session attachment over the domain data form for the DeepSeek Harness |

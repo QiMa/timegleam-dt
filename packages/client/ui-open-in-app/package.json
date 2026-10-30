@@ -49,7 +49,11 @@
         "@hy/dsh-client-ui-layout",
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-session",
-        "@hy/dsh-client-ui-sidebar-documentpreview"
+        "@hy/dsh-client-ui-sidebar-documentpreview",
+        "@hy/dsh-client-ui-context-menu",
+        "@hy/dsh-client-ui-sidebar-right",
+        "@hy/dsh-api-workspace-files",
+        "@hy/dsh-client-ui-workspace"
       ],
       "platform": "web"
     }
@@ -79,6 +83,13 @@
     "react": "^18.2.0",
     "@hy/dsh-client-ui-deliverables": "workspace:*",
     "@hy/dsh-native-command": "workspace:*",
-    "@hy/dsh-client-shortcuts": "workspace:*"
+    "@hy/dsh-client-shortcuts": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*",
+    "@hy/dsh-client-ui-file-actions": "workspace:*",
+    "@hy/dsh-util-workspace-path": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-right": "workspace:*",
+    "@hy/dsh-api-workspace-files": "workspace:*",
+    "@hy/dsh-client-ui-sidebar-browser": "workspace:*",
+    "@hy/dsh-client-ui-workspace": "workspace:*"
   }
 }

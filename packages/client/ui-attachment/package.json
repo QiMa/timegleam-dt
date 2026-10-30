@@ -35,7 +35,8 @@
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-trajectory",
         "@hy/dsh-client-ui-tool",
-        "@hy/dsh-client-ui-file-drag"
+        "@hy/dsh-client-ui-file-drag",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -61,7 +62,8 @@
     "@hy/dsh-client-ui-tool": "workspace:*",
     "clsx": "^2.0.0",
     "@hy/dsh-client-ui-file-drag": "workspace:*",
-    "@hy/dsh-util-file-drag": "workspace:*"
+    "@hy/dsh-util-file-drag": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

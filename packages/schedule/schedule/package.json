@@ -1,6 +1,6 @@
 {
   "name": "@hy/dsh-schedule",
-  "description": "Host-wide durable reminders with shared management and original-Session delivery",
+  "description": "Host-wide durable reminders with shared management and delivery to existing or new Sessions",
   "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -78,6 +78,7 @@
     "@hy/dsh-session-persistence": "workspace:*",
     "@hy/dsh-session-persistence-jsonl": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-session-title": "workspace:*",
     "@hy/dsh-storage": "workspace:*",
     "@hy/dsh-storage-domain": "workspace:*",
     "@hy/dsh-storage-json": "workspace:*",
@@ -88,6 +89,8 @@
     "@hy/dsh-typert-protocol": "workspace:*",
     "@hy/dsh-util-time": "workspace:*",
     "@hy/dsh-workspace": "workspace:*",
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-goal": "workspace:*",
+    "@hy/dsh-goal-round-driver": "workspace:*"
   }
 }

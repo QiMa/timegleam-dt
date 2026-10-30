@@ -1,6 +1,6 @@
 {
   "name": "@hy/dsh-client-ui-sidebar-files",
-  "description": "Workspace file tree tab type for the right Sidebar: lazy directory listing over the workspaceFiles Remote namespace, opening files into the Sidebar",
+  "description": "The workspace files page and one workspace directory tree per pane beside docked and floating file previews, listed lazily over the workspaceFiles Remote namespace",
   "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -33,7 +33,8 @@
         "@hy/dsh-client-ui-sidebar-right",
         "@hy/dsh-client-ui-session",
         "@hy/dsh-api-remotes",
-        "@hy/dsh-client-shortcuts"
+        "@hy/dsh-client-shortcuts",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -66,7 +67,8 @@
     "react": "^18.2.0",
     "clsx": "^2.0.0",
     "react-dom": "^18.2.0",
-    "@hy/dsh-client-shortcuts": "workspace:*"
+    "@hy/dsh-client-shortcuts": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
+    "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-experimental-forge": "workspace:*",
     "@hy/dsh-subprocess": "workspace:*"
   }

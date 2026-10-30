@@ -35,7 +35,8 @@
   "dependencies": {
     "chokidar": "5.0.0",
     "koffi": "3.1.1",
-    "@hy/schemastery": "workspace:~"
+    "@hy/schemastery": "workspace:~",
+    "@hy/dsh-fs-patch": "workspace:*"
   },
   "devDependencies": {
     "@hy/dsh-fs": "workspace:*",

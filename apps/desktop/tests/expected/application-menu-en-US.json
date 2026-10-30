@@ -1,6 +1,23 @@
 [
   {
+    "label": "About Huayu AI",
+    "role": "about"
+  },
+  {
+    "type": "separator"
+  },
+  {
     "label": "Manage huayu Command…"
+  },
+  {
+    "type": "separator"
+  },
+  {
+    "role": "toggleDevTools",
+    "label": "Developer tools"
+  },
+  {
+    "type": "separator"
   },
   {
     "role": "hide",
@@ -13,6 +30,9 @@
   {
     "role": "unhide",
     "label": "Show All"
+  },
+  {
+    "type": "separator"
   },
   {
     "role": "quit",

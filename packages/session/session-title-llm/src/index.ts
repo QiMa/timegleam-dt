@@ -6,6 +6,12 @@
  * @module @hy/dsh-session-title-llm
  */
 
+declare module '@hy/dsh-llm/types' {
+  interface LlmRequestPurposeMap {
+    'session-title': true
+  }
+}
+
 import type { Context } from '@hy/cordis'
 import z from '@hy/schemastery'
 import { createUserMessage, BlockAssembler } from '@hy/dsh-llm'

@@ -9,8 +9,7 @@ import type { IconProps } from '@hy/dsh-client-ui-primitives'
 import type { TranslateNS } from '@hy/dsh-client-locale/client'
 import type { CommandDescriptor } from '@hy/dsh-commands/types'
 import type { CommandKey } from './locales.ts'
-import { builtinCommandName } from './resolution.ts'
-import type { BuiltinCommandName } from './resolution.ts'
+import { builtinCommandName, type BuiltinCommandName } from '@hy/dsh-commands/builtin'
 
 /** The menu's two sections. */
 export type MenuSection = 'add' | 'commands'

@@ -2,19 +2,19 @@
 
 [English](rescope.md) | 中文
 
-Cordis 框架及其基础库以源码形式 vendored 在 [`vendor/`](../vendor/README.md) 下，并以 `@hy` scope 发布：每个 harness 包都把框架声明为 peer dependency，发布 harness 就会连带发布这一层，用上游名发布等于在 registry 上占用别人的名字。本页是名字映射表；决策与影响见 [改名 Agent Note](../.agents/notes/archived/process/2026-08-10-vendor-package-rescope.md)，上游 commit 见 [`vendor/README.md`](../vendor/README.md)。
+Cordis 框架及其基础库以源码形式 vendored 在 [`vendor/`](../vendor/README.md) 下，并以 `@deepseek-ai` scope 发布：每个 harness 包都把框架声明为 peer dependency，发布 harness 就会连带发布这一层，用上游名发布等于在 registry 上占用别人的名字。本页是名字映射表；决策与影响见 [改名 Agent Note](../.agents/notes/archived/process/2026-08-10-vendor-package-rescope.md)，上游 commit 见 [`vendor/README.md`](../vendor/README.md)。
 
 ## 名字映射
 
 | 目录 | 上游名 | 发布名 | 上游版本 | 角色 |
 |---|---|---|---|---|
-| `vendor/cordis/` | `cordis` | `@hy/cordis` | 4.0.0-rc.7 | 框架核心：`Context`、`Service`、`Fiber`、事件 |
+| `vendor/cordis/` | `cordis` | `@hy/cordis` | 4.0.0-rc.11 | 框架核心：`Context`、`Service`、`Fiber`、事件 |
 | `vendor/cosmokit/` | `cosmokit` | `@hy/cosmokit` | 1.8.1 | 框架与 Schemastery 共用的基础工具 |
 | `vendor/schemastery/` | `schemastery` | `@hy/schemastery` | 3.18.0 | 配置 schema（`Schema`），每个插件的 `Config` 都基于它 |
 | `vendor/loader/` | `@cordisjs/plugin-loader` | `@hy/cordis-plugin-loader` | 1.0.0-rc.5 | `cordis.yml` 装载、插件解析、repository 缓存 |
 | `vendor/include/` | `@cordisjs/plugin-include` | `@hy/cordis-plugin-include` | 1.0.4 | 配置包含与 patch 叠加 |
 | `vendor/group/` | `@cordisjs/plugin-group` | `@hy/cordis-plugin-group` | 1.0.0 | 嵌套插件分组 |
-| `vendor/timer/` | `@cordisjs/plugin-timer` | `@hy/cordis-plugin-timer` | 1.1.2 | `ctx` 上随 disposal 回收的定时器 |
+| `vendor/timer/` | `@cordisjs/plugin-timer` | `@hy/cordis-plugin-timer` | 1.1.4 | `ctx` 上随 disposal 回收的定时器 |
 | `vendor/hmr/` | `@cordisjs/plugin-hmr` | `@hy/cordis-plugin-hmr` | 1.0.15 | 插件与配置的热替换 |
 | `vendor/logger-console/` | `@cordisjs/plugin-logger-console` | `@hy/cordis-plugin-logger-console` | 1.0.0 | 控制台日志导出 |
 

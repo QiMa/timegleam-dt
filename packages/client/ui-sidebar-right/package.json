@@ -34,7 +34,8 @@
         "@hy/dsh-client-ui-conversation",
         "@hy/dsh-client-ui-layout",
         "@hy/dsh-client-ui-session",
-        "@hy/dsh-client-shortcuts"
+        "@hy/dsh-client-shortcuts",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -71,7 +72,8 @@
     "@hy/dsh-util-crypto": "workspace:*",
     "zod": "4.4.3",
     "@hy/dsh-client-shortcuts": "workspace:*",
-    "@hy/dsh-brand": "workspace:*"
+    "@hy/dsh-brand": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

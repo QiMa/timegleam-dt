@@ -60,7 +60,11 @@
     "@hy/dsh-agent-loop-testkit": "workspace:*",
     "@hy/dsh-agent-loop": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*",
+    "@hy/dsh-tool-executor-native": "workspace:*",
     "@hy/dsh-tool-fs": "workspace:*",
-    "@hy/dsh-tool-str-replace-editor": "workspace:*"
+    "@hy/dsh-tool-testkit": "workspace:*",
+    "@hy/dsh-tool-str-replace-editor": "workspace:*",
+    "@hy/dsh-fs-observation-policy": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*"
   }
 }

@@ -32,7 +32,8 @@
         "@hy/dsh-api-workspace-controller",
         "@hy/dsh-client-connection",
         "@hy/dsh-client-locale",
-        "@hy/dsh-client-ui-conversation"
+        "@hy/dsh-client-ui-conversation",
+        "@hy/dsh-api-session-controller"
       ],
       "platform": "web"
     }
@@ -80,7 +81,9 @@
     "clsx": "^2.0.0",
     "@hy/dsh-ptc-runtime": "workspace:*",
     "@hy/dsh-token-meter": "workspace:*",
-    "@hy/dsh-user-questions": "workspace:*"
+    "@hy/dsh-user-questions": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*",
+    "@hy/dsh-api-session-controller": "workspace:*"
   },
   "files": [
     "locale/*.json",

@@ -191,7 +191,9 @@
     "@hy/dsh-client-ui-settings-session-log": "workspace:*",
     "@hy/dsh-harness-dev-context": "workspace:*",
     "@hy/dsh-deliverable-file-references": "workspace:*",
-    "@hy/dsh-client-ui-file-drag": "workspace:*"
+    "@hy/dsh-client-ui-file-drag": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*",
+    "@hy/dsh-client-ui-file-actions": "workspace:*"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",

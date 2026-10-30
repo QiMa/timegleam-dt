@@ -133,8 +133,7 @@ describe('catalog and local closure', () => {
     // A vendor package keeps its own version line, so a run must not assume one shared version.
     expect(packages.get('@hy/cordis')?.manifest.version)
       .not.toBe(packages.get('@hy/dsh-brand')?.manifest.version)
-    // Nothing in this closure is built for another platform, on any host.
-    expect(selection.foreignTargets).toEqual([])
+    expect(selection.foreignTargets).toEqual(process.platform === 'darwin' ? [] : ['@hy/dsh-experimental-cua-macos'])
   })
 
   it('follows install, optional, and required peer edges but not optional peers', () => {
@@ -356,12 +355,12 @@ describe('registry HTTP', () => {
     const url = await servingRun({
       destination, artifacts: [artifact], workspaceNames: ['@scope/local', '@hy/dsh-private-thing'],
     })
-    const owned = await fetch(`${url}@hy%2fdsh-private-thing`)
+    const owned = await fetch(`${url}@deepseek-ai%2fdsh-private-thing`)
     expect(owned.status).toBe(404)
     const refusal = await owned.json() as { reason?: string }
     expect(refusal.reason ?? '').toContain('repository-owned')
     // A repository-owned name that is not even in the closure must never reach npm.
-    expect((await fetch(`${url}@hy%2fdsh-private-thing/1.0.0`)).status).toBe(404)
+    expect((await fetch(`${url}@deepseek-ai%2fdsh-private-thing/1.0.0`)).status).toBe(404)
 
     const external = await fetch(`${url}@anthropic-ai%2fclaude-agent-sdk`, { redirect: 'manual' })
     expect(external.status).toBe(302)

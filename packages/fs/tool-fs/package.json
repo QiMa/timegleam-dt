@@ -31,7 +31,9 @@
   "dependencies": {
     "diff": "^9.0.0",
     "@hy/schemastery": "workspace:~",
-    "@hy/dsh-util-code-language": "workspace:*"
+    "@hy/dsh-util-code-language": "workspace:*",
+    "@hy/dsh-fs-patch": "workspace:*",
+    "@hy/dsh-util-values": "workspace:*"
   },
   "peerDependencies": {
     "@hy/dsh-attachment": "workspace:*",
@@ -70,6 +72,7 @@
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-scope": "workspace:*",
     "@hy/dsh-ptc-runtime": "workspace:*",
+    "@hy/dsh-fs-sandbox": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*"
   }
 }

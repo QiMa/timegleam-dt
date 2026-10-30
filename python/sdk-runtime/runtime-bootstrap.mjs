@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs'
 import { mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { registerHooks } from 'node:module'
-import { dirname, isAbsolute, join } from 'node:path'
+import { delimiter, dirname, isAbsolute, join } from 'node:path'
 import { isSea } from 'node:sea'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -63,7 +63,7 @@ if (office !== undefined) {
   const parentURL = pathToFileURL(join(office, 'package.json')).href
   registerHooks({
     resolve(specifier, context, nextResolve) {
-      const kit = specifier === '@hy/libreoffice-kit' || specifier === '@hy/libreoffice-kit/package.json'
+      const kit = specifier === '@deepseek-ai/libreoffice-kit' || specifier === '@deepseek-ai/libreoffice-kit/package.json'
       return nextResolve(specifier, kit ? { ...context, parentURL } : context)
     },
   })
@@ -96,8 +96,18 @@ if (resource !== undefined) {
   if (cache !== undefined && existsSync(join(cache, 'primary', 'complete'))) {
     process.env.DSH_BUNDLED_PRIMARY_RUNTIME = join(cache, 'primary', 'primary-runtime')
   }
+  let packageManager
+  const primary = process.env.DSH_PRIMARY_RUNTIME ?? process.env.DSH_BUNDLED_PRIMARY_RUNTIME
+  if (primary !== undefined && primary !== '') {
+    const { resolvePrimaryRuntime } = await import('@hy/dsh-tool-workspace-dependencies')
+    const { node, pnpm } = await resolvePrimaryRuntime(primary)
+    if (node !== undefined && pnpm !== undefined) {
+      packageManager = { command: node, args: [pnpm],
+        env: { PATH: `${dirname(node)}${delimiter}${process.env.PATH ?? ''}` } }
+    }
+  }
   const { runCli } = await import('@hy/dsh/lib/bin.js')
-  await runCli()
+  await runCli({ packageManager })
 } else {
   Reflect.deleteProperty(process.env, selectorName)
   const { runSelectedSubprocessRunner } = await import('@hy/dsh-subprocess-local/runner')

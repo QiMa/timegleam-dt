@@ -37,7 +37,8 @@
         "@hy/dsh-client-ui-renderer",
         "@hy/dsh-client-ui-sidebar-right",
         "@hy/dsh-client-ui-tool",
-        "@hy/dsh-client-ui-settings"
+        "@hy/dsh-client-ui-settings",
+        "@hy/dsh-client-ui-context-menu"
       ],
       "platform": "web"
     }
@@ -81,7 +82,8 @@
     "@hy/dsh-fs-local": "workspace:*",
     "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-sandbox-policy": "workspace:*",
-    "@hy/dsh-client-ui-settings": "workspace:*"
+    "@hy/dsh-client-ui-settings": "workspace:*",
+    "@hy/dsh-client-ui-context-menu": "workspace:*"
   },
   "files": [
     "locale/*.json",

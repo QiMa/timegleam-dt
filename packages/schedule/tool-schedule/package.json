@@ -1,6 +1,6 @@
 {
   "name": "@hy/dsh-tool-schedule",
-  "description": "Model-facing reminder management tools (schedule_create, schedule_list, schedule_update, schedule_delete) over the Host ctx.schedule service",
+  "description": "Model-facing scheduled task tools (schedule_create, schedule_list, schedule_view, schedule_edit) over the Host ctx.schedule service",
   "version": "0.2.2-alpha.2",
   "publishConfig": {
     "access": "public"
@@ -33,17 +33,22 @@
     "@hy/dsh-llm": "workspace:*",
     "@hy/dsh-schedule": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-tools": "workspace:*"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
     "@hy/dsh-agent": "workspace:*",
     "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-ptc-runtime": "workspace:*",
     "@hy/dsh-schedule": "workspace:*",
     "@hy/dsh-scope": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tool-executor-ptc": "workspace:*",
     "@hy/dsh-tool-testkit": "workspace:*",
-    "@hy/dsh-tools": "workspace:*"
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/dsh-agent-preset-registry": "workspace:*"
   }
 }

@@ -1,6 +1,23 @@
 [
   {
+    "label": "关于 Huayu AI",
+    "role": "about"
+  },
+  {
+    "type": "separator"
+  },
+  {
     "label": "管理 huayu 命令…"
+  },
+  {
+    "type": "separator"
+  },
+  {
+    "role": "toggleDevTools",
+    "label": "开发者工具"
+  },
+  {
+    "type": "separator"
   },
   {
     "role": "hide",
@@ -13,6 +30,9 @@
   {
     "role": "unhide",
     "label": "显示全部"
+  },
+  {
+    "type": "separator"
   },
   {
     "role": "quit",
