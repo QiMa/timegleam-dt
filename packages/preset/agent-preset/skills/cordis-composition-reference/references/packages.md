@@ -121,7 +121,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
 | `@hy/dsh-client-ui-trajectory` | yes | Trajectory event ledger and timing overview with live tool-result inspection |
 | `@hy/dsh-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
-| `@hy/dsh-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for hy web |
+| `@hy/dsh-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for dsh web |
 | `@hy/dsh-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
 
 ## compaction
@@ -215,6 +215,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-experimental-forge` | yes | Provider-neutral change request registry with shared status polling |
 | `@hy/dsh-experimental-forge-github` | yes | GitHub provider for the experimental forge registry, read through the GitHub CLI on the host |
 | `@hy/dsh-experimental-forge-session` | yes | Binds change requests to the Session that created, pushed, or tracked them |
+| `@hy/dsh-experimental-huayu-cadcraft` | yes | Huayu AI CADCraft plugin: embed the CADCraft web drawing engine in the right sidebar and keep drawings beside each project |
 | `@hy/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
 | `@hy/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
 | `@hy/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
@@ -337,6 +338,13 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@hy/dsh-mcp-client` | yes | MCP client bridge: connects to MCP servers and registers their tools on ctx.tools |
 | `@hy/dsh-mcp-resources` | no | Scoped MCP resource discovery and reading through shared model tools |
+
+## memory
+
+| Package | Config | Description |
+|---|---|---|
+| `@hy/dsh-memory-context` | yes | Session lifecycle memory retrieval and refinement for the huayu-memory service |
+| `@hy/dsh-tool-memory` | yes | Model-facing persistent-memory tools (memory_search / memory_save) over the huayu-memory service |
 
 ## plan
 

@@ -15,6 +15,7 @@ kind: "package-bundle"
 
 - [Use this package](#use-this-package)
 - [Understand the implementation](#understand-the-implementation)
+- [Model Experience](#model-experience)
 - [Known Limitations and Deferred Work](#known-limitations-and-deferred-work)
 - [Dev Note](#dev-note)
 
@@ -32,14 +33,32 @@ kind: "package-bundle"
 
 静态 `cordis.patch.yml` 插入 `huayu-cadcraft` 行，以 `mountPath: /cadcraft` 挂载 Host 插件。Host 半边在该前缀下托管 `assets/web`，向页面注入 `__HUAYU_CADCAST_CONFIG__`，并提供动态 host 半边用于逐项目图纸持久化的 `huayuCadcraftDrawingStore`。client 半边注册 `cadcraft` 标签页类型及其 iframe 主体。
 
-<a id="known-limitations-and-deferred-work"></a>
+<a id="model-experience"></a>
+## Model Experience
+
+### 静态 bundle 面
+
+#### What the model sees
+
+静态 bundle 不注册任何工具，也不注册 system prompt 段落。聊天只能通过 Creator 模式动态桥驱动 CADCraft，其工具（如 `cadcraft_project_new`）在该动态插件运行期间出现。
+
+#### Token effect
+
+仅本 bundle 的贡献为零；动态桥的工具按其自身作用域的渲染计费。
+
+#### KV Cache effect
+
+当本 bundle 是唯一挂载的 CADCraft 插件时，没有影响。
+
 ## 已知限制与延期工作
+
+<a id="known-limitations-and-deferred-work"></a>
 
 - 内置 web 构建是快照；如需升级 CADCraft 引擎，请重新构建并重新打包 tarball。
 - 桌面自动安装读取 `https://lanhc.com/lanhc/plugins` 的插件源；网络源不可达时回退到插件管理器源。
 
 <a id="dev-note"></a>
-## 开发备注
+### 开发备注
 
 <details>
 <summary>维护者上下文——点击展开</summary>

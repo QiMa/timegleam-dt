@@ -20,7 +20,10 @@ export const CADCRAFT_TAB_KIND = 'cadcraft'
 /** The static viewer's identity in the tab system. */
 export const CADCRAFT_TAB_ID = '@hy/dsh-experimental-huayu-cadcraft/cadcraft-static'
 
-/** @returns the tab type definition. */
+/**
+ * Build the static CADCraft sidebar tab definition.
+ * @returns the tab type definition.
+ */
 export function cadcraftDefinition(): SidebarRightTabDefinition {
   return {
     id: CADCRAFT_TAB_ID,

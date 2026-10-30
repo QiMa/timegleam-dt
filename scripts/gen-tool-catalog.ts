@@ -61,6 +61,7 @@ import * as ToolStrReplaceEditor from '@hy/dsh-tool-str-replace-editor'
 import TerminalSessionService from '@hy/dsh-terminal'
 import * as ToolPty from '@hy/dsh-tool-terminal'
 import * as ToolGoal from '@hy/dsh-tool-goal'
+import * as ToolMemory from '@hy/dsh-tool-memory'
 import * as ToolSchedule from '@hy/dsh-tool-schedule'
 import ScheduleService from '@hy/dsh-schedule'
 import Lsp from '@hy/dsh-lsp'
@@ -476,6 +477,19 @@ const TOOL_PACKAGES: ToolPackage[] = [
       + 'Management reads and writes Host tasks by id across Sessions. '
       + 'Tasks store an RFC 5545 recurrence and an existing, first-created-and-reused, or per-run-new Session target. '
       + 'Delegated subagents cannot call these tools.',
+  },
+  {
+    pkg: '@hy/dsh-tool-memory',
+    dir: 'tool-memory',
+    source: 'packages/memory/tool-memory/src/index.ts',
+    requires: ['ctx.tools'],
+    writes: ['tool/call', 'tool/result'],
+    async mount(ctx) {
+      // Schema harvest never calls the service; a dead endpoint still registers both tools.
+      await ctx.plugin(ToolMemory, { endpoint: 'http://127.0.0.1:1', apiKey: '', enabled: true })
+    },
+    note:
+      'memory_search recalls cross-session persistent memories (preferences, decisions, conventions, facts); memory_save records one. Both tools talk to the huayu-memory service and surface failures as tool errors rather than breaking the conversation.',
   },
   {
     pkg: '@hy/dsh-tool-lsp',

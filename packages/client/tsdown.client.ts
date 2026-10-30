@@ -82,7 +82,7 @@ function styleInjectionModule(
  * Everything else under @hy/* is either a module-table entry
  * (external) or a leak the purity gate rejects.
  */
-export const INLINE_SAFE = /^(?:@deepseek-ai\/dsh-(?:file-reference|session|llm|tools|brand|official-bundles|deque|output-retention|typert-protocol|util-crypto|util-time|util-values|util-workspace-path)(?:\/|$)|@deepseek-ai\/dsh-util-file-drag$|@deepseek-ai\/dsh-token-meter\/client$|@deepseek-ai\/dsh-commands\/builtin$|@deepseek-ai\/dsh-native-command\/types$|@deepseek-ai\/dsh-host-open-in-app\/shared$|@deepseek-ai\/dsh-plugin-manager\/registry$|@deepseek-ai\/dsh-agent-preset-registry\/display$|@deepseek-ai\/dsh-api-workspace-controller\/default-workspace$|@deepseek-ai\/dsh-spill-policy\/notice$)/
+export const INLINE_SAFE = /^(?:@hy\/dsh-(?:file-reference|session|llm|tools|brand|official-bundles|deque|output-retention|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@hy\/dsh-util-file-drag$|@hy\/dsh-token-meter\/client$|@hy\/dsh-native-command\/types$|@hy\/dsh-host-open-in-app\/shared$|@hy\/dsh-plugin-manager\/registry$|@hy\/dsh-agent-preset-registry\/display$|@hy\/dsh-api-workspace-controller\/default-workspace$|@hy\/dsh-spill-policy\/notice$)/
 
 /**
  * Vendored framework libraries: rescoped into @hy, so the gate below
@@ -90,7 +90,7 @@ export const INLINE_SAFE = /^(?:@deepseek-ai\/dsh-(?:file-reference|session|llm|
  * identity to share — the framework itself is a requested module-table row
  * (external), while these are ordinary libraries a browser bundle inlines.
  */
-const VENDORED_LIBRARY = /^@deepseek-ai\/(?:(?:cosmokit|schemastery)(?:\/|$)|cordis-plugin-timer$)/
+const VENDORED_LIBRARY = /^@hy\/(?:(?:cosmokit|schemastery)(?:\/|$)|cordis-plugin-timer$)/
 
 /** Generated descriptor/codec contribution with no shared runtime identity. */
 const GENERATED_REMOTE = /^@hy\/dsh-[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/

@@ -12,17 +12,32 @@
   en: 337cae13cb13ab04
   zh: 1d1483f91a572076
 /hy-dsh-experimental-huayu-cadcraft/table-of-contents:
-  en: 9be40445baed505c
-  zh: ca9f0a14b9fe212d
+  en: 76368b6b1da79c80
+  zh: 49b8d2c4457703e6
 /hy-dsh-experimental-huayu-cadcraft/use-this-package:
   en: 3be49e6f7fc0c022
   zh: f87dbc6003ecfaef
 /hy-dsh-experimental-huayu-cadcraft/understand-the-implementation:
-  en: 9fb1a926cf6d04e6
-  zh: 40e00aec2ba75bc5
+  en: 34d41f5e623e1e66
+  zh: 205ce5061d03e9c0
+/hy-dsh-experimental-huayu-cadcraft/model-experience:
+  en: 215e7ba838619b7b
+  zh: 215e7ba838619b7b
+/hy-dsh-experimental-huayu-cadcraft/model-experience/static-bundle-surface:
+  en: 4c5c96d8d358d15d
+  zh: 2a5e3941c6b54cb9
+/hy-dsh-experimental-huayu-cadcraft/model-experience/static-bundle-surface/what-the-model-sees:
+  en: 264107744ea4030b
+  zh: 65e417bb1df0edbb
+/hy-dsh-experimental-huayu-cadcraft/model-experience/static-bundle-surface/token-effect:
+  en: 82d250efbf3c8bc3
+  zh: c6078b11482382c8
+/hy-dsh-experimental-huayu-cadcraft/model-experience/static-bundle-surface/kv-cache-effect:
+  en: 776e3f7b4c87caf8
+  zh: 10018e80b332c0e8
 /hy-dsh-experimental-huayu-cadcraft/known-limitations-and-deferred-work:
-  en: c34233572d81f55e
-  zh: 0b76c42e70f6d9d0
-/hy-dsh-experimental-huayu-cadcraft/dev-note:
-  en: c13eff01efc47d3a
-  zh: 17ee8ee3302ac8cd
+  en: cc67dea4dcd8e84c
+  zh: e6cde2bae4a1876d
+/hy-dsh-experimental-huayu-cadcraft/known-limitations-and-deferred-work/dev-note:
+  en: 7f3de55849688caf
+  zh: 479b5ba15744260b

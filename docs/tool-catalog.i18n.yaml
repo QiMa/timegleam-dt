@@ -9,20 +9,20 @@
   en: 6cc2cd9ced70bb09
   zh: 1c0e6cb4ba2ed637
 /tool-schema-catalog/tool-package-map:
-  en: 709225b6e1085ea5
-  zh: 5472fe7ab20442cb
+  en: 138c60da00410e61
+  zh: b178a67ec2a9202e
 /tool-schema-catalog/hy-dsh-plugin-manager:
   en: 5fb699f1571a979c
   zh: 5fb699f1571a979c
 /tool-schema-catalog/hy-dsh-plugin-manager/plugin-manager:
-  en: 2fbe2e5b88e81a54
-  zh: a9de46c13bda53d8
+  en: c65c8123b0ab25dd
+  zh: 89dcd5f7d8ce6b48
 /tool-schema-catalog/hy-dsh-plugin-market:
   en: 9cdd31bbe186ed39
   zh: 9cdd31bbe186ed39
 /tool-schema-catalog/hy-dsh-plugin-market/plugin-market:
-  en: ecb8ee73c7bc68b8
-  zh: 59af75c81d7d529d
+  en: 439db4b090277b8d
+  zh: 5b69ef7971a15e8f
 /tool-schema-catalog/hy-dsh-mcp-resources:
   en: 15d74a5dbc757082
   zh: 15d74a5dbc757082
@@ -33,8 +33,8 @@
   en: bf4236607199d61e
   zh: 82f4f749dcabc89f
 /tool-schema-catalog/hy-dsh-mcp-resources/read-mcp-resource:
-  en: 5d92c07fa062734f
-  zh: 2d6f0cb8116cf567
+  en: 77d7af459c2b1145
+  zh: 25bd995cda685db9
 /tool-schema-catalog/hy-dsh-experimental-browser-use-stagehand-native:
   en: c2e22402e49540ea
   zh: c2e22402e49540ea
@@ -54,50 +54,50 @@
   en: 4910ab327694ee97
   zh: 17e79e4366cb636d
 /tool-schema-catalog/hy-dsh-experimental-browser-use-stagehand-native/stagehand-tabs:
-  en: a0d5b9b891358120
-  zh: 25793a62709770b5
+  en: 11892f0a21af947a
+  zh: 664c3754aae880ee
 /tool-schema-catalog/hy-dsh-action-cards:
   en: 1737a5729b073e7f
   zh: 1737a5729b073e7f
 /tool-schema-catalog/hy-dsh-action-cards/propose-action:
-  en: 633c32b6df889830
-  zh: b88ea00b2033c11b
+  en: 14266ae8af2c8713
+  zh: 93a6ceed3c63e99e
 /tool-schema-catalog/hy-dsh-tool-ask-user:
   en: af77184c6e7ec9be
   zh: af77184c6e7ec9be
 /tool-schema-catalog/hy-dsh-tool-ask-user/ask-user-question:
-  en: 664dae29d0eae65f
-  zh: 2efa5d3f2cb31bf9
+  en: 777e698352bc7550
+  zh: 9fc7492175e6e7bb
 /tool-schema-catalog/hy-dsh-tool-executor-ptc:
   en: e1945b2c8abd908e
   zh: e1945b2c8abd908e
 /tool-schema-catalog/hy-dsh-tool-executor-ptc/run-code:
-  en: a5d49232a604a2fb
-  zh: 720040d11a3e31c2
+  en: 784248af1ad1a878
+  zh: bf47f3adee434bbb
 /tool-schema-catalog/hy-dsh-plan-mode:
   en: 9f069da870a29248
   zh: 9f069da870a29248
 /tool-schema-catalog/hy-dsh-plan-mode/exit-plan-mode:
-  en: b410483c2bd0c1a1
-  zh: a07ceea6abf1dda3
+  en: 7ff379f32104fdff
+  zh: f5c9158fcbc0dc2b
 /tool-schema-catalog/hy-dsh-tool-bash:
   en: fbd085cb309d2a4d
   zh: fbd085cb309d2a4d
 /tool-schema-catalog/hy-dsh-tool-bash/bash:
-  en: 9b6ea8f29266dc1d
-  zh: c7e99037284c7b59
+  en: 81eb8bbd327bf8b3
+  zh: 92d031535c68a390
 /tool-schema-catalog/hy-dsh-tool-present:
   en: e257b3d5199d57b5
   zh: e257b3d5199d57b5
 /tool-schema-catalog/hy-dsh-tool-present/present:
-  en: c3ab3e71f3c5fd20
-  zh: d6afeb62bac77a24
+  en: 1f7b2b131e5ef2f9
+  zh: 550c5d84b81e0365
 /tool-schema-catalog/hy-dsh-tool-pwsh:
   en: e49887a69e0dc36a
   zh: e49887a69e0dc36a
 /tool-schema-catalog/hy-dsh-tool-pwsh/pwsh:
-  en: a5bf5aed9abb9af7
-  zh: 2c01ba8c81681aa9
+  en: bf8ae7df7140b9c8
+  zh: 2fe35099dce45cc5
 /tool-schema-catalog/hy-dsh-tool-cordis:
   en: d0d9a7adef4f19d4
   zh: d0d9a7adef4f19d4
@@ -105,26 +105,26 @@
   en: 594e5b42047969cc
   zh: 72189ca21345c210
 /tool-schema-catalog/hy-dsh-tool-cordis/cordis-inspect-query:
-  en: 42a647ba98527f9e
-  zh: c53ade6a47ea523f
+  en: de79edf1902c3344
+  zh: f63324dc1c272caf
 /tool-schema-catalog/hy-dsh-tool-bash-persistent:
   en: af8d5be2da7e9431
   zh: af8d5be2da7e9431
 /tool-schema-catalog/hy-dsh-tool-bash-persistent/bash:
-  en: 86421501a9d65ccc
-  zh: d1dc400507952331
+  en: 4da316d42960fe37
+  zh: bc6dcefba8775070
 /tool-schema-catalog/hy-dsh-tool-pwsh-persistent:
   en: 595a74e5ffaadef9
   zh: 595a74e5ffaadef9
 /tool-schema-catalog/hy-dsh-tool-pwsh-persistent/pwsh:
-  en: 214866b3419c8e12
-  zh: c23368fc61772d52
+  en: affa31a725dc5bf5
+  zh: d2968f8034a60188
 /tool-schema-catalog/hy-dsh-tool-str-replace-editor:
   en: ad93450090c9de63
   zh: ad93450090c9de63
 /tool-schema-catalog/hy-dsh-tool-str-replace-editor/str-replace-editor:
-  en: 3d11196a13e69228
-  zh: 56019c74cf0633cd
+  en: c2e769fd7c5dd71f
+  zh: 2b8f4c3c3f9ab92e
 /tool-schema-catalog/hy-dsh-tool-fs:
   en: 16eef2a475250afc
   zh: 16eef2a475250afc
@@ -141,8 +141,8 @@
   en: f6f7a1140066ce04
   zh: d528e01a0939795a
 /tool-schema-catalog/hy-dsh-tool-fs/write:
-  en: 9ea540e34a14cc72
-  zh: 9d504ab7424d8792
+  en: ce249d4078179aaa
+  zh: 8ad5c5233c5a9fa3
 /tool-schema-catalog/hy-dsh-tool-fs-search:
   en: 5385312d473b0fef
   zh: 5385312d473b0fef
@@ -150,8 +150,8 @@
   en: 3ba734ba7852cdd5
   zh: c6ce31ff2c195520
 /tool-schema-catalog/hy-dsh-tool-fs-search/grep:
-  en: 6e1f7da62cc9a35b
-  zh: 594817b0befeea86
+  en: b20306f8a32bb602
+  zh: c460a82a0b184748
 /tool-schema-catalog/hy-dsh-tool-terminal:
   en: 9bd188f3c8e947a2
   zh: 9bd188f3c8e947a2
@@ -171,8 +171,8 @@
   en: 60a8805611533884
   zh: 50e4ac6e7f7b9b0a
 /tool-schema-catalog/hy-dsh-tool-terminal/terminal-signal:
-  en: 0191964f5be70426
-  zh: 501c2769633a2a0b
+  en: dea1d7290d610b7b
+  zh: fd14f84c14ecaa94
 /tool-schema-catalog/hy-dsh-tool-goal:
   en: 9e6c79d6afe1e844
   zh: 9e6c79d6afe1e844
@@ -183,8 +183,8 @@
   en: 0b517f13dfde11fe
   zh: b7ee7482e8ecde56
 /tool-schema-catalog/hy-dsh-tool-goal/update-goal:
-  en: 5f8a1d6e44e57d09
-  zh: d757489fdacde22d
+  en: 9edfcf86212a033b
+  zh: f74117e3f70cdd4b
 /tool-schema-catalog/hy-dsh-tool-schedule:
   en: 36d05c7069717297
   zh: 36d05c7069717297
@@ -198,26 +198,35 @@
   en: e2c657d431fd02a8
   zh: 7651bf05938eff69
 /tool-schema-catalog/hy-dsh-tool-schedule/schedule-view:
-  en: 008cd46ab3c05305
-  zh: 8ef5a0f40640013e
+  en: 31a062e23f7ac322
+  zh: f9ff35bb09a60751
+/tool-schema-catalog/hy-dsh-tool-memory:
+  en: 82f865730ba44190
+  zh: 82f865730ba44190
+/tool-schema-catalog/hy-dsh-tool-memory/memory-save:
+  en: 570c1e8cc0fe6203
+  zh: 90c1a232509daddf
+/tool-schema-catalog/hy-dsh-tool-memory/memory-search:
+  en: 366c26fef3e83466
+  zh: 9d94f0390718d311
 /tool-schema-catalog/hy-dsh-tool-lsp:
   en: 8bc53f6c05d18bc1
   zh: 8bc53f6c05d18bc1
 /tool-schema-catalog/hy-dsh-tool-lsp/lsp:
-  en: 57602e0ac59b05f4
-  zh: fb7d38eb81f44885
+  en: bc5016c1c88fe40f
+  zh: 7f8dcbbaba9b594c
 /tool-schema-catalog/hy-dsh-tool-ralph:
   en: 15ccf32441d5d8e2
   zh: 15ccf32441d5d8e2
 /tool-schema-catalog/hy-dsh-tool-ralph/ralph:
-  en: e97552156225cf10
-  zh: 9ea32b8485e950ec
+  en: 0d9275eb4471c3d3
+  zh: 6f942f52649f6d72
 /tool-schema-catalog/hy-dsh-tool-skill:
   en: b687e3bc6cb67887
   zh: b687e3bc6cb67887
 /tool-schema-catalog/hy-dsh-tool-skill/skill:
-  en: 9b159d5831855afb
-  zh: 275ee82af0e0f59a
+  en: 0ba87987d696db52
+  zh: beac28aaa3558168
 /tool-schema-catalog/hy-dsh-tool-session-query:
   en: c0b68480a0c74b94
   zh: c0b68480a0c74b94
@@ -234,14 +243,14 @@
   en: c7bc2ee2892bf0e9
   zh: 1cd6a5d6f7494ca1
 /tool-schema-catalog/hy-dsh-tool-session-query/session-trace:
-  en: 73d2146c02eaa16a
-  zh: 34caad3065de7148
+  en: 0a94f58ec7d90b00
+  zh: ec377865c5472ed2
 /tool-schema-catalog/hy-dsh-experimental-tool-subagent-oar:
   en: cc70a0a6edb56e38
   zh: cc70a0a6edb56e38
 /tool-schema-catalog/hy-dsh-experimental-tool-subagent-oar/subagent-oar:
-  en: 6283c3023d6ea436
-  zh: 9c018b8c12a3f1e7
+  en: 6ab9f7c6aa88b9e6
+  zh: 4a0da285bcfda1ac
 /tool-schema-catalog/hy-dsh-tool-subagent:
   en: 48cca14a6cec105b
   zh: 48cca14a6cec105b
@@ -249,8 +258,8 @@
   en: 207228068bc61885
   zh: 36e9344ee1af8869
 /tool-schema-catalog/hy-dsh-tool-subagent/subagent:
-  en: 140c965c2b04d02f
-  zh: 95495dad5c77046d
+  en: 79144b23f8e145f5
+  zh: e96c4aad10a7ccc3
 /tool-schema-catalog/hy-dsh-tool-subagent-control:
   en: ceb653ecf729538f
   zh: ceb653ecf729538f
@@ -261,8 +270,8 @@
   en: ae22e8543d123c39
   zh: 0991a73ef49bcdea
 /tool-schema-catalog/hy-dsh-tool-subagent-control/send-message:
-  en: 9d180d8811903366
-  zh: d63f94cffcb952d1
+  en: 99b0d408e8701482
+  zh: 80a24848af6c6a25
 /tool-schema-catalog/hy-dsh-tool-jobs:
   en: d2196de9eac3d8e5
   zh: d2196de9eac3d8e5
@@ -273,8 +282,8 @@
   en: 0c37fb1fed979d72
   zh: 5ea9d07f5a4a8a6c
 /tool-schema-catalog/hy-dsh-tool-jobs/job-output:
-  en: 1e084359a8cd42b3
-  zh: 3f6c245dbbb2b920
+  en: 092370664b9cedbe
+  zh: 7932b4c628546576
 /tool-schema-catalog/hy-dsh-experimental-tool-agent-team:
   en: 6f21fe59c2742936
   zh: 6f21fe59c2742936
@@ -303,38 +312,38 @@
   en: 2eac7360ba68b1bd
   zh: b5d676bf288c245e
 /tool-schema-catalog/hy-dsh-experimental-tool-agent-team/wait-agent:
-  en: e70c77a45832bb28
-  zh: 7d03bec294b65452
+  en: c6bdabd813aa58cb
+  zh: 73dc7ffb138bf985
 /tool-schema-catalog/hy-dsh-tool-todo:
   en: 5b4fb98eaf33feab
   zh: 5b4fb98eaf33feab
 /tool-schema-catalog/hy-dsh-tool-todo/todo-write:
-  en: f252137b940b38d1
-  zh: 25bd9c6b1ce783d8
+  en: 8e6661d27d628797
+  zh: 1f7cda0815b7af3b
 /tool-schema-catalog/hy-dsh-tool-working-directory:
   en: 0012dcba832f08d6
   zh: 0012dcba832f08d6
 /tool-schema-catalog/hy-dsh-tool-working-directory/working-directory:
-  en: ac1944f6035b8b50
-  zh: f5fc005c13185211
+  en: 5c6a00612423ae81
+  zh: 93ed49a3896854c9
 /tool-schema-catalog/hy-dsh-experimental-tool-worktree:
   en: 007a28b76879d9b1
   zh: 007a28b76879d9b1
 /tool-schema-catalog/hy-dsh-experimental-tool-worktree/create-worktree:
-  en: d8fe3c566ba2147c
-  zh: baf372cb9242670c
+  en: d2f607c92986f05e
+  zh: e1c92032c963c3e9
 /tool-schema-catalog/hy-dsh-tool-workflow:
   en: 21939b9db3bf644b
   zh: 21939b9db3bf644b
 /tool-schema-catalog/hy-dsh-tool-workflow/workflow:
-  en: fdd667cfe21481e8
-  zh: 88864d3b958398a4
+  en: a4618fbd0945401a
+  zh: e7f52e78675e22b6
 /tool-schema-catalog/hy-dsh-tool-workspace-dependencies:
   en: 54a6612fe083c2c1
   zh: 54a6612fe083c2c1
 /tool-schema-catalog/hy-dsh-tool-workspace-dependencies/load-workspace-dependencies:
-  en: 77b88764ff3464e9
-  zh: a9ca7eeb15ada747
+  en: 422efc40dbf29732
+  zh: 9377bcc0e91599f1
 /tool-schema-catalog/hy-dsh-tool-web:
   en: 3f539e88ad722891
   zh: 3f539e88ad722891

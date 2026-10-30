@@ -170,6 +170,10 @@ flowchart LR
   cfg --> plugin_dsh_base_image_offload
   plugin_dsh_base_tool_todo["tool-todo<br/>@hy/dsh-tool-todo"]
   cfg --> plugin_dsh_base_tool_todo
+  plugin_dsh_base_tool_memory["tool-memory<br/>@hy/dsh-tool-memory"]
+  cfg --> plugin_dsh_base_tool_memory
+  plugin_dsh_base_memory_context["memory-context<br/>@hy/dsh-memory-context"]
+  cfg --> plugin_dsh_base_memory_context
   plugin_dsh_base_tool_goal["tool-goal<br/>@hy/dsh-tool-goal"]
   cfg --> plugin_dsh_base_tool_goal
   plugin_dsh_base_repeat_tool_reminder["repeat-tool-reminder<br/>@hy/dsh-repeat-tool-reminder"]
@@ -287,6 +291,8 @@ flowchart LR
 | `tool-result-pruner` | `@hy/dsh-compaction-tool-result-pruner` |
 | `image-offload` | `@hy/dsh-compaction-image-offload` |
 | `tool-todo` | `@hy/dsh-tool-todo` |
+| `tool-memory` | `@hy/dsh-tool-memory` |
+| `memory-context` | `@hy/dsh-memory-context` |
 | `tool-goal` | `@hy/dsh-tool-goal` |
 | `repeat-tool-reminder` | `@hy/dsh-repeat-tool-reminder` |
 | `web` | `@hy/dsh-web` |
