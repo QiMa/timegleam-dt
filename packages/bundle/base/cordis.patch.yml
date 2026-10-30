@@ -438,6 +438,15 @@
       config:
         allowParallelInProgress: true
 
+    # huayu-memory: model-facing memory_search / memory_save tools.
+    - id: tool-memory
+      name: '@hy/dsh-tool-memory'
+
+    # huayu-memory: session-lifecycle retrieval (pre-step) and refinement
+    # (session disposal) hooks.
+    - id: memory-context
+      name: '@hy/dsh-memory-context'
+
     # Persisted same-session goals reach the model and the slash menu here; the
     # domain, driver, and `/goal` command are above.
     - id: tool-goal

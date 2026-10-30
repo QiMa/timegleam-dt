@@ -412,6 +412,8 @@
       "@hy/dsh-native-command/types": ["./packages/util/native-command/src/types.ts"],
       "@hy/dsh-message-quotes/client": ["./packages/session/message-quotes/src/client/index.ts"],
       "@hy/dsh-ptc-runtime-node/configuration": ["./packages/ptc-runtime/ptc-runtime-node/src/configuration.ts"],
+      // huayu-cadcraft is named after something other than its directory.
+      "@hy/dsh-experimental-huayu-cadcraft": ["./packages/experimental/huayu-cadcraft/src"],
       // BEGIN generated package aliases — pnpm run gen-tsconfig-paths
       "@hy/dsh-acp": ["./packages/acp/acp/src"],
       "@hy/dsh-acp-app": ["./packages/bundle/acp-app/src"],
@@ -484,6 +486,7 @@
       "@hy/dsh-lsp-stdio": ["./packages/lsp/lsp-stdio/src"],
       "@hy/dsh-mcp-client": ["./packages/mcp/mcp-client/src"],
       "@hy/dsh-mcp-resources": ["./packages/mcp/mcp-resources/src"],
+      "@hy/dsh-memory-context": ["./packages/memory/memory-context/src"],
       "@hy/dsh-message-feedback": ["./packages/feedback/message-feedback/src"],
       "@hy/dsh-message-quotes": ["./packages/session/message-quotes/src"],
       "@hy/dsh-native-command": ["./packages/util/native-command/src"],
@@ -582,6 +585,7 @@
       "@hy/dsh-tool-goal": ["./packages/goal/tool-goal/src"],
       "@hy/dsh-tool-jobs": ["./packages/jobs/tool-jobs/src"],
       "@hy/dsh-tool-lsp": ["./packages/lsp/tool-lsp/src"],
+      "@hy/dsh-tool-memory": ["./packages/memory/tool-memory/src"],
       "@hy/dsh-tool-present": ["./packages/deliverables/tool-present/src"],
       "@hy/dsh-tool-pwsh-persistent": ["./packages/shell/tool-pwsh-persistent/src"],
       "@hy/dsh-tool-ralph": ["./packages/experimental/tool-ralph/src"],

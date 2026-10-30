@@ -1,0 +1,61 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/memory/memory-context/README.md
+/:
+  en: bf40587bc3f9a6ec
+  zh: f9dcf60260343663
+/hy-dsh-memory-context:
+  en: 7f8a890fa55c1a02
+  zh: b877e71e0f2c940f
+/hy-dsh-memory-context/summary:
+  en: ddfb781438183d71
+  zh: 5dcb76d3e41ef8e9
+/hy-dsh-memory-context/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/hy-dsh-memory-context/use-this-package:
+  en: 6194590164cf4ea1
+  zh: f8c78b71eb2a93f5
+/hy-dsh-memory-context/use-this-package/minimal-configuration:
+  en: 980f5ea7cea65d6c
+  zh: 499c61d5dc734064
+/hy-dsh-memory-context/understand-the-implementation:
+  en: 66a7b08dbd390a4c
+  zh: 6563cd10f9d927d8
+/hy-dsh-memory-context/further-exploration:
+  en: 9c54fd9c160038e3
+  zh: 5a6bbc480267b824
+/hy-dsh-memory-context/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/hy-dsh-memory-context/model-experience/injected-recall-snapshot:
+  en: a22f28dea276f2f9
+  zh: 4acfcee3fad2fa7a
+/hy-dsh-memory-context/model-experience/injected-recall-snapshot/what-the-model-sees:
+  en: 30cc34cb9a1885f3
+  zh: c792a92af8a9a2f2
+/hy-dsh-memory-context/model-experience/injected-recall-snapshot/token-effect:
+  en: 200f62cc969c0c6a
+  zh: 2520ba70a7161685
+/hy-dsh-memory-context/model-experience/injected-recall-snapshot/kv-cache-effect:
+  en: 51d0140a91d3ee15
+  zh: 33feaf15fc736d44
+/hy-dsh-memory-context/model-experience/refine-output:
+  en: 072b560d7fe002ce
+  zh: c449293b74acc77d
+/hy-dsh-memory-context/model-experience/refine-output/what-the-model-sees:
+  en: d647d3a83f8baa25
+  zh: ce6de0dc210253d0
+/hy-dsh-memory-context/model-experience/refine-output/token-effect:
+  en: 4f084f38f4d1e441
+  zh: e821465bfafa98c2
+/hy-dsh-memory-context/model-experience/refine-output/kv-cache-effect:
+  en: 49a4435caca6e3f1
+  zh: e2743ba0c818d1e2
+/hy-dsh-memory-context/known-limitations-and-deferred-work:
+  en: 14a2d99a70bf7f5a
+  zh: 2d92585036c9401b
+/hy-dsh-memory-context/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: b2ee0fbaa165910d

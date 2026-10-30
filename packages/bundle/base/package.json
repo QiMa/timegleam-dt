@@ -130,7 +130,9 @@
     "@hy/dsh-otel": "workspace:*",
     "@hy/dsh-working-directory": "workspace:*",
     "@hy/dsh-tool-working-directory": "workspace:*",
-    "@hy/dsh-web-deepseek-api": "workspace:*"
+    "@hy/dsh-web-deepseek-api": "workspace:*",
+    "@hy/dsh-tool-memory": "workspace:*",
+    "@hy/dsh-memory-context": "workspace:*"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~"
