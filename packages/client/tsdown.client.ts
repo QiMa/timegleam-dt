@@ -82,7 +82,7 @@ function styleInjectionModule(
  * Everything else under @hy/* is either a module-table entry
  * (external) or a leak the purity gate rejects.
  */
-export const INLINE_SAFE = /^(?:@hy\/dsh-(?:file-reference|session|llm|tools|brand|official-bundles|deque|output-retention|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@hy\/dsh-util-file-drag$|@hy\/dsh-token-meter\/client$|@hy\/dsh-native-command\/types$|@hy\/dsh-host-open-in-app\/shared$|@hy\/dsh-plugin-manager\/registry$|@hy\/dsh-agent-preset-registry\/display$|@hy\/dsh-api-workspace-controller\/default-workspace$|@hy\/dsh-spill-policy\/notice$)/
+export const INLINE_SAFE = /^(?:@hy\/dsh-(?:file-reference|session|llm|tools|brand|official-bundles|deque|output-retention|typert-protocol|util-crypto|util-time|util-values|util-workspace-path)(?:\/|$)|@hy\/dsh-util-file-drag$|@hy\/dsh-token-meter\/client$|@hy\/dsh-commands\/builtin$|@hy\/dsh-native-command\/types$|@hy\/dsh-host-open-in-app\/shared$|@hy\/dsh-plugin-manager\/registry$|@hy\/dsh-agent-preset-registry\/display$|@hy\/dsh-api-workspace-controller\/default-workspace$|@hy\/dsh-spill-policy\/notice$)/
 
 /**
  * Vendored framework libraries: rescoped into @hy, so the gate below
