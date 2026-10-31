@@ -108,9 +108,15 @@ export function apply(ctx: Context, config: Config): void {
   ): Promise<PreStepDecision> => {
     const decision = await next()
     if (decision.kind === 'reject' || signal.aborted || step !== 1) return decision
-    const query = [
-      ...decision.messages.flatMap(message => textOf(message.content)),
-    ].join(' ').trim().slice(0, 500)
+    // Only the human's own words describe the topic. Runtime-context and other
+    // producer snapshots are long, stable boilerplate that would swamp the query and
+    // drown the actual request; the model reads them separately anyway.
+    const query = decision.messages
+      .filter(message => message.source.kind === 'user')
+      .flatMap(message => textOf(message.content))
+      .join(' ')
+      .trim()
+      .slice(0, 500)
     if (query === '') return decision
     let results: Awaited<ReturnType<typeof client.search>>['results']
     try {

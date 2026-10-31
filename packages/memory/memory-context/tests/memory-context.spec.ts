@@ -196,6 +196,26 @@ describe('dsh-memory-context', () => {
     })
   })
 
+  it('searches with the human message only, not producer context snapshots', async () => {
+    const ctx = await mount()
+    const session = Session.create(SessionId('user-only'))
+    openMessageTurn(session, 1, 'how do we deploy')
+    const runtimeContext = createUserMessage({
+      content: [{ type: 'text', text: 'Current runtime context. This snapshot supersedes earlier snapshots.' }],
+      source: { kind: 'runtime-context', form: 'snapshot', sections: [] },
+    })
+    const human = createUserMessage({
+      content: [{ type: 'text', text: 'how do we deploy' }],
+      source: { kind: 'user' },
+    })
+
+    await fire(ctx, sessionAgent(session), 1, 1, [runtimeContext, human])
+
+    const search = seen.find(entry => entry.url.startsWith('/v1/search'))
+    if (search === undefined) throw new Error('missing search request')
+    const query = new URL(search.url, 'http://x').searchParams.get('q') ?? ''
+    expect(query).toBe('how do we deploy')
+  })
   it('skips injection on later steps of a turn', async () => {
     const ctx = await mount()
     const session = Session.create(SessionId('second'))
