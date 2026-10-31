@@ -49,7 +49,7 @@ export const Config: z<Config> = z.object({
   apiKey: z.string().default(''),
   enabled: z.boolean().default(true),
   maxInjected: z.number().min(1).max(16).default(8),
-  threshold: z.number().min(0).max(1).default(0.25),
+  threshold: z.number().min(0).max(1).default(0.55),
   refineOnDispose: z.boolean().default(true),
   refineMinChars: z.number().min(1).default(160),
 })

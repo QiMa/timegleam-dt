@@ -42,7 +42,7 @@
 | `apiKey` | `""` | 可选的 bearer token |
 | `enabled` | `true` | 为 false 时不挂载任何东西 |
 | `maxInjected` | `8` | 每个 turn 的召回上限（1-16） |
-| `threshold` | `0.25` | 注入所需最低分数（0-1） |
+| `threshold` | `0.55` | 注入所需最低分数（0-1） |
 | `refineOnDispose` | `true` | 执行销毁精炼 |
 | `refineMinChars` | `160` | 最低累积字符数 |
 

@@ -42,7 +42,7 @@ The memory service is an enhancement, not a dependency. Tool failures are report
 | `apiKey` | `""` | optional bearer token |
 | `enabled` | `true` | mounts nothing when false |
 | `maxInjected` | `8` | recall cap per turn (1-16) |
-| `threshold` | `0.25` | minimum score for injection (0-1) |
+| `threshold` | `0.55` | minimum score for injection (0-1) |
 | `refineOnDispose` | `true` | run dispose refine |
 | `refineMinChars` | `160` | minimum collected characters |
 

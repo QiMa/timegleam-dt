@@ -92,7 +92,7 @@ async function mount(config: Partial<memoryContext.Config> = {}): Promise<Contex
     apiKey: '',
     enabled: true,
     maxInjected: 8,
-    threshold: 0.25,
+    threshold: 0.55,
     refineOnDispose: true,
     refineMinChars: 160,
     ...config,
@@ -236,7 +236,7 @@ describe('dsh-memory-context', () => {
       apiKey: '',
       enabled: true,
       maxInjected: 8,
-      threshold: 0.25,
+      threshold: 0.55,
       refineOnDispose: true,
       refineMinChars: 1,
     })
@@ -303,7 +303,7 @@ describe('dsh-memory-context', () => {
       apiKey: '',
       enabled: true,
       maxInjected: 8,
-      threshold: 0.25,
+      threshold: 0.55,
       refineOnDispose: true,
       refineMinChars: 1,
     })
@@ -337,7 +337,7 @@ describe('dsh-memory-context', () => {
       apiKey: '',
       enabled: true,
       maxInjected: 8,
-      threshold: 0.25,
+      threshold: 0.55,
       refineOnDispose: true,
       refineMinChars: 1000,
     })
