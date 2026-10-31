@@ -87,13 +87,20 @@ export class MemoryClient {
    * @param query - Search query; a short natural-language phrase.
    * @param namespace - Optional namespace filter, e.g. `project:<repo>` or `global`.
    * @param limit - Maximum results to return.
+   * @param threshold - Minimum retrieval score the service should consider.
    * @returns The service search response.
    */
-  async search(query: string, namespace?: string, limit = 8): Promise<SearchResponse> {
+  async search(
+    query: string,
+    namespace?: string,
+    limit = 8,
+    threshold?: number,
+  ): Promise<SearchResponse> {
     const url = new URL('/v1/search', this.endpoint)
     url.searchParams.set('q', query)
     if (namespace) url.searchParams.set('namespace', namespace)
     url.searchParams.set('limit', String(limit))
+    if (threshold !== undefined) url.searchParams.set('threshold', String(threshold))
     const res = await fetch(url, { headers: this.headers(), signal: AbortSignal.timeout(5000) })
     if (!res.ok) throw new MemoryServiceError(`memory search failed: HTTP ${res.status}`, res.status)
     return await res.json() as SearchResponse

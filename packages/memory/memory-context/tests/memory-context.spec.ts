@@ -216,6 +216,25 @@ describe('dsh-memory-context', () => {
     const query = new URL(search.url, 'http://x').searchParams.get('q') ?? ''
     expect(query).toBe('how do we deploy')
   })
+  it('passes the retrieval floor to the service and injects what it returns', async () => {
+    const ctx = await mount({ threshold: 0.42 })
+    const session = Session.create(SessionId('threshold'))
+    openMessageTurn(session, 1, 'what is my editor')
+    const turnMessage = createUserMessage({
+      content: [{ type: 'text', text: 'what is my editor' }],
+      source: { kind: 'user' },
+    })
+
+    await fire(ctx, sessionAgent(session), 1, 1, [turnMessage])
+
+    // The service owns relevance: it gates candidates with a cross-encoder, so
+    // the plugin must hand over its floor rather than re-judge the scores.
+    const search = seen.find(entry => entry.url.startsWith('/v1/search'))
+    if (search === undefined) throw new Error('missing search request')
+    expect(new URL(search.url, 'http://x').searchParams.get('threshold')).toBe('0.42')
+    expect(contextTexts(session)).toHaveLength(1)
+  })
+
   it('skips injection on later steps of a turn', async () => {
     const ctx = await mount()
     const session = Session.create(SessionId('second'))

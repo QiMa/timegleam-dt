@@ -24,7 +24,7 @@
 
 ### 注入点 A — 在 `agent/pre-step` 召回
 
-在每个 turn 的第一步（`step === 1`），插件把该 turn 的用户文本（截断至 500 字符）拼成搜索查询，携带会话命名空间与 `maxInjected` 上限调用 `/v1/search`，过滤出 `score >= threshold` 的结果，并前置一条 snapshot 形式的用户消息。注入的 snapshot 携带 `source.kind === 'memory-context'`，精炼收集器会跳过它，因此召回文本不会被重新吸收。
+在每个 turn 的第一步（`step === 1`），插件把该 turn 的用户文本（截断至 500 字符）拼成搜索查询，携带会话命名空间、`maxInjected` 上限与 `threshold` 调用 `/v1/search`，并前置服务返回结果为一条 snapshot 形式的用户消息。相关性由服务端判定（打分后由交叉编码器复核短名单），插件不再对分数二次过滤，否则会丢掉门槛认可但排序靠后的命中。注入的 snapshot 携带 `source.kind === 'memory-context'`，精炼收集器会跳过它，因此召回文本不会被重新吸收。
 
 ### 注入点 C — 在 `session/disposed` 精炼
 
@@ -42,7 +42,7 @@
 | `apiKey` | `""` | 可选的 bearer token |
 | `enabled` | `true` | 为 false 时不挂载任何东西 |
 | `maxInjected` | `8` | 每个 turn 的召回上限（1-16） |
-| `threshold` | `0.55` | 注入所需最低分数（0-1） |
+| `threshold` | `0.55` | 传给服务的检索下限（0-1）；服务端在此下限以上的候选里做相关性判定 |
 | `refineOnDispose` | `true` | 执行销毁精炼 |
 | `refineMinChars` | `160` | 最低累积字符数 |
 

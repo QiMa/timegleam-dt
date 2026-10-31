@@ -24,7 +24,7 @@ Namespaces partition the store: `global` for cross-project memories, or `project
 
 ### Injection A — recall at `agent/pre-step`
 
-On the first step of every turn (`step === 1`), the plugin joins the turn's user text (capped at 500 characters) into a search query, calls `/v1/search` with the session namespace and `maxInjected` limit, filters hits to `score >= threshold`, and prepends a snapshot-form user message. Injected snapshots carry `source.kind === 'memory-context'`, which the refine collector skips so recalled text is not re-ingested.
+On the first step of every turn (`step === 1`), the plugin joins the turn's user text (capped at 500 characters) into a search query, calls `/v1/search` with the session namespace, `maxInjected` limit, and `threshold`, and prepends the returned results as a snapshot-form user message. The service decides relevance — it scores, then re-reads the shortlist with a cross-encoder — so the plugin does not filter the scores again; doing so would drop hits the gate accepted but ranked below its threshold. Injected snapshots carry `source.kind === 'memory-context'`, which the refine collector skips so recalled text is not re-ingested.
 
 ### Injection C — refine at `session/disposed`
 
@@ -42,7 +42,7 @@ The memory service is an enhancement, not a dependency. Tool failures are report
 | `apiKey` | `""` | optional bearer token |
 | `enabled` | `true` | mounts nothing when false |
 | `maxInjected` | `8` | recall cap per turn (1-16) |
-| `threshold` | `0.55` | minimum score for injection (0-1) |
+| `threshold` | `0.55` | retrieval floor passed to the service (0-1); relevance is judged above it |
 | `refineOnDispose` | `true` | run dispose refine |
 | `refineMinChars` | `160` | minimum collected characters |
 

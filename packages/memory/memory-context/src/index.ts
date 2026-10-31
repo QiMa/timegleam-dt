@@ -36,7 +36,7 @@ export interface Config {
   enabled: boolean
   /** Maximum memories injected into the first step of a turn. */
   maxInjected: number
-  /** Minimum search score for injection. */
+  /** Minimum retrieval score the service should consider for injection. */
   threshold: number
   /** Turn-end refinement: merge extracted candidates into the store. */
   refineOnDispose: boolean
@@ -120,13 +120,20 @@ export function apply(ctx: Context, config: Config): void {
     if (query === '') return decision
     let results: Awaited<ReturnType<typeof client.search>>['results']
     try {
-      results = (await client.search(query, projectNamespace(agent.session.header.cwd), config.maxInjected)).results
+      results = (await client.search(
+        query,
+        projectNamespace(agent.session.header.cwd),
+        config.maxInjected,
+        config.threshold,
+      )).results
     } catch (error) {
       ctx.logger.warn(`huayu-memory: pre-step search failed: ${error instanceof Error ? error.message : String(error)}`)
       return decision
     }
-    const typedResults: typeof results = results
-    const hits = typedResults.filter(hit => hit.score >= config.threshold)
+    // The service decides relevance: it scores, then re-reads the shortlist with
+    // a cross-encoder.  Re-applying the score here would drop hits that gate
+    // accepted but ranked below this number, silently undoing its work.
+    const hits = results
     if (hits.length === 0) return decision
     const text = '先前会话中与此任务相关的持久记忆：\n'
       + hits.map(hit => `[记忆 ${hit.namespace}/${hit.type}] ${hit.content}`).join('\n')
