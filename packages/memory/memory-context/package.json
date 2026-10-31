@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-memory-context",
   "description": "Session lifecycle memory retrieval and refinement for the huayu-memory service",
-  "version": "0.2.2-alpha.2",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

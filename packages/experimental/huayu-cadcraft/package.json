@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-experimental-huayu-cadcraft",
   "description": "Huayu AI CADCraft plugin: embed the CADCraft web drawing engine in the right sidebar and keep drawings beside each project",
-  "version": "0.2.2-alpha.2",
+  "version": "0.2.2-alpha.3",
   "icon": "./icon.svg",
   "publishConfig": {
     "access": "public"

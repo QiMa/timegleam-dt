@@ -1,7 +1,7 @@
 {
   "name": "@hy/dsh-tool-memory",
   "description": "Model-facing persistent-memory tools (memory_search / memory_save) over the huayu-memory service",
-  "version": "0.2.2-alpha.2",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },
