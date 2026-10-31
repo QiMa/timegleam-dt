@@ -346,6 +346,44 @@ describe('dsh-memory-context', () => {
     }, { timeout: 3000 })
   })
 
+  it('keeps producer snapshots out of the refine log', async () => {
+    const ctx = new Context()
+    await mountAgentLoopTestDependencies(ctx)
+    await ctx.plugin(TypertRegistry)
+    await ctx.plugin(AgentLoop, { agents: [] })
+    await ctx.plugin(memoryContext, {
+      endpoint,
+      apiKey: '',
+      enabled: true,
+      maxInjected: 8,
+      threshold: 0.55,
+      refineOnDispose: true,
+      refineMinChars: 1,
+    })
+    const adapter = new MockAdapter([textResponse('ok')])
+    ctx.llm.registerAdapter(['mock'], adapter)
+    const handle = await ctx.agents.create({
+      sessionId: SessionId('snapshot-free'),
+      agentOptions: { provider: 'mock', model: 'mock' },
+    })
+    handle.agent.session.append('user/message', createUserMessage({
+      content: [{ type: 'text', text: 'Current runtime context: <available_skills> triage: Triage issues.' }],
+      source: { kind: 'runtime-context', form: 'snapshot', sections: [] },
+    }), { surfaceOp: 'append' })
+    handle.agent.followup(createUserMessage({
+      content: [{ type: 'text', text: 'user says hi' }],
+      source: { kind: 'user' },
+    }))
+    await handle.agent.whenIdle()
+    await handle.dispose()
+    await vi.waitFor(() => {
+      const refineSeen = seen.find(request => request.url === '/v1/refine')
+      expect(refineSeen).toBeDefined()
+      expect(refineSeen!.body).toContain('user says hi')
+      expect(refineSeen!.body).not.toContain('available_skills')
+    }, { timeout: 3000 })
+  })
+
   it('does not refine below the configured character floor', async () => {
     const ctx = new Context()
     await mountAgentLoopTestDependencies(ctx)

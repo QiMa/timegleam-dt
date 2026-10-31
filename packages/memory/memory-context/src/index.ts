@@ -91,8 +91,11 @@ export function apply(ctx: Context, config: Config): void {
   /** Injection point C: feed one durable conversation event into the refine log. */
   ctx.on('session/event', (session, event) => {
     if (!config.refineOnDispose) return
-    if (event.type === 'user/message' && event.data.source.kind === 'memory-context') return
     if (event.type !== 'user/message' && event.type !== 'assistant/message') return
+    // Only the human's own words are durable.  Producer snapshots (runtime
+    // context, memory-context, skill catalogues, ...) are injected boilerplate:
+    // feeding them back would refine the system prompt into stored "facts".
+    if (event.type === 'user/message' && event.data.source.kind !== 'user') return
     const message = event.data as UserMessage | { content: readonly { type: string }[] }
     const text = textOf(message.content).trim()
     if (text.length === 0) return
