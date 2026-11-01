@@ -32,6 +32,15 @@
     workspaceRoot: !!js process.cwd()
     additionalWritableRoots: !!js ctx.headlessStartup.additionalWritableRoots
 
+# The approval default has to move with the sandbox default above.  Base pairs
+# danger-full-access with `never`; leaving that here while the sandbox composes
+# workspace-write produces a (sandbox, approval) pair no preset matches, and
+# @hy/dsh-permission-presets then refuses to boot without an explicit
+# defaultPreset.  One-shot jobs headline as workspace-write, so they ask.
+- id: approval
+  config:
+    policy: !!js "(process.env.DSH_PERMISSION_MODE ?? 'workspace-write') === 'danger-full-access' ? 'never' : 'ask'"
+
 - id: hmr
   disabled: true
 
