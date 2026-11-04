@@ -55,12 +55,16 @@ const SAFE_HOST_DEPENDENCY_EXPORTS = {
   '@hy/dsh-computer-use/brand': ['ComputerUseProviderName'],
   '@hy/dsh-credentials': ['credentialKey'],
   '@hy/dsh-deque': ['Deque'],
+  // Builds a dispatcher from the resolved proxy policy; the caller owns and closes it.
+  '@hy/dsh-http-proxy': ['createRouteDispatcher'],
   // The Liveshare wire codec and identity helpers are stateless functions over caller-owned values.
   '@hy/dsh-experimental-liveshare-protocol': [
     'LIVESHARE_CAPABILITIES', 'LIVESHARE_PROTOCOL_VERSION', 'parseRelayFrame', 'parseShareAccessState',
     'parseTunnelWorkerCommand', 'parseTunnelWorkerEvent', 'rawText', 'sendFrame', 'unsupportedFrameRefusal',
     'viewerRequestFields', 'identityFromKey', 'identityKeyOf',
   ],
+  // The shipped profile templates are plain data; a consumer reads their bundle names only.
+  '@hy/dsh-official-bundles': ['PROFILE_TEMPLATES'],
   '@hy/dsh-llm': ['callConfigEquals'],
   '@hy/dsh-session': ['SessionId'],
   '@hy/dsh-session-format': ['sessionFormatLogFilename'],

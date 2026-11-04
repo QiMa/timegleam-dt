@@ -18,7 +18,7 @@ export const PROTECTED_PLUGINS: ReadonlySet<string> = new Set([
 ])
 
 /**
- * Built-in profile bundles and persistent terminals, which have no plugin manager page.
+ * Built-in profile bundles, persistent terminals, and the standalone worktree tool, which have no plugin manager page.
  * Their Host availability and activation stay intact.
  */
 export const HIDDEN_BUNDLES: ReadonlySet<string> = new Set([
@@ -29,6 +29,7 @@ export const HIDDEN_BUNDLES: ReadonlySet<string> = new Set([
   '@hy/dsh-acp-app',
   '@hy/dsh-sdk-minimal',
   '@hy/dsh-experimental-terminal-bundle',
+  '@hy/dsh-experimental-tool-worktree',
 ])
 
 /**
@@ -36,7 +37,6 @@ export const HIDDEN_BUNDLES: ReadonlySet<string> = new Set([
  * this list, decides whether a bundle appears on the main list.
  */
 export const EXTENSION_BUNDLES: readonly string[] = [
-  '@hy/dsh-experimental-agent-team-profile',
   '@hy/dsh-experimental-voice-input-bundle',
   '@hy/dsh-experimental-plugin-market-bundle',
   '@hy/dsh-experimental-auto-review',
@@ -50,7 +50,6 @@ export const MORE_BUNDLES: readonly string[] = [
   '@hy/dsh-personalized-recommendations',
   '@hy/dsh-experimental-inspector-profile',
   '@hy/dsh-cua-bundle',
-  '@hy/dsh-experimental-tool-worktree',
   '@hy/dsh-experimental-cot-translation-bundle',
   '@hy/dsh-experimental-session-search',
   '@hy/dsh-experimental-session-titles-bundle',
@@ -64,7 +63,6 @@ export const MORE_BUNDLES: readonly string[] = [
 export const EXPERIMENTAL_BUNDLES: ReadonlySet<string> = new Set([
   '@hy/dsh-personalized-recommendations',
   '@hy/dsh-cua-bundle',
-  '@hy/dsh-experimental-agent-team-profile',
   '@hy/dsh-experimental-voice-input-bundle',
   '@hy/dsh-experimental-auto-review',
   '@hy/dsh-experimental-inspector-profile',

@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
+    "@hy/dsh-agent-team": "workspace:*",
     "@hy/dsh-api-session-controller": "workspace:*",
     "@hy/dsh-attachment": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",

@@ -93,12 +93,15 @@
     "@hy/dsh-command-feedback": "workspace:*",
     "@hy/dsh-api-terminal-controller": "workspace:*",
     "@hy/dsh-plugin-manager": "workspace:*",
+    "@hy/dsh-mcp-manager": "workspace:*",
     "@hy/dsh-plugin-market": "workspace:*",
     "@hy/dsh-client-ui-plugin-manager": "workspace:*",
     "@hy/dsh-office-to-pdf": "workspace:*",
     "@hy/dsh-api-account-controller": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/dsh-client-product-analytics": "workspace:*",
-    "@hy/dsh-client-ui-trajectory": "workspace:*"
+    "@hy/dsh-agent-team": "workspace:*",
+    "@hy/dsh-client-ui-trajectory": "workspace:*",
+    "@hy/dsh-web": "workspace:*"
   }
 }

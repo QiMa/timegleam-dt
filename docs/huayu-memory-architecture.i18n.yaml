@@ -15,8 +15,8 @@
   en: 1a96572dcb1070f1
   zh: ce8c5f383787f344
 /huayu-memory-architecture/injection-points/injection-a-recall-at-agent-pre-step:
-  en: 5b80b19046230c9f
-  zh: a39d77b93f5bc433
+  en: 548a84579d1e8862
+  zh: 529ee1b23ef8d771
 /huayu-memory-architecture/injection-points/injection-c-refine-at-session-disposed:
   en: 23ce4a1454056637
   zh: 47fa7571da0acd7f
@@ -24,8 +24,8 @@
   en: feacb7e1d98f772c
   zh: 126a7509c2e7c934
 /huayu-memory-architecture/configuration:
-  en: 229005ba7f431801
-  zh: fc0486ab4273ebf9
+  en: cce9a626c86f8e39
+  zh: 2af8d1624ac81cda
 /huayu-memory-architecture/data-flow:
   en: ce788e7b0b0d00be
   zh: f3d50ef603c7d029

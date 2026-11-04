@@ -27,6 +27,7 @@
   "files": [
     "icon.svg",
     "locale/*.json",
+    "docs",
     "lib/index.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
@@ -37,6 +38,7 @@
     "@hy/dsh-experimental-forge": "workspace:*",
     "@hy/dsh-experimental-forge-github": "workspace:*",
     "@hy/dsh-experimental-forge-session": "workspace:*",
+    "@hy/dsh-experimental-tool-worktree": "workspace:*",
     "@hy/dsh-experimental-worktree": "workspace:*"
   },
   "peerDependencies": {

@@ -74,8 +74,6 @@
   disabled: true
 
 - id: tool-fs
-  config:
-    applyPatch: true
 
 - id: spill-local
   name: '@hy/dsh-spill-local'

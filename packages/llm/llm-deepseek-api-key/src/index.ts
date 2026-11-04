@@ -1,11 +1,12 @@
 /** API-key authentication, credential-gated discovery, and the official model listing for the official DeepSeek route. */
 import type { Context } from '@hy/cordis'
-import { APP_IDENTITY, assertUsableApiKey, LlmError } from '@hy/dsh-llm'
+import { APP_IDENTITY, LlmError } from '@hy/dsh-llm'
 import type { LlmModelBadge } from '@hy/dsh-llm'
 import type {} from '@hy/cordis-plugin-loader'
 import { launchEnvironmentOf } from '@hy/dsh-launch-environment'
 import {
   catalogModelInfo, createModelListingCache, refuseListedModel, registerDeepSeekProvider, requestModelListing, resolveListedCatalog,
+  resolveDeepSeekApiKey,
 } from '@hy/dsh-llm-deepseek'
 import type { CatalogRefusal, DeepSeekCatalogModel, ListingView, ModelListing } from '@hy/dsh-llm-deepseek'
 import { Config, plainOptions, resolveAdapterOptions } from './config.ts'
@@ -35,14 +36,8 @@ export function apply(ctx: Context, config: Config): void {
   options()
   const resolveApiKey = async (connection: ResolvedDeepSeekOptions): Promise<string> => {
     const ref = connection.apiKeyEnv
-    const credentials = ctx.get('credentials')
-    if (credentials !== undefined) {
-      const hit = await credentials.resolve(ref)
-      if (hit !== undefined) return assertUsableApiKey(hit.value, 'llm-deepseek', ref)
-    } else {
-      const ambient = launchEnvironmentOf(ctx).get(ref)
-      if (ambient !== undefined && ambient.value.length > 0) return assertUsableApiKey(ambient.value, 'llm-deepseek', ref)
-    }
+    const key = await resolveDeepSeekApiKey(ctx, ref)
+    if (key !== undefined) return key
     throw new LlmError(
       `llm-deepseek: no API key for provider route "${PROVIDER}"; store ${ref} through the credentials`
       + ` service (the web Models page writes it), or export ${ref} in the launching environment`,

@@ -1,6 +1,6 @@
 /** Runtime plugin trees shared by Agents selecting one preset revision. */
 import { Context, type Fiber } from '@hy/cordis'
-import { EntryTree, type EntryOptions } from '@hy/cordis-plugin-loader'
+import { EntryTree, type EntryChange, type EntryOptions } from '@hy/cordis-plugin-loader'
 import { prepareProfileEntries } from '@hy/dsh-app-boot'
 import type { PresetDefinition } from './definition.ts'
 import { scopeOf, type ScopeKey } from '@hy/dsh-scope'
@@ -20,7 +20,7 @@ class PresetTree extends EntryTree {
     }
   }
 
-  override write(): void {}
+  override commit(_change: EntryChange): void {}
 }
 
 /** One live revision shared by Agents and scoped readers. */

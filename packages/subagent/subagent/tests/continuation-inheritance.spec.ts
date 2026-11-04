@@ -20,7 +20,7 @@ import SandboxPolicyService, { setSandboxMode } from '@hy/dsh-sandbox-policy'
 import { Session, SessionId } from '@hy/dsh-session'
 import type { SessionEvent } from '@hy/dsh-session'
 import * as JsonlSessionPersistence from '@hy/dsh-session-persistence-jsonl'
-import { queueHostSubagentPrompt } from '@hy/dsh-subagent/internal'
+import { subagentManager } from './manager-internals.ts'
 import * as SubagentFork from '@hy/dsh-subagent-fork-in-process'
 import * as SubagentSpawn from '@hy/dsh-subagent-spawn-in-process'
 import ApprovalService from '@hy/dsh-user-approval'
@@ -63,7 +63,7 @@ function startSpec(parent: Agent, provider = 'spawn') {
   return {
     provider,
     label: 'child task',
-    request: { prompt: [{ type: 'text' as const, text: 'child task' }], parent },
+    prompt: [{ type: 'text' as const, text: 'child task' }], parent,
     signal: new AbortController().signal,
   }
 }
@@ -114,10 +114,9 @@ describe('continuable policy inheritance', () => {
       expect(current).toHaveBeenCalledExactlyOnceWith(parent.session)
       parent.session.append('permission/preset', { preset: preset === 'auto' ? 'danger-full-access' : 'auto' })
       current.mockImplementation(() => { throw new Error('cold resume must not read parent permission') })
-      await queueHostSubagentPrompt(
-        ctx.subagents, parent, started.childId,
-        [{ type: 'text', text: 'continue please' }], { kind: 'user' }, new AbortController().signal,
-      )
+      await subagentManager(ctx).deliverPrompt(started.childId, [{ type: 'text', text: 'continue please' }], {
+        delivery: 'queue', source: { kind: 'user' }, signal: new AbortController().signal,
+      })
       await waitNoActivation(ctx, started.childId)
       const resumed = await loadStoredSession(ctx.sessionPersistence, started.childId)
       expect(resumed.events.filter(event => event.type === 'permission/preset')).toMatchObject([
@@ -271,14 +270,9 @@ describe('continuable policy inheritance', () => {
     // The parent widens AFTER the child was created; the resumed child keeps
     // the delegation-time snapshot from its own log.
     setSandboxMode(parent.session, 'danger-full-access')
-    await queueHostSubagentPrompt(
-      ctx.subagents,
-      parent,
-      started.childId,
-      [{ type: 'text', text: 'continue please' }],
-      { kind: 'user' },
-      new AbortController().signal,
-    )
+    await subagentManager(ctx).deliverPrompt(started.childId, [{ type: 'text', text: 'continue please' }], {
+      delivery: 'queue', source: { kind: 'user' }, signal: new AbortController().signal,
+    })
     await waitNoActivation(ctx, started.childId)
 
     const loaded = await loadStoredSession(ctx.sessionPersistence, started.childId)

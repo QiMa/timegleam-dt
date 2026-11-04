@@ -22,6 +22,8 @@
         id: parent
         plugins:
           - name: '@hy/dsh-tool-fs'
+            config:
+              applyPatch: true
           - name: '@hy/dsh-tool-fs-search'
             config:
               sampleOverCapGlobResults: false

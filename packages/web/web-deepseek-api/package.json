@@ -33,9 +33,14 @@
     "@hy/dsh-credentials": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-web": "workspace:*",
-    "@hy/cordis": "workspace:~"
+    "@hy/cordis": "workspace:~",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek-api-key": "workspace:*",
+    "@hy/dsh-llm-deepseek-account": "workspace:*"
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~"
@@ -46,11 +51,17 @@
     "@hy/dsh-credentials-local": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-session-projection": "workspace:*",
     "@hy/dsh-web": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "@hy/dsh-http-proxy": "workspace:*"
+    "@hy/dsh-http-proxy": "workspace:*",
+    "@hy/cordis-plugin-loader": "workspace:~",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek-api-key": "workspace:*",
+    "@hy/dsh-llm-deepseek-account": "workspace:*",
+    "@hy/dsh-app-boot": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@hy/dsh-deepseek-account": {

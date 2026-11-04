@@ -12,7 +12,7 @@
   },
   "type": "module",
   "bin": {
-    "hy": "lib/bin.js"
+    "dsh": "lib/bin.js"
   },
   "files": [
     "lib/*.js",
@@ -38,7 +38,6 @@
     "@hy/dsh-compaction-basic": "workspace:*",
     "@hy/dsh-compaction-tool-result-pruner": "workspace:*",
     "@hy/dsh-cordis-client-runner": "workspace:*",
-    "@hy/dsh-experimental-agent-team-profile": "workspace:*",
     "@hy/dsh-experimental-inspector-profile": "workspace:*",
     "@hy/dsh-fs-local": "workspace:*",
     "@hy/dsh-goal": "workspace:*",
@@ -128,9 +127,9 @@
     "@hy/dsh-bash-local": "workspace:*",
     "@hy/dsh-credentials-local": "workspace:*",
     "@hy/dsh-deepseek-llm-api-extensions": "workspace:*",
-    "@hy/dsh-experimental-agent-team": "workspace:*",
+    "@hy/dsh-agent-team": "workspace:*",
     "@hy/dsh-experimental-ptc-runtime-python": "workspace:*",
-    "@hy/dsh-experimental-tool-agent-team": "workspace:*",
+    "@hy/dsh-tool-agent-team": "workspace:*",
     "@hy/dsh-fs-observation-policy": "workspace:*",
     "@hy/dsh-fs-sandbox": "workspace:*",
     "@hy/dsh-host-frontend-static": "workspace:*",

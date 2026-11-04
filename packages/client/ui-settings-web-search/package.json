@@ -1,6 +1,6 @@
 {
   "name": "@hy/dsh-client-ui-settings-web-search",
-  "description": "Settings page of the DeepSeek web-search provider on the hy web client's Plugins page: its API key, endpoint, and per-request search budget",
+  "description": "Settings page for web search and fetch on the dsh web client's Plugins page: the Search and Fetch provider menus, the DeepSeek Search API result count, and legacy Messages search settings",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
@@ -56,7 +56,7 @@
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-settings": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
-    "@types/react": "~18.3.1",
+    "@hy/dsh-web": "workspace:*",
     "react": "^18.2.0"
   },
   "files": [

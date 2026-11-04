@@ -2,6 +2,7 @@
 /** Test driver: one delegation turn through a headless Loader composition. */
 
 import { resolveConfigPath } from '@hy/dsh-app-boot'
+import { SessionId } from '@hy/dsh-session'
 import { runFixtureTurn } from '@hy/dsh-loader-smoke'
 import { bootProductionProfile } from '../../../../../test-support/loader-smoke/tests/fixtures/production-profile.ts'
 
@@ -15,9 +16,9 @@ const ctx = await bootProductionProfile({
 })
 try {
   const result = await runFixtureTurn(ctx, { task: 'delegate' })
-  const parent = ctx.agents.roots().find(agent => agent.id === result.sessionId)
+  const parent = ctx.agents.get(SessionId(result.sessionId))
   if (parent === undefined) throw new Error('delegating parent is unavailable')
-  await ctx.subagents.waitForChildren(parent)
+  await ctx.subagents.waitForTreeWork(parent)
   await parent.whenIdle()
   await ctx.sessions.flush(parent.session)
 } finally {

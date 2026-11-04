@@ -394,13 +394,13 @@ describe('loadProfile', () => {
     ])
   })
 
-  it('removes a retired bundle from an application-owned profile and keeps the rest of the manifest', () => {
+  it.each(['@hy/dsh-experimental-schedule-bundle', '@hy/dsh-experimental-agent-team-profile'])('removes retired %s and keeps the rest of an application-owned manifest', (retired) => {
     const anchor = stageInstallation({
       '@hy/dsh-base': { patch: '[]\n' },
       'custom-bundle': { patch: '[]\n' },
     })
     const dir = join(tmp(), 'app-profile')
-    initProfile(dir, ['@hy/dsh-base', '@hy/dsh-experimental-schedule-bundle', 'custom-bundle'])
+    initProfile(dir, ['@hy/dsh-base', retired, 'custom-bundle'])
     writeProfileManifest(dir, { ...readProfileManifest('t', dir), dependencies: { 'custom-bundle': '^1.0.0' } })
     const profile = loadProfileDirectory('t', dir, anchor)
     expect(profile.skippedBundles).toEqual([])

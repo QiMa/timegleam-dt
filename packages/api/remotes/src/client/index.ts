@@ -6,6 +6,8 @@ export type {} from '@hy/dsh-client-product-analytics/remote'
 import agentPresetsRemote from '@hy/dsh-agent-preset-registry/remote'
 import userQuestionsRemote from '@hy/dsh-user-questions/remote'
 import commandsRemote from '@hy/dsh-commands/remote'
+import agentTeamsRemote from '@hy/dsh-agent-team/remote'
+export type {} from '@hy/dsh-agent-team/remote'
 import accountRemote from '@hy/dsh-api-account-controller/remote'
 import settingsControllerRemote from '@hy/dsh-api-settings-controller/remote'
 import officeToPdfRemote from '@hy/dsh-office-to-pdf/remote'
@@ -14,6 +16,7 @@ import scheduleRemote from '@hy/dsh-schedule/remote'
 import llmRemote from '@hy/dsh-llm/remote'
 import dynamicRemote from '@hy/dsh-cordis-host-runner/remote'
 import pluginManagerRemote from '@hy/dsh-plugin-manager/remote'
+import mcpManagerRemote from '@hy/dsh-mcp-manager/remote'
 import toolResultsRemote from '@hy/dsh-client-ui-trajectory/remote'
 import pluginRegistryProbeRemote from '@hy/dsh-client-ui-plugin-manager/remote'
 import pluginMarketRemote from '@hy/dsh-plugin-market/remote'
@@ -29,6 +32,7 @@ import jobRemote from '@hy/dsh-api-job-controller/remote'
 import workspaceRemote from '@hy/dsh-api-workspace-controller/remote'
 import terminalRemote from '@hy/dsh-api-terminal-controller/remote'
 import workspaceFilesRemote from '@hy/dsh-api-workspace-files/remote'
+import webRemote from '@hy/dsh-web/remote'
 import type { ClientRemote } from '@hy/dsh-api-gateway/client'
 
 export type { ClientRemote } from '@hy/dsh-api-gateway/client'
@@ -40,7 +44,9 @@ export type {
   PluginUpdateProgress, PluginUpdateResult, PluginUpdateStep, PluginVersion, PluginVersionList, RegistryAttempt,
   ReadOnlyReason, Registry, RestartReason,
 } from '@hy/dsh-plugin-manager/types'
+export type { McpManagedServerStatus, McpManagedServerView } from '@hy/dsh-mcp-manager/types'
 export type {} from '@hy/dsh-plugin-manager/remote'
+export type {} from '@hy/dsh-mcp-manager/remote'
 export type {} from '@hy/dsh-client-ui-plugin-manager/remote'
 export type {} from '@hy/dsh-client-ui-trajectory/remote'
 export type {} from '@hy/dsh-plugin-market/remote'
@@ -52,6 +58,7 @@ export type { PluginInventorySnapshot } from '@hy/dsh-host-plugin-inventory/type
 export type {} from '@hy/dsh-agent-preset-registry/remote'
 export type {} from '@hy/dsh-user-questions/remote'
 export type {} from '@hy/dsh-commands/remote'
+export type {} from '@hy/dsh-web/remote'
 export type {} from '@hy/dsh-api-settings-controller/remote'
 export type {} from '@hy/dsh-api-account-controller/remote'
 export type {} from '@hy/dsh-goal/remote'
@@ -83,6 +90,7 @@ export type { ApiRemoteForwardedEvent } from '../types.ts'
 // signatures `$on` hands to a listener, so a consumer reads the very
 // declaration the Host emits rather than a flattened restatement of it.
 export type {} from '@hy/dsh-commands/types'
+export type {} from '@hy/dsh-web/types'
 export type {} from '@hy/dsh-cordis-host-runner/types'
 export type {} from '@hy/dsh-credentials/types'
 export type {} from '@hy/dsh-llm/types'
@@ -189,13 +197,14 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
   const disposers: Array<() => Promise<void>> = []
   try {
     for (const contribution of [
-      productAnalyticsRemote, agentPresetsRemote, commandsRemote, settingsControllerRemote, accountRemote,
+      productAnalyticsRemote, agentPresetsRemote, commandsRemote, agentTeamsRemote, settingsControllerRemote, accountRemote,
       goalsRemote, llmRemote, dynamicRemote, scheduleRemote,
-      pluginInventoryRemote, pluginManagerRemote, pluginMarketRemote, pluginRegistryProbeRemote, toolResultsRemote,
+      pluginInventoryRemote, pluginManagerRemote, mcpManagerRemote, pluginMarketRemote, pluginRegistryProbeRemote,
+      toolResultsRemote,
       messageFeedbackRemote, sessionFeedbackRemote,
       fileUploadsRemote, sessionReferencesRemote,
       permissionPresetsRemote, subagentsRemote, sessionRemote, jobRemote, workspaceRemote, workspaceFilesRemote, terminalRemote,
-      officeToPdfRemote, userQuestionsRemote,
+      officeToPdfRemote, userQuestionsRemote, webRemote,
     ]) {
       disposers.push(await ctx.remote.$mount(contribution))
     }

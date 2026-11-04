@@ -1,6 +1,6 @@
 {
   "name": "@hy/dsh-client-ui-settings-agent-loop",
-  "description": "Settings page of the agent loop on the hy web client's Plugins page: the parallel tool-call cap of the agent-loop namespace",
+  "description": "Settings page of the agent loop on the dsh web client's Plugins page: the parallel tool-call cap of the agent-loop namespace",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
@@ -55,7 +55,6 @@
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-settings": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },
   "files": [

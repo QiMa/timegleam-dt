@@ -18,6 +18,10 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
     "./src/*": "./src/*",
     "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
@@ -25,6 +29,7 @@
   "files": [
     "locale/*.json",
     "lib/index.js",
+    "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
@@ -37,7 +42,8 @@
     "@hy/dsh-tools": "workspace:*",
     "@hy/cordis": "workspace:~",
     "@hy/dsh-mcp-resources": "workspace:*",
-    "@hy/dsh-system-prompt": "workspace:*"
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-credentials": "workspace:*"
   },
   "dependencies": {
     "@hy/schemastery": "workspace:~",
@@ -62,13 +68,17 @@
     "@modelcontextprotocol/node": "2.0.0",
     "zod": "4.4.3",
     "@hy/dsh-mcp-resources": "workspace:*",
-    "@hy/dsh-system-prompt": "workspace:*"
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-credentials": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@hy/dsh-mcp-resources": {
       "optional": true
     },
     "@hy/dsh-system-prompt": {
+      "optional": true
+    },
+    "@hy/dsh-credentials": {
       "optional": true
     }
   }

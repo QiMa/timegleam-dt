@@ -33,6 +33,7 @@
     "@hy/dsh-credentials": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-web": "workspace:*",
     "@hy/cordis": "workspace:~"
@@ -46,6 +47,7 @@
     "@hy/dsh-credentials-local": "workspace:*",
     "@hy/dsh-deepseek-account": "workspace:*",
     "@hy/dsh-launch-environment": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*",
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-web": "workspace:*",
     "@hy/cordis": "workspace:~",

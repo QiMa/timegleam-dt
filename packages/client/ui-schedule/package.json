@@ -60,6 +60,7 @@
     "@hy/dsh-api-workspace-controller": "workspace:*",
     "@hy/dsh-client-connection": "workspace:*",
     "@hy/dsh-client-locale": "workspace:*",
+    "@hy/dsh-client-store": "workspace:*",
     "@hy/dsh-client-test-runtime": "workspace:*",
     "@hy/dsh-client-ui-conversation": "workspace:*",
     "@hy/dsh-client-ui-layout": "workspace:*",

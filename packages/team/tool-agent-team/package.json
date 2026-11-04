@@ -1,0 +1,64 @@
+{
+  "name": "@hy/dsh-tool-agent-team",
+  "description": "Scoped model-facing Agent Teams tools over ctx.agentTeams",
+  "version": "0.2.2-alpha.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/team/tool-agent-team"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./locale/*.json": "./locale/*.json",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@hy/schemastery": "workspace:~"
+  },
+  "peerDependencies": {
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-agent-team": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/cordis": "workspace:~"
+  },
+  "devDependencies": {
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-agent-loop": "workspace:*",
+    "@hy/dsh-agent-loop-testkit": "workspace:*",
+    "@hy/dsh-session": "workspace:*",
+    "@hy/dsh-session-projection": "workspace:*",
+    "@hy/dsh-session-persistence-jsonl": "workspace:*",
+    "@hy/dsh-session-query": "workspace:*",
+    "@hy/dsh-scope": "workspace:*",
+    "@hy/dsh-subagent": "workspace:*",
+    "@hy/dsh-subagent-fork-in-process": "workspace:*",
+    "@hy/dsh-subagent-spawn-in-process": "workspace:*",
+    "@hy/dsh-tool-subagent-control": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-agent-team": "workspace:*",
+    "@hy/dsh-tool-testkit": "workspace:*",
+    "@hy/dsh-tools": "workspace:*",
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-llm-deepseek": "workspace:*"
+  }
+}

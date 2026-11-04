@@ -4,10 +4,8 @@ import { describe, expect, it } from 'vitest'
 import { OFFICIAL_ON_DEMAND_CATALOG, ON_DEMAND_BUNDLES, PROFILE_TEMPLATES } from '../src/index.ts'
 
 describe('Official on-demand catalog', () => {
-  it('offers native subagents and default-hidden Computer Use with offline metadata', () => {
-    expect(ON_DEMAND_BUNDLES).toEqual(['@hy/dsh-subagent-claude-code', '@hy/dsh-subagent-codex', '@hy/dsh-cua-bundle'])
-    expect(OFFICIAL_ON_DEMAND_CATALOG.find(entry => entry.packageName === '@hy/dsh-cua-bundle'))
-      .toMatchObject({ platforms: ['darwin'], listedByDefault: false })
+  it('offers exactly the two native subagent integrations with offline localized metadata', () => {
+    expect(ON_DEMAND_BUNDLES).toEqual(['@hy/dsh-subagent-claude-code', '@hy/dsh-subagent-codex'])
     expect(OFFICIAL_ON_DEMAND_CATALOG.map(entry => entry.packageName)).toEqual(ON_DEMAND_BUNDLES)
     for (const entry of OFFICIAL_ON_DEMAND_CATALOG) {
       expect(entry.meta.icon).toMatch(/^data:image\/svg\+xml;base64,/)

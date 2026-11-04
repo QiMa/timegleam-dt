@@ -1,12 +1,12 @@
 declare module '@hy/dsh-llm' {
   interface MessageSourceMap {
-    'team-message': { readonly kind: 'team-message'; readonly senderName: string }
     'agent-message': { readonly kind: 'agent-message' }
   }
 }
 
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { SessionEventLike } from '@hy/dsh-api-session-controller/client'
+import { TeamId, TeamMessageId } from '@hy/dsh-agent-team/types'
 import { AttachmentId } from '@hy/dsh-attachment'
 import {
   LlmAttemptId,
@@ -23,7 +23,7 @@ import {
 } from '@hy/dsh-llm'
 import { RetryId } from '@hy/dsh-llm-retry'
 import type {} from '@hy/dsh-llm-retry/types'
-import { SessionSeq, type SessionEventMap, type SessionEventType } from '@hy/dsh-session/types'
+import { SessionId, SessionSeq, type SessionEventMap, type SessionEventType } from '@hy/dsh-session/types'
 import type {} from '@hy/dsh-tool-executor-ptc/types'
 import {
   CALL_LIMIT, fallbackState, foldEvent, isCodeMode, newState, promptOf, stepMetrics, toolSpanUnion, triggerSenderOf,
@@ -726,10 +726,10 @@ describe('prompt helper', () => {
 describe('trigger sender helper', () => {
   it('names the teammate that sent a framed message', () => {
     expect(triggerSenderOf(userMessage([imageBlock(), textBlock('Team message from hfai-deploy: update')], {
-      kind: 'team-message', senderName: 'hfai-deploy',
+      kind: 'team-message', teamId: TeamId('team'), messageId: TeamMessageId('message'), senderId: SessionId('sender'), senderName: 'hfai-deploy',
     }))).toBe('hfai-deploy')
     expect(triggerSenderOf(userMessage([textBlock('Team message from  stack-rebase : go')], {
-      kind: 'team-message', senderName: 'stack-rebase',
+      kind: 'team-message', teamId: TeamId('team'), messageId: TeamMessageId('message'), senderId: SessionId('sender'), senderName: 'stack-rebase',
     }))).toBe('stack-rebase')
   })
 

@@ -300,30 +300,30 @@ describe('PluginManagerPage', () => {
   })
 
   it('keeps the Installed tab panel through loading and the More list out of the tabs, and returns a More plugin opened from Discover to Discover', () => {
-    const worktree = '@hy/dsh-experimental-tool-worktree'
+    const inspector = '@hy/dsh-experimental-inspector-profile'
     const { navigation, set } = renderTab({ status: 'loading', packages: [] }, {}, {
       'plugins.tab:discover': (_view, owner) => (
-        <button type="button" onClick={() => { (owner as PluginTabProps).openPackage(worktree) }}>Discover open</button>
+        <button type="button" onClick={() => { (owner as PluginTabProps).openPackage(inspector) }}>Discover open</button>
       ),
     }, {}, [{ id: 'discover', label: 'Discover' }])
     const installed = screen.getByRole('tab', { name: en.installedTab })
     expect(document.getElementById(installed.getAttribute('aria-controls') as string)?.getAttribute('role')).toBe('tabpanel')
     set({ status: 'ready', packages: [] })
     expect(screen.getByRole('tabpanel', { name: en.installedTab }).textContent).toBe(en.empty)
-    set({ packages: [pkg({ name: worktree, official: true, optional: true, installed: false, enabled: false })] })
+    set({ packages: [pkg({ name: inspector, official: true, optional: true, installed: false, enabled: false })] })
     act(() => { navigation.actions.setView({ kind: 'more' }) })
     expect(screen.queryByRole('tablist')).toBeNull()
     expect(screen.queryByRole('tabpanel')).toBeNull()
     act(() => { navigation.actions.setView({ kind: 'list' }) })
     fireEvent.click(screen.getByRole('tab', { name: 'Discover' }))
     fireEvent.click(screen.getByRole('button', { name: 'Discover open' }))
-    expect(document.querySelector(`[data-plugin-detail="${worktree}"]`)).not.toBeNull()
+    expect(document.querySelector(`[data-plugin-detail="${inspector}"]`)).not.toBeNull()
     // An official plugin of the More list opened from Discover returns to Discover, not to the More list.
     fireEvent.click(screen.getByRole('button', { name: en.backToList }))
     expect(navigation.getSnapshot()).toEqual({ tab: 'discover', view: { kind: 'list' } })
     fireEvent.click(screen.getByRole('tab', { name: en.installedTab }))
     act(() => { navigation.actions.setView({ kind: 'more' }) })
-    fireEvent.click(screen.getByRole('button', { name: en.openDetail.replace('{name}', worktree) }))
+    fireEvent.click(screen.getByRole('button', { name: en.openDetail.replace('{name}', inspector) }))
     fireEvent.click(screen.getByRole('button', { name: en.backToPackage.replace('{name}', en.moreTitle) }))
     expect(screen.getByRole('heading', { name: en.moreTitle, level: 1 })).toBeTruthy()
   })
@@ -735,14 +735,14 @@ describe('PluginManagerPage', () => {
         pkg({ name: '@acme/dsh-tool', enabled: false }),
         // Selected by the profile but not a bundle: a problem the person can switch off, in the profile's own group.
         pkg({ name: 'dsh-selected', installed: false, error: { code: 'not-bundle' } }),
-        pkg({ name: '@hy/dsh-experimental-agent-team-profile', installed: false, optional: true, removable: false, enabled: false }),
+        pkg({ name: '@hy/dsh-experimental-voice-input-bundle', installed: false, optional: true, removable: false, enabled: false }),
       ],
       busy: ['dsh-protected'],
     })
     const cards = screen.getAllByRole('listitem')
     // Offered extensions precede installed bundles.
     expect(cards.map(card => card.getAttribute('data-plugin-package'))).toEqual([
-      '@hy/dsh-experimental-agent-team-profile', 'dsh-better-sidebar', 'dsh-broken', 'dsh-protected', '@acme/dsh-tool', 'dsh-selected',
+      '@hy/dsh-experimental-voice-input-bundle', 'dsh-better-sidebar', 'dsh-broken', 'dsh-protected', '@acme/dsh-tool', 'dsh-selected',
     ])
     expect(cards.map(card => card.getAttribute('data-plugin-status'))).toEqual(['disabled', 'running', 'problem', 'running', 'disabled', 'problem'])
     // Group titles have no counts; the official bundle retains its experimental marker.
@@ -776,11 +776,11 @@ describe('PluginManagerPage', () => {
         ].map(name => pkg({ name })),
         pkg({ name: '@acme/dsh-base', readOnlyReason: 'management-required' }),
         pkg({ name: 'dsh-better-sidebar' }),
-        pkg({ name: '@hy/dsh-experimental-agent-team-profile', installed: false, optional: true, removable: false }),
+        pkg({ name: '@hy/dsh-experimental-voice-input-bundle', installed: false, optional: true, removable: false }),
       ],
     })
     expect(screen.getAllByRole('listitem').map(card => card.getAttribute('data-plugin-package'))).toEqual([
-      '@hy/dsh-experimental-agent-team-profile', '@acme/dsh-base', 'dsh-better-sidebar',
+      '@hy/dsh-experimental-voice-input-bundle', '@acme/dsh-base', 'dsh-better-sidebar',
     ])
     expect(document.querySelector('[data-plugin-count]')).toBeNull()
   })
@@ -789,7 +789,7 @@ describe('PluginManagerPage', () => {
     const name = '@hy/dsh-experimental-terminal-bundle'
     const b = renderTab({ packages: [
       pkg({ name, official: true, enabled, rows: [row()] }),
-      pkg({ name: '@hy/dsh-experimental-agent-team-profile', official: true }),
+      pkg({ name: '@hy/dsh-experimental-voice-input-bundle', official: true }),
     ] })
     expect(document.querySelector(`[data-plugin-package="${name}"]`)).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: en.moreAction }))
@@ -807,7 +807,7 @@ describe('PluginManagerPage', () => {
 
   it('keeps a shipped bundle out of both lists until one of its declared rows runs', () => {
     const hidden = '@hy/dsh-experimental-liveshare'
-    const shown = '@hy/dsh-experimental-agent-team-profile'
+    const shown = '@hy/dsh-experimental-voice-input-bundle'
     const offer = (rows: readonly PackageRow[]): PackageView => pkg({
       name: hidden, official: true, installed: false, optional: true, removable: false, enabled: false, listedByDefault: false, rows,
     })
@@ -881,16 +881,16 @@ describe('PluginManagerPage', () => {
   })
 
   it('opens an official bundle\'s page with its beta tag and no uninstall, and switches it on', () => {
-    const title = 'Agent Teams'
+    const title = 'Voice input'
     const { actions } = renderTab({
-      packages: [pkg({ name: '@hy/dsh-experimental-agent-team-profile', meta: { title }, installed: false, optional: true, removable: false, enabled: false })],
+      packages: [pkg({ name: '@hy/dsh-experimental-voice-input-bundle', meta: { title }, installed: false, optional: true, removable: false, enabled: false })],
     })
     fireEvent.click(screen.getByRole('button', { name: en.openDetail.replace('{name}', title) }))
     const detail = document.querySelector('[data-plugin-detail]') as HTMLElement
     expect(within(detail).getByText(en.statusBeta)).toBeTruthy()
     expect(within(detail).queryByRole('button', { name: en.uninstallLabel.replace('{name}', title) })).toBeNull()
     fireEvent.click(within(detail).getByRole('switch', { name: en.enableToggle.replace('{name}', title) }))
-    expect(actions.setEnabled).toHaveBeenCalledExactlyOnceWith('@hy/dsh-experimental-agent-team-profile', true)
+    expect(actions.setEnabled).toHaveBeenCalledExactlyOnceWith('@hy/dsh-experimental-voice-input-bundle', true)
   })
 
   it('keeps the persisted selection while marking a failed component as a problem', () => {
@@ -915,7 +915,7 @@ describe('PluginManagerPage', () => {
   })
 
   it.each([
-    ['@hy/dsh-experimental-agent-team-profile', true],
+    ['@hy/dsh-experimental-voice-input-bundle', true],
     ['@hy/dsh-experimental-auto-review', true],
     ['@hy/dsh-experimental-fixture-input', false],
     ['@hy/dsh-cua-bundle', true],
@@ -1198,11 +1198,11 @@ describe('PluginManagerPage', () => {
     }
 
     it('keeps configuration and installed plugins on the main list and shows eligible official plugins on the secondary page', () => {
-      const team = '@hy/dsh-experimental-agent-team-profile'
+      const team = '@hy/dsh-experimental-voice-input-bundle'
       renderTab(
         { packages: [
           pkg({ name: '@hy/dsh-experimental-badge-skill-bundle', official: true, enabled: false }),
-          pkg({ name: '@hy/dsh-experimental-agent-team-profile', installed: false, optional: true, removable: false, enabled: false }),
+          pkg({ name: '@hy/dsh-experimental-voice-input-bundle', installed: false, optional: true, removable: false, enabled: false }),
           pkg({ name: '@hy/dsh-subagent-claude-code', official: true, availability: 'missing', installed: false, enabled: false }),
           pkg({ name: '@hy/dsh-subagent-codex', official: true, enabled: false }),
           pkg({ name: '@hy/dsh-experimental-tool-worktree', official: true, enabled: false }),
@@ -1223,7 +1223,7 @@ describe('PluginManagerPage', () => {
       expect(within(extensions).getByRole('heading', { name: en.extensionsTitle })).toBeTruthy()
       expect(within(extensions).getByRole('button', { name: en.moreAction }).textContent).toBe(en.moreAction)
       expect(within(extensions).getAllByRole('listitem').map(card => card.getAttribute('data-plugin-package')))
-        .toEqual(['@hy/dsh-experimental-agent-team-profile', '@acme/new-official'])
+        .toEqual(['@hy/dsh-experimental-voice-input-bundle', '@acme/new-official'])
       expect(document.querySelector('[data-plugin-count]')).toBeNull()
       expect(within(basic).getByText('Limits every command.')).toBeTruthy()
       expect(within(basic).queryByRole('switch', { name: en.enableToggle.replace('{name}', 'Shell') })).toBeNull()
@@ -1237,7 +1237,7 @@ describe('PluginManagerPage', () => {
         .toEqual(['more'])
       const more = document.querySelector('[data-plugin-group="more"]') as HTMLElement
       expect(within(more).getAllByRole('listitem').map(card => card.getAttribute('data-plugin-package')))
-        .toEqual([team, '@acme/new-official', '@hy/dsh-experimental-tool-worktree', '@hy/dsh-experimental-badge-skill-bundle', '@hy/dsh-subagent-codex', '@hy/dsh-subagent-claude-code'])
+        .toEqual([team, '@acme/new-official', '@hy/dsh-experimental-badge-skill-bundle', '@hy/dsh-subagent-codex', '@hy/dsh-subagent-claude-code'])
       expect(document.querySelector('[data-plugin-package="dsh-better-sidebar"]')).toBeNull()
       fireEvent.click(screen.getByRole('button', { name: en.openDetail.replace('{name}', team) }))
       fireEvent.click(screen.getByRole('button', { name: en.backToPackage.replace('{name}', en.moreTitle) }))
@@ -1255,8 +1255,21 @@ describe('PluginManagerPage', () => {
       expect(screen.getByRole('heading', { name: en.basicTitle })).toBeTruthy()
     })
 
+    it.each([false, true])('shows one forge card and hides the standalone worktree card when enabled is %s', (enabled) => {
+      const forge = '@hy/dsh-experimental-forge-bundle'
+      const worktree = '@hy/dsh-experimental-tool-worktree'
+      renderTab({ packages: [
+        pkg({ name: forge, official: true, enabled }),
+        pkg({ name: worktree, official: true, enabled }),
+      ] })
+      expect(document.querySelectorAll(`[data-plugin-package="${forge}"]`)).toHaveLength(1)
+      expect(document.querySelector(`[data-plugin-package="${worktree}"]`)).toBeNull()
+      fireEvent.click(screen.getByRole('button', { name: en.moreAction }))
+      expect(document.querySelectorAll(`[data-plugin-package="${forge}"]`)).toHaveLength(1)
+      expect(document.querySelector(`[data-plugin-package="${worktree}"]`)).toBeNull()
+    })
+
     it.each([
-      '@hy/dsh-cua-bundle',
       '@hy/dsh-experimental-session-search',
       '@hy/dsh-experimental-ralph-bundle',
       '@acme/shipped-exploration',
@@ -1361,10 +1374,10 @@ describe('PluginManagerPage', () => {
     })
 
     it.each([
-      '@hy/dsh-experimental-tool-worktree',
+      '@hy/dsh-experimental-inspector-profile',
       '@hy/dsh-personalized-recommendations',
     ])('pins enabled %s onto the main list and removes it when disabled', (first) => {
-      const team = '@hy/dsh-experimental-agent-team-profile'
+      const team = '@hy/dsh-experimental-voice-input-bundle'
       const second = '@hy/dsh-experimental-cot-translation-bundle'
       const entry = (name: string, enabled: boolean): PackageView => pkg({ name, official: true, enabled })
       const b = renderTab({ packages: [entry(second, true), entry(team, true), entry(first, false)] })

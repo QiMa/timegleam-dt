@@ -50,8 +50,6 @@ describe('release families', () => {
       .filter(member => member.directory.startsWith('packages/experimental/'))
       .map(member => member.name)).toEqual([
       '@hy/dsh-action-cards',
-      '@hy/dsh-experimental-agent-team-profile',
-      '@hy/dsh-experimental-agent-team',
       '@hy/dsh-experimental-api-speech-to-text',
       '@hy/dsh-experimental-auto-review',
       '@hy/dsh-experimental-badge-skill-bundle',
@@ -61,7 +59,6 @@ describe('release families', () => {
       '@hy/dsh-experimental-browser-use-stagehand-native',
       '@hy/dsh-experimental-claude-code-mods',
       '@hy/dsh-client-ui-action-cards',
-      '@hy/dsh-experimental-client-ui-agent-team',
       '@hy/dsh-experimental-client-ui-claude-code-mods',
       '@hy/dsh-experimental-client-ui-cot-translation',
       '@hy/dsh-client-ui-creation-recommendations',
@@ -101,7 +98,6 @@ describe('release families', () => {
       '@hy/dsh-experimental-speech-to-text',
       '@hy/dsh-experimental-subagent-oar',
       '@hy/dsh-experimental-terminal-bundle',
-      '@hy/dsh-experimental-tool-agent-team',
       '@hy/dsh-tool-ralph',
       '@hy/dsh-tool-session-query',
       '@hy/dsh-experimental-tool-subagent-oar',

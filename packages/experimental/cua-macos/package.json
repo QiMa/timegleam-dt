@@ -53,6 +53,7 @@
     "@hy/dsh-user-questions": "workspace:*"
   },
   "dependencies": {
+    "@hy/schemastery": "workspace:~",
     "zod": "^4.4.3",
     "@hy/dsh-atomic-write": "workspace:*",
     "@hy/dsh-cua": "workspace:*"

@@ -194,14 +194,12 @@ const packageFileExtras: Readonly<Record<string, readonly string[]>> = {
   '@hy/dsh-experimental-cua-macos': ['native/bin', 'cua-helper.json', 'native/Package.swift', 'native/Info.plist', 'native/DSHComputerUse.icns', 'native/build_app.py', 'native/Sources', 'native/tests/swift', 'native/tests/test_swift.py', 'native/LICENSE.cua-driver', 'native/LICENSE.computer-use-icon', 'native/upstream.json', 'native/README.md', 'native/README.zh.md', 'native/protocol.schema.json'],
   '@hy/dsh-webhook-github': ['examples/github-review/cordis.yml', 'examples/github-review/github-ready-review-rule.mjs'],
   // Liveshare publishes its built Relay gateway entry and the shared runtime
-  // chunk that entry imports, plus the declaration-plane entry and its chunk.
-  // Its `./types` export is a type-only module, so the emitted tree contributes
-  // that one runtime file; the declarations still ship as the whole tree.
+  // chunk that entry imports. Its `./types` export is a type-only module, so
+  // the emitted tree contributes that one runtime file; the declarations still
+  // ship as the whole tree.
   '@hy/dsh-experimental-liveshare': [
     'lib/owner-gateway/cli.js',
     'lib/retry-backoff-*.js',
-    'lib/viewer-declarations.js',
-    'lib/viewer-declarations-*.js',
   ],
   // Owned Worker bundles import this public bootstrap before their business entry.
   '@hy/dsh-app-boot': ['lib/worker/profile-resolution-bootstrap.js'],
@@ -542,7 +540,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     return errors
   }
 
-  if (manifest.name?.startsWith('@hy/')) {
+  if (manifest.name?.startsWith('@deepseek-ai/')) {
     const allowedSources = publicationSourceAllowlist[manifest.name] ?? []
     for (const file of manifest.files ?? []) {
       if (isForbiddenPublicationFile(file) && !allowedSources.includes(file)) {
@@ -551,7 +549,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     }
   }
 
-  if (dir.startsWith('apps/') && dir !== desktopApplicationDirectory && dir !== pluginMarketGeneratorDirectory && manifest.name?.startsWith('@hy/')) {
+  if (dir.startsWith('apps/') && dir !== desktopApplicationDirectory && dir !== pluginMarketGeneratorDirectory && manifest.name?.startsWith('@deepseek-ai/')) {
     const expectedFiles = appPackageFiles[manifest.name]
     if (expectedFiles === undefined) {
       errors.push(`${label}: app package has no publication files policy`)

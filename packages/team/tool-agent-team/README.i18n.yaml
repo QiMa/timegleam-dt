@@ -1,0 +1,85 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/team/tool-agent-team/README.md
+/:
+  en: ca1947ba4777c2a0
+  zh: bed18854b761aae4
+/hy-dsh-tool-agent-team:
+  en: 224607edd56dd182
+  zh: b8c5f7d040ce54ab
+/hy-dsh-tool-agent-team/summary:
+  en: 3cfb2bbd5dd3b89e
+  zh: 070007c2ee2cec11
+/hy-dsh-tool-agent-team/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/hy-dsh-tool-agent-team/use-this-package:
+  en: 69f945f176544983
+  zh: 2f475a794c2f5a26
+/hy-dsh-tool-agent-team/use-this-package/when-to-choose-it:
+  en: f4ba65fdf7f1e49e
+  zh: 46605276a3bcba23
+/hy-dsh-tool-agent-team/use-this-package/smallest-working-example:
+  en: 1c54f595d3db4541
+  zh: dcba4f6e006bbc2c
+/hy-dsh-tool-agent-team/use-this-package/what-the-model-can-do:
+  en: 552b763b3989b267
+  zh: 5c6bfa987019aeb1
+/hy-dsh-tool-agent-team/use-this-package/what-success-and-failure-look-like:
+  en: bf1eb0e693610f5b
+  zh: 2b29e5cf63623909
+/hy-dsh-tool-agent-team/understand-the-implementation:
+  en: 3952eb1d9de1f988
+  zh: 789d51b88f41b710
+/hy-dsh-tool-agent-team/understand-the-implementation/design-philosophy:
+  en: c66b02cbc0636122
+  zh: a000a4c8c30427f1
+/hy-dsh-tool-agent-team/understand-the-implementation/source-map:
+  en: 3b906bae9ec19393
+  zh: 42c8dd145c704cb3
+/hy-dsh-tool-agent-team/understand-the-implementation/policy-and-tools:
+  en: 443f2be851ec9b56
+  zh: 7dda4bd2eb072309
+/hy-dsh-tool-agent-team/understand-the-implementation/scoped-registration-and-teardown:
+  en: ee8db166c0bc8a9b
+  zh: 6bfe192220e931a6
+/hy-dsh-tool-agent-team/further-exploration:
+  en: 9a2ff74ed326a8e0
+  zh: c0c639397b723a1c
+/hy-dsh-tool-agent-team/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/hy-dsh-tool-agent-team/model-experience/team-policy-system-prompt:
+  en: 8757dc3caca9e4e2
+  zh: fd0b7535a1b24189
+/hy-dsh-tool-agent-team/model-experience/team-policy-system-prompt/what-the-model-sees:
+  en: 25079a70c9a3ed87
+  zh: 34301e390669a887
+/hy-dsh-tool-agent-team/model-experience/team-policy-system-prompt/what-the-model-sees/team-policy:
+  en: 824ebdbe434d7b6c
+  zh: 6a442dbca7cf3625
+/hy-dsh-tool-agent-team/model-experience/team-policy-system-prompt/token-effect:
+  en: 7e2583f482a60938
+  zh: d3e68b204cd3d2b3
+/hy-dsh-tool-agent-team/model-experience/team-policy-system-prompt/kv-cache-effect:
+  en: 6723f8e3f2497338
+  zh: ca68851b279362e1
+/hy-dsh-tool-agent-team/model-experience/task-tool-schemas:
+  en: d6918434714cf05a
+  zh: eef799d16e0c8f4b
+/hy-dsh-tool-agent-team/model-experience/task-tool-schemas/what-the-model-sees:
+  en: 416658b6336afe83
+  zh: f3b3fd449000e055
+/hy-dsh-tool-agent-team/model-experience/task-tool-schemas/token-effect:
+  en: 5ae789db90ce9606
+  zh: 3b26fe33c811815c
+/hy-dsh-tool-agent-team/model-experience/task-tool-schemas/kv-cache-effect:
+  en: 41bfcd6adb8058f5
+  zh: 73363ee21021a96a
+/hy-dsh-tool-agent-team/known-limitations-and-deferred-work:
+  en: 863e528107d3b510
+  zh: bd0551f1f7e4607f
+/hy-dsh-tool-agent-team/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

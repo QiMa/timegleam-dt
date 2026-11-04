@@ -2,7 +2,8 @@
 import type { ComponentType } from 'react'
 import type { InputTriggerCandidate } from '@hy/dsh-client-ui-input-trigger/client'
 import {
-  IconCompactOutlineRegular, IconDownloadOutlineRegular, IconGoalOutlineRegular, IconPaperPlaneOutlineRegular, IconPlanOutlineRegular,
+  IconCompactOutlineRegular, IconDownloadOutlineRegular,
+  IconGoalOutlineRegular, IconPaperPlaneOutlineRegular, IconPlanOutlineRegular,
   PermissionIconFullAccessRegular,
 } from '@hy/dsh-client-ui-primitives'
 import type { IconProps } from '@hy/dsh-client-ui-primitives'

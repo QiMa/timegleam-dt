@@ -62,8 +62,6 @@
     "@hy/dsh-subagent": "workspace:*",
     "@hy/dsh-token-meter": "workspace:*",
     "@hy/cordis": "workspace:~",
-    "@types/react-dom": "~18.3.0",
-    "@hy/cordis": "workspace:~",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@hy/dsh-api-session-controller": "workspace:*",
@@ -72,7 +70,8 @@
     "@hy/dsh-client-ui-renderer": "workspace:*",
     "@hy/dsh-client-ui-sidebar-right": "workspace:*",
     "@hy/dsh-client-ui-session": "workspace:*",
-    "@hy/dsh-client-ui-workspace": "workspace:*"
+    "@hy/dsh-client-ui-workspace": "workspace:*",
+    "@hy/dsh-agent-team": "workspace:*"
   },
   "files": [
     "locale/*.json",

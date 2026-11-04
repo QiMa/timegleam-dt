@@ -140,6 +140,10 @@ flowchart LR
   cfg --> plugin_dsh_base_command_compact
   plugin_dsh_base_subagent["subagent<br/>@hy/dsh-subagent"]
   cfg --> plugin_dsh_base_subagent
+  plugin_dsh_base_agent_team["agent-team<br/>@hy/dsh-agent-team"]
+  cfg --> plugin_dsh_base_agent_team
+  plugin_dsh_base_tool_agent_team["tool-agent-team<br/>@hy/dsh-tool-agent-team"]
+  cfg --> plugin_dsh_base_tool_agent_team
   plugin_dsh_base_subagent_spawn_in_process["subagent-spawn-in-process<br/>@hy/dsh-subagent-spawn-in-process"]
   cfg --> plugin_dsh_base_subagent_spawn_in_process
   plugin_dsh_base_subagent_fork_in_process["subagent-fork-in-process<br/>@hy/dsh-subagent-fork-in-process"]
@@ -276,6 +280,8 @@ flowchart LR
 | `compaction-basic` | `@hy/dsh-compaction-basic` |
 | `command-compact` | `@hy/dsh-command-compact` |
 | `subagent` | `@hy/dsh-subagent` |
+| `agent-team` | `@hy/dsh-agent-team` |
+| `tool-agent-team` | `@hy/dsh-tool-agent-team` |
 | `subagent-spawn-in-process` | `@hy/dsh-subagent-spawn-in-process` |
 | `subagent-fork-in-process` | `@hy/dsh-subagent-fork-in-process` |
 | `tool-subagent-control` | `@hy/dsh-tool-subagent-control` |

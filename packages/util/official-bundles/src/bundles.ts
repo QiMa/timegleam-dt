@@ -38,6 +38,7 @@ export const RETIRED_BUNDLES: ReadonlySet<string> = new Set([
   // The Web composition mounts Schedule itself
   // ([upgrade guide](../../../../docs/upgrade-guide/v0.2.0-rc.2/schedule-bundle-retired/guide.md)).
   '@hy/dsh-experimental-schedule-bundle',
+  '@hy/dsh-experimental-agent-team-profile',
 ])
 
 /** The bundle list a `hy plugin` init uses for a name with no shipped template. */
@@ -60,7 +61,6 @@ export const OPTIONAL_BUNDLES: readonly string[] = [
   '@hy/dsh-experimental-terminal-bundle',
   '@hy/dsh-experimental-badge-skill-bundle',
   '@hy/dsh-experimental-session-titles-bundle',
-  '@hy/dsh-experimental-agent-team-profile',
   '@hy/dsh-experimental-voice-input-bundle',
   '@hy/dsh-experimental-cot-translation-bundle',
   '@hy/dsh-experimental-auto-review',
@@ -75,5 +75,4 @@ export const OPTIONAL_BUNDLES: readonly string[] = [
 export const ON_DEMAND_BUNDLES: readonly string[] = [
   '@hy/dsh-subagent-claude-code',
   '@hy/dsh-subagent-codex',
-  '@hy/dsh-cua-bundle',
 ]

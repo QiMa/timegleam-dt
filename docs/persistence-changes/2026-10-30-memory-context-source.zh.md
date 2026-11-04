@@ -27,20 +27,20 @@ id: 2026-10-30-memory-context-source
 baseline: false
 changes:
   - root: "event:agent/inbox/spliced"
-    previous: "2026-10-13-liveshare-share-viewer-principal"
-    after: "b11ccc44b1e8fd14452bfd68e0e87e82b78375462b8509ad77289f0d5a083f06"
+    previous: "2026-10-27-subagent-settlement-attribution"
+    after: "8028f589a6d6c4f03f6679df3162cb594c1559118fee19e3a5a84bbae69c98d1"
     decision: same-version
   - root: "event:developer/message"
-    previous: "2026-10-13-liveshare-share-viewer-principal"
-    after: "0dd02ddd0f9452216dfee24f2c08f437bf74f827f725eeda97accb19643a75bb"
+    previous: "2026-10-27-subagent-settlement-attribution"
+    after: "6a24527110a3fbde028ac048d9e217920bb4e054abd510083c372f8d63e247fb"
     decision: same-version
   - root: "event:session/title-llm-request"
-    previous: "2026-10-13-liveshare-share-viewer-principal"
-    after: "e265b067529faa992407dcaa9bcda819e984b486c2de1f65951e737d9d7070ad"
+    previous: "2026-10-27-subagent-settlement-attribution"
+    after: "e6205d6ff263091d4f796ddb6e7dcde7500b76e55290340a98311c0ecb6c9c56"
     decision: same-version
   - root: "event:user/message"
-    previous: "2026-10-13-liveshare-share-viewer-principal"
-    after: "e88b97b1e6f003911669051132069e0ebce17140e796df7b9afe5c4f7f9d7fd3"
+    previous: "2026-10-27-subagent-settlement-attribution"
+    after: "40c5ac20a6fa1792fee42f7d3e9cae0abfcbd1a01f46a725634f78f964df061c"
     decision: same-version
 ```
 

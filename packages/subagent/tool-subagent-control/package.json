@@ -34,7 +34,8 @@
     "@hy/dsh-session": "workspace:*",
     "@hy/dsh-subagent": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
-    "@hy/dsh-agent": "workspace:*"
+    "@hy/dsh-agent": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*"
   },
   "devDependencies": {
     "@hy/cordis": "workspace:~",
@@ -50,10 +51,12 @@
     "@hy/dsh-subagent": "workspace:*",
     "@hy/dsh-subagent-fork-in-process": "workspace:*",
     "@hy/dsh-subagent-spawn-in-process": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
     "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*"
   },
   "dependencies": {
+    "@hy/schemastery": "workspace:~",
     "@hy/dsh-brand": "workspace:*",
     "@hy/dsh-util-values": "workspace:*"
   }

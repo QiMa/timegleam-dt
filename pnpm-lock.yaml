@@ -16,7 +16,7 @@ patchedDependencies:
   '@electron/osx-sign@1.3.3': 280e7b2816caf01423097d24e79107a66afeb563a348630ce9928ae8499a5861
   '@fortune-sheet/core@1.0.4': 8791a230763dbf853fd65d627c68c31de37209992851377855e16cf08ea70532
   '@fortune-sheet/react@1.0.4': 2932e52e79afcd4ced08cfa123b5eded786c85043da32f622f3e80af6fc96c37
-  '@yao-pkg/pkg@6.21.0': 236fb467509b18abae4c09b1727bbe0239e05a6fbb4d35f84fff3821ca2f6771
+  '@yao-pkg/pkg@6.21.0': 6004ea831bf18a0272276f3308456b7799d5ac32a5e69c138008b6329c1bfb9f
   app-builder-lib@26.17.0: b70dc2a2a78ffabb80a4f14fafc7c103237f2b0a207e1f296fa1c1387ea29348
   exceljs@4.4.0: c1bf8ac8f319dab382f08e3a669b715e691d46c703ac5a4163eb383fbedd1d48
   lexical@0.49.0: 54c4413db208cf234cb68c6a837f2523d3b319aa17911f1da385af08362e1356
@@ -180,7 +180,7 @@ importers:
         version: 4.1.11(vitest@4.1.11)
       '@yao-pkg/pkg':
         specifier: 6.21.0
-        version: 6.21.0(patch_hash=236fb467509b18abae4c09b1727bbe0239e05a6fbb4d35f84fff3821ca2f6771)(supports-color@9.4.0)
+        version: 6.21.0(patch_hash=6004ea831bf18a0272276f3308456b7799d5ac32a5e69c138008b6329c1bfb9f)(supports-color@9.4.0)
       '@yarnpkg/cli-dist':
         specifier: 4.18.0
         version: 4.18.0
@@ -340,9 +340,6 @@ importers:
       '@hy/dsh-cua-bundle':
         specifier: workspace:*
         version: link:../../packages/experimental/cua-bundle
-      '@hy/dsh-experimental-agent-team-profile':
-        specifier: workspace:*
-        version: link:../../packages/experimental/agent-team-profile
       '@hy/dsh-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
@@ -569,6 +566,9 @@ importers:
       '@hy/dsh-agent-loop-testkit':
         specifier: workspace:*
         version: link:../../packages/test-support/agent-loop-testkit
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../packages/team/agent-team
       '@hy/dsh-attachment-local':
         specifier: workspace:*
         version: link:../../packages/attachment/attachment-local
@@ -581,15 +581,9 @@ importers:
       '@hy/dsh-deepseek-llm-api-extensions':
         specifier: workspace:*
         version: link:../../packages/llm/deepseek-llm-api-extensions
-      '@hy/dsh-experimental-agent-team':
-        specifier: workspace:*
-        version: link:../../packages/experimental/agent-team
       '@hy/dsh-experimental-ptc-runtime-python':
         specifier: workspace:*
         version: link:../../packages/experimental/ptc-runtime-python
-      '@hy/dsh-experimental-tool-agent-team':
-        specifier: workspace:*
-        version: link:../../packages/experimental/tool-agent-team
       '@hy/dsh-fs-observation-policy':
         specifier: workspace:*
         version: link:../../packages/fs/fs-observation-policy
@@ -683,6 +677,9 @@ importers:
       '@hy/dsh-system-prompt':
         specifier: workspace:*
         version: link:../../packages/core/system-prompt
+      '@hy/dsh-tool-agent-team':
+        specifier: workspace:*
+        version: link:../../packages/team/tool-agent-team
       '@hy/dsh-tool-ralph':
         specifier: workspace:*
         version: link:../../packages/experimental/tool-ralph
@@ -975,6 +972,9 @@ importers:
       '@hy/cordis-plugin-group':
         specifier: workspace:~
         version: link:../../vendor/group
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../packages/team/agent-team
       '@hy/dsh-client-modules':
         specifier: workspace:*
         version: link:../../packages/client/modules
@@ -1005,9 +1005,6 @@ importers:
       '@hy/dsh-cmdline':
         specifier: workspace:*
         version: link:../../packages/boot/cmdline
-      '@hy/dsh-experimental-agent-team':
-        specifier: workspace:*
-        version: link:../../packages/experimental/agent-team
       '@hy/dsh-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
@@ -1493,6 +1490,9 @@ importers:
       '@hy/dsh-agent-preset-registry':
         specifier: workspace:*
         version: link:../../preset/agent-preset-registry
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../team/agent-team
       '@hy/dsh-api-account-controller':
         specifier: workspace:*
         version: link:../account-controller
@@ -1559,6 +1559,9 @@ importers:
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
+      '@hy/dsh-mcp-manager':
+        specifier: workspace:*
+        version: link:../../mcp/mcp-manager
       '@hy/dsh-message-feedback':
         specifier: workspace:*
         version: link:../../feedback/message-feedback
@@ -1601,6 +1604,9 @@ importers:
       '@hy/dsh-user-questions':
         specifier: workspace:*
         version: link:../../interaction/user-questions
+      '@hy/dsh-web':
+        specifier: workspace:*
+        version: link:../../web/web
       zod:
         specifier: 4.4.3
         version: 4.4.3
@@ -2414,6 +2420,9 @@ importers:
       '@hy/dsh-agent-loop':
         specifier: workspace:*
         version: link:../../core/agent-loop
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../team/agent-team
       '@hy/dsh-api-gateway':
         specifier: workspace:*
         version: link:../../api/gateway
@@ -2501,9 +2510,6 @@ importers:
       '@hy/dsh-mcp-resources':
         specifier: workspace:*
         version: link:../../mcp/mcp-resources
-      '@hy/dsh-memory-context':
-        specifier: workspace:*
-        version: link:../../memory/memory-context
       '@hy/dsh-otel':
         specifier: workspace:*
         version: link:../../telemetry/otel
@@ -2609,6 +2615,9 @@ importers:
       '@hy/dsh-token-meter':
         specifier: workspace:*
         version: link:../../llm/token-meter
+      '@hy/dsh-tool-agent-team':
+        specifier: workspace:*
+        version: link:../../team/tool-agent-team
       '@hy/dsh-tool-bash':
         specifier: workspace:*
         version: link:../../shell/tool-bash
@@ -2633,9 +2642,6 @@ importers:
       '@hy/dsh-tool-jobs':
         specifier: workspace:*
         version: link:../../jobs/tool-jobs
-      '@hy/dsh-tool-memory':
-        specifier: workspace:*
-        version: link:../../memory/tool-memory
       '@hy/dsh-tool-present':
         specifier: workspace:*
         version: link:../../deliverables/tool-present
@@ -2946,6 +2952,9 @@ importers:
       '@hy/dsh-agent-preset-registry':
         specifier: workspace:*
         version: link:../../preset/agent-preset-registry
+      '@hy/dsh-agent-tool-presentation':
+        specifier: workspace:*
+        version: link:../../core/agent-tool-presentation
       '@hy/dsh-api-account-controller':
         specifier: workspace:*
         version: link:../../api/account-controller
@@ -3000,6 +3009,9 @@ importers:
       '@hy/dsh-client-ui-agent-preset':
         specifier: workspace:*
         version: link:../../client/ui-agent-preset
+      '@hy/dsh-client-ui-agent-team':
+        specifier: workspace:*
+        version: link:../../client/ui-agent-team
       '@hy/dsh-client-ui-approval':
         specifier: workspace:*
         version: link:../../client/ui-approval
@@ -3225,6 +3237,9 @@ importers:
       '@hy/dsh-launch-environment':
         specifier: workspace:*
         version: link:../../util/launch-environment
+      '@hy/dsh-mcp-manager':
+        specifier: workspace:*
+        version: link:../../mcp/mcp-manager
       '@hy/dsh-message-feedback':
         specifier: workspace:*
         version: link:../../feedback/message-feedback
@@ -3267,9 +3282,6 @@ importers:
       '@hy/dsh-subprocess':
         specifier: workspace:*
         version: link:../../subprocess/subprocess
-      '@hy/dsh-system-prompt':
-        specifier: workspace:*
-        version: link:../../core/system-prompt
       '@hy/dsh-terminal':
         specifier: workspace:*
         version: link:../../terminal/terminal
@@ -3736,6 +3748,75 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
+
+  packages/client/ui-agent-team:
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../team/agent-team
+      '@hy/dsh-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
+      '@hy/dsh-api-session-controller':
+        specifier: workspace:*
+        version: link:../../api/session-controller
+      '@hy/dsh-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@hy/dsh-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@hy/dsh-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@hy/dsh-client-ui-chat':
+        specifier: workspace:*
+        version: link:../ui-chat
+      '@hy/dsh-client-ui-conversation':
+        specifier: workspace:*
+        version: link:../ui-conversation
+      '@hy/dsh-client-ui-layout':
+        specifier: workspace:*
+        version: link:../ui-layout
+      '@hy/dsh-client-ui-model-selection':
+        specifier: workspace:*
+        version: link:../ui-model-selection
+      '@hy/dsh-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@hy/dsh-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@hy/dsh-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@hy/dsh-client-ui-subagent':
+        specifier: workspace:*
+        version: link:../ui-subagent
+      '@hy/dsh-commands':
+        specifier: workspace:*
+        version: link:../../interaction/commands
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@hy/dsh-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+      '@testing-library/react':
+        specifier: ^16.3.3
+        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
 
   packages/client/ui-approval:
     devDependencies:
@@ -5450,6 +5531,9 @@ importers:
       '@hy/dsh-client-locale':
         specifier: workspace:*
         version: link:../locale
+      '@hy/dsh-client-store':
+        specifier: workspace:*
+        version: link:../store
       '@hy/dsh-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
@@ -5713,9 +5797,6 @@ importers:
       '@hy/dsh-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -5916,9 +5997,6 @@ importers:
       '@hy/dsh-util-values':
         specifier: workspace:*
         version: link:../../util/values
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6000,9 +6078,6 @@ importers:
       '@hy/dsh-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6039,9 +6114,6 @@ importers:
       '@hy/dsh-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6078,9 +6150,9 @@ importers:
       '@hy/dsh-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
+      '@hy/dsh-web':
+        specifier: workspace:*
+        version: link:../../web/web
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6643,6 +6715,9 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../team/agent-team
       '@hy/dsh-api-session-controller':
         specifier: workspace:*
         version: link:../../api/session-controller
@@ -6694,9 +6769,6 @@ importers:
       '@hy/dsh-token-meter':
         specifier: workspace:*
         version: link:../../llm/token-meter
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -8377,80 +8449,6 @@ importers:
         specifier: workspace:*
         version: link:../../util/values
 
-  packages/experimental/agent-team:
-    dependencies:
-      '@hy/dsh-brand':
-        specifier: workspace:*
-        version: link:../../util/brand
-      '@hy/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-      zod:
-        specifier: 4.4.3
-        version: 4.4.3
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@hy/dsh-agent-loop':
-        specifier: workspace:*
-        version: link:../../core/agent-loop
-      '@hy/dsh-agent-loop-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/agent-loop-testkit
-      '@hy/dsh-llm':
-        specifier: workspace:*
-        version: link:../../llm/llm
-      '@hy/dsh-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@hy/dsh-session-persistence':
-        specifier: workspace:*
-        version: link:../../session/session-persistence
-      '@hy/dsh-session-persistence-jsonl':
-        specifier: workspace:*
-        version: link:../../session/session-persistence-jsonl
-      '@hy/dsh-session-projection':
-        specifier: workspace:*
-        version: link:../../session/session-projection
-      '@hy/dsh-session-query':
-        specifier: workspace:*
-        version: link:../../session-query/session-query
-      '@hy/dsh-subagent':
-        specifier: workspace:*
-        version: link:../../subagent/subagent
-      '@hy/dsh-subagent-fork-in-process':
-        specifier: workspace:*
-        version: link:../../subagent/subagent-fork-in-process
-      '@hy/dsh-subagent-spawn-in-process':
-        specifier: workspace:*
-        version: link:../../subagent/subagent-spawn-in-process
-
-  packages/experimental/agent-team-profile:
-    dependencies:
-      '@hy/dsh-experimental-agent-team':
-        specifier: workspace:*
-        version: link:../agent-team
-      '@hy/dsh-experimental-client-ui-agent-team':
-        specifier: workspace:*
-        version: link:../client-ui-agent-team
-      '@hy/dsh-experimental-tool-agent-team':
-        specifier: workspace:*
-        version: link:../tool-agent-team
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/cordis-plugin-include':
-        specifier: workspace:~
-        version: link:../../../vendor/include
-      js-yaml:
-        specifier: ^4.3.2
-        version: 4.3.2
-
   packages/experimental/api-speech-to-text:
     dependencies:
       '@hy/schemastery':
@@ -8987,63 +8985,6 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1
 
-  packages/experimental/client-ui-agent-team:
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@hy/dsh-api-session-controller':
-        specifier: workspace:*
-        version: link:../../api/session-controller
-      '@hy/dsh-client-locale':
-        specifier: workspace:*
-        version: link:../../client/locale
-      '@hy/dsh-client-store':
-        specifier: workspace:*
-        version: link:../../client/store
-      '@hy/dsh-client-test-runtime':
-        specifier: workspace:*
-        version: link:../../test-support/client-runtime
-      '@hy/dsh-client-ui-conversation':
-        specifier: workspace:*
-        version: link:../../client/ui-conversation
-      '@hy/dsh-client-ui-primitives':
-        specifier: workspace:*
-        version: link:../../client/ui-primitives
-      '@hy/dsh-client-ui-renderer':
-        specifier: workspace:*
-        version: link:../../client/ui-renderer
-      '@hy/dsh-client-ui-session':
-        specifier: workspace:*
-        version: link:../../client/ui-session
-      '@hy/dsh-client-ui-slots':
-        specifier: workspace:*
-        version: link:../../client/ui-slots
-      '@hy/dsh-client-ui-workspace':
-        specifier: workspace:*
-        version: link:../../client/ui-workspace
-      '@hy/dsh-experimental-agent-team':
-        specifier: workspace:*
-        version: link:../agent-team
-      '@hy/dsh-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@testing-library/react':
-        specifier: ^16.3.3
-        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react-dom':
-        specifier: ~18.3.0
-        version: 18.3.7(@types/react@18.3.31)
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-
   packages/experimental/client-ui-claude-code-mods:
     devDependencies:
       '@hy/cordis':
@@ -9426,6 +9367,9 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../team/agent-team
       '@hy/dsh-api-session-controller':
         specifier: workspace:*
         version: link:../../api/session-controller
@@ -9967,6 +9911,9 @@ importers:
       '@hy/dsh-cua':
         specifier: workspace:*
         version: link:../cua
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -10110,6 +10057,9 @@ importers:
       '@hy/dsh-experimental-forge-session':
         specifier: workspace:*
         version: link:../forge-session
+      '@hy/dsh-experimental-tool-worktree':
+        specifier: workspace:*
+        version: link:../tool-worktree
       '@hy/dsh-experimental-worktree':
         specifier: workspace:*
         version: link:../worktree
@@ -10514,6 +10464,12 @@ importers:
       '@hy/dsh-experimental-liveshare-protocol':
         specifier: workspace:*
         version: link:../liveshare-protocol
+      '@hy/dsh-http-proxy':
+        specifier: workspace:*
+        version: link:../../util/http-proxy
+      '@hy/dsh-official-bundles':
+        specifier: workspace:*
+        version: link:../../util/official-bundles
       '@hy/dsh-session':
         specifier: workspace:*
         version: link:../../core/session
@@ -10523,6 +10479,9 @@ importers:
       '@hy/dsh-util-values':
         specifier: workspace:*
         version: link:../../util/values
+      undici:
+        specifier: 8.11.2
+        version: 8.11.2
       ws:
         specifier: ^8.18.3
         version: 8.21.3
@@ -11203,70 +11162,6 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
-
-  packages/experimental/tool-agent-team:
-    dependencies:
-      '@hy/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@hy/dsh-agent-loop':
-        specifier: workspace:*
-        version: link:../../core/agent-loop
-      '@hy/dsh-agent-loop-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/agent-loop-testkit
-      '@hy/dsh-experimental-agent-team':
-        specifier: workspace:*
-        version: link:../agent-team
-      '@hy/dsh-llm':
-        specifier: workspace:*
-        version: link:../../llm/llm
-      '@hy/dsh-llm-deepseek':
-        specifier: workspace:*
-        version: link:../../llm/llm-deepseek
-      '@hy/dsh-scope':
-        specifier: workspace:*
-        version: link:../../core/scope
-      '@hy/dsh-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@hy/dsh-session-persistence-jsonl':
-        specifier: workspace:*
-        version: link:../../session/session-persistence-jsonl
-      '@hy/dsh-session-projection':
-        specifier: workspace:*
-        version: link:../../session/session-projection
-      '@hy/dsh-session-query':
-        specifier: workspace:*
-        version: link:../../session-query/session-query
-      '@hy/dsh-subagent':
-        specifier: workspace:*
-        version: link:../../subagent/subagent
-      '@hy/dsh-subagent-fork-in-process':
-        specifier: workspace:*
-        version: link:../../subagent/subagent-fork-in-process
-      '@hy/dsh-subagent-spawn-in-process':
-        specifier: workspace:*
-        version: link:../../subagent/subagent-spawn-in-process
-      '@hy/dsh-system-prompt':
-        specifier: workspace:*
-        version: link:../../core/system-prompt
-      '@hy/dsh-tool-subagent-control':
-        specifier: workspace:*
-        version: link:../../subagent/tool-subagent-control
-      '@hy/dsh-tool-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/tool-testkit
-      '@hy/dsh-tools':
-        specifier: workspace:*
-        version: link:../../core/tools
 
   packages/experimental/tool-ralph:
     dependencies:
@@ -13725,6 +13620,9 @@ importers:
       '@hy/dsh-attachment-local':
         specifier: workspace:*
         version: link:../../attachment/attachment-local
+      '@hy/dsh-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
       '@hy/dsh-http-proxy':
         specifier: workspace:*
         version: link:../../util/http-proxy
@@ -13770,6 +13668,61 @@ importers:
       zod:
         specifier: 4.4.3
         version: 4.4.3
+
+  packages/mcp/mcp-manager:
+    dependencies:
+      '@hy/dsh-timeout':
+        specifier: workspace:*
+        version: link:../../util/timeout
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
+      '@hy/cordis-plugin-timer':
+        specifier: workspace:~
+        version: link:../../../vendor/timer
+      '@hy/dsh-app-boot':
+        specifier: workspace:*
+        version: link:../../boot/app-boot
+      '@hy/dsh-config-editor':
+        specifier: workspace:*
+        version: link:../../boot/config-editor
+      '@hy/dsh-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
+      '@hy/dsh-hmr':
+        specifier: workspace:*
+        version: link:../../boot/hmr
+      '@hy/dsh-mcp-client':
+        specifier: workspace:*
+        version: link:../mcp-client
+      '@hy/dsh-settings':
+        specifier: workspace:*
+        version: link:../../settings/settings
+      '@hy/dsh-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@hy/dsh-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
+      '@hy/dsh-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      '@hy/dsh-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+      '@modelcontextprotocol/client':
+        specifier: 2.2.0
+        version: 2.2.0
 
   packages/mcp/mcp-resources:
     dependencies:
@@ -16900,6 +16853,9 @@ importers:
       '@hy/dsh-util-values':
         specifier: workspace:*
         version: link:../../util/values
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
     devDependencies:
       '@hy/cordis':
         specifier: workspace:~
@@ -16940,6 +16896,9 @@ importers:
       '@hy/dsh-subagent-spawn-in-process':
         specifier: workspace:*
         version: link:../subagent-spawn-in-process
+      '@hy/dsh-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
       '@hy/dsh-tool-testkit':
         specifier: workspace:*
         version: link:../../test-support/tool-testkit
@@ -16999,6 +16958,128 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+
+  packages/team/agent-team:
+    dependencies:
+      '@hy/dsh-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@hy/dsh-agent-loop':
+        specifier: workspace:*
+        version: link:../../core/agent-loop
+      '@hy/dsh-agent-loop-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/agent-loop-testkit
+      '@hy/dsh-commands':
+        specifier: workspace:*
+        version: link:../../interaction/commands
+      '@hy/dsh-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@hy/dsh-session-persistence':
+        specifier: workspace:*
+        version: link:../../session/session-persistence
+      '@hy/dsh-session-persistence-jsonl':
+        specifier: workspace:*
+        version: link:../../session/session-persistence-jsonl
+      '@hy/dsh-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@hy/dsh-session-query':
+        specifier: workspace:*
+        version: link:../../session-query/session-query
+      '@hy/dsh-subagent':
+        specifier: workspace:*
+        version: link:../../subagent/subagent
+      '@hy/dsh-subagent-fork-in-process':
+        specifier: workspace:*
+        version: link:../../subagent/subagent-fork-in-process
+      '@hy/dsh-subagent-spawn-in-process':
+        specifier: workspace:*
+        version: link:../../subagent/subagent-spawn-in-process
+      '@hy/dsh-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+
+  packages/team/tool-agent-team:
+    dependencies:
+      '@hy/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@hy/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@hy/dsh-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@hy/dsh-agent-loop':
+        specifier: workspace:*
+        version: link:../../core/agent-loop
+      '@hy/dsh-agent-loop-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/agent-loop-testkit
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../agent-team
+      '@hy/dsh-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@hy/dsh-llm-deepseek':
+        specifier: workspace:*
+        version: link:../../llm/llm-deepseek
+      '@hy/dsh-scope':
+        specifier: workspace:*
+        version: link:../../core/scope
+      '@hy/dsh-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@hy/dsh-session-persistence-jsonl':
+        specifier: workspace:*
+        version: link:../../session/session-persistence-jsonl
+      '@hy/dsh-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@hy/dsh-session-query':
+        specifier: workspace:*
+        version: link:../../session-query/session-query
+      '@hy/dsh-subagent':
+        specifier: workspace:*
+        version: link:../../subagent/subagent
+      '@hy/dsh-subagent-fork-in-process':
+        specifier: workspace:*
+        version: link:../../subagent/subagent-fork-in-process
+      '@hy/dsh-subagent-spawn-in-process':
+        specifier: workspace:*
+        version: link:../../subagent/subagent-spawn-in-process
+      '@hy/dsh-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@hy/dsh-tool-subagent-control':
+        specifier: workspace:*
+        version: link:../../subagent/tool-subagent-control
+      '@hy/dsh-tool-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/tool-testkit
+      '@hy/dsh-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
 
   packages/telemetry/otel:
     dependencies:
@@ -17751,6 +17832,9 @@ importers:
       '@hy/dsh-agent':
         specifier: workspace:*
         version: link:../../core/agent
+      '@hy/dsh-launch-environment':
+        specifier: workspace:*
+        version: link:../../util/launch-environment
       '@hy/dsh-llm':
         specifier: workspace:*
         version: link:../../llm/llm
@@ -17787,18 +17871,24 @@ importers:
       '@hy/dsh-web':
         specifier: workspace:*
         version: link:../web
+      '@hy/dsh-web-deepseek-api':
+        specifier: workspace:*
+        version: link:../web-deepseek-api
       '@hy/dsh-web-fetch-http':
         specifier: workspace:*
         version: link:../web-fetch-http
-      '@hy/dsh-web-search-exa':
-        specifier: workspace:*
-        version: link:../web-search-exa
       '@types/turndown':
         specifier: ^5.0.6
         version: 5.0.6
 
   packages/web/web:
     dependencies:
+      '@hy/dsh-package-manifest':
+        specifier: workspace:*
+        version: link:../../util/package-manifest
+      '@hy/dsh-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
       '@hy/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
@@ -17819,9 +17909,15 @@ importers:
       '@hy/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@hy/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
       '@hy/dsh-agent':
         specifier: workspace:*
         version: link:../../core/agent
+      '@hy/dsh-app-boot':
+        specifier: workspace:*
+        version: link:../../boot/app-boot
       '@hy/dsh-credentials':
         specifier: workspace:*
         version: link:../../credentials/credentials
@@ -17837,6 +17933,18 @@ importers:
       '@hy/dsh-launch-environment':
         specifier: workspace:*
         version: link:../../util/launch-environment
+      '@hy/dsh-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@hy/dsh-llm-deepseek':
+        specifier: workspace:*
+        version: link:../../llm/llm-deepseek
+      '@hy/dsh-llm-deepseek-account':
+        specifier: workspace:*
+        version: link:../../llm/llm-deepseek-account
+      '@hy/dsh-llm-deepseek-api-key':
+        specifier: workspace:*
+        version: link:../../llm/llm-deepseek-api-key
       '@hy/dsh-session':
         specifier: workspace:*
         version: link:../../core/session
@@ -17896,47 +18004,12 @@ importers:
       '@hy/dsh-launch-environment':
         specifier: workspace:*
         version: link:../../util/launch-environment
+      '@hy/dsh-llm-deepseek':
+        specifier: workspace:*
+        version: link:../../llm/llm-deepseek
       '@hy/dsh-session':
         specifier: workspace:*
         version: link:../../core/session
-      '@hy/dsh-web':
-        specifier: workspace:*
-        version: link:../web
-
-  packages/web/web-search-exa:
-    dependencies:
-      '@hy/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-http-proxy':
-        specifier: workspace:*
-        version: link:../../util/http-proxy
-      '@hy/dsh-launch-environment':
-        specifier: workspace:*
-        version: link:../../util/launch-environment
-      '@hy/dsh-web':
-        specifier: workspace:*
-        version: link:../web
-
-  packages/web/web-search-perplexity:
-    dependencies:
-      '@hy/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@hy/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@hy/dsh-http-proxy':
-        specifier: workspace:*
-        version: link:../../util/http-proxy
-      '@hy/dsh-launch-environment':
-        specifier: workspace:*
-        version: link:../../util/launch-environment
       '@hy/dsh-web':
         specifier: workspace:*
         version: link:../web
@@ -18171,6 +18244,9 @@ importers:
       '@hy/dsh-agent-preset-registry':
         specifier: workspace:*
         version: link:../../packages/preset/agent-preset-registry
+      '@hy/dsh-agent-team':
+        specifier: workspace:*
+        version: link:../../packages/team/agent-team
       '@hy/dsh-agent-tool-presentation':
         specifier: workspace:*
         version: link:../../packages/core/agent-tool-presentation
@@ -18477,6 +18553,9 @@ importers:
       '@hy/dsh-token-meter':
         specifier: workspace:*
         version: link:../../packages/llm/token-meter
+      '@hy/dsh-tool-agent-team':
+        specifier: workspace:*
+        version: link:../../packages/team/tool-agent-team
       '@hy/dsh-tool-ask-user':
         specifier: workspace:*
         version: link:../../packages/interaction/tool-ask-user
@@ -18579,12 +18658,6 @@ importers:
       '@hy/dsh-web-search-deepseek':
         specifier: workspace:*
         version: link:../../packages/web/web-search-deepseek
-      '@hy/dsh-web-search-exa':
-        specifier: workspace:*
-        version: link:../../packages/web/web-search-exa
-      '@hy/dsh-web-search-perplexity':
-        specifier: workspace:*
-        version: link:../../packages/web/web-search-perplexity
       '@hy/dsh-workflow':
         specifier: workspace:*
         version: link:../../packages/workflow/workflow
@@ -29623,7 +29696,7 @@ snapshots:
       - bare-buffer
       - react-native-b4a
 
-  '@yao-pkg/pkg@6.21.0(patch_hash=236fb467509b18abae4c09b1727bbe0239e05a6fbb4d35f84fff3821ca2f6771)(supports-color@9.4.0)':
+  '@yao-pkg/pkg@6.21.0(patch_hash=6004ea831bf18a0272276f3308456b7799d5ac32a5e69c138008b6329c1bfb9f)(supports-color@9.4.0)':
     dependencies:
       '@babel/generator': 7.29.7
       '@babel/parser': 7.29.7

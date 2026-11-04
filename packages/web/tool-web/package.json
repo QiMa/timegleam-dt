@@ -55,10 +55,11 @@
     "@hy/dsh-tool-testkit": "workspace:*",
     "@hy/dsh-tools": "workspace:*",
     "@hy/dsh-web": "workspace:*",
+    "@hy/dsh-web-deepseek-api": "workspace:*",
     "@hy/dsh-web-fetch-http": "workspace:*",
-    "@hy/dsh-web-search-exa": "workspace:*",
     "@types/turndown": "^5.0.6",
     "@hy/dsh-scope": "workspace:*",
-    "@hy/dsh-token-meter": "workspace:*"
+    "@hy/dsh-token-meter": "workspace:*",
+    "@hy/dsh-launch-environment": "workspace:*"
   }
 }

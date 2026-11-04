@@ -106,6 +106,12 @@ const GENERIC_SKIPS: readonly GenericSkip[] = [
   { file: 'packages/experimental/creation-recommendations/tests/creation.spec.ts', upstream: ['cordis'] },
   { file: 'packages/experimental/creation-recommendations/tests/loader-composition.spec.ts', upstream: ['cordis'] },
   // Preset selection, reminder policy and UI copy use the same product id.
+  // The tool catalog and its upgrade guide quote a shipped preset id, not a package reference.
+  { file: 'scripts/gen-tool-catalog.ts', upstream: ['cordis'] },
+  { file: 'docs/tool-catalog.md', upstream: ['cordis'] },
+  { file: 'docs/tool-catalog.zh.md', upstream: ['cordis'] },
+  { file: 'docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.md', upstream: ['cordis'] },
+  { file: 'docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.zh.md', upstream: ['cordis'] },
   { file: 'apps/cli/tests/optional-bundle-transitions.e2e.ts', upstream: ['cordis'] },
   { file: 'apps/web/tests/agent-preset-selection.e2e.ts', upstream: ['cordis'] },
   { file: 'apps/web/tests/developer-tools-settings.e2e.ts', upstream: ['cordis'] },
@@ -190,7 +196,7 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   { file: 'packages/boot/app-boot/tsdown.config.ts', text: '[\'@hy/cordis-plugin-include\']', count: 1 },
   { file: 'tsconfig.base.json', text: '"@hy/cordis-plugin-loader": ["./vendor/loader/src"]', count: 1 },
   // The vendored README owns this required entry; reject its deletion or duplication.
-  { file: 'vendor/README.md', text: '17. **`@hy` rescope**', count: 1 },
+  { file: 'vendor/README.md', text: '- **V17 · `@hy` rescope**', count: 1 },
   { file: 'pnpm-workspace.yaml', text: 'cordis@4.0.0-rc.7', count: 0 },
   // The preset ids in this table are product data, not package names.
   { file: 'packages/client/ui-agent-preset/tests/locales.client.spec.ts', text: '[\'cordis\', \'presetCordisName\'', count: 1 },
@@ -294,7 +300,7 @@ const EXACT_EDITS: readonly ExactEdit[] = [
  * identity to share — the framework itself is a requested module-table row
  * (external), while these are ordinary libraries a browser bundle inlines.
  */
-const VENDORED_LIBRARY = /^@deepseek-ai\\/(?:(?:cosmokit|schemastery)(?:\\/|$)|cordis-plugin-timer$)/
+const VENDORED_LIBRARY = /^@hy\\/(?:(?:cosmokit|schemastery)(?:\\/|$)|cordis-plugin-timer$)/
 
 /** Generated descriptor/codec contribution with no shared runtime identity. */`,
     expect: 1,
@@ -492,13 +498,25 @@ interface Pattern {
   readonly yamlName: RegExp
 }
 
+/**
+ * Upstream names these packages also carried under the upstream scope, before
+ * this repository's first rescope. A merge can reintroduce either spelling, and
+ * both denote the same vendored package, so the pass rewrites both.
+ * @param rename - one vendored package's mapping.
+ * @returns the alternate pre-rescope specifier, when the package has one.
+ */
+function legacyName(rename: Rename): string {
+  return '@deepseek-ai/' + rename.scoped.slice('@hy/'.length)
+}
+
 function patterns(reverse: boolean): Pattern[] {
-  return RENAMES
-    .map(rename => ({
-      upstream: rename.upstream,
-      from: reverse ? rename.scoped : rename.upstream,
-      to: reverse ? rename.upstream : rename.scoped,
-    }))
+  const names = RENAMES.flatMap(rename => {
+    const legacy = reverse ? undefined : legacyName(rename)
+    return legacy === undefined
+      ? [{ upstream: rename.upstream, from: rename.upstream, to: rename.scoped }]
+      : [{ upstream: rename.upstream, from: rename.upstream, to: rename.scoped }, { upstream: rename.upstream, from: legacy, to: rename.scoped }]
+  })
+  return names
     .sort((left, right) => right.from.length - left.from.length)
     .map(rename => ({
       ...rename,

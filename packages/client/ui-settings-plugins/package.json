@@ -1,6 +1,6 @@
 {
   "name": "@hy/dsh-client-ui-settings-plugins",
-  "description": "Built-in plugins settings section for the hy web client: the Settings navigation entry and the tab chrome feature-owned tabs register into",
+  "description": "Built-in plugins settings section for the dsh web client: the Settings navigation entry and the tab chrome feature-owned tabs register into",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
@@ -51,7 +51,6 @@
     "@hy/dsh-client-ui-settings": "workspace:*",
     "@hy/dsh-client-ui-slots": "workspace:*",
     "@hy/dsh-util-values": "workspace:*",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },
   "files": [
