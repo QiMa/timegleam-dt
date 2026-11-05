@@ -189,7 +189,7 @@ describe('desktop upload plan', () => {
           })
           expect(commands[0]?.[0]).toBe('ssh')
           expect(commands.at(-1)![0]).toBe('scp')
-          expect(commands.at(-1)!.at(-1)).toBe(`baizor:${plan.staticRemoteRoot!}/${artifact.key}`)
+          expect(commands.at(-1)!.at(-1)).toBe(`baizor:${plan.staticRemoteRoot}/${artifact.key}`)
           expect(JSON.parse(await readFile(join(directory, 'result.json'), 'utf8'))).toMatchObject({
             success: true, confirmedPuts: 1, transport: 'static', publicReadback: 'not-performed',
           })

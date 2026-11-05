@@ -196,7 +196,7 @@ function findHits(): RescopeHit[] {
     const occurrences = RENAMES.reduce(
       (total, { upstream }) =>
         total + text.split(upstream).length - 1 + text.split('#' + anchorSlug(upstream)).length - 1,
-      0
+      0,
     )
     hits.push({ file, occurrences })
   }

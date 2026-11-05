@@ -128,7 +128,7 @@ describe('desktop welcome Web operations', () => {
       return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
     })
     const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
-    const backend = await connectDesktopWelcome(url, cookie, host.send, gateway)
+    const backend = connectDesktopWelcome(url, cookie, host.send, gateway)
     await backend.ensureModelConfiguration()
     const seeded = { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://airgap.example.com/v1' } } }
     host.namespaces[1] = { ns: 'llm-pi-ai', value: seeded }
@@ -142,7 +142,7 @@ describe('desktop welcome Web operations', () => {
     const host = transport()
     const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
     host.namespaces[1] = { ns: 'llm-pi-ai', value: { providers: { airgap: { apiKeyEnv: 'DSH_BAIZOR_API_KEY', baseURL: 'https://airgap.example.com/v1' } } } }
-    const backend = await connectDesktopWelcome(url, cookie, host.send, gateway)
+    const backend = connectDesktopWelcome(url, cookie, host.send, gateway)
     await backend.storeProviderKey('ag-secret-key')
     expect(host.keys.get('DSH_BAIZOR_API_KEY')).toBe('ag-secret-key')
   })
@@ -165,7 +165,7 @@ describe('desktop welcome Web operations', () => {
       return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
     })
     const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
-    const backend = await connectDesktopWelcome(url, cookie, host.send, gateway)
+    const backend = connectDesktopWelcome(url, cookie, host.send, gateway)
     await backend.ensureModelConfiguration()
     expect(updates.get('agent-default-model')).toEqual({ provider: 'airgap', model: 'huayu-v2' })
     expect(updates.get('llm-pi-ai')).toMatchObject({ providers: { baizor: { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' } } })
@@ -189,7 +189,7 @@ describe('desktop welcome Web operations', () => {
       return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
     })
     const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
-    const backend = await connectDesktopWelcome(url, cookie, host.send, gateway)
+    const backend = connectDesktopWelcome(url, cookie, host.send, gateway)
     await backend.ensureModelConfiguration()
     expect(updates.has('agent-default-model')).toBe(false)
   })
@@ -212,7 +212,7 @@ describe('desktop welcome Web operations', () => {
       return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
     })
     const gateway = { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' }
-    const backend = await connectDesktopWelcome(url, cookie, host.send, gateway)
+    const backend = connectDesktopWelcome(url, cookie, host.send, gateway)
     await backend.ensureModelConfiguration()
     expect(updates.get('llm-pi-ai')).toMatchObject({ providers: { airgap: { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' } } })
     expect(updates.has('agent-default-model')).toBe(false)

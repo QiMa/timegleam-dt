@@ -510,11 +510,9 @@ function legacyName(rename: Rename): string {
 }
 
 function patterns(reverse: boolean): Pattern[] {
-  const names = RENAMES.flatMap(rename => {
-    const legacy = reverse ? undefined : legacyName(rename)
-    return legacy === undefined
-      ? [{ upstream: rename.upstream, from: rename.upstream, to: rename.scoped }]
-      : [{ upstream: rename.upstream, from: rename.upstream, to: rename.scoped }, { upstream: rename.upstream, from: legacy, to: rename.scoped }]
+  const names = RENAMES.flatMap((rename) => {
+    const current: Omit<Pattern, 'token' | 'yamlName'> = { upstream: rename.upstream, from: rename.upstream, to: rename.scoped }
+    return reverse ? [current] : [current, { upstream: rename.upstream, from: legacyName(rename), to: rename.scoped }]
   })
   return names
     .sort((left, right) => right.from.length - left.from.length)
