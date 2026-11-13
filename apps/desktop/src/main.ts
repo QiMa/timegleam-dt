@@ -55,6 +55,7 @@ import { WELCOME_IPC, needsWelcome, type WelcomeNotice } from './welcome-api.ts'
 import { connectDesktopWelcome, type DesktopWelcomeBackend } from './welcome-backend.ts'
 import {
   TIMEGLEAM_CONSOLE_URL,
+  TIMEGLEAM_DEFAULT_MODEL,
   TIMEGLEAM_TOKEN_PATTERN,
   fetchTimeGleamModels,
   parseTimeGleamDeepLink,
@@ -1401,7 +1402,7 @@ async function main(): Promise<void> {
           const models = await fetchTimeGleamModels(result.token, (input, init) => net.fetch(input, init))
             .catch((error: unknown) => { console.warn('desktop TimeGleam login: model list failed', error); return undefined })
           if (models !== undefined) {
-            await welcomeBackend.ensureTimeGleamModelConfiguration(models).catch((error: unknown) => {
+            await welcomeBackend.ensureTimeGleamModelConfiguration(models, TIMEGLEAM_DEFAULT_MODEL).catch((error: unknown) => {
               console.warn('desktop TimeGleam login: model seeding failed', error)
             })
           }

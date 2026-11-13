@@ -280,4 +280,18 @@ describe('desktop welcome Web operations', () => {
     await expect(backend.ensureTimeGleamModelConfiguration([])).rejects.toThrow('no TimeGleam model to seed')
     expect(host.send).not.toHaveBeenCalled()
   })
+
+  it('prefers the desktop default when the workspace grants it', async () => {
+    const host = transport()
+    const backend = connectDesktopWelcome(url, cookie, host.send)
+    host.send.mockClear()
+    await backend.ensureTimeGleamModelConfiguration([
+      { id: 'deepseek-chat', name: 'DeepSeek' },
+      { id: 'huayu-v2', name: 'Huayu v2' },
+    ], 'huayu-v2')
+    const selection = host.send.mock.calls
+      .map(([, init]) => JSON.parse(init!.body as string) as { payload: { args: { ns?: string; patch?: unknown } } })
+      .find(({ payload }) => payload.args.ns === 'agent-default-model')
+    expect(selection?.payload.args.patch).toEqual({ provider: 'timegleam', model: 'huayu-v2' })
+  })
 })

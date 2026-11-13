@@ -7,6 +7,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import type { BrowserWindowConstructorOptions } from 'electron'
 import type { DesktopLocale } from '../src/locale.ts'
 import type { WelcomeOperations } from '../src/welcome-api.ts'
+import { TIMEGLEAM_DEFAULT_MODEL } from '../src/timegleam.ts'
 import { DESKTOP_IPC } from '../src/ipc.ts'
 
 const state = vi.hoisted(() => ({
@@ -291,7 +292,8 @@ it('signs in through timegleam.com, stores the issued key, and seeds its models'
   expect(JSON.parse(pollBody)).toEqual({ token: '0123456789abcdef0123456789abcdef' })
   expect(state.openExternal).toHaveBeenCalledWith('https://timegleam.com/?desktop_login=0123456789abcdef0123456789abcdef')
   expect(state.storeTimeGleamToken).toHaveBeenCalledExactlyOnceWith('tmg_browser-issued')
-  expect(state.ensureTimeGleamModels).toHaveBeenCalledExactlyOnceWith([{ id: 'deepseek-chat', name: 'DeepSeek' }])
+  expect(state.ensureTimeGleamModels)
+    .toHaveBeenCalledExactlyOnceWith([{ id: 'deepseek-chat', name: 'DeepSeek' }], TIMEGLEAM_DEFAULT_MODEL)
   expect(state.showWorkspace).toHaveBeenCalledOnce()
 })
 

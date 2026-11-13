@@ -19,6 +19,12 @@ export const TIMEGLEAM_LOGIN_POLL_URL = `${TIMEGLEAM_ORIGIN}/api/desktop/login/p
 export const TIMEGLEAM_PROVIDER = 'timegleam'
 
 /**
+ * Model this desktop selects after sign-in when the granted list offers it.
+ * The list is workspace-specific, so an absent id falls back to its first entry.
+ */
+export const TIMEGLEAM_DEFAULT_MODEL = 'huayu-v2'
+
+/**
  * Console page that issues access keys. The online workspace is a single-page
  * application whose account views live on the root path; `/account/ai-tools`
  * is only the API route and returns 404 when opened directly.

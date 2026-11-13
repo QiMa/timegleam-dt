@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   fetchTimeGleamModels, parseTimeGleamDeepLink, probeTimeGleamToken, TIMEGLEAM_API_BASE,
-  TIMEGLEAM_CONSOLE_URL, TIMEGLEAM_CREDENTIAL_REF, TIMEGLEAM_MCP_URL, TIMEGLEAM_ORIGIN,
+  TIMEGLEAM_CONSOLE_URL, TIMEGLEAM_CREDENTIAL_REF, TIMEGLEAM_DEFAULT_MODEL, TIMEGLEAM_MCP_URL, TIMEGLEAM_ORIGIN,
   TIMEGLEAM_PROVIDER, TIMEGLEAM_TOKEN_PATTERN, timeGleamLoginUrl, timeGleamProjectUrl,
 } from '../src/timegleam.ts'
 
@@ -15,6 +15,7 @@ describe('TimeGleam account facts', () => {
     expect(TIMEGLEAM_API_BASE).toBe('https://timegleam.com/api/llm/v1')
     expect(TIMEGLEAM_ORIGIN).toBe('https://timegleam.com')
     expect(TIMEGLEAM_PROVIDER).toBe('timegleam')
+    expect(TIMEGLEAM_DEFAULT_MODEL).toBe('huayu-v2')
   })
 
   it('builds one approval URL and refuses anything but a minted token', () => {
