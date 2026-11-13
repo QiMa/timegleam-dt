@@ -3,8 +3,8 @@
 import { Buffer } from 'node:buffer'
 
 /** Proxy routes the tool calls. */
-export const IMAGE_MODELS_URL = 'https://timegleam.com/api/llm/v1/image-models'
-export const IMAGE_URL = 'https://timegleam.com/api/llm/v1/images/generations'
+export const IMAGE_MODELS_URL = 'https://timegleam.com/v1/image-models'
+export const IMAGE_URL = 'https://timegleam.com/v1/images/generations'
 
 /** A 1x1 PNG used to prove signature sniffing and attachment storage. */
 export const PNG_1X1 = new Uint8Array(Buffer.from(

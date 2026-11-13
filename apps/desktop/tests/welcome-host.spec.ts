@@ -255,9 +255,10 @@ describe('desktop welcome Web operations', () => {
       displayName: 'TimeGleam',
       apiKeyEnv: 'TIMEGLEAM_TOKEN',
       api: 'openai-completions',
-      baseURL: 'https://timegleam.com/api/llm/v1',
+      baseURL: 'https://timegleam.com/v1',
       defaultContextWindow: 128000,
       defaultMaxTokens: 32768,
+      reasoning: 'medium',
       models: [
         { id: 'deepseek-chat', name: 'DeepSeek', contextWindow: 128000, maxTokens: 32768 },
         { id: 'svc::vision', name: 'Service', contextWindow: 128000, maxTokens: 32768 },
@@ -293,5 +294,26 @@ describe('desktop welcome Web operations', () => {
       .map(([, init]) => JSON.parse(init!.body as string) as { payload: { args: { ns?: string; patch?: unknown } } })
       .find(({ payload }) => payload.args.ns === 'agent-default-model')
     expect(selection?.payload.args.patch).toEqual({ provider: 'timegleam', model: 'huayu-v2' })
+  })
+
+  it('offers reasoning levels only on the routes the proxy accepts them for', async () => {
+    const host = transport()
+    const backend = connectDesktopWelcome(url, cookie, host.send)
+    host.send.mockClear()
+    await backend.ensureTimeGleamModelConfiguration([
+      { id: 'deepseek-chat', name: 'DeepSeek' },
+      { id: 'huayu-v2', name: 'Huayu v2' },
+    ], 'huayu-v2')
+    type Update = { payload: { args: { ns?: string; patch?: { providers?: { timegleam?: { models?: unknown[] } } } } } }
+    const seed = host.send.mock.calls
+      .map(([, init]) => JSON.parse(init!.body as string) as Update)
+      .find(({ payload }) => payload.args.ns === 'llm-pi-ai')
+    expect(seed?.payload.args.patch?.providers?.timegleam?.models).toEqual([
+      { id: 'deepseek-chat', name: 'DeepSeek', contextWindow: 128000, maxTokens: 32768 },
+      { id: 'huayu-v2', name: 'Huayu v2', contextWindow: 128000, maxTokens: 32768,
+        reasoningEfforts: {
+          off: 'none', minimal: 'minimal', low: 'low', medium: 'medium', high: 'high', xhigh: 'xhigh', max: 'max',
+        } },
+    ])
   })
 })

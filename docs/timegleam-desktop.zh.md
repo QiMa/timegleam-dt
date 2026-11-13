@@ -68,7 +68,7 @@ description: "把 Harness 桌面应用重塑为拾光 TimeGleam：应用身份�
 <a id="model-proxy"></a>
 ## 模型代理
 
-对话与画面模型请求都经 `https://timegleam.com/api/llm/v1` 的 OpenAI 兼容代理到达线上工作区，并由代理按获授权工作区的点数账本结算。
+对话与画面模型请求都经 `https://timegleam.com/v1` 的 OpenAI 兼容代理到达线上工作区，并由代理按获授权工作区的点数账本结算。
 
 | 路由 | 用途 |
 |---|---|
@@ -77,7 +77,9 @@ description: "把 Harness 桌面应用重塑为拾光 TimeGleam：应用身份�
 | `GET /image-models` | 工作区获授权的画面模型 |
 | `POST /images/generations` | 出图 |
 
-欢迎页写入名为 `timegleam` 的 `llm-pi-ai` 提供方，以 `openai-completions` 协议访问 `/api/llm/v1`，默认取首个获授权的文本模型；已保存的密钥就是它的 `apiKeyEnv` 指向，因此设置中不写入提供方密钥。随包插件用同一把密钥提供两个本地工具：`timegleam_image_models` 列出获授权的画面模型，`timegleam_image` 生成图片并把每张返回结果保存为本地附件。扣费一律由代理计算，桌面端不估算：文本按百万 token 加单次调用费结算，图片按返回张数与尺寸档位结算。Ark 系图片服务每次只返回一张，代理会在扣点前以 HTTP 422 拒绝大于 1 的 `n`。
+欢迎页写入名为 `timegleam` 的 `llm-pi-ai` 提供方，以 `openai-completions` 协议访问 `/v1`，默认取首个获授权的文本模型；已保存的密钥就是它的 `apiKeyEnv` 指向，因此设置中不写入提供方密钥。随包插件用同一把密钥提供两个本地工具：`timegleam_image_models` 列出获授权的画面模型，`timegleam_image` 生成图片并把每张返回结果保存为本地附件。扣费一律由代理计算，桌面端不估算：文本按百万 token 加单次调用费结算，图片按返回张数与尺寸档位结算。Ark 系图片服务每次只返回一张，代理会在扣点前以 HTTP 422 拒绝大于 1 的 `n`。
+
+写入的提供方只为 `huayu-v2` 声明 `reasoningEffort` 档位，并以 `medium` 起步：代理对该模型的每一档都已实测返回 200（`off` 发为 `none`）。必须显式给出档位，因为不选档位时 pi-ai 发的是已声明的 `off` 值。其余获授权的上游不声明该控件，因此不会被发送它们可能拒绝的字段。
 
 <a id="deep-links"></a>
 ## 深链
@@ -115,9 +117,11 @@ Host 数据使用独立主目录，按「嵌入进程显式传入 → `DSH_HOME`
 | `GET https://timegleam.com/account/ai-tools` | 404，与上述 API 路由说明一致 |
 | `GET https://timegleam.com/?account=security` | 200 |
 | `POST https://timegleam.com/api/desktop/login/start`，随后 `complete`、`poll` | 均 200；一个 `tmg_` 密钥只释放一次 |
-| 用签发的密钥 `GET https://timegleam.com/api/llm/v1/models` | 200，列出获授权文本模型 |
-| `GET https://timegleam.com/api/llm/v1/image-models` | 200，Ark 系 id 含 `service::model` 形式 |
-| `POST https://timegleam.com/api/llm/v1/images/generations` | 200，耗时 10.26 秒；账本新增 `assistant-image-…`，结算 `units=25000000 points=25` |
+| 用签发的密钥 `GET https://timegleam.com/v1/models` | 200，列出获授权文本模型 |
+| `GET https://timegleam.com/v1/image-models` | 200，Ark 系 id 含 `service::model` 形式 |
+| `POST https://timegleam.com/v1/images/generations` | 200，耗时 10.26 秒；账本新增 `assistant-image-…`，结算 `units=25000000 points=25` |
+| `POST https://timegleam.com/v1/chat/completions`（`huayu-v2`），`reasoning_effort` 依次取 `none`/`minimal`/`low`/`medium`/`high`/`xhigh`/`max` | 每一档均 200；`none` 与 `minimal` 返回的 `reasoning_content` 为空 |
+| `POST …/chat/completions`（`huayu-v2`，带 `tools` 与 `tool_choice: auto`） | 200，`finish_reason: tool_calls`；随后回放不带 `reasoning_content` 的工具轮同样 200 |
 
 该端点对未认证的 JSON-RPC `initialize` 请求只响应到 401，这确认了认证边界。使用真实 `tmg_` 或 `aym_` 密钥完成 `initialize`、调用工具以及读取或创建项目，在本环境中仍未验证；当时没有可用有效密钥。
 

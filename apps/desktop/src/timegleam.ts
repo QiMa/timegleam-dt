@@ -4,7 +4,7 @@
 export const TIMEGLEAM_MCP_URL = 'https://timegleam.com/mcp'
 
 /** OpenAI-compatible model proxy served by the TimeGleam workspace. */
-export const TIMEGLEAM_API_BASE = 'https://timegleam.com/api/llm/v1'
+export const TIMEGLEAM_API_BASE = 'https://timegleam.com/v1'
 
 /** Public origin that hosts desktop sign-in. */
 export const TIMEGLEAM_ORIGIN = 'https://timegleam.com'
@@ -23,6 +23,38 @@ export const TIMEGLEAM_PROVIDER = 'timegleam'
  * The list is workspace-specific, so an absent id falls back to its first entry.
  */
 export const TIMEGLEAM_DEFAULT_MODEL = 'huayu-v2'
+
+/**
+ * Reasoning levels the TimeGleam proxy accepts on `huayu-v2`, spelled as pi-ai
+ * wire values. `off` sends `none`; leaving the field out keeps the provider's
+ * own default, which is to think.
+ */
+export const TIMEGLEAM_REASONING_EFFORTS = {
+  off: 'none',
+  minimal: 'minimal',
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  xhigh: 'xhigh',
+  max: 'max',
+} as const
+
+/**
+ * Granted model ids whose route accepts `reasoning_effort`.
+ *
+ * Verified against the proxy: every level above answers 200 on `huayu-v2`,
+ * while other granted upstreams may reject the field, so the seed declares the
+ * control only where it is known to work.
+ */
+export const TIMEGLEAM_REASONING_MODELS: readonly string[] = [TIMEGLEAM_DEFAULT_MODEL]
+
+/**
+ * Effort the desktop starts a TimeGleam model at. The provider's own default is
+ * to think, so naming a level keeps that while making the choice visible and
+ * changeable; pi-ai sends the declared `off` value whenever no effort is given,
+ * which would otherwise silence thinking for every chat.
+ */
+export const TIMEGLEAM_DEFAULT_REASONING = 'medium'
 
 /**
  * Console page that issues access keys. The online workspace is a single-page

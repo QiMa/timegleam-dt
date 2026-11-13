@@ -285,7 +285,7 @@ it('signs in through timegleam.com, stores the issued key, and seeds its models'
     'https://timegleam.com/api/desktop/login/start',
     'https://timegleam.com/api/desktop/login/poll',
     'https://timegleam.com/mcp',
-    'https://timegleam.com/api/llm/v1/models',
+    'https://timegleam.com/v1/models',
   ])
   const pollBody = state.netFetch.mock.calls[1]?.[1]?.body
   if (typeof pollBody !== 'string') throw new Error('the poll request must send a JSON string body')

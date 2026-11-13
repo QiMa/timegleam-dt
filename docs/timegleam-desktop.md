@@ -68,7 +68,7 @@ The registration adds one system-prompt section, `timegleam:workspace`, ahead of
 <a id="model-proxy"></a>
 ## Model proxy
 
-Chat and image model requests reach the online workspace through the OpenAI-compatible proxy at `https://timegleam.com/api/llm/v1`, and the proxy settles each one against the approved workspace's point ledger.
+Chat and image model requests reach the online workspace through the OpenAI-compatible proxy at `https://timegleam.com/v1`, and the proxy settles each one against the approved workspace's point ledger.
 
 | Route | Purpose |
 |---|---|
@@ -77,7 +77,9 @@ Chat and image model requests reach the online workspace through the OpenAI-comp
 | `GET /image-models` | Image models granted to the workspace |
 | `POST /images/generations` | Image generation |
 
-The welcome flow seeds an `llm-pi-ai` provider named `timegleam` that speaks `openai-completions` against `/api/llm/v1` and defaults to the first granted text model; the stored key is its `apiKeyEnv` target, so no provider key is written into settings. The bundled plugin adds two local tools over the same key: `timegleam_image_models` lists the granted image models, and `timegleam_image` generates one image and stores every returned result as a local attachment. Charges are computed by the proxy, never by the desktop: text settles per million tokens plus a per-call fee, and images settle per returned image in a size tier. An Ark-backed image service returns exactly one image per call, and the proxy refuses `n` greater than 1 for it with HTTP 422 before any points settle.
+The welcome flow seeds an `llm-pi-ai` provider named `timegleam` that speaks `openai-completions` against `/v1` and defaults to the first granted text model; the stored key is its `apiKeyEnv` target, so no provider key is written into settings. The bundled plugin adds two local tools over the same key: `timegleam_image_models` lists the granted image models, and `timegleam_image` generates one image and stores every returned result as a local attachment. Charges are computed by the proxy, never by the desktop: text settles per million tokens plus a per-call fee, and images settle per returned image in a size tier. An Ark-backed image service returns exactly one image per call, and the proxy refuses `n` greater than 1 for it with HTTP 422 before any points settle.
+
+The seeded profile declares a `reasoningEffort` control on `huayu-v2` only and starts at `medium`. Every level that control offers was answered by the proxy on that model (`off` is sent as `none`); naming a level matters because the declared `off` value is what pi-ai sends when no effort is chosen. Other granted upstreams keep no control, so a model that would reject the field never receives it.
 
 <a id="deep-links"></a>
 ## Deep links
@@ -115,9 +117,11 @@ Checked from this checkout on 2026-11-12:
 | `GET https://timegleam.com/account/ai-tools` | 404, matching the API-route note above |
 | `GET https://timegleam.com/?account=security` | 200 |
 | `POST https://timegleam.com/api/desktop/login/start`, then `complete`, then `poll` | all 200; one `tmg_` key released once |
-| `GET https://timegleam.com/api/llm/v1/models` with the issued key | 200, granted text models listed |
-| `GET https://timegleam.com/api/llm/v1/image-models` | 200, Ark-backed ids include the `service::model` form |
-| `POST https://timegleam.com/api/llm/v1/images/generations` | 200 in 10.26 s; ledger row `assistant-image-…` settled `units=25000000 points=25` |
+| `GET https://timegleam.com/v1/models` with the issued key | 200, granted text models listed |
+| `GET https://timegleam.com/v1/image-models` | 200, Ark-backed ids include the `service::model` form |
+| `POST https://timegleam.com/v1/images/generations` | 200 in 10.26 s; ledger row `assistant-image-…` settled `units=25000000 points=25` |
+| `POST https://timegleam.com/v1/chat/completions` on `huayu-v2` with `reasoning_effort` `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max` | 200 for every level; `none` and `minimal` returned no `reasoning_content` |
+| `POST …/chat/completions` on `huayu-v2` with `tools` and `tool_choice: auto` | 200, `finish_reason: tool_calls`, then a replayed tool turn with no `reasoning_content` answered 200 |
 
 The endpoint accepts unauthenticated JSON-RPC `initialize` requests only far enough to answer 401, which confirms the authentication boundary. A successful `initialize`, a tool call, and a project read or create with a real `tmg_` or `aym_` key remain unverified in this environment; no valid key was available.
 

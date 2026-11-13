@@ -221,9 +221,9 @@ Desktop 在 Host 启动后、打开工作区前检查模型 API Key 引用是否
 
 等待浏览器登录时，欢迎页提供当前待授权请求的链接复制入口、加载指示和取消操作；剪贴板写入失败后可以重试复制，复制结果提示在两秒后恢复；已复制状态下链接禁用，恢复后可再次点击。Welcome 文字使用 Montserrat Light 并回退到系统字体，底部大按钮保留系统字体，文字按钮使用 Montserrat Light。英文欢迎正文及产品名均为 24px，中文欢迎正文为 24px、产品名为 26px。登录操作按钮宽 240px，文字为 14px。授权状态标题使用 20px Montserrat Regular 字重。API Key 页的标题为 20px，返回操作为 14px，次级按钮底边距窗口底部 84px。
 
-拾光版入口以账号登录取代手贴密钥。Host 向 `https://timegleam.com/api/desktop/login/start` 申请一次性确认令牌，用系统默认浏览器打开 `https://timegleam.com/?desktop_login=<token>`，并轮询至已登录页面确认一个工作空间。确认后签发一个 30 天有效的 `TimeGleam Desktop` 访问密钥，交给桌面端通过凭据服务保存；桌面端只收到一次。取消、关闭窗口、请求过期或服务不可达都会结束本次登录且不保存任何内容；入口仍保留 API Key 页面供粘贴密钥。登录成功后 Host 读取 `https://timegleam.com/api/llm/v1/models`，把首个获授权模型写为默认值并注册 `timegleam` 提供方（`openai-completions`，地址 `https://timegleam.com/api/llm/v1`）；模型列表读取失败时，已保存的密钥仍可进入工作区，模型可在设置中选择。这些模型请求经该代理转发，并按获授权空间的点数账本计费。
+拾光版入口以账号登录取代手贴密钥。Host 向 `https://timegleam.com/api/desktop/login/start` 申请一次性确认令牌，用系统默认浏览器打开 `https://timegleam.com/?desktop_login=<token>`，并轮询至已登录页面确认一个工作空间。确认后签发一个 30 天有效的 `TimeGleam Desktop` 访问密钥，交给桌面端通过凭据服务保存；桌面端只收到一次。取消、关闭窗口、请求过期或服务不可达都会结束本次登录且不保存任何内容；入口仍保留 API Key 页面供粘贴密钥。登录成功后 Host 读取 `https://timegleam.com/v1/models`，把首个获授权模型写为默认值并注册 `timegleam` 提供方（`openai-completions`，地址 `https://timegleam.com/v1`）；模型列表读取失败时，已保存的密钥仍可进入工作区，模型可在设置中选择。这些模型请求经该代理转发，并按获授权空间的点数账本计费。
 
-随包插件还会用同一把已保存密钥访问 `https://timegleam.com/api/llm/v1/image-models` 与 `POST /images/generations`，因此 Session 可以列出获授权的画面模型并生成图片，结果保存为本地附件；代理会把每张返回图片计入同一账本。
+随包插件还会用同一把已保存密钥访问 `https://timegleam.com/v1/image-models` 与 `POST /images/generations`，因此 Session 可以列出获授权的画面模型并生成图片，结果保存为本地附件；代理会把每张返回图片计入同一账本。
 
 ### 欢迎窗口外观
 

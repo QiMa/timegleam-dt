@@ -4,7 +4,7 @@
 export const TIMEGLEAM_ORIGIN = 'https://timegleam.com'
 
 /** OpenAI-compatible model proxy root; chat and image routes hang off it. */
-export const TIMEGLEAM_API_BASE = 'https://timegleam.com/api/llm/v1'
+export const TIMEGLEAM_API_BASE = 'https://timegleam.com/v1'
 
 /** Image models this connection may call. */
 export const TIMEGLEAM_IMAGE_MODELS_URL = `${TIMEGLEAM_API_BASE}/image-models`

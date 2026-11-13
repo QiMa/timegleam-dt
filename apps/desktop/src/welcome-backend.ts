@@ -4,7 +4,8 @@ import type { ProductEvent } from '@hy/dsh-client-product-analytics/types'
 import { randomUUID } from 'node:crypto'
 import { desktopAccountBackend, type DesktopAccountBackend } from './account-backend.ts'
 import {
-  TIMEGLEAM_API_BASE, TIMEGLEAM_CREDENTIAL_REF, TIMEGLEAM_PROVIDER, TIMEGLEAM_TOKEN_PATTERN,
+  TIMEGLEAM_API_BASE, TIMEGLEAM_CREDENTIAL_REF, TIMEGLEAM_DEFAULT_REASONING, TIMEGLEAM_PROVIDER,
+  TIMEGLEAM_REASONING_EFFORTS, TIMEGLEAM_REASONING_MODELS, TIMEGLEAM_TOKEN_PATTERN,
   type TimeGleamModel,
 } from './timegleam.ts'
 import {
@@ -191,8 +192,10 @@ export function connectDesktopWelcome(
     baseURL: TIMEGLEAM_API_BASE,
     defaultContextWindow: 128000,
     defaultMaxTokens: 32768,
+    reasoning: TIMEGLEAM_DEFAULT_REASONING,
     models: models.map(model => ({
       id: model.id, name: model.name, contextWindow: 128000, maxTokens: 32768,
+      ...TIMEGLEAM_REASONING_MODELS.includes(model.id) ? { reasoningEfforts: TIMEGLEAM_REASONING_EFFORTS } : {},
     })),
   })
   return {

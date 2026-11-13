@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-在 Desktop profile 中挂载本插件，即可从本地智能体处理 TimeGleam 项目：它把 `https://timegleam.com/mcp` 注册为远程 MCP 服务器，加入工作台提示词契约，并用同一把访问密钥提供两个出图工具。访问密钥在每次连接和每次出图时从 `TIMEGLEAM_TOKEN` 凭据引用解析，因此轮换密钥不需要重启。对话与画面模型请求都经 `https://timegleam.com/api/llm/v1` 的 OpenAI 兼容代理转发，并按已登录工作区的点数账本结算。
+在 Desktop profile 中挂载本插件，即可从本地智能体处理 TimeGleam 项目：它把 `https://timegleam.com/mcp` 注册为远程 MCP 服务器，加入工作台提示词契约，并用同一把访问密钥提供两个出图工具。访问密钥在每次连接和每次出图时从 `TIMEGLEAM_TOKEN` 凭据引用解析，因此轮换密钥不需要重启。对话与画面模型请求都经 `https://timegleam.com/v1` 的 OpenAI 兼容代理转发，并按已登录工作区的点数账本结算。
 
 ## 目录
 
@@ -46,7 +46,7 @@ MCP manager 自身接受的字段由[配置目录](../../../docs/config-catalog.
 <a id="model-proxy"></a>
 ### 模型代理
 
-Desktop 欢迎页会写入名为 `timegleam` 的 `llm-pi-ai` 提供方，以 `openai-completions` 协议访问 `https://timegleam.com/api/llm/v1`；对话不直连任何厂商。下面的出图工具用同一把密钥访问同一 origin。
+Desktop 欢迎页会写入名为 `timegleam` 的 `llm-pi-ai` 提供方，以 `openai-completions` 协议访问 `https://timegleam.com/v1`；对话不直连任何厂商。下面的出图工具用同一把密钥访问同一 origin。
 
 | 路由 | 用途 |
 |---|---|

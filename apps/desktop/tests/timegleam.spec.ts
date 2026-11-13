@@ -4,7 +4,8 @@ import { describe, expect, it } from 'vitest'
 import {
   fetchTimeGleamModels, parseTimeGleamDeepLink, probeTimeGleamToken, TIMEGLEAM_API_BASE,
   TIMEGLEAM_CONSOLE_URL, TIMEGLEAM_CREDENTIAL_REF, TIMEGLEAM_DEFAULT_MODEL, TIMEGLEAM_MCP_URL, TIMEGLEAM_ORIGIN,
-  TIMEGLEAM_PROVIDER, TIMEGLEAM_TOKEN_PATTERN, timeGleamLoginUrl, timeGleamProjectUrl,
+  TIMEGLEAM_PROVIDER, TIMEGLEAM_REASONING_EFFORTS, TIMEGLEAM_REASONING_MODELS, TIMEGLEAM_TOKEN_PATTERN,
+  timeGleamLoginUrl, timeGleamProjectUrl,
 } from '../src/timegleam.ts'
 
 describe('TimeGleam account facts', () => {
@@ -12,10 +13,17 @@ describe('TimeGleam account facts', () => {
     expect(TIMEGLEAM_MCP_URL).toBe('https://timegleam.com/mcp')
     expect(TIMEGLEAM_CONSOLE_URL).toBe('https://timegleam.com/?account=security')
     expect(TIMEGLEAM_CREDENTIAL_REF).toBe('TIMEGLEAM_TOKEN')
-    expect(TIMEGLEAM_API_BASE).toBe('https://timegleam.com/api/llm/v1')
+    expect(TIMEGLEAM_API_BASE).toBe('https://timegleam.com/v1')
     expect(TIMEGLEAM_ORIGIN).toBe('https://timegleam.com')
     expect(TIMEGLEAM_PROVIDER).toBe('timegleam')
     expect(TIMEGLEAM_DEFAULT_MODEL).toBe('huayu-v2')
+  })
+
+  it('declares reasoning levels only where the proxy accepts them', () => {
+    expect(TIMEGLEAM_REASONING_MODELS).toEqual(['huayu-v2'])
+    expect(TIMEGLEAM_REASONING_EFFORTS).toEqual({
+      off: 'none', minimal: 'minimal', low: 'low', medium: 'medium', high: 'high', xhigh: 'xhigh', max: 'max',
+    })
   })
 
   it('builds one approval URL and refuses anything but a minted token', () => {

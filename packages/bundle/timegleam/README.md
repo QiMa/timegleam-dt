@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Mount this plugin in a Desktop profile to work on TimeGleam projects from the local agent: it registers `https://timegleam.com/mcp` as a remote MCP server, adds the workbench prompt contract, and contributes two image tools over the same access key. The access key is read from the `TIMEGLEAM_TOKEN` credential reference on every connection attempt and every image call, so a rotated key needs no restart. Chat and image model requests go through the TimeGleam OpenAI-compatible proxy at `https://timegleam.com/api/llm/v1`, which settles each request against the signed-in workspace's point ledger.
+Mount this plugin in a Desktop profile to work on TimeGleam projects from the local agent: it registers `https://timegleam.com/mcp` as a remote MCP server, adds the workbench prompt contract, and contributes two image tools over the same access key. The access key is read from the `TIMEGLEAM_TOKEN` credential reference on every connection attempt and every image call, so a rotated key needs no restart. Chat and image model requests go through the TimeGleam OpenAI-compatible proxy at `https://timegleam.com/v1`, which settles each request against the signed-in workspace's point ledger.
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ The [configuration catalog](../../../docs/config-catalog.md) owns any fields acc
 
 ### Model proxy
 
-The Desktop welcome flow seeds an `llm-pi-ai` provider named `timegleam` that speaks `openai-completions` against `https://timegleam.com/api/llm/v1`; chat does not reach a provider directly. The image tools below call the same origin with the same key.
+The Desktop welcome flow seeds an `llm-pi-ai` provider named `timegleam` that speaks `openai-completions` against `https://timegleam.com/v1`; chat does not reach a provider directly. The image tools below call the same origin with the same key.
 
 | Route | Purpose |
 |---|---|
