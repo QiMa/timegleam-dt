@@ -75,7 +75,7 @@
     "@hy/dsh-util-values": "workspace:*",
     "@hy/dsh-plugin-detail": "workspace:*",
     "@hy/dsh-timeout": "workspace:*",
-    "hosted-git-info": "^9.0.3"
+    "hosted-git-info": "^10.1.1"
   },
   "peerDependencies": {
     "@hy/cordis": "workspace:~",
