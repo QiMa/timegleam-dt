@@ -1,5 +1,5 @@
 ---
-description: "Settings domain base plugin: shared configuration forms, schema service, and the canonical settings slot-type contract for the hy web client."
+description: "Settings domain base plugin: shared configuration forms, schema service, and the canonical settings slot-type contract for the timegleam web client."
 kind: "package-reference"
 ---
 

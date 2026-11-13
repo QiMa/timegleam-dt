@@ -1,4 +1,4 @@
-/** Official Huayu AI occupants for the generic browser-brand slots. */
+/** Official TimeGleam occupants for the generic browser-brand slots. */
 import type { Context as ClientContext } from '@hy/cordis'
 import type {} from '@hy/dsh-client-ui-renderer/client'
 import type {} from '@hy/dsh-client-ui-sidebar/client'
@@ -9,7 +9,7 @@ export const inject = ['slots']
 
 /**
  * Fill the sidebar brand slots as one declaration-aware registration set. The
- * conversation hero stays on its declaring package's animated fish fallback,
+ * conversation hero stays on its declaring package's brand mark fallback,
  * so the official build registers nothing there.
  * @param ctx - Client root context.
  */

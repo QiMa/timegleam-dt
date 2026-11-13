@@ -40,7 +40,10 @@ export function prepareDevelopmentApp(options: DevelopmentAppOptions): string {
       CFBundleName: 'Harness Dev',
       CFBundleDisplayName: 'Harness Dev',
       CFBundleExecutable: 'HarnessDev',
-      CFBundleURLTypes: [{ CFBundleURLName: 'Huayu AI', CFBundleURLSchemes: ['dsh'], CFBundleTypeRole: 'Viewer' }],
+      CFBundleURLTypes: [
+        { CFBundleURLName: 'TimeGleam', CFBundleURLSchemes: ['timegleam'], CFBundleTypeRole: 'Viewer' },
+        { CFBundleURLName: 'TimeGleam (legacy links)', CFBundleURLSchemes: ['dsh'], CFBundleTypeRole: 'Viewer' },
+      ],
     }
     for (const [key, value] of Object.entries(values)) {
       execFileSync('/usr/bin/plutil', ['-replace', key, '-json', JSON.stringify(value), plist])

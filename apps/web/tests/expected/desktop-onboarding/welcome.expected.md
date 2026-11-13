@@ -1,6 +1,6 @@
-- region "欢迎使用 Huayu AI":
-  - heading "欢迎使用 Huayu AI" [level=1]:
+- region "欢迎使用 拾光 TimeGleam":
+  - heading "欢迎使用 拾光 TimeGleam" [level=1]:
     - text: 欢迎使用
-    - emphasis: Huayu AI
-  - paragraph: Huayu AI 会以本地文件夹作为工作区，通过调用各种工具，读写本机文件，完成搜索整理资料、制作文档表格、编写代码、排查问题等各种任务。
+    - emphasis: 拾光 TimeGleam
+  - paragraph: 拾光 TimeGleam 会以本地文件夹作为工作区，通过调用各种工具，读写本机文件，完成搜索整理资料、制作文档表格、编写代码、排查问题等各种任务。
   - button "开始设置"

@@ -1,4 +1,4 @@
-/** Current-profile plugin and bundle management over shared hy plugin operations. */
+/** Current-profile plugin and bundle management over shared timegleam plugin operations. */
 import { randomUUID } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { readFile, rm } from 'node:fs/promises'
@@ -52,7 +52,7 @@ export { InvalidInstallSpecError, parseInstallSpec, type ParsedInstallSpec } fro
 
 /** The pnpm executable, registries, and limits for diagnostics, lookups and connection checks. */
 export interface Config {
-  /** The pnpm executable name or path; resolved through `PATH` like the `hy plugin` command. */
+  /** The pnpm executable name or path; resolved through `PATH` like the `timegleam plugin` command. */
   pnpmCommand?: string
   /** Maximum retained package-operation diagnostic bytes. */
   outputBytes?: number
@@ -136,7 +136,7 @@ function stringField(manifest: object, field: string): string | undefined {
   return typeof value === 'string' ? value : undefined
 }
 
-/** The fields of the dsh installation's own manifest the manager reads. */
+/** The fields of the TimeGleam installation's own manifest the manager reads. */
 interface InstallationManifest {
   dependencies?: Record<string, string>
 }
@@ -855,7 +855,7 @@ export class PluginManager extends TypertRemoteService {
   }
 
   /**
-   * Install a package using the same pnpm implementation as dsh plugin. GitHub
+   * Install a package using the same pnpm implementation as timegleam plugin. GitHub
    * repositories get a connection check bounded by githubConnectionTimeoutMs before pnpm starts;
    * only network failures or timeouts stop installation, and a stop streams the check's diagnostic
    * as the installation's install-log run under its request id, while pnpm owns authentication and transport fallback. An
@@ -1037,7 +1037,7 @@ export class PluginManager extends TypertRemoteService {
     return { status: 'cancelled' }
   }
 
-  /** Unload and remove a profile-owned bundle dependency through dsh plugin's pnpm path; a selected name no
+  /** Unload and remove a profile-owned bundle dependency through timegleam plugin's pnpm path; a selected name no
    * dependency holds is only deselected.
    * @param name Installed dependency or selected bundle name.
    * @returns Removal diagnostics and the remaining profile state.
@@ -1315,7 +1315,7 @@ export class PluginManager extends TypertRemoteService {
   private reportOperation(operation: PluginOperation): void {
     void this.ownerContext.parallel('plugin-manager/operation', operation).catch((_error: unknown) => {
       // All subscribers run; diagnostic failures cannot change the management result.
-      console.error('dsh plugin-manager: operation diagnostic delivery failed')
+      console.error('timegleam plugin-manager: operation diagnostic delivery failed')
     })
   }
 

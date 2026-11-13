@@ -8,7 +8,7 @@
 
 /**
  * Leaf directory name of the first-use Workspace under
- * `<Documents>/huayu-ai`. Language-neutral, so one installation keeps
+ * `<Documents>/timegleam`. Language-neutral, so one installation keeps
  * one on-disk path across language switches. The registry derives the initial
  * title from this same segment, which is the title
  * {@link workspaceDisplayTitle} recognizes as automatic.

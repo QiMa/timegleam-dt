@@ -83,7 +83,7 @@
 ## Office unavailable
 
 - DOC, DOCX, PPT, PPTX viewer menus: 0 | 0 | 0 | 0
-- Guidance: Read failed: Office previews are unavailable. Enable the document preview service on the computer running Huayu AI.
+- Guidance: Read failed: Office previews are unavailable. Enable the document preview service on the computer running 拾光 TimeGleam.
 - Binary text shown: false
 - Plain-text option and viewer picker: hidden
 

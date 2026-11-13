@@ -1,13 +1,13 @@
-import { BrandWordmark, FishLogo } from '@hy/dsh-client-ui-primitives'
+import { BrandWordmark, TimeGleamMark } from '@hy/dsh-client-ui-primitives'
 import type { SidebarBrandMarkOwnerProps } from '@hy/dsh-client-ui-sidebar/client'
 
 /**
  * Render the official mark with the presentation requested by its host surface.
  * @param props - Host-supplied mark presentation.
- * @returns the official Huayu mark.
+ * @returns the official TimeGleam mark.
  */
 export function OfficialBrandMark({ size }: SidebarBrandMarkOwnerProps) {
-  return <FishLogo size={size} />
+  return <TimeGleamMark size={size} />
 }
 
 /**

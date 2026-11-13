@@ -1,5 +1,5 @@
 /**
- * Windows ACL write-restriction sandbox backend for the Huayu AI
+ * Windows ACL write-restriction sandbox backend for the TimeGleam
  * sandbox seam. Mirrors the mechanism of github.com/huoyaoyuan/
  * windows-acl-restrict-poc @ 10e4dfb (the fixed revision): a WRITE_RESTRICTED
  * token whose restricting SIDs include distinct workspace and temp write

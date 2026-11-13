@@ -2,33 +2,33 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write README.md
-/huayu-ai:
-  en: b5715959b73bf0ce
-  zh: 4269ffcdc2156029
-/huayu-ai/developer-preview:
-  en: 089d385b7906a373
-  zh: 96b3a88b978d4fcb
-/huayu-ai/run:
+/timegleam:
+  en: 5ada90260f4f324b
+  zh: 72d5aad6c7ae0cf7
+/timegleam/developer-preview:
+  en: e7c82f3066a5125d
+  zh: 448e3d1dcdc958e1
+/timegleam/run:
   en: 4e0248e4c6474fc6
   zh: eb2fb8d78c7d6bc0
-/huayu-ai/run/run-from-npm:
+/timegleam/run/run-from-npm:
   en: e22005cd42e6cbad
   zh: 0f536f4208df1d60
-/huayu-ai/run/run-from-source:
+/timegleam/run/run-from-source:
   en: c8438e03edacd729
   zh: dbc4b363dd47d6cd
-/huayu-ai/community-and-support:
-  en: 0a223156a1f5f6e3
-  zh: ad1ce1c6989dda57
-/huayu-ai/contributing:
+/timegleam/community-and-support:
+  en: a08c612418c769dd
+  zh: ca66733b96c7cbb1
+/timegleam/contributing:
   en: cabc2d3e9f8898bd
   zh: 83b6d238bae29ce3
-/huayu-ai/development:
+/timegleam/development:
   en: 803ca2b11b497bed
   zh: 8b4071eb0e7783ef
-/huayu-ai/citation:
+/timegleam/citation:
   en: 6704e9e5a8d49a91
   zh: 85c9cdd8d56f8e9d
-/huayu-ai/license:
+/timegleam/license:
   en: 926995344fc1c72b
   zh: c92fab5abf85932f

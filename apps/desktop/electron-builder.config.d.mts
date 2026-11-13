@@ -5,7 +5,10 @@ export interface DesktopElectronBuilderConfig {
   readonly appId: string
   readonly copyright: string
   readonly artifactName: string
-  readonly protocols: readonly [{ readonly name: 'Huayu AI'; readonly schemes: readonly ['dsh'] }]
+  readonly protocols: readonly [
+    { readonly name: 'TimeGleam'; readonly schemes: readonly ['timegleam'] },
+    { readonly name: 'TimeGleam'; readonly schemes: readonly ['dsh'] },
+  ]
   readonly directories: {
     readonly output: string
   }

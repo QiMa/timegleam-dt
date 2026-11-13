@@ -138,7 +138,7 @@ export default class PluginMarket extends TypertRemoteService {
     const cacheDir = profile === undefined
       ? config.detailCacheDir
       : resolve(profile.dir, config.detailCacheDir ?? join('.plugin-market', 'repositories'))
-    if (cacheDir === undefined || !isAbsolute(cacheDir)) throw new Error('plugin-market: detailCacheDir must be an absolute path when the service runs without a dsh profile')
+    if (cacheDir === undefined || !isAbsolute(cacheDir)) throw new Error('plugin-market: detailCacheDir must be an absolute path when the service runs without a TimeGleam profile')
     const lifetime = this.lifetime.signal
     this.repositories = new RepositoryCache({
       dir: cacheDir, maxRepositoryBytes: config.detailRepositoryMaxBytes, maxCacheBytes: config.detailCacheMaxBytes,

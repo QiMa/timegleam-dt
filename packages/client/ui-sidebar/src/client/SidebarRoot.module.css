@@ -37,7 +37,7 @@
 
 /* Rail geometry (figma rail spec): 36x36 control boxes centered in the 56px
    rail (10px side padding), 12px vertical rhythm, 18px from the rail top to
-   the mark's box (24px to the 24-wide Huayu glyph itself). */
+   the mark's box (24px to the 24-wide TimeGleam glyph itself). */
 .root.collapsed {
   padding: 18px 10px 6px;
 }
@@ -370,7 +370,7 @@
   border-radius: var(--dsw-radius-md);
 }
 
-/* Rail logo swap: collapsed, the toggle rests as the Huayu mark (brand ink,
+/* Rail logo swap: collapsed, the toggle rests as the TimeGleam mark (brand ink,
    no hover circle) and hovering reveals the panel icon — the expand
    affordance (figma sidebar-hover flow). Expanded it is a plain panel icon. */
 .collapsed .toggle .panelIcon {

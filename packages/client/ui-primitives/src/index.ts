@@ -52,8 +52,11 @@ export { RiskConfirmation } from './RiskConfirmation.tsx'
 export type { RiskConfirmationProps } from './RiskConfirmation.tsx'
 export { ConnectionIndicator } from './ConnectionIndicator.tsx'
 export type { ConnectionIndicatorState } from './ConnectionIndicator.tsx'
-export { FishLogo, FISH_LOGO_VIEWBOX } from './FishLogo.tsx'
-export { HUAYU_LOGO_DATA_URI } from './BrandAssets.ts'
+export { TimeGleamMark } from './BrandMark.tsx'
+export {
+  TIMEGLEAM_BRAND_COLOR, TIMEGLEAM_GLYPH_PATH, TIMEGLEAM_MARK_VIEWBOX,
+  TIMEGLEAM_TILE_COLOR, TIMEGLEAM_WORDMARK_ASPECT,
+} from './BrandAssets.ts'
 export { BrandWordmark } from './BrandWordmark.tsx'
 export type { BrandWordmarkProps } from './BrandWordmark.tsx'
 export {

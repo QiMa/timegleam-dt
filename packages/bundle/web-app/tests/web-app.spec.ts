@@ -128,21 +128,17 @@ describe('web-app runtime glue', () => {
     apply(ctx, new Config({ openBrowser: true, printUrl: true, surfaceContext: true }))
     await vi.waitFor(() => { expect(openBrowser).toHaveBeenCalled() })
 
-    expect(log).toHaveBeenCalledWith('hy web: http://127.0.0.1:4567/?token=test-token')
-    expect(log).toHaveBeenCalledWith('hy web: opening the default browser; pass --no-open to disable')
+    expect(log).toHaveBeenCalledWith('timegleam web: http://127.0.0.1:4567/?token=test-token')
+    expect(log).toHaveBeenCalledWith('timegleam web: opening the default browser; pass --no-open to disable')
     expect(openBrowser).toHaveBeenCalledWith('http://127.0.0.1:4567/?token=test-token')
     expect(lifecycle).toEqual([
-      'hy web: http://127.0.0.1:4567/?token=test-token',
-      'hy web: opening the default browser; pass --no-open to disable',
+      'timegleam web: http://127.0.0.1:4567/?token=test-token',
+      'timegleam web: opening the default browser; pass --no-open to disable',
       'open:http://127.0.0.1:4567/?token=test-token',
     ])
-    const assembly = await ctx.systemPrompt.assemble()
-    expect(assembly.sections.find(entry => entry.name === 'harness:source')?.text).toContain('Huayu AI implementation checkout')
-    const section = assembly.sections.find(entry => entry.name === 'app:web-surface')
-    expect(section?.text).toContain('http://127.0.0.1:4567')
-    // The single update contract: the receiver is always on; no-refresh
-    // reloads additionally need the rebuild watcher.
-    expect(section?.text).toContain('pnpm run dev:web')
+    // The `harness:source` and `app:web-surface` sections belong to
+    // `dsh-app-boot` and `dsh-harness-dev-context`; their suites assert the
+    // published URL reaches the prompt, and this bundle only has to advertise it.
     const webRuntime = contributions.find(contribution => contribution.name === 'web-runtime')
     expect(webRuntime?.resolve()).toEqual({ DSH_WEB_URL: 'http://127.0.0.1:4567' })
     expect(ctx.webApp.getAdvertisedUrl()).toBe('http://127.0.0.1:4567')
@@ -176,8 +172,8 @@ describe('web-app runtime glue', () => {
     await vi.waitFor(() => { expect(openBrowser).toHaveBeenCalled() })
 
     expect(lifecycle).toEqual([
-      'hy web: https://proxy.example:8443/web/?token=test-token',
-      'hy web: opening the default browser; pass --no-open to disable',
+      'timegleam web: https://proxy.example:8443/web/?token=test-token',
+      'timegleam web: opening the default browser; pass --no-open to disable',
       'open:https://proxy.example:8443/web/?token=test-token',
     ])
     const urlContribution = contributions.find(contribution => contribution.name === 'web-runtime')
@@ -237,7 +233,7 @@ describe('web-app runtime glue', () => {
     const openBrowser = vi.fn(async () => {})
     internals.openBrowser = openBrowser
     apply(ctx, new Config({ openBrowser: false, printUrl: true, surfaceContext: true }))
-    await vi.waitFor(() => { expect(log).toHaveBeenCalledWith(`hy web: http://${printed}:4567/?token=test-token`) })
+    await vi.waitFor(() => { expect(log).toHaveBeenCalledWith(`timegleam web: http://${printed}:4567/?token=test-token`) })
     expect(warn).not.toHaveBeenCalled()
     expect(openBrowser).not.toHaveBeenCalled()
   })
@@ -264,9 +260,9 @@ describe('web-app runtime glue', () => {
     // root names the bind address; startup warns that the port is plain HTTP.
     expect(warn).toHaveBeenCalledTimes(1)
     expect(warn).toHaveBeenCalledWith(
-      `hy web: listening on ${bind} over plain HTTP; restrict this port to a trusted proxy or network`,
+      `timegleam web: listening on ${bind} over plain HTTP; restrict this port to a trusted proxy or network`,
     )
-    expect(log).toHaveBeenCalledWith(`hy web: http://${printed}:4567/?token=test-token`)
+    expect(log).toHaveBeenCalledWith(`timegleam web: http://${printed}:4567/?token=test-token`)
     expect(openBrowser).toHaveBeenCalledWith(`http://${printed}:4567/?token=test-token`)
   })
 
@@ -284,7 +280,7 @@ describe('web-app runtime glue', () => {
     apply(ctx, new Config({ openBrowser: false, printUrl: true, surfaceContext: false }))
     await vi.waitFor(() => { expect(log).toHaveBeenCalled() })
 
-    expect(log).toHaveBeenCalledWith('hy web: http://[::1]:4567/?token=test-token')
+    expect(log).toHaveBeenCalledWith('timegleam web: http://[::1]:4567/?token=test-token')
   })
 
   it.each(['fe80::1%lo', '::127.0.0.1%lo'])('refuses its own activation when %s carries an interface zone id', async (bind) => {
@@ -309,7 +305,7 @@ describe('web-app runtime glue', () => {
       openBrowser: false, printUrl: true, surfaceContext: false, publicUrl: 'https://app.example/ui/',
     }))
     await vi.waitFor(() => { expect(log).toHaveBeenCalled() })
-    expect(log).toHaveBeenCalledWith('hy web: https://app.example/ui/?token=test-token')
+    expect(log).toHaveBeenCalledWith('timegleam web: https://app.example/ui/?token=test-token')
   })
 
 
@@ -339,7 +335,7 @@ describe('web-app runtime glue', () => {
     provideConnection(ctx)
     const log = vi.spyOn(console, 'log').mockImplementation(() => {})
     apply(ctx, new Config({ openBrowser: false, printUrl: true, surfaceContext: false, publicUrl: null as never }))
-    await vi.waitFor(() => { expect(log).toHaveBeenCalledWith('hy web: http://127.0.0.1:4567/?token=test-token') })
+    await vi.waitFor(() => { expect(log).toHaveBeenCalledWith('timegleam web: http://127.0.0.1:4567/?token=test-token') })
   })
 
   it.each([
@@ -356,7 +352,7 @@ describe('web-app runtime glue', () => {
     internals.openBrowser = openBrowser
     apply(ctx, new Config({ openBrowser: true, printUrl: true, surfaceContext: false }))
     await new Promise(resolve => setTimeout(resolve, 0))
-    expect(log).toHaveBeenCalledWith('hy web: http://127.0.0.1:4567/?token=test-token')
+    expect(log).toHaveBeenCalledWith('timegleam web: http://127.0.0.1:4567/?token=test-token')
     expect(openBrowser).not.toHaveBeenCalled()
     await ctx.fiber.dispose()
   })
@@ -380,7 +376,7 @@ describe('web-app runtime glue', () => {
     expect(openBrowser).not.toHaveBeenCalled()
     release!()
     await new Promise(resolve => setTimeout(resolve, 0))
-    expect(log).toHaveBeenCalledWith('hy web: http://127.0.0.1:4567/?token=test-token')
+    expect(log).toHaveBeenCalledWith('timegleam web: http://127.0.0.1:4567/?token=test-token')
     expect(openBrowser).toHaveBeenCalledWith('http://127.0.0.1:4567/?token=test-token')
     await settled.fiber.dispose()
 
@@ -446,7 +442,7 @@ describe('web-app runtime glue', () => {
     await vi.waitFor(() => { expect(audit).toHaveBeenCalledOnce() })
     await Promise.allSettled(audit.mock.results.map(result => result.value as Promise<void>))
     if (announces) {
-      expect(log).toHaveBeenCalledWith('hy web: http://127.0.0.1:4567/?token=test-token')
+      expect(log).toHaveBeenCalledWith('timegleam web: http://127.0.0.1:4567/?token=test-token')
       expect(openBrowser).toHaveBeenCalledWith('http://127.0.0.1:4567/?token=test-token')
     } else {
       expect(log).not.toHaveBeenCalled()
@@ -475,9 +471,9 @@ describe('web-app runtime glue', () => {
     const diagnostic = vi.spyOn(console, 'error').mockImplementation(() => {})
     apply(ctx, new Config({ openBrowser: true, printUrl: false, surfaceContext: false }))
     await new Promise(resolve => setTimeout(resolve, 0))
-    expect(log).toHaveBeenCalledWith('hy web: opening the default browser; pass --no-open to disable')
+    expect(log).toHaveBeenCalledWith('timegleam web: opening the default browser; pass --no-open to disable')
     expect(diagnostic).toHaveBeenCalledWith(
-      `web-app: could not open the default browser because ${reason}; use the hy web URL printed at startup`,
+      `web-app: could not open the default browser because ${reason}; use the timegleam web URL printed at startup`,
     )
     expect(ctx.get('webServer')).toBeDefined()
     await ctx.fiber.dispose()
@@ -502,6 +498,7 @@ describe('web-app runtime glue', () => {
     expect(options?.env).not.toHaveProperty('DSH_HOME')
     expect(options?.env?.PATH).toBe(process.env.PATH)
     expect(options?.stdio).toEqual(['ignore', 'inherit', 'pipe'])
+    expect(options?.windowsHide).toBe(true)
     completed.emit('close', 0)
     await expect(completion).resolves.toBeUndefined()
     expect(completed.listenerCount('error')).toBe(0)

@@ -1,5 +1,5 @@
 ---
-description: "Slot registry pure core for the hy web client: ordinary extension slots, reusable Component Factories, derived props types, store seats, and the renderer install contract."
+description: "Slot registry pure core for the timegleam web client: ordinary extension slots, reusable Component Factories, derived props types, store seats, and the renderer install contract."
 kind: "package-library"
 ---
 

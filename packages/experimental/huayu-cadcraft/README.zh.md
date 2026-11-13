@@ -1,5 +1,5 @@
 ---
-description: "把 CADCraft 网页绘图引擎作为可安装插件嵌入 Huayu AI 右边栏。"
+description: "把 CADCraft 网页绘图引擎作为可安装插件嵌入 拾光 TimeGleam 右边栏。"
 kind: "package-bundle"
 ---
 
@@ -24,7 +24,7 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用本包
 
-通过插件管理器安装本插件。桌面端在首次启动且尚未安装时，会从 `https://lanhc.com/lanhc/plugins` 的 Huayu 插件源自动安装；Web 端可在 **Plugins** 页面安装打包好的 tarball，再在 **Experimental plugins** 下开启 **CADCraft**。
+通过插件管理器安装本插件。桌面端在首次启动且尚未安装时，会从 `https://lanhc.com/lanhc/plugins` 的拾光 TimeGleam 插件源自动安装；Web 端可在 **Plugins** 页面安装打包好的 tarball，再在 **Experimental plugins** 下开启 **CADCraft**。
 
 启用后右边栏出现 CADCraft 入口，打开即在 `/cadcraft` 下加载引擎。聊天可通过 Creator 模式动态桥驱动绘图，每张图纸保存到对应项目目录旁。
 
@@ -63,6 +63,6 @@ kind: "package-bundle"
 <details>
 <summary>维护者上下文——点击展开</summary>
 
-本包由兄弟仓库 `huayu-extension` 迁移而来。`assets/web/` 下的 WASM 产物来自 CADCraft 的 web 构建。
+本包由兄弟仓库的 CADCraft 扩展迁移而来。`assets/web/` 下的 WASM 产物来自 CADCraft 的 web 构建。
 
 </details>

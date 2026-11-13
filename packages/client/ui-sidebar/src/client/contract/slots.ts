@@ -32,7 +32,7 @@ declare module '@hy/dsh-client-ui-slots' {
     /**
      * Brand mark rendered in the expanded brand row and collapsed rail.
      * Declared by this package's `sidebar` entry; deployments may replace
-     * the shell's Huayu mark fallback without replacing the surrounding controls.
+     * the shell's TimeGleam mark fallback without replacing the surrounding controls.
      */
     'sidebar.brand.mark': { kind: 'single'; scope: 'root'; owner: SidebarBrandMarkOwnerProps }
     /**

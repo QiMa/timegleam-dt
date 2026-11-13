@@ -1,9 +1,11 @@
-import type { AccountView, SignInAttemptId } from '@hy/dsh-deepseek-account/types'
 /** Localized welcome copy and write-only credential actions. */
 
 import { contextBridge, ipcRenderer } from 'electron'
 import { resolveDesktopLocale } from './locale.ts'
-import { WELCOME_IPC, type WelcomeApi, type WelcomeNotice, type WelcomeSaveResult } from './welcome-api.ts'
+import {
+  WELCOME_IPC, type WelcomeApi, type WelcomeLoginState, type WelcomeNotice, type WelcomeSaveResult,
+  type WelcomeSignInResult,
+} from './welcome-api.ts'
 
 const prefix = '--dsh-welcome-locale='
 const locale = process.argv.find(argument => argument.startsWith(prefix))?.slice(prefix.length)
@@ -17,15 +19,16 @@ const api: WelcomeApi = {
   },
   analyticsEnabled: () => ipcRenderer.invoke(WELCOME_IPC.analyticsEnabled) as Promise<boolean>,
   takeNotice: () => ipcRenderer.invoke(WELCOME_IPC.takeNotice) as Promise<WelcomeNotice | undefined>,
-  startSignIn: () => ipcRenderer.invoke(WELCOME_IPC.start) as Promise<AccountView>,
-  cancelSignIn: (id: SignInAttemptId) => ipcRenderer.invoke(WELCOME_IPC.cancel, id) as Promise<AccountView>,
-  copySignInLink: (id: SignInAttemptId) => ipcRenderer.invoke(WELCOME_IPC.copyLink, id) as Promise<void>,
-  onAccountState: (listener) => {
-    const receive = (_event: Electron.IpcRendererEvent, state: AccountView): void =>{  listener(state) }
-    ipcRenderer.on(WELCOME_IPC.state, receive)
-    return () => { ipcRenderer.removeListener(WELCOME_IPC.state, receive) }
-  },
   saveApiKey: (value: string) => ipcRenderer.invoke(WELCOME_IPC.saveApiKey, value) as Promise<WelcomeSaveResult>,
+  openConsole: () => ipcRenderer.invoke(WELCOME_IPC.openConsole) as Promise<void>,
+  signIn: () => ipcRenderer.invoke(WELCOME_IPC.signIn) as Promise<WelcomeSignInResult>,
+  cancelSignIn: () => ipcRenderer.invoke(WELCOME_IPC.cancelSignIn) as Promise<void>,
+  copySignInLink: () => ipcRenderer.invoke(WELCOME_IPC.copySignInLink) as Promise<void>,
+  onLoginState: (listener) => {
+    const receive = (_event: Electron.IpcRendererEvent, state: WelcomeLoginState): void => { listener(state) }
+    ipcRenderer.on(WELCOME_IPC.loginState, receive)
+    return () => { ipcRenderer.removeListener(WELCOME_IPC.loginState, receive) }
+  },
   skip: () => ipcRenderer.invoke(WELCOME_IPC.skip) as Promise<void>,
 }
 contextBridge.exposeInMainWorld('dshWelcome', api)

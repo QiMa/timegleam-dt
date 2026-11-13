@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import type { ReactNode, RefObject } from 'react'
 import {
-  FishLogo, IconChevronDownOutlineRegular, IconFolderCloseRegular, IconFolderOpenRegular,
+  TimeGleamMark, IconChevronDownOutlineRegular, IconFolderCloseRegular, IconFolderOpenRegular,
 } from '@hy/dsh-client-ui-primitives'
 import { workspaceTitleOf } from '@hy/dsh-util-workspace-path'
 import type { ConversationContentProps } from '../contract/slots.ts'
@@ -80,7 +80,7 @@ export interface HeroShellProps {
  * @returns the mark svg element.
  */
 function HeroMark() {
-  return <FishLogo size={34} className={css.fish} />
+  return <TimeGleamMark size={34} className={css.fish} />
 }
 
 /**

@@ -2,7 +2,7 @@
 
 English | [中文](huayu-memory-architecture.zh.md)
 
-Persistent memory for Huayu AI agents, backed by the huayu-memory service. Two plugins cooperate across a session: `@hy/dsh-tool-memory` gives the model explicit `memory_search` and `memory_save` tools, and `@hy/dsh-memory-context` hooks the agent lifecycle so recalled memories are injected before the first step of a turn and turn conversations are refined into memories when a session is disposed.
+Persistent memory for TimeGleam agents, backed by the huayu-memory service. Two plugins cooperate across a session: `@hy/dsh-tool-memory` gives the model explicit `memory_search` and `memory_save` tools, and `@hy/dsh-memory-context` hooks the agent lifecycle so recalled memories are injected before the first step of a turn and turn conversations are refined into memories when a session is disposed.
 
 ## Components
 

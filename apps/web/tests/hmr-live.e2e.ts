@@ -1,4 +1,4 @@
-/** Built hy web + the `pnpm run dev:web --no-serve` watchers → browser HMR, with no page reload. */
+/** Built timegleam web + the `pnpm run dev:web --no-serve` watchers → browser HMR, with no page reload. */
 
 import { existsSync, globSync, statSync } from 'node:fs'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
@@ -88,7 +88,7 @@ it('hot-reloads a real client-plugin source edit without refreshing the page', a
   const world = await mkdtemp(join(tmpdir(), 'dsh-web-hmr-world-'))
   const sourcePath = join(REPO_ROOT, 'packages/client/ui-conversation/src/client/locales.ts')
   const binPath = join(REPO_ROOT, 'apps/cli/lib/bin.js')
-  if (!existsSync(binPath)) throw new Error('HMR browser test needs the built dsh bin; run pnpm run build first')
+  if (!existsSync(binPath)) throw new Error('HMR browser test needs the built timegleam bin; run pnpm run build first')
   const clientBuildEnvironment = readClientBuildRecord(REPO_ROOT).environment
   const originalClientArtifacts = await Promise.all(clientArtifactPaths()
     .map(async path => [path, await readFile(path)] as const))
@@ -108,7 +108,7 @@ it('hot-reloads a real client-plugin source edit without refreshing the page', a
   const failures: unknown[] = []
   try {
     subprocessFiber = await subprocessCtx.plugin(LocalSubprocessRuntime)
-    // Watchers only: the built `hy web` below is the server under test, and the
+    // Watchers only: the built `timegleam web` below is the server under test, and the
     // built tree is this lane's precondition rather than something to rebuild.
     watcher = subprocessCtx.subprocess.spawn(spawnSpec(
       ['pnpm', 'run', 'dev:web', '--skip-build', '--no-serve'],
@@ -124,7 +124,7 @@ it('hot-reloads a real client-plugin source edit without refreshing the page', a
         DSH_HOME: join(world, '.huayu'),
       },
     ))
-    const baseUrl = await waitForOutput(host, /hy web: (http:\/\/[^\s]+)/, 'built dsh web')
+    const baseUrl = await waitForOutput(host, /timegleam web: (http:\/\/[^\s]+)/, 'built timegleam web')
     browser = await chromium.launch()
     const page = await browser.newPage()
     const pageErrors: string[] = []

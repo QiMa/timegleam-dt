@@ -3,96 +3,83 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { Toast } from '@hy/dsh-client-ui-primitives/src/Toast.tsx'
 import { StateDot } from '@hy/dsh-client-ui-primitives/src/StateDot.tsx'
-import type { AccountView } from '@hy/dsh-deepseek-account/types'
-import type { WelcomeApi } from '../welcome-api.ts'
+import type { WelcomeApi, WelcomeLoginState, WelcomeSignInResult } from '../welcome-api.ts'
+import { TIMEGLEAM_TOKEN_PATTERN } from '../timegleam.ts'
 
 type Page = 'entry' | 'key' | 'account'
 
+/** Approval status the account page renders. */
+type SignInPhase = 'starting' | 'waiting' | 'failed' | 'expired'
+
+/** Human-readable reason a failed attempt stopped. */
+function failureCopy(api: WelcomeApi, reason: Extract<WelcomeSignInResult, { ok: false }>['reason']): string {
+  const m = api.messages
+  return reason === 'invalid' ? m.welcomeKeyRejected
+    : reason === 'unreachable' ? m.welcomeKeyUnreachable
+      : m.welcomeAuthFailed
+}
+
 /**
- * Render the standalone welcome flow using shell-owned operations and localized copy.
- * Clearing the account attempt returns the sign-in status page to the initial choices.
- * @param props.api - isolated preload API; no account credentials reach the renderer.
+ * Render the standalone TimeGleam welcome flow using shell-owned operations
+ * and localized copy. No credential value ever reaches the renderer's state
+ * after the write completes.
+ * @param props.api - isolated preload API; the key is write-only.
  * @returns welcome pages with fixed bottom actions.
  */
 export function Welcome({ api }: { api: WelcomeApi }) {
   const { messages: m } = api
   const [expiryNotice, setExpiryNotice] = useState(false)
   const [page, setPage] = useState<Page>('entry')
-  const pageRef = useRef<Page>('entry')
-  const visiblePage = useRef<Page>('entry')
-  const [attempt, setAttempt] = useState<AccountView['attempt']>(null)
-  const attemptRef = useRef<AccountView['attempt']>(null)
-  const [starting, setStarting] = useState(false)
-  const [cancelling, setCancelling] = useState(false)
-  const [copyFeedback, setCopyFeedback] = useState<{ status: 'idle' | 'busy' | 'copied' | 'failed' }>({ status: 'idle' })
-  const copyState = copyFeedback.status
+  const [phase, setPhase] = useState<SignInPhase>('starting')
+  const [login, setLogin] = useState<WelcomeLoginState | undefined>(undefined)
+  const [copy, setCopy] = useState<'idle' | 'copied' | 'failed'>('idle')
   const [draft, setDraft] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const busyRef = useRef(false)
   const mounted = useRef(true)
-  const revision = useRef(0)
+  const signInRun = useRef(0)
   const input = useRef<HTMLInputElement>(null)
   const keyButton = useRef<HTMLButtonElement>(null)
   const focusEntry = useRef(false)
-
-  function navigate(next: Page) {
-    pageRef.current = next
-    setPage(next)
-  }
-  function showAccount(state: AccountView) {
-    if (pageRef.current === 'key' || (state.attempt === null && pageRef.current === 'entry')) return
-    attemptRef.current = state.attempt
-    setAttempt(state.attempt)
-    setStarting(false)
-    setCopyFeedback({ status: 'idle' })
-    navigate(state.attempt === null || state.attempt.phase === 'cancelled' ? 'entry' : 'account')
-  }
 
   useEffect(() => {
     mounted.current = true
     document.documentElement.lang = api.id
     document.title = m.welcomeTitle
-    const takeNotice = (): void => {
-      void api.takeNotice().then((notice) => {
-        if (mounted.current && notice === 'session-expired') setExpiryNotice(true)
-      }).catch((_closedChannel: unknown) => {
-        // A closed Welcome IPC channel must not interrupt the sign-in page.
-      })
-    }
-    takeNotice()
-    const stop = api.onAccountState((state) => {
-      revision.current++
-      takeNotice()
-      showAccount(state)
+    void api.takeNotice().then((notice) => {
+      if (mounted.current && notice === 'session-expired') setExpiryNotice(true)
+    }).catch((_closedChannel: unknown) => {
+      // A closed Welcome IPC channel must not interrupt the form.
+    })
+    const stop = api.onLoginState((state) => {
+      if (!mounted.current) return
+      setLogin(state)
+      setPhase('waiting')
     })
     return () => { mounted.current = false; stop() }
   }, [api, m.welcomeTitle])
 
   useEffect(() => {
-    if (page === 'entry' && visiblePage.current !== 'entry') void api.analytics?.('auth_page_view', {})
-    visiblePage.current = page
     if (page === 'key') input.current?.focus()
-    else if (page === 'entry' && focusEntry.current) {
+    else if (focusEntry.current) {
       focusEntry.current = false
       keyButton.current?.focus()
     }
   }, [page, api])
-
-  useEffect(() => {
-    if (copyState !== 'copied' && copyState !== 'failed') return
-    const timer = setTimeout(() => { setCopyFeedback({ status: 'idle' }) }, 2000)
-    return () => { clearTimeout(timer) }
-  }, [copyFeedback])
 
   async function saveKey(event: FormEvent) {
     event.preventDefault()
     if (busyRef.current) return
     void api.analytics?.('api_key_save_click', {})
     const value = draft.trim()
-    if (!/^[\x21-\x7e]+$/.test(value) || /^[A-Z][A-Z0-9_]*=[^=]/.test(value)
-      || ((value.startsWith('"') || value.startsWith("'") || value.charCodeAt(0) === 96) && value.at(-1) === value[0])) {
-      setError(value === '' ? m.welcomeKeyBlank : m.welcomeKeyInvalid)
+    if (value === '') {
+      setError(m.welcomeKeyBlank)
+      input.current?.focus()
+      return
+    }
+    if (api.enterprise ? !/^[\x21-\x7e]+$/.test(value) : !TIMEGLEAM_TOKEN_PATTERN.test(value)) {
+      setError(m.welcomeKeyInvalid)
       input.current?.focus()
       return
     }
@@ -103,12 +90,66 @@ export function Welcome({ api }: { api: WelcomeApi }) {
       const result = await api.saveApiKey(value)
       if (!mounted.current) return
       if (result.ok) setDraft('')
-      else setError(m.welcomeKeyFailed)
+      else setError(result.reason === 'invalid' ? m.welcomeKeyRejected
+        : result.reason === 'unreachable' ? m.welcomeKeyUnreachable : m.welcomeKeyFailed)
     } catch {
       if (mounted.current) setError(m.welcomeKeyFailed)
     } finally {
       busyRef.current = false
       if (mounted.current) setBusy(false)
+    }
+  }
+  async function openConsole() {
+    try {
+      await api.openConsole()
+    } catch {
+      if (mounted.current) setError(m.welcomeConsoleFailed)
+    }
+  }
+  async function signIn() {
+    const run = ++signInRun.current
+    setLogin(undefined)
+    setCopy('idle')
+    setError('')
+    setPhase('starting')
+    setPage('account')
+    try {
+      const result = await api.signIn()
+      if (!mounted.current || signInRun.current !== run) return
+      if (result.ok) return
+      if (result.reason === 'cancelled') {
+        setPage('entry')
+        return
+      }
+      // An expired attempt already reads as a timeout; the description carries
+      // the next step, so repeating it as an error would say it twice.
+      setPhase(result.reason === 'expired' ? 'expired' : 'failed')
+      setError(result.reason === 'expired' ? '' : failureCopy(api, result.reason))
+    } catch {
+      if (mounted.current && signInRun.current === run) {
+        setPhase('failed')
+        setError(m.welcomeAuthFailed)
+      }
+    }
+  }
+  async function cancelSignIn() {
+    signInRun.current++
+    try {
+      await api.cancelSignIn()
+    } catch {
+      // The Host drops the attempt when the window closes anyway.
+    }
+    if (!mounted.current) return
+    setLogin(undefined)
+    setCopy('idle')
+    setPage('entry')
+  }
+  async function copyLink() {
+    try {
+      await api.copySignInLink()
+      if (mounted.current) setCopy('copied')
+    } catch {
+      if (mounted.current) setCopy('failed')
     }
   }
   async function skip() {
@@ -125,51 +166,13 @@ export function Welcome({ api }: { api: WelcomeApi }) {
       if (mounted.current) setBusy(false)
     }
   }
-  async function start() {
-    navigate('account')
-    setStarting(true)
-    setAttempt(null)
-    attemptRef.current = null
-    const current = ++revision.current
-    try {
-      const state = await api.startSignIn()
-      if (mounted.current && revision.current === current) showAccount(state)
-    } catch {
-      if (mounted.current && revision.current === current) setStarting(false)
-    }
-  }
-  async function cancel() {
-    if (cancelling || attemptRef.current === null) return
-    setCancelling(true)
-    const current = ++revision.current
-    try {
-      const state = await api.cancelSignIn(attemptRef.current.id)
-      if (mounted.current && revision.current === current) showAccount(state)
-    } catch {
-      // The current attempt remains visible so cancellation can be retried.
-    } finally {
-      if (mounted.current) setCancelling(false)
-    }
-  }
-  async function copyLink() {
-    const current = attemptRef.current
-    if (current?.phase !== 'waiting-browser' || (copyState === 'busy' || copyState === 'copied')) return
-    setCopyFeedback({ status: 'busy' })
-    try {
-      await api.copySignInLink(current.id)
-      if (mounted.current && attemptRef.current === current) setCopyFeedback({ status: 'copied' })
-    } catch {
-      if (mounted.current && attemptRef.current === current) setCopyFeedback({ status: 'failed' })
-    }
-  }
 
-  const phase = starting ? 'initializing' : attempt?.phase ?? 'failed'
-  const waiting = phase === 'waiting-browser'
-  const failed = phase === 'expired' || phase === 'failed'
-  const title = phase === 'initializing' ? m.welcomeAuthStarting
-    : waiting ? m.welcomeAuthWaiting : phase === 'expired' ? m.welcomeAuthExpired
-      : phase === 'failed' ? m.welcomeAuthFailed : m.welcomeAuthExchanging
   const heading = page === 'entry' ? 'welcome-heading' : page === 'key' ? 'key-title' : 'auth-status'
+  const waiting = page === 'account' && (phase === 'starting' || phase === 'waiting')
+  const retryable = page === 'account' && (phase === 'failed' || phase === 'expired')
+  const title = phase === 'starting' ? m.welcomeAuthStarting
+    : phase === 'waiting' ? m.welcomeAuthWaiting
+      : phase === 'expired' ? m.welcomeAuthExpired : m.welcomeAuthFailed
 
   return <>
     {expiryNotice && <Toast text={m.welcomeSessionExpired} onDone={() => { setExpiryNotice(false) }} />}
@@ -181,43 +184,62 @@ export function Welcome({ api }: { api: WelcomeApi }) {
         <p id="welcome-description">{m.welcomeDescription}</p>
       </div>
       <form id="key-form" className="key-form" hidden={page !== 'key'} noValidate onSubmit={(event) => { void saveKey(event) }} aria-busy={busy}>
-        <header className="key-heading"><h1 id="key-title">{m.welcomeKeyTitle}</h1><p id="key-description">{api.enterprise ? m.welcomeKeyEnterpriseDescription : m.welcomeKeyDescription}</p></header>
+        <header className="key-heading">
+          <h1 id="key-title">{m.welcomeKeyTitle}</h1>
+          <p id="key-description">{api.enterprise ? m.welcomeKeyEnterpriseDescription : m.welcomeKeyDescription}</p>
+          {!api.enterprise && <button id="open-console" className="copy-link" type="button" onClick={() => { void openConsole() }}>{m.welcomeOpenConsole}</button>}
+        </header>
         <div className="key-field">
           <label className="visually-hidden" htmlFor="key-input">{m.welcomeKeyPlaceholder}</label>
           <input ref={input} id="key-input" type="password" autoComplete="new-password" autoCapitalize="off" spellCheck={false} required
-            aria-describedby="key-description key-error" aria-invalid={error !== ''} placeholder={m.welcomeKeyPlaceholder}
+            aria-describedby="key-description key-hint key-error" aria-invalid={error !== ''} placeholder={m.welcomeKeyPlaceholder}
             value={draft} disabled={busy} onChange={(event) => { setDraft(event.target.value); setError('') }} />
+          <p id="key-hint" className="key-hint">{m.welcomeKeyModelHint}</p>
           <p id="key-error" className="key-error" role="alert" hidden={error === ''}>{error}</p>
         </div>
       </form>
-      <section id="auth-page" className={`key-heading ${waiting ? 'auth-waiting' : phase === 'expired' ? 'auth-expired' : ''}`}
+      <section id="auth-page" className={`key-heading ${phase === 'waiting' ? 'auth-waiting' : phase === 'expired' ? 'auth-expired' : ''}`}
         hidden={page !== 'account'} aria-live="polite">
         <h1 id="auth-status">{title}</h1>
-        <p id="auth-description" hidden={!waiting && phase !== 'expired'}>{waiting ? m.welcomeAuthWaitingDescription : m.welcomeAuthExpiredDescription}</p>
-        <button id="auth-copy" className="copy-link" type="button" hidden={!waiting} disabled={!waiting || (copyState === 'busy' || copyState === 'copied')} onClick={() => { void copyLink() }}>
-          {copyState === 'copied' ? m.welcomeAuthCopied : copyState === 'failed' ? m.welcomeAuthCopyFailed : m.welcomeAuthCopyLink}
+        <p id="auth-description" hidden={!waiting && phase !== 'expired'}>{phase === 'expired' ? m.welcomeAuthExpiredDescription : m.welcomeAuthWaitingDescription}</p>
+        <button id="auth-copy" className="copy-link" type="button" hidden={!waiting || login === undefined} onClick={() => { void copyLink() }}>
+          {copy === 'copied' ? m.welcomeAuthCopied : copy === 'failed' ? m.welcomeAuthCopyFailed : m.welcomeAuthCopyLink}
         </button>
+        <p id="auth-error" className="key-error" role="alert" hidden={error === ''}>{error}</p>
       </section>
+      <div id="entry-actions" className="actions" hidden={page !== 'entry'}>
+        {!api.enterprise && <button id="sign-in" className="primary" type="button" onClick={() => {
+          void api.analytics?.('auth_page_click', { button_name: 'sign_in' })
+          void signIn()
+        }}>{m.welcomeSignIn}</button>}
+        <button ref={keyButton} id="api-key" className={api.enterprise ? 'primary' : 'secondary'} type="button" onClick={() => {
+          void api.analytics?.('auth_page_click', { button_name: api.enterprise ? 'api-key' : 'sign_in' })
+          setError('')
+          setPage('key')
+        }}>{m.welcomeApiKey}</button>
+      </div>
       <div id="auth-actions" className="actions" hidden={page !== 'account'}>
-        <button id="auth-loading" className="primary" type="button" hidden={failed} disabled aria-label={m.welcomeAuthExchanging}>
+        <button id="auth-loading" className="primary" type="button" hidden={!waiting} disabled aria-label={phase === 'starting' ? m.welcomeAuthStarting : m.welcomeAuthExchanging}>
           <StateDot state="ongoing" size={16} className="welcome-loading" />
         </button>
-        <button id="auth-retry" className="primary" type="button" hidden={!failed} onClick={() => { void api.analytics?.('auth_page_click', { button_name: 'sign_in' }); void start() }}>{m.welcomeAuthRetry}</button>
-        <button id="auth-api-key" className="secondary" type="button" hidden={!failed} onClick={() => { void api.analytics?.('auth_page_click', { button_name: 'api-key' }); navigate('key') }}>{m.welcomeApiKey}</button>
-        <button id="auth-cancel" className="secondary" type="button" hidden={failed}
-          disabled={cancelling || phase === 'committing' || phase === 'succeeded' || (phase === 'initializing' && !attempt?.id)}
-          onClick={() => { void cancel() }}>{m.welcomeAuthCancel}</button>
-      </div>
-      <div id="entry-actions" className="actions" hidden={page !== 'entry'}>
-        <button id="sign-in" className="primary" type="button" hidden={api.enterprise} onClick={() => { void api.analytics?.('auth_page_click', { button_name: 'sign_in' }); void start() }}>{m.welcomeSignIn}</button>
-        <button ref={keyButton} id="api-key" className={api.enterprise ? 'primary' : 'secondary'} type="button" onClick={() => { void api.analytics?.('auth_page_click', { button_name: 'api-key' }); navigate('key') }}>{m.welcomeApiKey}</button>
+        <button id="auth-retry" className="primary" type="button" hidden={!retryable} onClick={() => { void signIn() }}>{m.welcomeAuthRetry}</button>
+        <button id="auth-api-key" className="secondary" type="button" hidden={!retryable} onClick={() => {
+          setError(''); setPage('key')
+        }}>{m.welcomeApiKey}</button>
+        <button id="auth-cancel" className="secondary" type="button" hidden={!waiting} onClick={() => { void cancelSignIn() }}>{m.welcomeAuthCancel}</button>
+        <button id="auth-back" className="back" type="button" hidden={!retryable} onClick={() => {
+          setError(''); focusEntry.current = true; setPage('entry')
+        }}>{m.welcomeKeyBack}</button>
       </div>
       <div id="key-actions" className="actions" hidden={page !== 'key'}>
-        <button id="save-key" className="primary" type="submit" form="key-form" disabled={busy || draft.trim() === ''}>{m.welcomeKeySave}</button>
+        <button id="save-key" className="primary" type="submit" form="key-form" disabled={busy || draft.trim() === ''}>
+          {busy ? <StateDot state="ongoing" size={16} className="welcome-loading" /> : m.welcomeKeySave}
+        </button>
         <button id="skip-key" className="secondary" type="button" disabled={busy} onClick={() => { void skip() }}>{m.welcomeKeyLater}</button>
         <button id="back-to-login" className="back" type="button" disabled={busy} onClick={() => {
           if (busyRef.current) return
-          setDraft(''); setError(''); focusEntry.current = true; navigate('entry')
+          void api.analytics?.('auth_page_view', {})
+          setDraft(''); setError(''); focusEntry.current = true; setPage('entry')
         }}>{m.welcomeKeyBack}</button>
       </div>
     </main>

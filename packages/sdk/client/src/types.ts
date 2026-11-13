@@ -24,7 +24,7 @@ export type NotificationFilter = (notification: HarnessNotification) => boolean
 export interface HarnessClientOptions {
   /** Answer or dismiss runtime questions; observe the signal to release host work on runtime cancellation. */
   onUserQuestion?: (request: SdkUserQuestionRequest, context: { signal: AbortSignal }) => Promise<SdkUserQuestionResult>
-  /** Absolute or caller-relative dsh CLI module; omitted resolves this package's same-version dependency. */
+  /** Absolute or caller-relative TimeGleam CLI module; omitted resolves this package's same-version dependency. */
   dshBin?: string
   /** Named profile serving the SDK protocol (default `sdk`). */
   profile?: string

@@ -1,6 +1,6 @@
-- region "Welcome to Huayu AI":
-  - heading "Welcome to Huayu AI" [level=1]:
+- region "Welcome to TimeGleam":
+  - heading "Welcome to TimeGleam" [level=1]:
     - text: Welcome to
-    - emphasis: Huayu AI
-  - paragraph: Huayu AI works in a local folder and uses tools to read and write files on your computer. It can help you research and organize information, create documents and spreadsheets, write code, troubleshoot issues, and more.
+    - emphasis: TimeGleam
+  - paragraph: TimeGleam works in a local folder and uses tools to read and write files on your computer. It can help you research and organize information, create documents and spreadsheets, write code, troubleshoot issues, and more.
   - button "Get started"

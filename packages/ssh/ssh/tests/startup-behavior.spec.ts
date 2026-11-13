@@ -170,6 +170,14 @@ describe.skipIf(process.platform === 'win32')('SSH connection startup', () => {
     expect(await test.service.request('echo', { value: 42 }, z.object({ value: z.number() }))).toEqual({ value: 42 })
   })
 
+  it('hides both the helper and administrative console windows on Windows', async () => {
+    const test = setup()
+    await test.service.ready
+    await test.service.connectStream({ path: '/tmp/remote-helper/control', capability: 'b'.repeat(64) })
+    expect(transport.spawn.mock.calls[0]?.[2]).toMatchObject({ windowsHide: true })
+    expect(transport.exec.mock.calls[0]?.[2]).toMatchObject({ windowsHide: true })
+  })
+
   it('launches an executable directly and publishes its embedded PTC worker', async () => {
     const test = setup({
       config: { launch: { kind: 'executable' }, helper: '/remote/helper with spaces' },

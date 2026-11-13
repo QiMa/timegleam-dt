@@ -742,9 +742,9 @@ describe('workspace context instruction discovery', () => {
     const root = await tempRepo()
     const emptyHome = await tempRepo()
     // Isolate the default-home fallback: blank DSH_HOME is treated as unset, and
-    // the home dirs point at an empty dir so the default ~/.huayu holds no global
+    // the home dirs point at an empty dir so the default ~/.timegleam holds no global
     // scope. Windows homedir() reads USERPROFILE (not HOME), so both must be
-    // stubbed or a real ~/.huayu/AGENTS.md would otherwise leak in.
+    // stubbed or a real ~/.timegleam/AGENTS.md would otherwise leak in.
     vi.stubEnv('DSH_HOME', '')
     vi.stubEnv('HOME', emptyHome)
     if (process.platform === 'win32') vi.stubEnv('USERPROFILE', emptyHome)
@@ -875,11 +875,11 @@ describe('workspace context instruction discovery', () => {
     }
   })
 
-  it('labels the default DSH home as ~/.huayu when HOME points at the configured default', async () => {
+  it('labels the default DSH home as ~/.timegleam when HOME points at the configured default', async () => {
     const root = await tempRepo()
     const home = await tempRepo()
     try {
-      await write(join(home, '.huayu/AGENTS.md'), 'global default rule')
+      await write(join(home, '.timegleam/AGENTS.md'), 'global default rule')
 
       // A set DSH_HOME would override the homedir default and relabel the home.
       vi.stubEnv('DSH_HOME', '')
@@ -888,7 +888,7 @@ describe('workspace context instruction discovery', () => {
       const isolated = await import('@hy/dsh-agent-instructions')
       const files = await isolated.discoverBaselineInstructionFiles({ cwd: root })
 
-      expect(files.map(file => file.displayPath)).toEqual(['~/.huayu/AGENTS.md'])
+      expect(files.map(file => file.displayPath)).toEqual(['~/.timegleam/AGENTS.md'])
     } finally {
       vi.unstubAllEnvs()
       vi.doUnmock('node:os')
@@ -898,19 +898,19 @@ describe('workspace context instruction discovery', () => {
     }
   })
 
-  it('expands a ~/.huayu DSH_HOME to the operating-system home directory', async () => {
+  it('expands a ~/.timegleam DSH_HOME to the operating-system home directory', async () => {
     const root = await tempRepo()
     const home = await tempRepo()
     try {
-      await write(join(home, '.huayu/AGENTS.md'), 'global tilde rule')
+      await write(join(home, '.timegleam/AGENTS.md'), 'global tilde rule')
 
       vi.resetModules()
       vi.doMock('node:os', () => ({ homedir: () => home }))
       const isolated = await import('@hy/dsh-agent-instructions')
-      pinHarnessHome('~/.huayu')
+      pinHarnessHome('~/.timegleam')
       const files = await isolated.discoverBaselineInstructionFiles({ cwd: root })
 
-      expect(files).toEqual([{ absolutePath: join(home, '.huayu/AGENTS.md'), displayPath: '~/.huayu/AGENTS.md' }])
+      expect(files).toEqual([{ absolutePath: join(home, '.timegleam/AGENTS.md'), displayPath: '~/.timegleam/AGENTS.md' }])
     } finally {
       vi.unstubAllEnvs()
       vi.doUnmock('node:os')
@@ -4138,7 +4138,7 @@ describe('workspace context request injection', () => {
     }
   })
 
-  it('labels a custom DSH_HOME as $DSH_HOME instead of pretending it is ~/.huayu', async () => {
+  it('labels a custom DSH_HOME as $DSH_HOME instead of pretending it is ~/.timegleam', async () => {
     const root = await tempRepo()
     const home = await tempRepo()
     try {

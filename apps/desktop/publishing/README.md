@@ -55,19 +55,19 @@ Distribute each test batch through its complete download links. Installed test c
 AirGap is the in-network update repository for closed environments. Desktop publishes update feeds and installers directly to `/lucky/airgap/data/public` on baizor when `DSH_DESKTOP_AUTO_UPDATE_ENV=airgap`; clients override the baked-in feed with `DSH_DESKTOP_UPDATE_FEED_URL` and then check, download, and install fully offline.
 
 - Both packaging and upload read `AIRGAP_BASE_URL`, the AirGap public URL reachable from clients, including a base path such as `https://lanhc.com/lanhc/airgap`
-- Feeds land at `huayu-ai/dsh-desk/feeds/<target>/` and binaries at `huayu-ai/dsh-desk/bin/<target>/`; the whole tree is served by AirGap's `/repo/<path>`
-- Closed-network clients set `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/` (Windows x64), `/mac-arm64/`, or `/mac-x64/`, or the in-network `http://<airgap-host>:8001/repo/...`
+- Feeds land at `timegleam/dsh-desk/feeds/<target>/` and binaries at `timegleam/dsh-desk/bin/<target>/`; the whole tree is served by AirGap's `/repo/<path>`
+- Closed-network clients set `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/timegleam/dsh-desk/feeds/win-x64/` (Windows x64), `/mac-arm64/`, or `/mac-x64/`, or the in-network `http://<airgap-host>:8001/repo/...`
 - The `airgap` deployment embeds no mandatory-update policy and never calls the feishu/production policy services
-- `DSH_DESKTOP_EDITION=enterprise` switches the AirGap catalog from `huayu-ai` to `huayu-enterprise`, the separate enterprise distribution catalog, so enterprise builds never mix with the public feed
+- `DSH_DESKTOP_EDITION=enterprise` switches the AirGap catalog from `timegleam` to `timegleam-enterprise`, the separate enterprise distribution catalog, so enterprise builds never mix with the public feed
 - Cross-gap transport: pack a signed `.airgap` bundle on the online side with `/api/pack`, carry it across, then `/api/import` verifies the signature before merging
 
 **Build (online side)**
 
 ```sh
-# standard edition -> huayu-ai catalog
+# standard edition -> timegleam catalog
 DSH_DESKTOP_AUTO_UPDATE_ENV=airgap AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
 
-# enterprise edition -> huayu-enterprise catalog (never mixed with the public feed)
+# enterprise edition -> timegleam-enterprise catalog (never mixed with the public feed)
 DSH_DESKTOP_AUTO_UPDATE_ENV=airgap DSH_DESKTOP_EDITION=enterprise AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
 ```
 
@@ -77,27 +77,27 @@ Then publish with the same environment retained in the target dotenv:
 pnpm run upload:win:x64
 ```
 
-The uploader `scp`s artifacts to `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...` (standard) or `.../huayu-enterprise/dsh-desk/...` (enterprise). No COS credentials are required. Every non-latest publication also refreshes the fixed `huayu-ai-latest-<target>` installer plus its `.sha256` sidecar under the edition catalog root, which the `huayu-ai.ps1` / `huayu-ai.sh` one-line installers download and verify.
+The uploader `scp`s artifacts to `baizor:/lucky/airgap/data/public/timegleam/dsh-desk/...` (standard) or `.../timegleam-enterprise/dsh-desk/...` (enterprise). No COS credentials are required. Every non-latest publication also refreshes the fixed `timegleam-latest-<target>` installer plus its `.sha256` sidecar under the edition catalog root, which the catalog's one-line installer scripts download and verify. Those scripts are provisioned with the AirGap catalog, not generated here; they must read the pinned names this uploader writes (`timegleam-latest-win-x64.exe`, `timegleam-latest-macos-arm64.dmg`, `timegleam-latest-macos-x64.dmg`) and install into the `TimeGleam` application directory.
 
 **Client (closed-network side)**
 
 ```sh
-# PowerShell (enterprise edition: point at huayu-enterprise)
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/'
+# PowerShell (enterprise edition: point at timegleam-enterprise)
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/timegleam-enterprise/dsh-desk/feeds/win-x64/'
 # or in-network loopback (http is allowed only for 127.0.0.1/localhost)
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-enterprise/dsh-desk/feeds/win-x64/'
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/timegleam-enterprise/dsh-desk/feeds/win-x64/'
 ```
 
 ```sh
 # Linux
-export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/linux-x64/'
+export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/timegleam-enterprise/dsh-desk/feeds/linux-x64/'
 ```
 
 **Enterprise one-line install (fixed catalog installer)**
 
 ```sh
-# Windows: irm https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.ps1 | iex
-# Linux:   curl -fsSL https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.sh | sh
+# Windows: irm https://lanhc.com/lanhc/airgap/timegleam-enterprise/timegleam.ps1 | iex
+# Linux:   curl -fsSL https://lanhc.com/lanhc/airgap/timegleam-enterprise/timegleam.sh | sh
 ```
 
 <a id="publish-feeds"></a>

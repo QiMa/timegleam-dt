@@ -1,7 +1,7 @@
 /** Build one release target with matching Electron and dsh architecture. */
 
 import { spawn } from 'node:child_process'
-import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
 import { join, resolve } from 'node:path'
 import {
@@ -19,12 +19,43 @@ import { macOSDownloadEnvironment, resolveMacOSPackageSettings } from './macos-p
 import { resolveWindowsPackageSettings } from './windows-package-settings.mjs'
 import { packagingErrorDetails, packagingStep } from './packaging-step.mjs'
 import { notarizeMacOS } from './notarize-macos.mjs'
-import { resolveMacOSNotarizationEnvironment } from './desktop-release-environment.mjs'
+import { DESKTOP_PRODUCT_NAME, resolveMacOSNotarizationEnvironment } from './desktop-release-environment.mjs'
 import { DESKTOP_BUILD_VERSION_ENV, resolveDesktopBuildVersion, validateDesktopBuildVersion } from './desktop-build-version.mjs'
 import { suggestDesktopBuildVersion } from './desktop-build-version-discovery.ts'
 import { desktopBuildCommitEnvironment, readDesktopBuildCommit, resolveDesktopBuildCommit } from './desktop-build-commit.mjs'
 import { requireDesktopToolchain } from './desktop-toolchain-preflight.ts'
 import { withMacOSNotarizationProxy } from './macos-notarization-proxy.ts'
+
+/**
+ * Pack the target platform's prebuilt addon package next to the entry package.
+ * The platform package is an optional dependency normally published to npm; a
+ * checkout that built the binaries locally must contribute its tarball to the
+ * package set, or pnpm resolves the optional dependency from a registry that
+ * may not carry it and the packaged application loads a missing native module.
+ * @param destination - Directory receiving the tarball.
+ * @param target - Platform and architecture of the installer payload.
+ * @param env - Environment for the packaging command.
+ * @param execute - Packaging step runner.
+ * @returns The packed package name, or undefined when the target has no built binaries on this host.
+ */
+async function packPlatformAddon(
+  destination: string,
+  target: { readonly name: string },
+  env: NodeJS.ProcessEnv,
+  execute: (args: readonly string[], env: NodeJS.ProcessEnv, cwd?: string) => Promise<void>,
+): Promise<string | undefined> {
+  const directory = join(REPOSITORY_ROOT, 'native', 'system', 'packages', target.name)
+  const metadataPath = join(directory, 'prebuilds.json')
+  if (!existsSync(metadataPath)) return undefined
+  const metadata = JSON.parse(readFileSync(metadataPath, 'utf8')) as { binaries: { path: string }[] }
+  if (!metadata.binaries.every(binary => existsSync(join(directory, binary.path)))) {
+    console.warn(`desktop package set: native/system/packages/${target.name} has no built binaries; leaving the platform addon to the registry`)
+    return undefined
+  }
+  const manifest = JSON.parse(readFileSync(join(directory, 'package.json'), 'utf8')) as { name: string }
+  await execute(['--dir', `native/system/packages/${target.name}`, 'pack', '--pack-destination', destination], env, REPOSITORY_ROOT)
+  return manifest.name
+}
 
 const APP_ROOT = resolve(import.meta.dirname, '..')
 const REPOSITORY_ROOT = resolve(APP_ROOT, '..', '..')
@@ -364,9 +395,12 @@ async function main(): Promise<void> {
   if (invocation.skipNotarization) {
     process.stdout.write('desktop package: skipping notarization and stapling; internal debugging only, not qualified for distribution or update publishing\n')
   }
-  const environment = invocation.unsigned && target.platform === 'linux'
+  // A machine preset carries the deployment the artifact must ship with, so an
+  // unsigned Linux/macOS build reads it instead of the bare local defaults.
+  const presetSelected = process.env.DSH_PACKAGING_PRESET !== undefined
+  const environment = invocation.unsigned && target.platform === 'linux' && !presetSelected
     ? localLinuxPackageEnvironment()
-    : target.platform !== 'win32' && invocation.unsigned
+    : target.platform !== 'win32' && invocation.unsigned && !presetSelected
       ? localMacOSPackageEnvironment()
       : loadDesktopPackageEnvironment(target.platform, process.env, APP_ROOT, {
         unsigned: invocation.unsigned, prepareOnly: invocation.prepareOnly,
@@ -426,7 +460,7 @@ async function main(): Promise<void> {
   if (success && target.platform === 'darwin' && !invocation.directory && !invocation.prepareOnly) {
     const paths = desktopTargetBuildPaths(target.name, environment)
     const output = desktopArtifactOutput(paths, invocation)
-    const filename = `huayu-ai-${buildVersion}-mac-${target.arch}${output.suffix}.dmg`
+    const filename = `timegleam-${buildVersion}-mac-${target.arch}${output.suffix}.dmg`
     console.log(`DMG: ${join(output.directory, filename)}`)
   }
 }
@@ -534,6 +568,10 @@ export async function packageTarget(
       '--pack-destination',
       buildPaths.packedLandlock,
     ], buildEnv, REPOSITORY_ROOT)
+    const platformAddon = await packPlatformAddon(buildPaths.packedLandlock, target, buildEnv, executePreparation)
+    if (platformAddon !== undefined) {
+      console.log(`desktop package set: packed local platform addon ${platformAddon}`)
+    }
   }
   const prepareRuntime = () => executePreparation(
     ['run', 'prepare:runtime', ...(signPrimaryRuntime ? ['--defer-primary-runtime-smoke'] : [])], downloadEnv)
@@ -569,13 +607,13 @@ export async function packageTarget(
   } else if (target.platform === 'darwin' && !invocation.unsigned && !invocation.skipNotarization) {
     await execute([...desktopElectronBuilderArguments(target, true), '--config.mac.notarize=false'], electronBuilderEnv)
     await execute(['exec', 'tsx', 'scripts/smoke-packaged-runtime.ts'], targetEnv)
-    const appPath = join(buildPaths.artifacts, target.arch === 'arm64' ? 'mac-arm64' : 'mac', 'Huayu AI.app')
+    const appPath = join(buildPaths.artifacts, target.arch === 'arm64' ? 'mac-arm64' : 'mac', `${DESKTOP_PRODUCT_NAME}.app`)
     await withMacOSNotarizationProxy(mac?.notarizationProxy,
       () => notarizeMacOS({ appPath, ...resolveMacOSNotarizationEnvironment(environment) }), undefined, undefined, proxyEvent)
   } else {
     if (target.platform === 'darwin' && invocation.skipNotarization && !invocation.directory) {
       await execute(desktopElectronBuilderArguments(target, true), electronBuilderEnv)
-      const appPath = join(artifactsRoot, target.arch === 'arm64' ? 'mac-arm64' : 'mac', 'DeepSeek Harness.app')
+      const appPath = join(artifactsRoot, target.arch === 'arm64' ? 'mac-arm64' : 'mac', `${DESKTOP_PRODUCT_NAME}.app`)
       for (const format of ['dmg', 'zip'] as const) {
         await buildMacArtifact({ format, appPath, output: artifactsRoot })
       }

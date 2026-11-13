@@ -45,7 +45,7 @@ Choose this backend when the child must run with its own runtime, model, and too
 
 The generated [configuration catalog](../../../docs/config-catalog.md#hydsh-subagent-acp) is the exhaustive source for every accepted field and its JSDoc.
 
-A Huayu AI child uses the product launcher and an explicit absolute `DSH_HOME`. The isolated home prevents a nested runtime from discovering the launching person's profiles or credentials; the generic ACP provider does not impose this requirement on non-DSH agents.
+A TimeGleam child uses the product launcher and an explicit absolute `DSH_HOME`. The isolated home prevents a nested runtime from discovering the launching person's profiles or credentials; the generic ACP provider does not impose this requirement on non-DSH agents.
 
 ```yaml
 - id: subagent-acp

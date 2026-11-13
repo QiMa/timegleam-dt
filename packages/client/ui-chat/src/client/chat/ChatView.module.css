@@ -284,31 +284,19 @@
   overflow: hidden;
 }
 
-.runningWhaleAnimated {
-  display: none;
-  position: absolute;
-  inset: 0;
+.runningMark {
+  flex: none;
 }
 
-.runningWhaleStill {
-  display: initial;
-}
-
-@supports (mask-mode: alpha) and (mask-image: url('')) {
-  @media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
-    .runningWhaleAnimated {
-      display: block;
-      background: currentColor;
-      mask: url('../assets/running-whale@2x.png') center / 100% 100% no-repeat;
-      mask-mode: alpha;
-      /* Keep animated-mask repaints on an icon-sized composited layer. */
-      will-change: transform;
-    }
-
-    .runningWhaleStill {
-      display: none;
-    }
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .runningMark {
+    animation: runningMarkPulse 1.2s ease-in-out infinite;
   }
+}
+
+@keyframes runningMarkPulse {
+  0%, 100% { opacity: 1; transform: rotate(0deg); }
+  50% { opacity: 0.55; transform: rotate(45deg); }
 }
 
 .openError {

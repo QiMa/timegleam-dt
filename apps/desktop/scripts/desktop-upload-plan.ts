@@ -184,10 +184,10 @@ async function requireArtifact(artifactsRoot: string, filename: string): Promise
  * Linux targets rely on the AppImage scripts already published under the catalog root.
  */
 function desktopCatalogInstallerFilename(targetName: DesktopPackageTargetName): string {
-  if (targetName === 'win-x64') return 'huayu-ai-latest-win-x64.exe'
+  if (targetName === 'win-x64') return 'timegleam-latest-win-x64.exe'
   if (targetName === 'mac-arm64' || targetName === 'mac-x64') {
     const arch = targetName === 'mac-arm64' ? 'arm64' : 'x64'
-    return 'huayu-ai-latest-macos-' + arch + '.dmg'
+    return 'timegleam-latest-macos-' + arch + '.dmg'
   }
   throw new Error('desktop upload: airgap catalog fixed installer is unsupported for ' + targetName)
 }
@@ -216,7 +216,7 @@ function uploadArtifact(
 
 /**
  * Build the fixed catalog artifacts consumed by the AirGap install scripts.
- * The online scripts fetch `<catalog>/huayu-ai-latest-<target>` plus its `.sha256`
+ * The online scripts fetch `<catalog>/timegleam-latest-<target>` plus its `.sha256`
  * sidecar, so every non-latest AirGap publication also refreshes those two objects.
  */
 async function airgapCatalogArtifacts(
@@ -227,9 +227,9 @@ async function airgapCatalogArtifacts(
   installerArtifact: DesktopUploadArtifact,
   buildVersion: string,
 ): Promise<DesktopUploadArtifact[]> {
-  const catalogPrefix = environment.DSH_DESKTOP_EDITION === 'enterprise' ? 'huayu-enterprise' : 'huayu-ai'
+  const catalogPrefix = environment.DSH_DESKTOP_EDITION === 'enterprise' ? 'timegleam-enterprise' : 'timegleam'
   const source = targetName === 'linux-x64' || targetName === 'linux-arm64'
-    ? await requireArtifact(artifactsRoot, `huayu-ai-${buildVersion}-linux-${target.arch}.AppImage`)
+    ? await requireArtifact(artifactsRoot, `timegleam-${buildVersion}-linux-${target.arch}.AppImage`)
     : installerArtifact.path
   const fixed = desktopCatalogInstallerFilename(targetName)
   const digest = await sha256Hex(source)
@@ -311,7 +311,7 @@ export async function createDesktopUploadPlan(
     throw new Error(`desktop upload: ${metadataFilename}.files must contain exactly one target update file`)
   }
 
-  const base = `huayu-ai-${buildVersion}-${target.os}-${target.arch}`
+  const base = `timegleam-${buildVersion}-${target.os}-${target.arch}`
   const updaterExtension = target.platform === 'darwin' ? 'zip' : 'exe'
   const updaterInfo = updateFileInfo(metadata.files[0], `${metadataFilename}.files[0]`, `${base}.${updaterExtension}`)
   const updaterPath = await verifyChecksummedArtifact(artifactsRoot, updaterInfo)

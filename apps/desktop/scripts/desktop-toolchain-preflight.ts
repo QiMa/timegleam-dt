@@ -9,6 +9,7 @@
  */
 
 import { execFile } from 'node:child_process'
+import { existsSync } from 'node:fs'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
@@ -58,7 +59,8 @@ async function probeWindowsInstallerToolchain(environment: NodeJS.ProcessEnv): P
         '-requires', 'Microsoft.VisualStudio.Component.VC.Tools.x86.x64', '-property', 'installationPath'],
       { windowsHide: true, timeout: 30_000 })
       if (located.stdout.trim() === '') {
-        failures.push({ tool: 'vswhere', detail: 'Visual Studio C++ build tools are not installed, so the installer helper cannot compile' })
+        const conventional = await probeConventionalVisualStudio(environment)
+        if (conventional !== undefined) failures.push({ tool: 'vswhere', detail: conventional })
       }
     }
     catch (error) {
@@ -66,6 +68,44 @@ async function probeWindowsInstallerToolchain(environment: NodeJS.ProcessEnv): P
     }
   }
   return failures
+}
+
+/**
+ * Conventional Visual Studio install roots, newest first. A relocated or
+ * installer-detached installation is absent from vswhere's instance store even
+ * though its C++ toolset is usable, so the fix is to run the toolset's own
+ * environment script instead of trusting the registration.
+ */
+const VISUAL_STUDIO_EDITIONS = ['Community', 'Professional', 'Enterprise', 'BuildTools'] as const
+
+/**
+ * Locate and exercise a conventionally installed Visual Studio C++ toolset.
+ * @param environment - Packaging environment supplying the 64-bit Program Files root.
+ * @returns undefined when the toolset runs, otherwise the reason both location paths failed.
+ */
+async function probeConventionalVisualStudio(environment: NodeJS.ProcessEnv): Promise<string | undefined> {
+  const programFiles = environment.ProgramFiles
+  if (programFiles === undefined) {
+    return 'Visual Studio C++ build tools are not installed, so the installer helper cannot compile'
+  }
+  const candidates = ['2022', '2019'].flatMap(year => VISUAL_STUDIO_EDITIONS.map(edition =>
+    join(programFiles, 'Microsoft Visual Studio', year, edition, 'VC', 'Auxiliary', 'Build', 'vcvars32.bat')))
+  const script = candidates.find(candidate => existsSync(candidate))
+  if (script === undefined) {
+    return 'Visual Studio C++ build tools are not installed, so the installer helper cannot compile'
+  }
+  try {
+    // The environment script reports a missing toolset through its exit status.
+    // Verbatim arguments keep one outer quote pair for cmd; without it Node re-quotes
+    // the whole command line and cmd treats the Program Files path as a command name.
+    await run('cmd.exe', ['/d', '/s', '/c', `call "${script}" >nul && where cl`],
+      { windowsHide: true, windowsVerbatimArguments: true, timeout: 60_000 })
+    return undefined
+  }
+  catch (error) {
+    const reason = error instanceof Error ? error.message : String(error)
+    return `Visual Studio is installed at ${script} but running vcvars32.bat cannot provide cl: ${reason}`
+  }
 }
 
 /**

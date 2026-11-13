@@ -1,6 +1,6 @@
 - dialog "开始使用":
   - heading "开始使用" [level=2]
   - button "关闭"
-  - paragraph: 登录 Huayu AI 账号，或添加 API Key，即可开始使用。你的项目和文件保存在本地。
+  - paragraph: 登录 拾光 TimeGleam 账号，或添加 API Key，即可开始使用。你的项目和文件保存在本地。
   - button "添加 API Key"
   - button "登录"

@@ -1,8 +1,10 @@
-Huayu AI
-Huayu AI
-添加一个 API Key 开始使用
-配置 baizor.com 模型，即可开始使用
-输入 API 密钥 [password]
-保存并继续 [disabled]
+拾光 TimeGleam
+拾光 TimeGleam
+连接拾光工作空间
+在控制台「高级接入：访问密钥」创建，然后粘贴到这里
+聊天模型可稍后在「设置 → 模型」中配置
+tmg_… / aym_… [password]
+打开拾光控制台
+连接并继续 [disabled]
 稍后配置
-返回登录
+返回

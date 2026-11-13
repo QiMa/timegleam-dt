@@ -1,5 +1,5 @@
 ---
-description: "Embed the CADCraft web drawing engine in the right sidebar as an installable Huayu AI plugin."
+description: "Embed the CADCraft web drawing engine in the right sidebar as an installable TimeGleam plugin."
 kind: "package-bundle"
 ---
 
@@ -24,7 +24,7 @@ This optional bundle mounts CADCraft as an installable plugin: the Host serves t
 <a id="use-this-package"></a>
 ## Use this package
 
-Install the plugin through the plugin manager. On Desktop, the CADCraft plugin is installed automatically on first launch when it is not already present, from the Huayu plugin feed at `https://lanhc.com/lanhc/plugins`. On the Web, install the packed tarball through the **Plugins** page, then switch on **CADCraft** under **Experimental plugins**.
+Install the plugin through the plugin manager. On Desktop, the CADCraft plugin is installed automatically on first launch when it is not already present, from the TimeGleam plugin feed at `https://lanhc.com/lanhc/plugins`. On the Web, install the packed tarball through the **Plugins** page, then switch on **CADCraft** under **Experimental plugins**.
 
 Once enabled, the right sidebar gains a CADCraft entry; opening it frames the engine under `/cadcraft`. Chat can drive the drawing through the dynamic Creator-mode bridge, and each drawing is saved beside its project directory.
 
@@ -63,6 +63,6 @@ No effect while this bundle is the only CADCraft plugin mounted.
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-The package was migrated from the sibling `huayu-extension` checkout. The WASM assets under `assets/web/` come from the CADCraft web build.
+The package was migrated from the sibling CADCraft extension checkout. The WASM assets under `assets/web/` come from the CADCraft web build.
 
 </details>

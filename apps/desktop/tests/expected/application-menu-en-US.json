@@ -1,13 +1,16 @@
 [
   {
-    "label": "About Huayu AI",
+    "label": "About TimeGleam",
     "role": "about"
   },
   {
     "type": "separator"
   },
   {
-    "label": "Manage huayu Command…"
+    "label": "Check for Updates…"
+  },
+  {
+    "label": "Manage TimeGleam Command…"
   },
   {
     "type": "separator"
@@ -21,7 +24,7 @@
   },
   {
     "role": "hide",
-    "label": "Hide Huayu AI"
+    "label": "Hide TimeGleam"
   },
   {
     "role": "hideOthers",
@@ -36,6 +39,6 @@
   },
   {
     "role": "quit",
-    "label": "Quit Huayu AI"
+    "label": "Quit TimeGleam"
   }
 ]

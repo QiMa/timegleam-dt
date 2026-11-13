@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/client/ui-brand-timegleam/README.md
+/:
+  en: 2c3f9c2b1df49781
+  zh: ccea295be90f3345
+/hy-dsh-client-ui-brand-timegleam:
+  en: 0a448f2f0b30d884
+  zh: 447f4ccd06016a31
+/hy-dsh-client-ui-brand-timegleam/summary:
+  en: 8f74ab65d5c779de
+  zh: 89e5e976e2975b0a
+/hy-dsh-client-ui-brand-timegleam/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/hy-dsh-client-ui-brand-timegleam/use-this-package:
+  en: 0f84fdcde8dbc674
+  zh: 1a9f99f245ff8d26
+/hy-dsh-client-ui-brand-timegleam/use-this-package/choosing-the-profile:
+  en: 6adf3cd7708ed7d0
+  zh: d3c61455adbfe64c
+/hy-dsh-client-ui-brand-timegleam/use-this-package/replacing-the-brand:
+  en: ad204e82557c4dda
+  zh: feb4a4be3f736e0a
+/hy-dsh-client-ui-brand-timegleam/understand-the-implementation:
+  en: 9f541649952f1be5
+  zh: 5896d0342e5bc73b
+/hy-dsh-client-ui-brand-timegleam/further-exploration:
+  en: 99a3de0a2cfb1fea
+  zh: 4e6fc6b841dc4d52
+/hy-dsh-client-ui-brand-timegleam/model-experience:
+  en: 618008c7641070e7
+  zh: 7233febb4d92ccfb
+/hy-dsh-client-ui-brand-timegleam/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/hy-dsh-client-ui-brand-timegleam/known-limitations-and-deferred-work:
+  en: ac55d07e8bf9845a
+  zh: 4d36d55dff26775a
+/hy-dsh-client-ui-brand-timegleam/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

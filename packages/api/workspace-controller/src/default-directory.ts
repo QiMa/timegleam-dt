@@ -74,5 +74,5 @@ export async function defaultWorkspaceDirectory(
   }
   directory = validateDocumentsDirectory(directory, platform)
   signal.throwIfAborted()
-  return paths.join(directory, 'huayu-ai', DEFAULT_WORKSPACE_DIRECTORY)
+  return paths.join(directory, 'timegleam', DEFAULT_WORKSPACE_DIRECTORY)
 }

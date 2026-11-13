@@ -37,12 +37,12 @@ export const Config: z<Config> = z.object({
  */
 function sdkCommand(profile: string): Command {
   return new Command()
-    .name(`hy --profile ${profile}`)
-    .description('Serve Huayu AI SDK clients over stdio JSON-RPC.')
+    .name(`timegleam --profile ${profile}`)
+    .description('Serve TimeGleam SDK clients over stdio JSON-RPC.')
     .helpOption('-h, --help', 'show this help')
     .addHelpText('after', `
 Example:
-  hy --profile ${profile}     serve one SDK runtime until its client disconnects
+  timegleam --profile ${profile}     serve one SDK runtime until its client disconnects
 `)
 }
 

@@ -6,6 +6,7 @@ import { readDesktopRuntime, verifyDesktopRuntime } from '../src/runtime-tree.ts
 import { verifyWindowsCode } from './windows-runtime-signature.mjs'
 import { smokePreparedRuntime } from './smoke-prepared-runtime.ts'
 import { resolveDesktopPackageTarget } from './package-target.ts'
+import { DESKTOP_PRODUCT_NAME } from './desktop-release-environment.mjs'
 
 const paths = resolveDesktopTargetBuildPaths()
 const { values } = parseArgs({ options: { unsigned: { type: 'boolean', default: false }, 'skip-notarization': { type: 'boolean', default: false } }, allowPositionals: false })
@@ -15,9 +16,9 @@ const artifacts = desktopArtifactOutput(paths, { unsigned: values.unsigned, skip
 const linux = target === 'linux-x64' || target === 'linux-arm64'
 const application = windows ? join(artifacts, 'win-unpacked')
   : linux ? join(artifacts, 'linux-unpacked')
-    : join(artifacts, target === 'mac-arm64' ? 'mac-arm64' : 'mac', 'Huayu AI.app', 'Contents')
+    : join(artifacts, target === 'mac-arm64' ? 'mac-arm64' : 'mac', `${DESKTOP_PRODUCT_NAME}.app`, 'Contents')
 const resources = join(application, windows || linux ? 'resources' : 'Resources')
-const executable = windows ? join(application, 'Huayu AI.exe') : linux ? join(application, 'huayu-ai') : join(application, 'MacOS', 'Huayu AI')
+const executable = windows ? join(application, 'timegleam.exe') : linux ? join(application, 'timegleam') : join(application, 'MacOS', 'timegleam')
 const descriptor = await verifyDesktopRuntime(paths.dsh, readDesktopRuntime(paths.dsh).release.version,
   resolveDesktopPackageTarget(target))
 if (windows && !values.unsigned) await verifyWindowsCode(application)

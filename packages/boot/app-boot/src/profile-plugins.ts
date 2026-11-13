@@ -10,7 +10,7 @@ export interface ProfilePluginLocation {
   readonly binName: string
   /** Profile package directory managed by pnpm. */
   readonly profileDir: string
-  /** Absolute package.json path of the owning dsh installation. */
+  /** Absolute package.json path of the owning TimeGleam installation. */
   readonly installAnchor: string
 }
 

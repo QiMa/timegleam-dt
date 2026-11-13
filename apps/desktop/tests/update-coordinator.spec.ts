@@ -80,7 +80,11 @@ describe('desktop update feed override', () => {
   it.each([undefined, '', '  '])('keeps unset feeds on the packaged default %j', (value) => {
     expect(resolveDesktopUpdateFeedOverride(value)).toBeUndefined()
   })
-  it.each(['ftp://x/feed', 'http://192.168.1.2/feed', 'https://user:pass@x/feed', 'https://x/feed?token=1', 'https://x/feed#frag', 'not a url'])
+  it.each(['http://10.99.0.10:8001/repo/feeds', 'http://192.168.1.2:8001/feed', 'http://airgap:8080/feed'])
+  ('accepts intranet HTTP feeds for AirGap sites without internal TLS %s', (value) => {
+    expect(resolveDesktopUpdateFeedOverride(value)).toBe(value.replace(/\/+$/u, '') + '/')
+  })
+  it.each(['ftp://x/feed', 'http://desktop-updates.example.com/feed', 'http://8.8.8.8/feed', 'https://user:pass@x/feed', 'https://x/feed?token=1', 'https://x/feed#frag', 'not a url'])
   ('rejects insecure or credential-bearing feed %s', (value) => {
     expect(() => resolveDesktopUpdateFeedOverride(value)).toThrow()
   })

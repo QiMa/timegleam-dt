@@ -5,7 +5,7 @@ import type { SessionId as SessionIdType } from '@hy/dsh-session'
 import { SessionReferenceError } from './config.ts'
 import type { SessionReferenceInput } from './types.ts'
 
-/** URI scheme reserved for Huayu AI session snapshots. */
+/** URI scheme reserved for TimeGleam session snapshots. */
 export const SESSION_REFERENCE_SCHEME = 'dsh-session:'
 
 /**

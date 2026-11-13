@@ -1,4 +1,4 @@
-/** Recorded ACP protocol behavior through the shipped `hy --profile acp` interface. */
+/** Recorded ACP protocol behavior through the shipped `timegleam --profile acp` interface. */
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'

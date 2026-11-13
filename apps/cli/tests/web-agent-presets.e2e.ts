@@ -114,7 +114,7 @@ async function bootWeb(
   const storageRoot = join(profileHome, 'storages')
   const overrides: PatchOptions[] = [
     // storage-json's root is anchored to the real $DSH_HOME. Unpinned, this
-    // file writes the developer's own `~/.huayu/storages/` — and then reads it
+    // file writes the developer's own `~/.timegleam/storages/` — and then reads it
     // back on the next run, so a stored document from any other build decides
     // this test's boot.
     { id: 'storage-json', config: { root: storageRoot } },
@@ -644,8 +644,8 @@ describe('the shipped Web composition', () => {
 
   it('merges the global skill layer into a preset agent\'s catalog, keeping local discovery preset-side', async () => {
     const proj = await mkdtemp(join(tmpdir(), 'dsh-preset-skill-proj-'))
-    await mkdir(join(proj, '.huayu', 'skills', 'project-proof'), { recursive: true })
-    await writeFile(join(proj, '.huayu', 'skills', 'project-proof', 'SKILL.md'), [
+    await mkdir(join(proj, '.timegleam', 'skills', 'project-proof'), { recursive: true })
+    await writeFile(join(proj, '.timegleam', 'skills', 'project-proof', 'SKILL.md'), [
       '---',
       'name: project-proof',
       'description: Proves the preset layer discovers project skills beside global ones.',

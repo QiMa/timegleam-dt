@@ -1312,5 +1312,5 @@ describe('web tool admission per model step', () => {
 
 /** Preserve the default persona and exact section separators in the oracle. */
 function withPersona(...sections: string[]): string {
-  return ['You are an AI agent powered by Huayu AI.', ...sections].join('\n\n')
+  return ['You are an AI agent powered by TimeGleam.', ...sections].join('\n\n')
 }

@@ -88,6 +88,7 @@ export class TunnelWorker {
         ...workerTransportEnv(process.env),
       },
       stdio: ['ignore', 'pipe', 'pipe', 'ipc'],
+      windowsHide: true,
     })
     this.child = child
     child.stdout?.pipe(this.out)

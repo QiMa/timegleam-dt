@@ -6,7 +6,6 @@ import type { DesktopChannelState, DesktopChannelChangeResult } from '@hy/dsh-cl
 import { DesktopUpdateSettings } from './update-settings.ts'
 import { isDesktopUpdateChannel } from './settings-file.ts'
 import type { ProductEventMap, ProductEvent } from '@hy/dsh-client-product-analytics/types'
-import type { AccountView, SignInAttemptView } from '@hy/dsh-deepseek-account/types'
 import { WINDOWS_TITLEBAR_HEIGHT } from './windows-layout.ts'
 import { access, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
@@ -28,9 +27,8 @@ import {
   type IpcMainInvokeEvent,
   type MenuItemConstructorOptions,
 } from 'electron'
-import { resolveDesktopPaths } from './paths.ts'
+import { installDesktopUserDataRoot, resolveDesktopPaths } from './paths.ts'
 import { DesktopProjectManager } from './project-manager.ts'
-import { installCadcraftPlugin } from './cadcraft-plugin.ts'
 import { DesktopHostFatalError, DesktopHostProcess, DesktopHostUncleanExitError } from './host-process.ts'
 import { DesktopPlatformView, PLATFORM_IPC, platformBounds } from './platform-view.ts'
 import { installDesktopFileDrag } from './file-drag.ts'
@@ -43,7 +41,7 @@ import { desktopUpdateReadyConfirmation, formatDesktopMessage, resolveDesktopLoc
 import { claimDesktopSingleInstance } from './single-instance.ts'
 import { desktopUpdateChannel } from './update-channel.ts'
 import { desktopEnterpriseModelGateway } from './product-edition.ts'
-import { readGatewayKey } from './enterprise-gateway-key.ts'
+import { gatewayKeyDirectories, readInstalledGatewayKey } from './enterprise-gateway-key.ts'
 import { DesktopUpdateCoordinator } from './update-coordinator.ts'
 import { prepareDesktopUpdateWindow } from './update-window.ts'
 import { DesktopCommandManager } from './command-management.ts'
@@ -55,7 +53,15 @@ import { runOperationReportJob, type OperationReportJobResult } from './operatio
 import { openWelcomeWindow } from './welcome-window.ts'
 import { WELCOME_IPC, needsWelcome, type WelcomeNotice } from './welcome-api.ts'
 import { connectDesktopWelcome, type DesktopWelcomeBackend } from './welcome-backend.ts'
-import { BaizorLogin } from './baizor-login.ts'
+import {
+  TIMEGLEAM_CONSOLE_URL,
+  TIMEGLEAM_TOKEN_PATTERN,
+  fetchTimeGleamModels,
+  parseTimeGleamDeepLink,
+  probeTimeGleamToken,
+  timeGleamProjectUrl,
+} from './timegleam.ts'
+import { TimeGleamLogin } from './timegleam-login.ts'
 import { DesktopUpdateJournal } from './update-journal.ts'
 import { DesktopUpdatePreparationError } from './update-error.ts'
 import { DesktopUpdateSchedule, resolveDesktopUpdateScheduleConfig } from './update-schedule.ts'
@@ -77,7 +83,14 @@ import { DesktopQuitConfirmation } from './quit-confirmation.ts'
 import { DesktopTray } from './tray.ts'
 import { DesktopBackgroundNotice } from './background-notice.ts'
 
+// Keep crash reports, logs, and Chromium storage under the TimeGleam product
+// directory instead of Electron's package-name default.
+installDesktopUserDataRoot(app)
+
 let focusPrimaryWindow = (): void => {}
+/** Set once `main()` owns windows; later launches replay through this. */
+let launchRouter: ((argv: readonly string[]) => void) | undefined
+const pendingLaunchArgv: string[][] = []
 let stopForRecovery = async (): Promise<void> => { await stopOperationReports() }
 let shuttingDown = false
 /**
@@ -144,7 +157,7 @@ async function waitForOperationReports(): Promise<void> {
     const exited = await Promise.race([job.then(() => true), new Promise<false>((resolve) => {
       timer = setTimeout(() => { resolve(false) }, 500)
     })])
-    if (!exited) console.error('dsh desktop: operation report Worker has not exited; continuing shutdown')
+    if (!exited) console.error('TimeGleam desktop: operation report Worker has not exited; continuing shutdown')
   } finally { clearTimeout(timer) }
 }
 
@@ -225,7 +238,7 @@ function runtimeResources(): RuntimeResources {
 function developmentPrimaryRuntime(): string {
   const directory = process.env.DSH_DESKTOP_PRIMARY_RUNTIME_DIR
   if (directory === undefined || directory === '') {
-    throw new Error('dsh desktop: DSH_DESKTOP_PRIMARY_RUNTIME_DIR is required for an unpackaged launch')
+    throw new Error('TimeGleam desktop: DSH_DESKTOP_PRIMARY_RUNTIME_DIR is required for an unpackaged launch')
   }
   return directory
 }
@@ -235,7 +248,7 @@ function developmentHostInspectPort(enabled: boolean): number | undefined {
   if (!enabled || configured === undefined || configured === '') return undefined
   const port = Number(configured)
   if (!Number.isSafeInteger(port) || port < 1 || port > 65_535) {
-    throw new Error('dsh desktop: DSH_DESKTOP_HOST_INSPECT_PORT must be an integer from 1 through 65535')
+    throw new Error('TimeGleam desktop: DSH_DESKTOP_HOST_INSPECT_PORT must be an integer from 1 through 65535')
   }
   return port
 }
@@ -483,14 +496,13 @@ async function main(): Promise<void> {
     } catch (_error) { /* Analytics cannot interrupt native actions. */ }
   }
   let stopAccount: (() => void) | undefined
-  let baizorLogin: BaizorLogin | undefined
   let pendingWelcomeNotice: WelcomeNotice | undefined
   let previousAccountStatus: string | undefined
   const assertProductSender = (event: IpcMainInvokeEvent): BrowserWindow => {
     assertDesktopSender(event, ['app'])
     if (mainWindow === undefined || mainWindow.isDestroyed() || event.sender !== mainWindow.webContents
       || event.senderFrame === null || event.senderFrame !== mainWindow.webContents.mainFrame) {
-      throw new Error('dsh desktop: rejected IPC from an unowned renderer')
+      throw new Error('TimeGleam desktop: rejected IPC from an unowned renderer')
     }
     return mainWindow
   }
@@ -515,16 +527,6 @@ async function main(): Promise<void> {
   const manifest: unknown = JSON.parse(await readFile(join(app.getAppPath(), 'package.json'), 'utf8'))
   const modelGateway = desktopEnterpriseModelGateway(manifest)
   const enterpriseEdition = modelGateway !== undefined
-  /** Project the baizor login controller onto the welcome window's AccountView. */
-  const baizorAccountView = (view?: SignInAttemptView | null): AccountView => {
-    const state = baizorLogin?.state()
-    const attempt = view ?? (state?.active === true ? state.attempt : null) ?? null
-    return {
-      status: attempt?.phase === 'succeeded' ? 'credential-stored' : 'signed-out',
-      links: { usageUrl: 'https://baizor.com/log', topUpUrl: 'https://baizor.com/topup' },
-      attempt,
-    }
-  }
   const backend = new DesktopBackendController((onFailure) => {
     const hostInspectPort = developmentHostInspectPort(development)
     const host = new DesktopHostProcess(resources.node, resources.dsh, activeProject,
@@ -547,36 +549,27 @@ async function main(): Promise<void> {
         if (ready.injections === undefined) throw new Error('Desktop Host did not provide boot injections')
         injections = ready.injections
         welcomeBackend = connectDesktopWelcome(ready.url, cookie, (input, init) => net.fetch(input, init), modelGateway)
-        baizorLogin?.dispose()
-        if (!enterpriseEdition) {
-          baizorLogin = new BaizorLogin({
-            now: () => Date.now(),
-            openExternal: url => shell.openExternal(url),
-            fetch: (input, init) => net.fetch(input, init),
-          }, {
-            save: async (key) => {
-              if (welcomeBackend === undefined) throw new Error('desktop welcome: backend unavailable')
-              await welcomeBackend.storeProviderKey(key)
-            },
-          })
-        }
         analyticsEnabled = await welcomeBackend.analyticsEnabled().catch(() => false)
         if (!reportedLaunch) { reportedLaunch = true; void track('desktop_app_launch', {}) }
         await welcomeBackend.ensureModelConfiguration().catch((error: unknown) => { console.warn('desktop welcome: model seeding failed', error) })
         // The installer may have written an AirGap-issued key beside the packaged manifest.
         // Import after the provider profile is seeded so its credential reference exists.
         if (modelGateway !== undefined && app.isPackaged) {
-          const gatewayKey = await readGatewayKey(join(process.resourcesPath, '..')).catch(() => undefined)
+          const gatewayKey = await readInstalledGatewayKey(
+            gatewayKeyDirectories(process.env.APPIMAGE, process.resourcesPath),
+          ).catch(() => undefined)
           if (gatewayKey !== undefined) await welcomeBackend.storeProviderKey(gatewayKey).catch((error: unknown) => { console.warn('desktop enterprise gateway: installer key import failed', error) })
         }
         stopAccount?.()
+        // The standard TimeGleam edition has no account login; only the
+        // enterprise gateway profile still tracks account credential expiry.
         const accountBackend = welcomeBackend.account
-        stopAccount = accountBackend.watch((state) => {
+        if (enterpriseEdition) stopAccount = accountBackend.watch((state) => {
           if (quitting) return
           if (welcomeWindow !== undefined && !welcomeWindow.isDestroyed()) welcomeWindow.webContents.send(WELCOME_IPC.state, state)
           if (previousAccountStatus === 'credential-stored' && state.status === 'signed-out') {
             void readWelcomeState().then(async (value) => {
-              if (needsWelcome(value) && !quitting) {
+              if (needsWelcome({ enterprise: true, hasApiKey: value.hasApiKey }) && !quitting) {
                 enteredWorkspace = false
                 await showWelcome()
                 if (welcomeWindow !== undefined && !welcomeWindow.isDestroyed()) welcomeWindow.webContents.send(WELCOME_IPC.state, state)
@@ -589,7 +582,7 @@ async function main(): Promise<void> {
           // The stream reconnects; a transport failure does not change account state.
         }, () => {
           void readWelcomeState().then(async (value) => {
-            if (!needsWelcome(value) || quitting) return
+            if (!needsWelcome({ enterprise: true, hasApiKey: value.hasApiKey }) || quitting) return
             pendingWelcomeNotice = 'session-expired'
             enteredWorkspace = false
             await showWelcome()
@@ -601,7 +594,6 @@ async function main(): Promise<void> {
       stop: async () => {
         analyticsEnabled = false
         stopAccount?.()
-        baizorLogin?.dispose()
         try { await host.stop(requireCleanStop) }
         catch (error) {
           if (!requireCleanStop || !(error instanceof DesktopHostUncleanExitError)) throw error
@@ -687,8 +679,6 @@ async function main(): Promise<void> {
       await navigateMain(applicationUrl)
       await backend.start(async () => {
         await Promise.all([manager.applyRelease(), prepareHostEnvironment()])
-        const pluginInstall = await installCadcraftPlugin({ profileDir: activeProject, node: resources.node, pnpm: resources.pnpm })
-        if (pluginInstall.status !== 'current') console.info('desktop cadcraft plugin: ' + pluginInstall.message)
       })
       if (backend.host !== undefined) await openInitialWindow()
       if (backend.host !== undefined) updateJournal?.action('workspace-ready')
@@ -834,9 +824,9 @@ async function main(): Promise<void> {
   ipcMain.handle(DESKTOP_IPC.bootFailed, (event, message: unknown) => {
     assertDesktopSender(event, ['app'])
     if (event.sender !== mainWindow?.webContents || event.senderFrame !== event.sender.mainFrame) {
-      throw new Error('dsh desktop: rejected startup failure from a non-primary frame')
+      throw new Error('TimeGleam desktop: rejected startup failure from a non-primary frame')
     }
-    if (typeof message !== 'string') throw new Error('dsh desktop: startup failure must be text')
+    if (typeof message !== 'string') throw new Error('TimeGleam desktop: startup failure must be text')
     reportFatal(new Error(message), 'web-boot')
   })
 
@@ -1150,7 +1140,7 @@ async function main(): Promise<void> {
   const applicationIconPath = development ? join(app.getAppPath(), 'resources', 'icon-windows.png')
     : join(process.resourcesPath, 'icon.png')
   app.setAboutPanelOptions({
-    applicationName: 'Huayu AI',
+    applicationName: currentDesktopLocale().messages.aboutProduct,
     applicationVersion: app.getVersion(),
     // The release has no separate build number; omit Electron's bundle version.
     version: '',
@@ -1177,6 +1167,8 @@ async function main(): Promise<void> {
         click: () => { void showAbout().catch((error: unknown) => { console.error(error) }) } }
       : { label: currentDesktopLocale().messages.aboutMenu, role: 'about' },
     { type: 'separator' },
+    { label: currentDesktopLocale().messages.checkUpdatesMenu,
+      click: () => { void openUpdatePrompt(true).catch((error: unknown) => { console.error(error) }) } },
     ...process.platform === 'darwin' || process.platform === 'win32'
       ? [{ label: currentDesktopLocale().messages.cliCommandMenu, click: () => { void commandManager.show() } }] : [],
     { type: 'separator' },
@@ -1358,6 +1350,13 @@ async function main(): Promise<void> {
     }
   }
   let openingWelcome: Promise<void> | undefined
+  // One attempt per welcome window; the class joins a repeated click and the
+  // window's close handler cancels it so an abandoned page stops polling.
+  const timeGleamLogin = new TimeGleamLogin({
+    now: () => Date.now(),
+    openExternal: url => shell.openExternal(url),
+    fetch: (input, init) => net.fetch(input, init),
+  })
   const showWelcome = (): Promise<void> => {
     if (quitting) return Promise.resolve()
     if (welcomeWindow !== undefined && !welcomeWindow.isDestroyed()) {
@@ -1375,34 +1374,69 @@ async function main(): Promise<void> {
           pendingWelcomeNotice = undefined
           return Promise.resolve(notice)
         },
-        startSignIn: async () => {
-          const login = baizorLogin
-          if (login === undefined) throw new Error('desktop welcome: backend unavailable')
-          const result = await login.start((waiting) => {
-            if (welcomeWindow !== undefined && !welcomeWindow.isDestroyed()) {
-              welcomeWindow.webContents.send(WELCOME_IPC.state, baizorAccountView(waiting))
-            }
+        openConsole: async () => {
+          await shell.openExternal(TIMEGLEAM_CONSOLE_URL)
+        },
+        signIn: async () => {
+          if (backend.host === undefined || welcomeBackend === undefined) return { ok: false, reason: 'store' }
+          const result = await timeGleamLogin.start((view) => {
+            if (welcomeWindow === undefined || welcomeWindow.isDestroyed()) return
+            welcomeWindow.webContents.send(WELCOME_IPC.loginState, {
+              phase: 'waiting', authorizeUrl: view.authorizeUrl, expiresAt: view.expiresAt,
+            })
           })
-          if (result.kind === 'succeeded') await enterWorkspace({ activate: false }).catch(() => undefined)
-          return baizorAccountView(result.view)
-        },
-        cancelSignIn: async (id) => {
-          const login = baizorLogin
-          if (login === undefined) throw new Error('desktop welcome: backend unavailable')
-          return baizorAccountView((await login.cancel(id)).view)
-        },
-        copySignInLink: async (id) => {
-          const login = baizorLogin?.state()
-          if (login?.active !== true || login.attempt.id !== id || login.attempt.phase !== 'waiting-browser'
-            || login.attempt.authorizeUrl === undefined) {
-            throw new Error('desktop welcome: login link is unavailable')
+          if (result.kind === 'cancelled') return { ok: false, reason: 'cancelled' }
+          if (result.kind === 'expired') return { ok: false, reason: 'expired' }
+          if (result.kind === 'failed') return { ok: false, reason: 'network' }
+          const probe = await probeTimeGleamToken(result.token, (input, init) => net.fetch(input, init))
+          if (probe === 'invalid') return { ok: false, reason: 'invalid' }
+          if (probe === 'unreachable') return { ok: false, reason: 'unreachable' }
+          try {
+            await welcomeBackend.storeTimeGleamToken(result.token)
+          } catch {
+            return { ok: false, reason: 'store' }
           }
-          await clipboard.writeText(login.attempt.authorizeUrl)
+          // The key already grants MCP access; an unreadable model list keeps
+          // the workspace usable and leaves model choice to Settings.
+          const models = await fetchTimeGleamModels(result.token, (input, init) => net.fetch(input, init))
+            .catch((error: unknown) => { console.warn('desktop TimeGleam login: model list failed', error); return undefined })
+          if (models !== undefined) {
+            await welcomeBackend.ensureTimeGleamModelConfiguration(models).catch((error: unknown) => {
+              console.warn('desktop TimeGleam login: model seeding failed', error)
+            })
+          }
+          await enterWorkspace()
+          return { ok: true }
+        },
+        cancelSignIn: () => {
+          timeGleamLogin.cancel()
+          return Promise.resolve()
+        },
+        copySignInLink: async () => {
+          const view = timeGleamLogin.state()
+          if (view === undefined) throw new Error('desktop welcome: no pending sign-in')
+          await clipboard.writeText(view.authorizeUrl)
+          if (await clipboard.readText() !== view.authorizeUrl) {
+            throw new Error('desktop welcome: clipboard did not retain the sign-in link')
+          }
         },
         saveApiKey: async (apiKey) => {
-          if (backend.host === undefined || welcomeBackend === undefined) return { ok: false }
-          const saved = await welcomeBackend.save(apiKey)
-          if (!saved.ok) return saved
+          if (backend.host === undefined || welcomeBackend === undefined) return { ok: false, reason: 'store' }
+          if (enterpriseEdition) {
+            const saved = await welcomeBackend.save(apiKey)
+            if (!saved.ok) return { ok: false, reason: 'store' }
+            await enterWorkspace()
+            return { ok: true }
+          }
+          if (!TIMEGLEAM_TOKEN_PATTERN.test(apiKey)) return { ok: false, reason: 'format' }
+          const probe = await probeTimeGleamToken(apiKey, (input, init) => net.fetch(input, init))
+          if (probe === 'invalid') return { ok: false, reason: 'invalid' }
+          if (probe === 'unreachable') return { ok: false, reason: 'unreachable' }
+          try {
+            await welcomeBackend.storeTimeGleamToken(apiKey)
+          } catch {
+            return { ok: false, reason: 'store' }
+          }
           await enterWorkspace()
           return { ok: true }
         },
@@ -1410,12 +1444,7 @@ async function main(): Promise<void> {
       }, enterpriseEdition)
       const window = welcomeWindow
       window.once('closed', () => {
-        const login = baizorLogin?.state()
-        if (login?.active === true && !enteredWorkspace) {
-          void baizorLogin?.cancel(login.attempt.id).catch(() => undefined)
-        }
-      })
-      window.once('closed', () => {
+        timeGleamLogin.cancel()
         if (welcomeWindow === window) welcomeWindow = undefined
         if (enteredWorkspace || recovery.active) return
         // Nothing runs before the workspace opens. macOS keeps the Dock convention and drops the
@@ -1436,7 +1465,11 @@ async function main(): Promise<void> {
     writeDesktopLocaleCache(app.getPath('userData'), locale.id)
     windowsLanguage = locale.id
     refreshApplicationMenu()
-    if (!enteredWorkspace && needsWelcome({ loggedIn: state.loggedIn, hasApiKey: state.hasApiKey })) {
+    if (!enteredWorkspace && needsWelcome({
+      enterprise: enterpriseEdition,
+      hasTimeGleamToken: state.hasTimeGleamToken,
+      hasApiKey: state.hasApiKey,
+    })) {
       // A later login must retain its own activation policy instead of replaying startup focus.
       raiseAfterUpdate = false
       await showWelcome()
@@ -1460,10 +1493,41 @@ async function main(): Promise<void> {
     window.focus()
   }
 
-  if (app.isPackaged || process.env.DSH_DESKTOP_DEV_APP === '1') app.setAsDefaultProtocolClient('dsh')
+  /** Route a TimeGleam deep link without trusting arbitrary URLs. */
+  const routeLaunchArguments = (argv: readonly string[]): boolean => {
+    let handled = false
+    for (const argument of argv) {
+      const link = parseTimeGleamDeepLink(argument)
+      if (link === undefined) {
+        // Legacy dsh launches keep focusing the window.
+        if (argument === 'dsh://open' || argument === 'dsh://open/') {
+          handled = true
+          focusPrimaryWindow()
+        }
+        continue
+      }
+      handled = true
+      if (link.kind === 'open') focusPrimaryWindow()
+      else void shell.openExternal(timeGleamProjectUrl(link.projectId)).catch((error: unknown) => {
+        console.error('desktop: project deep link could not be opened', error)
+      })
+    }
+    return handled
+  }
+  launchRouter = (argv) => {
+    // A plain second launch (no deep link) surfaces the running app, matching the OS shortcut.
+    if (!routeLaunchArguments(argv)) focusPrimaryWindow()
+  }
+  for (const argv of pendingLaunchArgv.splice(0)) launchRouter(argv)
+  // Windows and Linux deliver the first deep link in the process arguments.
+  routeLaunchArguments(process.argv)
+  if (app.isPackaged || process.env.DSH_DESKTOP_DEV_APP === '1') {
+    app.setAsDefaultProtocolClient('timegleam')
+    app.setAsDefaultProtocolClient('dsh')
+  }
   app.on('open-url', (event, url) => {
     event.preventDefault()
-    if (url === 'dsh://open' || url === 'dsh://open/') focusPrimaryWindow()
+    routeLaunchArguments([url])
   })
 
   app.on('activate', (_event, hasVisibleWindows) => {
@@ -1576,7 +1640,11 @@ async function main(): Promise<void> {
   publishUpdate(updateState)
 }
 
-const ownsDesktopInstance = claimDesktopSingleInstance(app, () => { focusPrimaryWindow() })
+const ownsDesktopInstance = claimDesktopSingleInstance(app, (argv) => {
+  // A launch can win the lock before `main()` installs its router.
+  if (launchRouter === undefined) pendingLaunchArgv.push([...argv])
+  else launchRouter(argv)
+})
 
 if (ownsDesktopInstance) void app.whenReady().then(main).catch(async (error: unknown) => {
   const message = error instanceof Error ? error.message : String(error)

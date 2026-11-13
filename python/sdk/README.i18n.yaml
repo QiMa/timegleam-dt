@@ -2,27 +2,27 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write python/sdk/README.md
-/huayu-ai-python-sdk:
-  en: 5617c340798f823a
-  zh: 4d9e2bb88cfb6f2d
-/huayu-ai-python-sdk/optional-office-operations:
+/timegleam-python-sdk:
+  en: 0f7876851c3b77e7
+  zh: cde7859858a2ac52
+/timegleam-python-sdk/optional-office-operations:
   en: ddf4dabea526cef1
   zh: 6e31cab10d2f3ed8
-/huayu-ai-python-sdk/start-a-runtime:
-  en: 165057d9369bcb12
-  zh: a4c5ebc7ae432490
-/huayu-ai-python-sdk/run-text-and-commands:
+/timegleam-python-sdk/start-a-runtime:
+  en: 8d2e6c93b3a56f5a
+  zh: ddfd2aaab8694e77
+/timegleam-python-sdk/run-text-and-commands:
   en: b2c847c1452e137d
   zh: c595c5e82151d0cb
-/huayu-ai-python-sdk/client-approvals:
+/timegleam-python-sdk/client-approvals:
   en: 1d18c09832dd4a42
   zh: 6e7260b650a1f987
-/huayu-ai-python-sdk/customize-plugins:
+/timegleam-python-sdk/customize-plugins:
   en: 592af05519bead80
   zh: 06b3b5097ae34042
-/huayu-ai-python-sdk/native-user-questions:
+/timegleam-python-sdk/native-user-questions:
   en: 979ad00fe498b2be
   zh: 4b656bd268292a13
-/huayu-ai-python-sdk/results-and-notifications:
+/timegleam-python-sdk/results-and-notifications:
   en: 6b81899ea865ffd2
   zh: d9e326a3fb04e696

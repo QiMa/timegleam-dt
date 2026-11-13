@@ -1,7 +1,7 @@
 /** Optional AirGap-issued provider key stored beside the installed application. */
 import { existsSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { dirname, join, normalize } from 'node:path'
 
 /** Basename the install scripts write beside the packaged manifest. */
 export const AIRGAP_GATEWAY_KEY_FILENAME = '.airgap-gateway-key'
@@ -31,6 +31,37 @@ export async function readGatewayKey(installDir: string): Promise<string | undef
   } catch {
     return undefined
   }
+}
+
+/**
+ * Directories that may hold the installer-written key, most specific first.
+ *
+ * A packed app normally keeps it one level above `resources/`. An AppImage is
+ * the exception: that directory is the read-only squashfs mount, so the key an
+ * installer writes beside the `.AppImage` file is invisible from there. The
+ * launcher exports `APPIMAGE` with the real path, which is what an installer
+ * actually targets.
+ * @param appImage - Value of `process.env.APPIMAGE`, when the runtime sets it.
+ * @param resourcesPath - `process.resourcesPath` of the running app.
+ * @returns Candidate directories in lookup order.
+ */
+export function gatewayKeyDirectories(appImage: string | undefined, resourcesPath: string): string[] {
+  const packaged = normalize(join(resourcesPath, '..'))
+  const fromImage = appImage === undefined || appImage === '' ? undefined : dirname(appImage)
+  return fromImage === undefined || fromImage === packaged ? [packaged] : [fromImage, packaged]
+}
+
+/**
+ * Read the first valid key from the candidate install directories.
+ * @param directories - Directories from `gatewayKeyDirectories`.
+ * @returns the validated key, or undefined when none exists.
+ */
+export async function readInstalledGatewayKey(directories: readonly string[]): Promise<string | undefined> {
+  for (const directory of directories) {
+    const value = await readGatewayKey(directory)
+    if (value !== undefined) return value
+  }
+  return undefined
 }
 
 /**

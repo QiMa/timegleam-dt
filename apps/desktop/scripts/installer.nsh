@@ -2,6 +2,8 @@
 !include "FileFunc.nsh"
 !define INSTALLER_SOURCE_DIR "${__FILEDIR__}\..\installer"
 !define /ifndef INSTALLER_BUILD_DIR "${__FILEDIR__}\..\.desktop-build\targets\win-x64\installer-ui"
+; Electron user data lives under this directory instead of the package-name default.
+!define DSH_USER_DATA_DIR_NAME "timegleam"
 
 ManifestDPIAware true
 !ifndef BUILD_UNINSTALLER

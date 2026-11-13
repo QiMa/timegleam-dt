@@ -1,6 +1,6 @@
 /**
  * Keyless snapshot coverage for the TypeScript SDK path: each scenario spawns
- * the real `hy --profile sdk` or `sdk-minimal` runtime through
+ * the real `timegleam --profile sdk` or `sdk-minimal` runtime through
  * `@hy/dsh-sdk-client`, drives recorded turns and standalone commands over stdio JSON-RPC,
  * and pins the SDK `RunResult`, the complete notification stream, and the
  * persisted session logs. Replay serves recorded model
@@ -86,7 +86,7 @@ const sessionWriteMode = recording ? 'record' : refreshing ? 'refresh' : 'replay
 const RUNTIME_WORKSPACE_ENTRIES = [
   '.agents',
   '.child-dsh',
-  '.huayu',
+  '.timegleam',
   '.replay-fixtures',
   '.snapshot-patches',
 ] as const
@@ -761,7 +761,7 @@ async function runScenario(scenario: CorpusScenario): Promise<{
   }
   const cwd = await realpath(await mkdtemp(join(workspaceParent, workspacePrefix)))
   if (fixedWidthCwd) expect(JSON.stringify(cwd)).toHaveLength(192)
-  const dshHome = join(cwd, '.huayu')
+  const dshHome = join(cwd, '.timegleam')
   const sessionsRoot = join(dshHome, 'sessions')
   const replayFixtures = recording ? [] : await hydrateReplayFixtures(scenario, cwd)
   const fixtureContents = await Promise.all((await fixtureFiles(scenario)).map(file => readFile(file, 'utf8')))
@@ -1189,7 +1189,7 @@ describe('TypeScript SDK snapshots over the jsonrpc runtime', () => {
       && (scenario.manifest.recording === 'authored' || scenario.manifest.sessionFormat !== undefined)
       ? it.skip
       : it
-    scenarioTest(`${mode}s ${scenario.name} through hy --profile ${scenario.manifest.profile}`, async () => {
+    scenarioTest(`${mode}s ${scenario.name} through timegleam --profile ${scenario.manifest.profile}`, async () => {
       const scenarioDir = scenario.dir
       const retained = scenario.manifest.sessionFormat !== undefined
       const notificationsExpectedPath = join(scenarioDir, retained ? 'notifications.current.expected.jsonl' : 'notifications.expected.jsonl')

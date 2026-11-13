@@ -1,5 +1,5 @@
 ---
-description: "Theme, font-size, and font-family settings for the hy web client: --dsw-* token stylesheets, ThemeRuntime state, General settings rows, and the pre-plugin bootstrap."
+description: "Theme, font-size, and font-family settings for the timegleam web client: --dsw-* token stylesheets, ThemeRuntime state, General settings rows, and the pre-plugin bootstrap."
 kind: "package-reference"
 ---
 

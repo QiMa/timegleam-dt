@@ -49,7 +49,7 @@ describe('CLI help child budget', () => {
 
 describe('CLI help discovery', () => {
   it('reads command rows while retaining wrapped descriptions and examples', () => {
-    const help = 'Usage: hy\r\n\r\nCommands:\r\n  web [options]  Serve the browser\r\n                 with a wrapped description\r\n  plugin         Manage plugins\r\n\r\nExamples:\r\n  hy web\r\n'
+    const help = 'Usage: hy\r\n\r\nCommands:\r\n  web [options]  Serve the browser\r\n                 with a wrapped description\r\n  plugin         Manage plugins\r\n\r\nExamples:\r\n  timegleam web\r\n'
     const result = parseCliHelp(help)
     expect(result.commands).toEqual(['web', 'plugin'])
     expect(result.output).toBe(help.replaceAll('\r\n', '\n'))
@@ -59,16 +59,16 @@ describe('CLI help discovery', () => {
     const visited: string[] = []
     const pages = await collectCliHelp(async (args) => {
       visited.push(args.join(' '))
-      if (args.length === 0) return 'Usage: hy [--profile] <name>\n'
-      if (args[0] === 'plugin') return 'Usage: hy plugin --profile <name> <args...>\n'
+      if (args.length === 0) return 'Usage: timegleam [--profile] <name>\n'
+      if (args[0] === 'plugin') return 'Usage: timegleam plugin --profile <name> <args...>\n'
       const selected = args[0] === '--profile' ? args.slice(1) : args
       if (selected[1] === 'nested') return 'Usage: nested\n'
       return `Usage: ${selected[0]} [command]\n\nCommands:\n  nested  Run the nested command\n`
     }, ['web'])
     expect(visited).toEqual(['', 'plugin', 'web', 'web nested', '--profile web'])
     expect(pages.map(page => page.invocations)).toEqual([
-      ['hy'], ['hy plugin'], ['hy web', 'hy --profile web'],
-      ['hy web nested', 'hy --profile web nested'],
+      ['timegleam'], ['timegleam plugin'], ['timegleam web', 'timegleam --profile web'],
+      ['timegleam web nested', 'timegleam --profile web nested'],
     ])
   })
 
@@ -78,14 +78,14 @@ describe('CLI help discovery', () => {
     const pages = await collectCliHelp(async (args) => {
       visited.push(args.join(' '))
       if (args.length === 0) return 'Usage: hy\n'
-      if (args[0] === 'plugin') return 'Usage: hy plugin\n'
+      if (args[0] === 'plugin') return 'Usage: timegleam plugin\n'
       const selected = args[0] === '--profile' ? args.slice(1) : args
       return selected[1] === 'serve' || selected[1] === 's' ? 'Usage: web serve\n' : parent
     }, ['web'])
     expect(visited).toEqual(['', 'plugin', 'web', 'web serve', 'web s', 'web help', '--profile web'])
     expect(pages.map(page => page.invocations)).toEqual([
-      ['hy'], ['hy plugin'], ['hy web', 'hy web help', 'hy --profile web', 'hy --profile web help'],
-      ['hy web serve', 'hy web s', 'hy --profile web serve', 'hy --profile web s'],
+      ['timegleam'], ['timegleam plugin'], ['timegleam web', 'timegleam web help', 'timegleam --profile web', 'timegleam --profile web help'],
+      ['timegleam web serve', 'timegleam web s', 'timegleam --profile web serve', 'timegleam --profile web s'],
     ])
   })
 

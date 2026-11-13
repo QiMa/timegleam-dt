@@ -38,12 +38,12 @@ describe('workspace snapshots', () => {
 
   it('keeps generic marker files but omits declared runtime roots and the expected-empty marker', async () => {
     const directory = await root()
-    await mkdir(join(directory, '.huayu'))
-    await writeFile(join(directory, '.huayu', 'runtime.json'), '{}')
+    await mkdir(join(directory, '.timegleam'))
+    await writeFile(join(directory, '.timegleam', 'runtime.json'), '{}')
     await writeFile(join(directory, EMPTY_WORKSPACE_MARKER), '')
     await writeFile(join(directory, 'visible.txt'), 'visible')
 
-    expect(await captureWorkspaceSnapshot(directory, { ignoredRootEntries: ['.huayu'] })).toEqual([
+    expect(await captureWorkspaceSnapshot(directory, { ignoredRootEntries: ['.timegleam'] })).toEqual([
       { path: '.empty', kind: 'text', content: '' },
       { path: 'visible.txt', kind: 'text', content: 'visible' },
     ])

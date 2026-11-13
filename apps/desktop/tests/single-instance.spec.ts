@@ -17,16 +17,18 @@ describe('desktop single-instance ownership', () => {
   })
 
   it('routes a later launch to the primary process', () => {
-    let secondInstance: (() => void) | undefined
+    let secondInstance: ((event: unknown, argv: readonly string[]) => void) | undefined
     const focus = vi.fn()
     const application = {
       requestSingleInstanceLock: () => true,
       quit: vi.fn(),
-      on: vi.fn((_event: 'second-instance', listener: () => void) => { secondInstance = listener }),
+      on: vi.fn((_event: 'second-instance', listener: (event: unknown, argv: readonly string[]) => void) => {
+        secondInstance = listener
+      }),
     } satisfies DesktopSingleInstanceApplication
 
     expect(claimDesktopSingleInstance(application, focus)).toBe(true)
-    secondInstance?.()
-    expect(focus).toHaveBeenCalledOnce()
+    secondInstance?.({}, ['timegleam', 42 as never, 'timegleam://project/p-1'])
+    expect(focus).toHaveBeenCalledExactlyOnceWith(['timegleam', 'timegleam://project/p-1'])
   })
 })

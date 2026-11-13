@@ -1,6 +1,18 @@
 /** Environment variable that supplies the Electron application identifier. */
 export const DESKTOP_APP_ID_ENV: 'DSH_DESKTOP_APP_ID'
 
+/** Product name shown by the operating system, installers, and About panel. */
+export const DESKTOP_PRODUCT_NAME: '拾光 TimeGleam'
+
+/** ASCII artifact stem shared by release feeds, upload plans, and CLI launchers. */
+export const DESKTOP_ARTIFACT_STEM: 'timegleam'
+
+/** Binary name inside the installed application bundle or unpacked directory. */
+export const DESKTOP_EXECUTABLE_NAME: 'timegleam'
+
+/** Stable reverse-DNS identity used by the branded release. */
+export const DESKTOP_DEFAULT_APP_ID: 'com.timegleam.desktop'
+
 /** Environment variable that supplies electron-builder's macOS certificate qualifier. */
 export const MACOS_SIGNING_IDENTITY_ENV: 'DSH_DESKTOP_MACOS_SIGNING_IDENTITY'
 

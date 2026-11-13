@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="240" viewBox="0 0 960 240" role="img" aria-label="拾光 TimeGleam">
+  <title>拾光 TimeGleam</title>
+  <rect width="960" height="240" fill="#121110"/>
+  <g transform="translate(48 60) scale(3.75)" fill="#E0A64B">
+    <path fill-rule="evenodd" d="M4 12V6.5A2.5 2.5 0 0 1 6.5 4H12V6.6H6.6V12Z M20 4h5.5A2.5 2.5 0 0 1 28 6.5V12h-2.6V6.6H20Z M4 20h2.6v5.4H12V28H6.5A2.5 2.5 0 0 1 4 25.5Z M28 20v5.5A2.5 2.5 0 0 1 25.5 28H20v-2.6h5.4V20Z M16 9.6L22.4 16L16 22.4L9.6 16ZM16 13.2L13.2 16L16 18.8L18.8 16Z M16 14.5L17.5 16L16 17.5L14.5 16Z"/>
+  </g>
+  <text x="208" y="132" fill="#F5F1E8" font-family="'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif" font-size="72" font-weight="600">拾光</text>
+  <text x="368" y="130" fill="#E0A64B" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="500" letter-spacing="14">TIMEGLEAM</text>
+  <text x="208" y="176" fill="#8A8478" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="24" letter-spacing="6">TIME, GLEAMED</text>
+</svg>

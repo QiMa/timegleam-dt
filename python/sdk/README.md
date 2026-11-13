@@ -1,8 +1,8 @@
-# Huayu AI Python SDK
+# TimeGleam Python SDK
 
 English | [中文](README.zh.md)
 
-Python subprocess SDK for driving Huayu AI over newline-delimited JSON-RPC on stdio. Install `deepseek-harness-sdk`; it installs the exact same-version `deepseek-harness-runtime-bin` wheel for the current platform.
+Python subprocess SDK for driving TimeGleam over newline-delimited JSON-RPC on stdio. Install `deepseek-harness-sdk`; it installs the exact same-version `deepseek-harness-runtime-bin` wheel for the current platform.
 
 ```sh
 python -m pip install deepseek-harness-sdk
@@ -30,7 +30,7 @@ The authoring environment is independently optional through `deepseek_harness_ru
 
 The Python SDK has no separate application entrypoint. It launches the bundled `dsh` CLI with `--profile sdk`; the selected profile owns the JSON-RPC server, agent composition, credentials, persistence, tools, and shutdown behavior.
 
-Every launch requires an explicit Harness home. Pass `dsh_home` or provide a non-empty `DSH_HOME` in the child environment. The SDK deliberately never discovers `~/.huayu`.
+Every launch requires an explicit Harness home. Pass `dsh_home` or provide a non-empty `DSH_HOME` in the child environment. The SDK deliberately never discovers `~/.timegleam`.
 
 ```py
 from deepseek_harness import DeepSeekHarness

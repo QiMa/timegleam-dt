@@ -25,17 +25,17 @@ afterEach(() => {
 
 describe('dsh path helpers', () => {
   it('owns the shared default DSH home directory name', () => {
-    expect(DSH_HOME_DIR_NAME).toBe('.huayu')
-    expect(DEFAULT_DSH_HOME_DISPLAY).toBe('~/.huayu')
-    expect(defaultDshHome()).toBe(join(homedir(), '.huayu'))
+    expect(DSH_HOME_DIR_NAME).toBe('.timegleam')
+    expect(DEFAULT_DSH_HOME_DISPLAY).toBe('~/.timegleam')
+    expect(defaultDshHome()).toBe(join(homedir(), '.timegleam'))
   })
 
   it('expands tilde paths without changing non-tilde paths', () => {
     expect(expandHomePath('~')).toBe(homedir())
-    expect(expandHomePath('~/.huayu')).toBe(join(homedir(), '.huayu'))
-    expect(expandHomePath('~\\.huayu')).toBe(join(homedir(), '.huayu'))
-    expect(expandHomePath('/tmp/.huayu')).toBe('/tmp/.huayu')
-    expect(expandHomePath('~other/.huayu')).toBe('~other/.huayu')
+    expect(expandHomePath('~/.timegleam')).toBe(join(homedir(), '.timegleam'))
+    expect(expandHomePath('~\\.timegleam')).toBe(join(homedir(), '.timegleam'))
+    expect(expandHomePath('/tmp/.timegleam')).toBe('/tmp/.timegleam')
+    expect(expandHomePath('~other/.timegleam')).toBe('~other/.timegleam')
   })
 
   it('resolves explicit path before DSH_HOME and the default', () => {
@@ -58,7 +58,7 @@ describe('dsh path helpers', () => {
   })
 
   it('labels a resolved home by whether it is the default root', () => {
-    expect(dshHomeDisplay(resolve(defaultDshHome()))).toBe('~/.huayu')
+    expect(dshHomeDisplay(resolve(defaultDshHome()))).toBe('~/.timegleam')
     expect(dshHomeDisplay('/some/other/root')).toBe('$DSH_HOME')
   })
 
@@ -87,9 +87,9 @@ describe('dsh path helpers', () => {
   })
 
   it.each([
-    [undefined, join(homedir(), '.huayu')],
-    ['', join(homedir(), '.huayu')],
-    ['   ', join(homedir(), '.huayu')],
+    [undefined, join(homedir(), '.timegleam')],
+    ['', join(homedir(), '.timegleam')],
+    ['   ', join(homedir(), '.timegleam')],
     ['~/env-dsh', join(homedir(), 'env-dsh')],
     ['./relative-dsh', resolve('./relative-dsh')],
   ] as const)('resolves cache paths with DSH_HOME=%j', (home, expectedHome) => {

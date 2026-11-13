@@ -263,6 +263,30 @@ ${HTTP_HOST}`)
     expect(await (await fetch(url)).json()).toMatchObject({ primaryRuntime, pnpm: join(runtime, 'pnpm.mjs'), nodeBin: join(runtime, 'bin') })
   })
 
+  it('drains Host stdout without publishing its authenticated URL', async () => {
+    // This write exceeds the pipe buffer, so its callback runs only when the
+    // parent keeps draining stdout.
+    const runtime = projectWithHost(`
+import { writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+process.send({ type: 'ready', url: 'http://127.0.0.1:3080/?token=fixture-secret' })
+process.stdout.write('token=fixture-secret\\n'.repeat(20_000), () => {
+  writeFileSync(join(process.argv[3], 'stdout-drained'), '')
+})
+process.on('message', message => { if (message.type === 'shutdown') process.disconnect() })
+`)
+    const written = vi.spyOn(process.stdout, 'write').mockImplementation(() => true)
+    const host = hostProcess(runtime)
+    try {
+      await host.start()
+      await expect.poll(() => existsSync(join(runtime, 'stdout-drained')), { timeout: 10_000 }).toBe(true)
+      expect(written.mock.calls.map(([chunk]) => String(chunk)).join('')).not.toContain('fixture-secret')
+    } finally {
+      await host.stop()
+      written.mockRestore()
+    }
+  }, 20_000)
+
   it('reports a fatal event after readiness once', async () => {
     const runtime = projectWithHost()
     const failure = vi.fn()

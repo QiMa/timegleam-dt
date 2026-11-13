@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/sdk/server/README.md
 /:
-  en: 39a371e29bc1f51a
-  zh: 9e1c9797049ae838
+  en: de2a1e911235101c
+  zh: bef732eab5e93126
 /hy-dsh-sdk-jsonrpc-server:
   en: 69e7f8301ae3c079
   zh: 8a9e0a65e378bf4f

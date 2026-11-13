@@ -5,30 +5,30 @@
 /:
   en: d11ca88bdc409249
   zh: d11ca88bdc409249
-/hy-cli-help:
-  en: 39744ba5a32ba374
-  zh: 21b38febccba3d33
-/hy-cli-help/contents:
-  en: 8eab8dd354fafffc
-  zh: 070d1f04a35f95a0
-/hy-cli-help/hy:
-  en: d4553888fcec5ee0
-  zh: 564b5a97e0d9696d
-/hy-cli-help/hy-plugin:
-  en: c28688f3bebf9613
-  zh: 23825594e0a78421
-/hy-cli-help/hy-acp:
-  en: 6a7ac0710225df2d
-  zh: f904e0f2fea78427
-/hy-cli-help/hy-headless:
-  en: d458344a4ce3b87c
-  zh: ce5553ec31e87721
-/hy-cli-help/hy-sdk:
-  en: a8143e0481ff28d1
-  zh: 606589bd32487cb8
-/hy-cli-help/hy-sdk-minimal:
-  en: cbcab515f12e2fba
-  zh: 6bac798b223fa610
-/hy-cli-help/hy-web:
-  en: 954ea7b2a245ad9e
-  zh: 189429f8581e2cca
+/timegleam-cli-help:
+  en: e6c8b4a6222cf194
+  zh: d28effcb2c13cf1d
+/timegleam-cli-help/contents:
+  en: d140170b3c97c115
+  zh: 19d1bbed1a3e6d32
+/timegleam-cli-help/timegleam:
+  en: 2e401e72249c37f4
+  zh: b5a3fcf50f633ee0
+/timegleam-cli-help/timegleam-plugin:
+  en: e8c95839f1750325
+  zh: 4937df71f22bcb26
+/timegleam-cli-help/timegleam-acp:
+  en: c9574cd1d477d038
+  zh: 79f340475e8f3590
+/timegleam-cli-help/timegleam-headless:
+  en: b93c2303086e9957
+  zh: d1e2275adbc58605
+/timegleam-cli-help/timegleam-sdk:
+  en: 5ea66595bc039dda
+  zh: 58579364330cfc6d
+/timegleam-cli-help/timegleam-sdk-minimal:
+  en: 0dcf50eb3f556126
+  zh: 6d322da6e43827a4
+/timegleam-cli-help/timegleam-web:
+  en: b0459ddd98fb7bff
+  zh: 7ab55b24258ad3e9

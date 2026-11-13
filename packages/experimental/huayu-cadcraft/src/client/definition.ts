@@ -13,6 +13,7 @@
  * command bridge auto-opens the same kind on demand.
  */
 import type { SidebarRightTabDefinition } from '@hy/dsh-client-ui-sidebar-right/client'
+import { CADCRAFT_TITLE } from './locale.ts'
 
 /** The tab kind this package owns. */
 export const CADCRAFT_TAB_KIND = 'cadcraft'
@@ -29,11 +30,11 @@ export function cadcraftDefinition(): SidebarRightTabDefinition {
     id: CADCRAFT_TAB_ID,
     kind: CADCRAFT_TAB_KIND,
     priority: 'builtin',
-    title: () => 'CADCraft',
+    title: () => CADCRAFT_TITLE,
     guide: [{
       id: 'cadcraft-entry',
       order: 30,
-      title: () => 'CADCraft',
+      title: () => CADCRAFT_TITLE,
       description: () => 'Open the CADCraft drawing engine',
     }],
   }

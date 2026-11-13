@@ -1,5 +1,5 @@
 /**
- * Session-lifecycle memory for Huayu AI: inject recalled memories into the
+ * Session-lifecycle memory for TimeGleam: inject recalled memories into the
  * first step of every turn (injection point A) and refine/merge the turn's
  * conversation into the huayu-memory service when a session is disposed
  * (injection point C). Failure is always silent degradation: the memory

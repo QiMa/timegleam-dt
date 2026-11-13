@@ -9,13 +9,13 @@
 
 import type { Duplex, Readable, Writable } from 'node:stream'
 
-/** Namespace prefix reserved for Huayu AI-managed child environment facts. */
+/** Namespace prefix reserved for TimeGleam-managed child environment facts. */
 export const DSH_ENV_PREFIX = 'DSH_' as const
 
 /** One environment key inside the managed {@link DSH_ENV_PREFIX} namespace. */
 export type DshEnvironmentKey = `${typeof DSH_ENV_PREFIX}${string}`
 
-/** Trusted Huayu AI variables for one child-process execution. */
+/** Trusted TimeGleam variables for one child-process execution. */
 export type DshEnvironment = Readonly<Record<DshEnvironmentKey, string>>
 
 /** One captured stream: the (possibly truncated) text plus recovery info. */

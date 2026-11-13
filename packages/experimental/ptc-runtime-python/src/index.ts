@@ -459,6 +459,7 @@ function validatePythonBin(bin: string): void {
       // The configured executable is outside our control. Force-kill it at the
       // deadline so a wrapper that ignores SIGTERM cannot block plugin load.
       killSignal: 'SIGKILL',
+      windowsHide: true,
       maxBuffer: 1_024,
     }).trim()
   } catch (error: unknown) {
@@ -1167,6 +1168,7 @@ export class PythonPtcRuntime extends PtcRuntime {
         env: pythonEnvironment(),
         detached: true, // Own the process group used by termination and exit observation.
         stdio: ['pipe', 'pipe', 'pipe', 'pipe'],
+        windowsHide: true,
       })
       proto = child.stdio[3] as Duplex | null
       /* v8 ignore next 3 -- Node's extra-stdio typing includes null; four pipe entries supply fd 3. */

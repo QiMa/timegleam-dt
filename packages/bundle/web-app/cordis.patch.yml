@@ -10,7 +10,7 @@
 # Loader resolves their expressions only after it exists. The web-runtime row
 # validates the advertised public URL; Connection reads invocation authorities
 # directly from `webStartup`.
-# `hy --profile web --help` provides no `webStartup`, so no server binds.
+# `timegleam --profile web --help` provides no `webStartup`, so no server binds.
 
 # ── surface-specific values the base deliberately omits ─────────────────────
 
@@ -154,6 +154,14 @@
       name: '@hy/dsh-mcp-manager'
       inject: [credentials]
 
+    # TimeGleam's remote MCP server. The access key lives in the credential
+    # seam under TIMEGLEAM_TOKEN; the plugin resolves it per connection, so a
+    # rotated key reconnects without restarting the Host. Desktop only: the
+    # Web deployment is not the TimeGleam workbench.
+    - id: timegleam
+      name: '@hy/dsh-timegleam'
+      disabled: !!js "ctx.get('profileContext')?.name !== 'desktop'"
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@hy/dsh-api-workspace-controller'
@@ -194,7 +202,8 @@
     # Web glue owned by this bundle: resolves the built frontend dist (an
     # assembly fact of dsh-web-app, never user config), mounts the
     # frontend-static fallback owner, registers the bash runtime variable,
-    # prints the URL line, and opens the canonical URL after the full Loader
+    # prints the URL line outside the desktop profile (whose Host reports it over
+    # IPC to the owning application), and opens the canonical URL after the full Loader
     # tree settles and the required-entry audit passes. Invocation-only values
     # come from the webStartup provider; the advertised application URL is
     # this row's `publicUrl`, otherwise the bind-address URL.
@@ -203,7 +212,7 @@
       inject: [webStartup]
       config:
         openBrowser: !!js ctx.webStartup.openBrowser
-        printUrl: true
+        printUrl: !!js "ctx.get('profileContext')?.name !== 'desktop'"
         publicUrl: !!js ctx.webStartup.publicUrl
         surfaceContext: true
 
@@ -342,6 +351,13 @@
     # Official occupants for the generic sidebar and conversation brand slots.
     - id: ui-brand-official
       name: '@hy/dsh-client-ui-brand-official'
+      disabled: !!js "ctx.get('profileContext')?.name === 'desktop'"
+
+    # Desktop identity. The official row above is disabled on this profile, so
+    # the single-occupant sidebar brand slots keep exactly one owner.
+    - id: ui-brand-timegleam
+      name: '@hy/dsh-client-ui-brand-timegleam'
+      disabled: !!js "ctx.get('profileContext')?.name !== 'desktop'"
 
     - id: ui-attachment
       name: '@hy/dsh-client-ui-attachment'

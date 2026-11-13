@@ -1,7 +1,7 @@
-- region "What would you like Huayu AI to help with?":
-  - heading "What would you like Huayu AI to help with?" [level=1]:
+- region "What would you like TimeGleam to help with?":
+  - heading "What would you like TimeGleam to help with?" [level=1]:
     - text: What would you like
-    - emphasis: Huayu AI
+    - emphasis: TimeGleam
     - text: to help with?
   - paragraph: We’ll tailor the interface and tools to fit the way you work.
   - checkbox "Office & creative work"

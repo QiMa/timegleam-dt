@@ -67,7 +67,8 @@ The shipped local provider scans roots in rank order:
 
 | Rank | Source | Root |
 |---|---|---|
-| 100 | `project-dsh` | `<projectRoot>/.huayu/skills` |
+| 100 | `project-dsh` | `<projectRoot>/.timegleam/skills` |
+| 110 | `project-dsh` | `<projectRoot>/.dsh/skills` (legacy) |
 | 200 | `project-agents` | `<projectRoot>/.agents/skills` |
 | 300 | `custom` | `Config.customSkillDirs` |
 | 400 | `user-dsh` | `<dshHome>/skills` |

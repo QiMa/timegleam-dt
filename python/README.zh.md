@@ -1,8 +1,8 @@
-# Huayu AI Python SDK
+# 拾光 TimeGleam Python SDK
 
 [English](README.md) | 中文
 
-用于以子进程方式驱动 Huayu AI 的 Python 包。客户端 SDK 通过 stdio 使用按行分隔的 JSON-RPC 与内置运行时通信。
+用于以子进程方式驱动 拾光 TimeGleam 的 Python 包。客户端 SDK 通过 stdio 使用按行分隔的 JSON-RPC 与内置运行时通信。
 
 ## 包
 
@@ -13,7 +13,7 @@
 
 ## 行为
 
-除非调用方选择另一个 `dsh` 可执行程序或 profile，否则 SDK 会启动匹配的内置 `hy --profile sdk` 运行时。可运行的极简示例选择随附的独立 `sdk-minimal` profile；同一运行时还会打包 `hy web` 及其前端产物，供单独通过 CLI 使用。每次启动都要求显式选择 Harness home；Python 绝不会静默读取 `~/.huayu`。[SDK 参考](sdk/README.zh.md) 和 [运行时载体参考](sdk-runtime/README.zh.md) 定义运行时选择、profile、patch 与外部插件管理约定。
+除非调用方选择另一个 `dsh` 可执行程序或 profile，否则 SDK 会启动匹配的内置 `hy --profile sdk` 运行时。可运行的极简示例选择随附的独立 `sdk-minimal` profile；同一运行时还会打包 `hy web` 及其前端产物，供单独通过 CLI 使用。每次启动都要求显式选择 Harness home；Python 绝不会静默读取 `~/.timegleam`。[SDK 参考](sdk/README.zh.md) 和 [运行时载体参考](sdk-runtime/README.zh.md) 定义运行时选择、profile、patch 与外部插件管理约定。
 
 ## 贡献者工作流
 

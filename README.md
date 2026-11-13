@@ -1,18 +1,18 @@
-# Huayu AI
+# TimeGleam
 
-![Huayu AI](assets/brand/huayuai-icon.svg)
+![拾光 TimeGleam](assets/brand/timegleam-icon.svg)
 
 English | [中文](README.zh.md)
 
-Huayu AI (`dsh`) is an open-source agent harness based on [Huayu AI](https://github.com/deepseek-ai/deepseek-harness), built by the Huayu AI team.
+TimeGleam (`timegleam`, CLI alias `dsh`) is the desktop and Web agent harness for [TimeGleam.com](https://timegleam.com), built on the open-source DSH harness.
 
 It is built on an **everything-is-a-plugin** architecture and powered by [Cordis](https://github.com/cordiverse/cordis), whose design is described in [_A Programming Paradigm for Spatiotemporal Composability_](https://arxiv.org/abs/2608.25512).
 
-Documentation: [https://deepseek-harness.github.io/deepseek-harness/](https://deepseek-harness.github.io/deepseek-harness/)
+Documentation: [TimeGleam desktop guide](docs/timegleam-desktop.md)
 
 ## Developer preview
 
-Huayu AI is in _developer preview_ and iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**
+TimeGleam is in _developer preview_ and iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**
 
 Review the [safety notice](SAFETY.md) before running the project.
 
@@ -23,7 +23,7 @@ Review the [safety notice](SAFETY.md) before running the project.
 Install `Node.js`, then run:
 
 ```sh
-npx @hy/dsh web
+npx --package @hy/dsh timegleam web
 ```
 
 The command starts the Web UI at `http://127.0.0.1:3080` by default and opens it in the default browser for a local launch. An SSH launch only prints the host URL because the SSH client or editor owns the local forwarded address. Pass `--no-open` to run the server without opening a browser. See [Web UI guide](docs/user/guide/index.md).
@@ -37,16 +37,16 @@ git clone https://github.com/deepseek-ai/deepseek-harness.git
 cd deepseek-harness
 pnpm install
 pnpm run build
-pnpm hy web
+pnpm timegleam web
 ```
 
-`pnpm run build` prepares the repository artifacts. `pnpm hy web` uses those built artifacts without rebuilding.
+`pnpm run build` prepares the repository artifacts. `pnpm timegleam web` uses those built artifacts without rebuilding.
 
 ## Community and support
 
 - Submit feedback or bug reports through [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions).
 - Add the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic to your plugin repository for discoverability.
-- Join <a href="https://discord.gg/4MrtZUhpxg">Huayu AI Discord community</a>.
+- Join the <a href="https://timegleam.com">TimeGleam community</a>.
 
 ## Contributing
 
@@ -64,7 +64,7 @@ For agents, follow [AGENTS.md](AGENTS.md).
 
 ```bibtex
 @misc{deepseek-harness2026,
-  title={Huayu AI: Everything is a Plugin},
+  title={TimeGleam: Everything is a Plugin},
   author={DeepSeek-AI},
   year={2026},
   publisher={GitHub},

@@ -1,6 +1,7 @@
 /** Resolve the Desktop auto-update channel and its publication destination. */
 
 import { valid } from 'semver'
+import { secureOrIntranetTransport } from './intranet-host.mjs'
 
 /** Environment variable that selects the Desktop update deployment. */
 export const DESKTOP_AUTO_UPDATE_ENV = 'DSH_DESKTOP_AUTO_UPDATE_ENV'
@@ -141,10 +142,11 @@ export function requiredEnvironmentValue(env, name) {
 }
 
 /**
- * Normalize an HTTPS base URL that may carry a base path (used by the AirGap public root).
+ * Normalize an HTTPS or intranet-HTTP base URL that may carry a base path
+ * (used by the AirGap public root, which often has no internal TLS yet).
  * @param {string} value - Candidate base URL.
  * @param {string} name - Environment variable used in diagnostics.
- * @returns {string} Normalized HTTPS base URL without a trailing slash.
+ * @returns {string} Normalized base URL without a trailing slash.
  */
 export function httpsBaseUrl(value, name) {
   let parsed
@@ -152,14 +154,14 @@ export function httpsBaseUrl(value, name) {
     parsed = new URL(value)
   }
   catch {
-    throw new Error(`desktop auto-update: ${name} must be an absolute HTTPS URL`)
+    throw new Error(`desktop auto-update: ${name} must be an absolute HTTPS or intranet HTTP URL`)
   }
-  if (parsed.protocol !== 'https:'
+  if (!secureOrIntranetTransport(parsed)
     || parsed.username !== ''
     || parsed.password !== ''
     || parsed.search !== ''
     || parsed.hash !== '') {
-    throw new Error(`desktop auto-update: ${name} must be an absolute HTTPS URL without credentials, query, or fragment`)
+    throw new Error(`desktop auto-update: ${name} must be an absolute HTTPS or intranet HTTP URL without credentials, query, or fragment`)
   }
   return parsed.href.replace(/\/+$/u, '')
 }
@@ -196,8 +198,8 @@ function httpsOrigin(value, name) {
  * path maps to the static host root. The returned `origin` is therefore either
  * an origin (test) or an origin plus a base path (production); both are intended
  * to be joined with a slash and an object prefix.
- * AirGap deployments select the `huayu-ai` catalog by default; `DSH_DESKTOP_EDITION=enterprise`
- * routes them to the separate `huayu-enterprise` catalog.
+ * AirGap deployments select the `timegleam` catalog by default; `DSH_DESKTOP_EDITION=enterprise`
+ * routes them to the separate `timegleam-enterprise` catalog.
  * @param {NodeJS.ProcessEnv} env - Packaging or upload environment.
  * @param {NodeJS.Platform} platform - Target Node.js platform.
  * @param {string} arch - Target Node.js architecture.
@@ -217,7 +219,7 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
       ? httpsBaseUrl(requiredEnvironmentValue(env, originEnvName), originEnvName)
       : httpsOrigin(requiredEnvironmentValue(env, originEnvName), originEnvName)
   }
-  let releasePrefix = environment === 'airgap' ? (resolveDesktopEdition(env) === 'enterprise' ? 'huayu-enterprise' : 'huayu-ai') + '/dsh-desk' : 'dsh-desk'
+  let releasePrefix = environment === 'airgap' ? (resolveDesktopEdition(env) === 'enterprise' ? 'timegleam-enterprise' : 'timegleam') + '/dsh-desk' : 'dsh-desk'
   if (environment === 'test') {
     const releaseId = requiredEnvironmentValue(env, 'DOWNLOAD_TEST_RELEASE_ID')
     if (!/^[a-f0-9]{32}$/u.test(releaseId)) {

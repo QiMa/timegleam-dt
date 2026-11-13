@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "TimeGleam workbench connector",
+    "description": "Connect a Desktop Session to the online TimeGleam workspace over MCP and apply the workbench rules for quotes, identifiers, and untrusted data."
+  }
+}

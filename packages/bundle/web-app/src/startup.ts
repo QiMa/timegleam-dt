@@ -1,5 +1,5 @@
 /**
- * The web app's command-line provider: it parses the `hy --profile web` flag
+ * The web app's command-line provider: it parses the `timegleam --profile web` flag
  * family (`--host`, `--port`, `--public-url`, `--trusted-host`, `--no-open`, TLS)
  * and its `--help` text, then provides the immutable values as
  * {@link WEB_STARTUP_SERVICE}. Ordinary rows inject that service before
@@ -58,8 +58,8 @@ interface WebOptions {
  */
 function webCommand(): Command {
   return new Command()
-    .name('hy --profile web')
-    .description('Serve the Huayu AI browser UI.')
+    .name('timegleam --profile web')
+    .description('Serve the TimeGleam browser UI.')
     .helpOption('-h, --help', 'show this help')
     .option('--host <host>', 'bind address: one concrete IPv4 or IPv6 literal of a local interface; wildcard addresses are rejected')
     .option('--no-open', 'do not open the Web UI in the default browser')
@@ -70,13 +70,13 @@ function webCommand(): Command {
     .option('--tls-key <file>', 'unencrypted PEM private key; requires --tls-cert')
     .addHelpText('after', `
 Examples:
-  hy --profile web                          serve on the composed host and port
-  hy --profile web --no-open                serve without opening a browser
-  hy --profile web --port 8080              serve on another port
-  hy --profile web --host 10.0.0.7          bind one local interface address
-  hy --profile web --public-url https://app.example/ui/ --trusted-host app.example
+  timegleam --profile web                          serve on the composed host and port
+  timegleam --profile web --no-open                serve without opening a browser
+  timegleam --profile web --port 8080              serve on another port
+  timegleam --profile web --host 10.0.0.7          bind one local interface address
+  timegleam --profile web --public-url https://app.example/ui/ --trusted-host app.example
                                              advertise a prefix-stripping HTTPS proxy entry and admit its authority
-  hy --profile web --tls-cert ./server-chain.pem --tls-key ./server-key.pem
+  timegleam --profile web --tls-cert ./server-chain.pem --tls-key ./server-key.pem
                                              serve HTTPS with an existing certificate and key
 `)
 }

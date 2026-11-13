@@ -1,5 +1,5 @@
 /**
- * Low-level JSON-RPC client for a Huayu AI SDK runtime subprocess.
+ * Low-level JSON-RPC client for a TimeGleam SDK runtime subprocess.
  * {@link HarnessClient} owns the child process: it spawns the runtime, speaks
  * the `@hy/dsh-sdk-protocol` wire over the child's stdio, fans
  * server notifications out to subscriptions, and tears the child down to
@@ -179,7 +179,7 @@ class NotificationSubscriptionImpl implements NotificationSubscription {
 }
 
 /**
- * JSON-RPC client for the Huayu AI SDK runtime over subprocess stdio.
+ * JSON-RPC client for the TimeGleam SDK runtime over subprocess stdio.
  *
  * The subprocess starts lazily on {@link start} and is owned by this instance
  * until {@link close}, which requests protocol `shutdown` and then walks the
@@ -205,7 +205,7 @@ export class HarnessClient {
   private userQuestionHandler: HarnessClientOptions['onUserQuestion']
   private requestHandler: ((method: string, params: Record<string, unknown>) => Promise<unknown>) | undefined
 
-  /** @param options - dsh profile, patch, home, process, environment, and timeout options. */
+  /** @param options - TimeGleam profile, patch, home, process, environment, and timeout options. */
   constructor(options?: HarnessClientOptions)
   constructor(options: HarnessClientOptions = {}, runtime?: RuntimeProcessOptions) {
     this.options = options
@@ -217,13 +217,14 @@ export class HarnessClient {
    * the process is live; rejects reuse after {@link close}.
    */
   start(): void {
-    if (this.closeTask !== undefined) throw new TransportClosedError('Huayu AI runtime client is closed')
+    if (this.closeTask !== undefined) throw new TransportClosedError('TimeGleam runtime client is closed')
     if (this.child !== undefined) return
     this.userQuestionHandler = this.options.onUserQuestion
     const child = spawn(this.runtime.command, this.runtime.args, {
       cwd: this.runtime.cwd,
       env: this.runtime.environment(),
       stdio: ['pipe', 'pipe', 'pipe'],
+      windowsHide: true,
     })
     this.child = child
     child.once('error', (error) => {
@@ -231,7 +232,7 @@ export class HarnessClient {
       // A spawn failure destroys the pipes without an input 'end' edge, so the
       // transport's pending requests must be failed here.
       this.transport?.close()
-      this.failSubscriptions(this.closedError('Huayu AI runtime failed to start'))
+      this.failSubscriptions(this.closedError('TimeGleam runtime failed to start'))
     })
     // Writes racing the runtime's death EPIPE on stdin; the exit edge below is
     // the real signal, so the stream-level error only needs to be non-fatal.
@@ -263,7 +264,7 @@ export class HarnessClient {
       this.exitCode = code
       settled.exited = true
       maybeSettle()
-      this.failSubscriptions(this.closedError('Huayu AI runtime exited'))
+      this.failSubscriptions(this.closedError('TimeGleam runtime exited'))
     })
     child.once('close', () => {
       // All stdio has settled: stdout 'end' already drained every tail frame,
@@ -411,11 +412,11 @@ export class HarnessClient {
     // writing into a destroyed pipe and hanging until the timeout.
     if (this.exitCode !== undefined || this.spawnError !== undefined) {
       await this.settleStreams()
-      throw this.closedError('Huayu AI runtime is not running')
+      throw this.closedError('TimeGleam runtime is not running')
     }
     const transport = this.transport
     /* v8 ignore next -- start() either sets the transport or throws */
-    if (transport === undefined) throw new TransportClosedError('Huayu AI runtime is not running')
+    if (transport === undefined) throw new TransportClosedError('TimeGleam runtime is not running')
     const timeout = timeoutMs ?? this.runtime.requestTimeoutMs
     try {
       if (timeout === undefined) return await transport.request(method, params ?? {})
@@ -452,7 +453,7 @@ export class HarnessClient {
     const state: SubscriptionState = { queue: [], waiters: [], filter, failure: undefined }
     const subscription = new NotificationSubscriptionImpl(state, () => { this.subscriptions.delete(id) })
     if (this.closeTask !== undefined || this.exitCode !== undefined || this.spawnError !== undefined) {
-      subscription.fail(this.closedError('Huayu AI runtime closed'))
+      subscription.fail(this.closedError('TimeGleam runtime closed'))
       return subscription
     }
     this.subscriptions.set(id, subscription)
@@ -506,7 +507,7 @@ export class HarnessClient {
       disposeGraceMs: this.runtime.disposeGraceMs ?? 3_000,
     })
     this.transport?.close()
-    this.failSubscriptions(this.closedError('Huayu AI runtime closed'))
+    this.failSubscriptions(this.closedError('TimeGleam runtime closed'))
   }
 
   private dispatchNotification(notification: HarnessNotification): void {

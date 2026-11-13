@@ -1,4 +1,4 @@
-Huayu AI 无法使用
+拾光 TimeGleam 无法使用
 应用无法启动或已意外停止。
 Desktop Host failed
 Plugin initialization failed

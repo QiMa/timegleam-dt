@@ -1,5 +1,5 @@
 ---
-description: "Subagent conversation catalog, continuation routing UI, and '@' reference source for the hy web client."
+description: "Subagent conversation catalog, continuation routing UI, and '@' reference source for the timegleam web client."
 kind: "package-reference"
 ---
 

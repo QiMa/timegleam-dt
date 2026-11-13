@@ -214,7 +214,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@hy/dsh-experimental-forge` | yes | Provider-neutral change request registry with shared status polling |
 | `@hy/dsh-experimental-forge-github` | yes | GitHub provider for the experimental forge registry, read through the GitHub CLI on the host |
 | `@hy/dsh-experimental-forge-session` | yes | Binds change requests to the Session that created, pushed, or tracked them |
-| `@hy/dsh-experimental-huayu-cadcraft` | yes | Huayu AI CADCraft plugin: embed the CADCraft web drawing engine in the right sidebar and keep drawings beside each project |
+| `@hy/dsh-experimental-huayu-cadcraft` | yes | TimeGleam CADCraft plugin: embed the CADCraft web drawing engine in the right sidebar and keep drawings beside each project |
 | `@hy/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
 | `@hy/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
 | `@hy/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |

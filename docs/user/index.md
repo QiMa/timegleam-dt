@@ -6,6 +6,6 @@ head:
       content: 0; url=./guide/quickstart
 ---
 
-# Huayu AI
+# TimeGleam
 
 English | [中文](index.zh.md)

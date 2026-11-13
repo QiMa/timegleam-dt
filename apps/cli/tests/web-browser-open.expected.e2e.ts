@@ -1,4 +1,4 @@
-/** Assembled keyless snapshot for the default `hy web` browser handoff. */
+/** Assembled keyless snapshot for the default `timegleam web` browser handoff. */
 
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -11,7 +11,7 @@ const repoRoot = fileURLToPath(new URL('../../../', import.meta.url))
 const builtBin = join(repoRoot, 'apps/cli/lib/bin.js')
 const frontendIndex = join(repoRoot, 'apps/web/dist/index.html')
 const openerHook = new URL('./fixtures/web-browser-open/register.mjs', import.meta.url).href
-const openingMessage = 'hy web: opening the default browser; pass --no-open to disable'
+const openingMessage = 'timegleam web: opening the default browser; pass --no-open to disable'
 const tempRoots: string[] = []
 const builtArtifactsExist = existsSync(builtBin) && existsSync(frontendIndex)
 
@@ -52,7 +52,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
         ...process.env,
         DEEPSEEK_API_KEY: 'keyless-browser-open-no-call',
         DSH_AGENTS_HOME: join(root, '.agents'),
-        DSH_HOME: join(root, '.huayu'),
+        DSH_HOME: join(root, '.timegleam'),
         DSH_TELEMETRY_DISABLED: '1',
         NODE_NO_WARNINGS: '1',
         SSH_CONNECTION: '',
@@ -67,7 +67,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
     const openLine = result.stdout.split('\n').find(line => line.startsWith('dsh browser-open: '))
     const opening = result.stdout.includes(openingMessage)
     if (readyUrl === undefined || openLine === undefined || !opening) {
-      throw new Error(`hy web browser-open evidence missing\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`)
+      throw new Error(`timegleam web browser-open evidence missing\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`)
     }
     const opened = JSON.parse(openLine.slice('dsh browser-open: '.length)) as BrowserOpenRecord
 
@@ -112,7 +112,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
         DEEPSEEK_API_KEY: 'keyless-browser-open-no-call',
         DSH_AGENTS_HOME: join(root, '.agents'),
         DSH_BROWSER_OPEN_TEST_EXIT_ON_FAILURE: '1',
-        DSH_HOME: join(root, '.huayu'),
+        DSH_HOME: join(root, '.timegleam'),
         DSH_TELEMETRY_DISABLED: '1',
         NODE_NO_WARNINGS: '1',
         SSH_CONNECTION: '',
@@ -135,7 +135,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
       readyUrl: readyUrl === undefined ? undefined : normalizeLocalUrl(readyUrl),
     }).toMatchInlineSnapshot(`
       {
-        "diagnostic": "web-app: could not open the default browser because fixture desktop unavailable; use the hy web URL printed at startup",
+        "diagnostic": "web-app: could not open the default browser because fixture desktop unavailable; use the timegleam web URL printed at startup",
         "exitCode": 0,
         "opened": false,
         "opening": true,
@@ -159,7 +159,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
         DEEPSEEK_API_KEY: 'keyless-browser-open-no-call',
         DSH_AGENTS_HOME: join(root, '.agents'),
         DSH_BROWSER_OPEN_TEST_EXIT_ON_READY: '1',
-        DSH_HOME: join(root, '.huayu'),
+        DSH_HOME: join(root, '.timegleam'),
         DSH_TELEMETRY_DISABLED: '1',
         NODE_NO_WARNINGS: '1',
         SSH_CONNECTION: '10.0.0.2 55000 10.0.0.9 22',
@@ -205,7 +205,7 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
         ...process.env,
         DEEPSEEK_API_KEY: 'keyless-browser-open-no-call',
         DSH_AGENTS_HOME: join(root, '.agents'),
-        DSH_HOME: join(root, '.huayu'),
+        DSH_HOME: join(root, '.timegleam'),
         DSH_TELEMETRY_DISABLED: '1',
         NODE_NO_WARNINGS: '1',
         SSH_CONNECTION: '',
@@ -219,14 +219,14 @@ describe.skipIf(!builtArtifactsExist)('dsh web browser-open assembled snapshot',
 
     const diagnostic = result.stderr.split(/\r?\n/u)
       .find(line => line.startsWith('Error: dsh: '))
-      ?.replace(/^Error: dsh: .*[/\\]\.env/u, 'hy: {{root}}/.env')
+      ?.replace(/^Error: dsh: .*[/\\]\.env/u, 'timegleam: {{root}}/.env')
 
     expect({
       diagnostic,
       exitCode: result.exitCode,
       opening: result.stdout.includes(openingMessage),
       opened: result.stdout.includes('dsh browser-open: '),
-      ready: result.stdout.includes('hy web: '),
+      ready: result.stdout.includes('timegleam web: '),
     }).toMatchInlineSnapshot(`
       {
         "diagnostic": "dsh: {{root}}/.env sets "BROWSER", which only the launching environment may set (it decides how this process starts, where its code and instructions load from, or how it reaches the network); export BROWSER instead of putting it in a .env file",

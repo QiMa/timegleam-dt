@@ -2,7 +2,7 @@
 
 [English](huayu-memory-architecture.md) | 中文
 
-面向 Huayu AI 智能体的持久记忆，由 huayu-memory 服务支撑。两个插件在会话内协作：`@hy/dsh-tool-memory` 为模型提供显式的 `memory_search` 与 `memory_save` 工具，`@hy/dsh-memory-context` 挂接智能体生命周期，在每个 turn 第一步之前注入召回的记忆，并在会话销毁时将对话精炼为记忆。
+面向 拾光 TimeGleam 智能体的持久记忆，由 huayu-memory 服务支撑。两个插件在会话内协作：`@hy/dsh-tool-memory` 为模型提供显式的 `memory_search` 与 `memory_save` 工具，`@hy/dsh-memory-context` 挂接智能体生命周期，在每个 turn 第一步之前注入召回的记忆，并在会话销毁时将对话精炼为记忆。
 
 ## 组件
 

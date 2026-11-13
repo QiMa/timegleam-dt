@@ -4,35 +4,31 @@ import type { ProductEvent } from '@hy/dsh-client-product-analytics/types'
 import { randomUUID } from 'node:crypto'
 import { desktopAccountBackend, type DesktopAccountBackend } from './account-backend.ts'
 import {
+  TIMEGLEAM_API_BASE, TIMEGLEAM_CREDENTIAL_REF, TIMEGLEAM_PROVIDER, TIMEGLEAM_TOKEN_PATTERN,
+  type TimeGleamModel,
+} from './timegleam.ts'
+import {
   AIRGAP_ENTERPRISE_DEFAULT_SELECTION,
   AIRGAP_ENTERPRISE_PROVIDER,
   airgapEnterpriseProviderProfile,
   type DesktopEnterpriseModelGateway,
 } from './product-edition.ts'
 
-/** The credential reference the seeded baizor provider route resolves per request. */
-export const BAIZOR_CREDENTIAL_REF = 'DSH_BAIZOR_API_KEY'
-
-/** The baizor provider profile the desktop seeds into the llm-pi-ai settings section. */
-export const BAIZOR_PROVIDER_PROFILE = {
-  displayName: 'Baizor',
-  apiKeyEnv: BAIZOR_CREDENTIAL_REF,
-  api: 'openai-completions',
-  baseURL: 'https://baizor.com/v1',
-  compat: { thinkingFormat: 'deepseek' },
-  defaultContextWindow: 128000,
-  defaultMaxTokens: 8192,
-  models: [{ id: 'huayu-v2', name: 'Huayu v2', contextWindow: 128000, maxTokens: 8192 }],
-} as const
-
-/** The default selection the desktop seeds while the user has chosen none. */
-export const BAIZOR_DEFAULT_SELECTION = { provider: 'baizor', model: 'huayu-v2' } as const
+/**
+ * Output cap older enterprise seeds wrote. Installations still carrying it cut
+ * long answers off, so the seed refresh replaces it in place.
+ */
+const LEGACY_SEEDED_MAX_TOKENS = 8192
 
 /** Metadata needed before the native entry or workspace becomes visible. */
 export interface WelcomeState {
   readonly loggedIn: boolean
   readonly hasApiKey: boolean
   readonly writable: boolean
+  /** A TimeGleam access key is stored for the MCP registration. */
+  readonly hasTimeGleamToken: boolean
+  /** The credential store accepts a TimeGleam access key. */
+  readonly timeGleamWritable: boolean
   readonly localePreference: string | null
 }
 
@@ -50,10 +46,22 @@ export interface DesktopWelcomeBackend {
   /** Seed the edition provider route and default selection into this desktop profile. */
   ensureModelConfiguration(): Promise<void>
   /**
+   * Seed the TimeGleam proxy route with the models this workspace granted.
+   * @param models - model list read from the proxy after sign-in.
+   * @param preferred - model the profile should default to; the first when absent.
+   * @returns after both the route and the default selection are written.
+   */
+  ensureTimeGleamModelConfiguration(models: readonly TimeGleamModel[], preferred?: string): Promise<void>
+  /**
    * @param apiKey - User-entered provider key.
    * @returns A safe write outcome without provider diagnostics.
    */
   save(apiKey: string): Promise<{ ok: boolean }>
+  /**
+   * Store the TimeGleam access key the MCP registration resolves per request.
+   * @param token - console-issued key with a tmg_ or aym_ prefix.
+   */
+  storeTimeGleamToken(token: string): Promise<void>
   /**
    * Store the edition provider key through the credentials seam; a refused write
    * rejects instead of swallowing the diagnostic.
@@ -102,9 +110,11 @@ export function connectDesktopWelcome(
     return envelope.result.value
   }
   const account = desktopAccountBackend(origin, invoke, cookie)
-  const provider = modelGateway === undefined ? 'baizor' : AIRGAP_ENTERPRISE_PROVIDER
-  const providerProfile = modelGateway === undefined ? BAIZOR_PROVIDER_PROFILE : airgapEnterpriseProviderProfile(modelGateway)
-  const defaultSelection = modelGateway === undefined ? BAIZOR_DEFAULT_SELECTION : AIRGAP_ENTERPRISE_DEFAULT_SELECTION
+  // The standard TimeGleam edition configures chat models only when the user
+  // asks in Settings; the enterprise edition still seeds its sealed gateway.
+  const provider = AIRGAP_ENTERPRISE_PROVIDER
+  const providerProfile = modelGateway === undefined ? undefined : airgapEnterpriseProviderProfile(modelGateway)
+  const defaultSelection = AIRGAP_ENTERPRISE_DEFAULT_SELECTION
   /** The `apiKeyEnv` a provider profile stored for this route names, when present. */
   const providerRef = (namespace: unknown, route: string): string | undefined => {
     if (!record(namespace) || !record(namespace.value) || !record(namespace.value.providers)) return undefined
@@ -115,16 +125,9 @@ export function connectDesktopWelcome(
     const settings = await invoke({ namespace: 'settings', method: 'describe', args: {} })
     if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
     const namespaces = settings.namespaces
+    if (modelGateway === undefined) return { settings: { namespaces }, ref: undefined }
     const piAi: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'llm-pi-ai')
-    const seededRef = providerRef(piAi, provider)
-    if (seededRef !== undefined) return { settings: { namespaces }, ref: seededRef }
-    if (modelGateway !== undefined) return { settings: { namespaces }, ref: undefined }
-    const official: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'llm-deepseek')
-    if (official === undefined) return { settings: { namespaces }, ref: undefined }
-    if (!record(official) || !record(official.value) || typeof official.value.apiKeyEnv !== 'string') {
-      throw new Error('desktop welcome: missing official DeepSeek credential reference')
-    }
-    return { settings: { namespaces }, ref: official.value.apiKeyEnv }
+    return { settings: { namespaces }, ref: providerRef(piAi, provider) }
   }
   const localePreference = (namespaces: unknown[]): string | null => {
     const locale: unknown = namespaces.find((item: unknown) => record(item) && item.ns === 'locale')
@@ -151,7 +154,7 @@ export function connectDesktopWelcome(
       }
       return record(value) && typeof value.apiKeyEnv === 'string' ? [value.apiKeyEnv] : []
     })
-    const unique = [...new Set([...(ref === undefined ? [] : [ref]), ...refs])]
+    const unique = [...new Set([...(ref === undefined ? [] : [ref]), ...refs, TIMEGLEAM_CREDENTIAL_REF])]
     const states: Record<string, unknown> = {}
     // credentials.describe accepts at most 64 references per request.
     for (let offset = 0; offset < unique.length; offset += 64) {
@@ -160,10 +163,14 @@ export function connectDesktopWelcome(
       Object.assign(states, batch)
     }
     if (ref !== undefined && !record(states[ref])) throw new Error('desktop welcome: missing credential metadata')
+    if (!record(states[TIMEGLEAM_CREDENTIAL_REF])) throw new Error('desktop welcome: missing TimeGleam credential metadata')
     return {
       loggedIn: (await account.state()).status === 'credential-stored',
-      hasApiKey: Object.values(states).some(value => record(value) && value.configured === true),
+      hasApiKey: Object.entries(states).some(([ref, value]) =>
+        ref !== TIMEGLEAM_CREDENTIAL_REF && record(value) && value.configured === true),
       writable: ref !== undefined && record(states[ref]) && states[ref].writable === true,
+      hasTimeGleamToken: record(states[TIMEGLEAM_CREDENTIAL_REF]) && states[TIMEGLEAM_CREDENTIAL_REF].configured === true,
+      timeGleamWritable: record(states[TIMEGLEAM_CREDENTIAL_REF]) && states[TIMEGLEAM_CREDENTIAL_REF].writable === true,
       localePreference: localePreference(namespaces),
     }
   }
@@ -173,6 +180,21 @@ export function connectDesktopWelcome(
     if (ref === undefined) throw new Error('desktop welcome: no writable credential reference')
     await invoke({ namespace: 'credentials', method: 'set', args: { ref, value: apiKey } })
   }
+  const storeTimeGleamToken = async (token: string): Promise<void> => {
+    if (!TIMEGLEAM_TOKEN_PATTERN.test(token)) throw new Error('desktop welcome: invalid TimeGleam access key')
+    await invoke({ namespace: 'credentials', method: 'set', args: { ref: TIMEGLEAM_CREDENTIAL_REF, value: token } })
+  }
+  const timeGleamProfile = (models: readonly TimeGleamModel[]) => ({
+    displayName: 'TimeGleam',
+    apiKeyEnv: TIMEGLEAM_CREDENTIAL_REF,
+    api: 'openai-completions',
+    baseURL: TIMEGLEAM_API_BASE,
+    defaultContextWindow: 128000,
+    defaultMaxTokens: 32768,
+    models: models.map(model => ({
+      id: model.id, name: model.name, contextWindow: 128000, maxTokens: 32768,
+    })),
+  })
   return {
     account,
     read,
@@ -188,6 +210,8 @@ export function connectDesktopWelcome(
       return localePreference(settings.namespaces)
     },
     async ensureModelConfiguration() {
+      if (modelGateway === undefined || providerProfile === undefined) return
+      const profile = providerProfile
       const signal = AbortSignal.timeout(10_000)
       const settings = await invoke({ namespace: 'settings', method: 'describe', args: {} }, signal)
       if (!record(settings) || !Array.isArray(settings.namespaces)) throw new Error('desktop welcome: missing settings namespaces')
@@ -197,29 +221,46 @@ export function connectDesktopWelcome(
       const profiles = record(piAi) && record(piAi.value) && record(piAi.value.providers) ? piAi.value.providers : undefined
       const seeded = record(profiles) ? profiles[provider] : undefined
       const seededRoute = record(seeded) && typeof seeded.apiKeyEnv === 'string'
-      const gatewayRoute = modelGateway !== undefined && seededRoute
-        && seeded.baseURL === providerProfile.baseURL && seeded.apiKeyEnv === providerProfile.apiKeyEnv
-      if (!seededRoute || (modelGateway !== undefined && !gatewayRoute)) {
-        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { [provider]: providerProfile } }, expectedRevision: undefined } }, signal)
+      const gatewayRoute = seededRoute
+        && seeded.baseURL === profile.baseURL && seeded.apiKeyEnv === profile.apiKeyEnv
+      const legacyCapacity = seededRoute
+        && seeded.defaultMaxTokens === LEGACY_SEEDED_MAX_TOKENS
+        && Array.isArray(seeded.models)
+        && seeded.models.some(model => record(model) && model.maxTokens === LEGACY_SEEDED_MAX_TOKENS)
+      if (!gatewayRoute || legacyCapacity) {
+        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { [provider]: profile } }, expectedRevision: undefined } }, signal)
       }
       // The enterprise edition is the AirGap distribution channel: an installed
       // baizor route predates the gateway and no longer reaches the closed
       // network. Repoint it at the sealed gateway so recorded per-session
       // selections continue to answer through AirGap instead of failing 401.
-      if (modelGateway !== undefined) {
-        const baizor = record(profiles) ? profiles.baizor : undefined
-        const misrouted = record(baizor) && (baizor.baseURL !== providerProfile.baseURL || baizor.apiKeyEnv !== providerProfile.apiKeyEnv)
-        if (misrouted) {
-          await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { baizor: { ...providerProfile, displayName: 'Baizor' } } }, expectedRevision: undefined } }, signal)
-        }
+      const baizor = record(profiles) ? profiles.baizor : undefined
+      const misrouted = record(baizor) && (baizor.baseURL !== profile.baseURL || baizor.apiKeyEnv !== profile.apiKeyEnv)
+      if (misrouted) {
+        await invoke({ namespace: 'settings', method: 'update', args: { ns: 'llm-pi-ai', patch: { providers: { baizor: { ...profile, displayName: 'Baizor' } } }, expectedRevision: undefined } }, signal)
       }
       const defaultModel = namespace('agent-default-model')
       const user = record(defaultModel) ? defaultModel.user : undefined
       const selection = record(user) ? user : {}
       const migrated = selection.provider === provider && selection.model === defaultSelection.model
-      if (modelGateway !== undefined ? !migrated : selection.provider === undefined && selection.model === undefined) {
+      if (!migrated) {
         await invoke({ namespace: 'settings', method: 'update', args: { ns: 'agent-default-model', patch: defaultSelection, expectedRevision: undefined } }, signal)
       }
+    },
+    async ensureTimeGleamModelConfiguration(models, preferred) {
+      if (models.length === 0) throw new Error('desktop welcome: no TimeGleam model to seed')
+      const selected = preferred !== undefined && models.some(model => model.id === preferred)
+        ? preferred : models[0]?.id
+      if (selected === undefined) throw new Error('desktop welcome: no TimeGleam model to seed')
+      const signal = AbortSignal.timeout(10_000)
+      await invoke({
+        namespace: 'settings', method: 'update',
+        args: { ns: 'llm-pi-ai', patch: { providers: { [TIMEGLEAM_PROVIDER]: timeGleamProfile(models) } }, expectedRevision: undefined },
+      }, signal)
+      await invoke({
+        namespace: 'settings', method: 'update',
+        args: { ns: 'agent-default-model', patch: { provider: TIMEGLEAM_PROVIDER, model: selected }, expectedRevision: undefined },
+      }, signal)
     },
     async save(apiKey) {
       if (!/^[\x21-\x7e]+$/.test(apiKey)) return { ok: false }
@@ -232,5 +273,6 @@ export function connectDesktopWelcome(
       }
     },
     storeProviderKey,
+    storeTimeGleamToken,
   }
 }

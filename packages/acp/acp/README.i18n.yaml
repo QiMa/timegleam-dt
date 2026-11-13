@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/acp/acp/README.md
 /:
-  en: 311ef5006d6232b6
-  zh: e24bd68eec74408d
+  en: a270141706418855
+  zh: fbb3ff92ae0f932e
 /hy-dsh-acp:
   en: aa0889fcace2456f
   zh: c5dd5e6f9f68b2f4
 /hy-dsh-acp/summary:
-  en: 57aa94651ec974ff
-  zh: 36769be680b0e82c
+  en: b0ccb0727639f078
+  zh: dc5e3f2e66a044c2
 /hy-dsh-acp/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb

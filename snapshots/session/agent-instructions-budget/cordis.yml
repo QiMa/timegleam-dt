@@ -1,4 +1,4 @@
-# Workspace-context snapshot patch: the harness exports DSH_HOME=<cwd>/.huayu and
+# Workspace-context snapshot patch: the harness exports DSH_HOME=<cwd>/.timegleam and
 # DSH_AGENTS_HOME=<cwd>/.agents, so project-root and both user-global root
 # discoveries stay inside the scenario's temporary cwd.
 - id: agent-default-model

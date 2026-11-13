@@ -1,5 +1,5 @@
 /**
- * Shared wire protocol for the Huayu AI SDK runtime: the
+ * Shared wire protocol for the TimeGleam SDK runtime: the
  * newline-delimited JSON-RPC stdio transport plus the named request, result,
  * and notification types both wire ends speak. The runtime server plugin
  * (`@hy/dsh-sdk-jsonrpc-server`) serves this protocol; SDK clients

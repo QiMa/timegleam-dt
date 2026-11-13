@@ -32,7 +32,7 @@ The review environment records the Session's current working directory for the p
 From this source checkout, install the package into the Web profile through the existing CLI:
 
 ```sh
-pnpm hy plugin --profile web add ./packages/experimental/auto-review
+pnpm timegleam plugin --profile web add ./packages/experimental/auto-review
 ```
 
 The CLI initializes the profile when needed and appends this package's declared patch after the base and Web layers. Reconciliation activates the patch as a profile layer; a package without `dsh.bundle.patch` is only an installed dependency. Select `Auto review` with its `EXP` badge in the composer menu or `/permission` picker and confirm the current-session risk dialog. An explicit `/permission auto` command switches directly. General settings and future-session defaults do not offer Auto.
@@ -40,7 +40,7 @@ The CLI initializes the profile when needed and appends this package's declared 
 Remove the layer through the same CLI:
 
 ```sh
-pnpm hy plugin --profile web remove @hy/dsh-experimental-auto-review
+pnpm timegleam plugin --profile web remove @hy/dsh-experimental-auto-review
 ```
 
 <a id="headless-supervision"></a>
@@ -49,8 +49,8 @@ pnpm hy plugin --profile web remove @hy/dsh-experimental-auto-review
 Enable the experimental layer explicitly for the headless profile:
 
 ```sh
-hy plugin --profile headless add @hy/dsh-experimental-auto-review
-hy headless --permission-mode auto --approval-policy never --json - < task.txt > run.jsonl
+timegleam plugin --profile headless add @hy/dsh-experimental-auto-review
+timegleam headless --permission-mode auto --approval-policy never --json - < task.txt > run.jsonl
 ```
 
 For a one-off run from this checkout, pass `--patch /absolute/path/to/packages/experimental/auto-review/cordis.patch.yml` instead of installing a profile layer. An unavailable Auto integration fails preset selection before reading stdin or starting model work. Auto uses full host access; `--add-dir` is unnecessary in this mode. Native tools keep every tool body on the review path; direct Node effects in PTC remain outside it.

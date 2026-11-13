@@ -20,7 +20,7 @@ type DshEnvironmentKey = `${typeof DSH_ENV_PREFIX}${string}`
 ```
 
 ```ts type-equiv
-/** Trusted Huayu AI variables for one child-process execution. */
+/** Trusted TimeGleam variables for one child-process execution. */
 type DshEnvironment = Readonly<Record<DshEnvironmentKey, string>>
 ```
 

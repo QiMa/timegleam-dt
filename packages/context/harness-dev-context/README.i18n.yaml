@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/context/harness-dev-context/README.md
 /:
-  en: 8dc8754908bb47d3
-  zh: c3ac343c6d3317e2
+  en: c19c149eba9811cd
+  zh: 86871b8b60f2f0da
 /hy-dsh-harness-dev-context:
   en: d3f4b0ae8ebc0b52
   zh: 7125a20f62c06f49
 /hy-dsh-harness-dev-context/summary:
-  en: 85d18719e3e0f891
-  zh: b66d346e979ad6c1
+  en: 185c976d6c1e3f78
+  zh: d5df37bbf5f8bb7b
 /hy-dsh-harness-dev-context/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb

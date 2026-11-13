@@ -3,7 +3,7 @@
  *
  * The page renders the normal client UI, so its identity belongs where every DSH page keeps one —
  * the expanded sidebar's brand row — instead of a floating banner. The mark stays the shipped
- * Harness logo; the name seat becomes the way home and states, compactly, who shared this Session
+ * TimeGleam mark; the name seat becomes the way home and states, compactly, who shared this Session
  * and which DSH built it. The Relay's own release stays a detail on that link rather than a second
  * identifier in the page's chrome.
  *
@@ -12,7 +12,7 @@
 
 import { useSyncExternalStore, type ReactNode } from 'react'
 import type { Context as ClientContext } from '@hy/cordis'
-import { FishLogo } from '@hy/dsh-client-ui-primitives'
+import { TimeGleamMark } from '@hy/dsh-client-ui-primitives'
 import type { SidebarBrandMarkOwnerProps } from '@hy/dsh-client-ui-sidebar/client'
 import type { PropsLocale } from '@hy/dsh-client-ui-slots'
 import { NS } from './locales.ts'
@@ -53,12 +53,12 @@ function useViewerContextFacts(): ReturnType<typeof viewerContextFacts.getSnapsh
 }
 
 /**
- * Render the mark slot: the shipped Harness logo at the shell's requested size.
+ * Render the mark slot: the shipped TimeGleam mark at the shell's requested size.
  * @param props - Host-supplied mark presentation.
- * @returns the Harness mark.
+ * @returns the TimeGleam mark.
  */
 export function ViewerBrandMark({ size }: SidebarBrandMarkOwnerProps): ReactNode {
-  return <FishLogo size={size} />
+  return <TimeGleamMark size={size} />
 }
 
 /**

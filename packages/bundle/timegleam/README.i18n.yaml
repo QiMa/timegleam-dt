@@ -1,0 +1,85 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/bundle/timegleam/README.md
+/:
+  en: f73a9c9ab437396e
+  zh: e1b8804a0399d29d
+/hy-dsh-timegleam:
+  en: 09d3f808471c9a04
+  zh: 709301b32ad83153
+/hy-dsh-timegleam/summary:
+  en: c6f1b56ef8d838b0
+  zh: 1187c64e62f37575
+/hy-dsh-timegleam/table-of-contents:
+  en: 1b5401dfbc6b1565
+  zh: e188bfef2a7e4a52
+/hy-dsh-timegleam/use-this-package:
+  en: 009670b287d51a48
+  zh: 6fce062bb4aec6f2
+/hy-dsh-timegleam/use-this-package/when-to-choose-it:
+  en: b706d2e05691f287
+  zh: 1a001b89ea2388ff
+/hy-dsh-timegleam/use-this-package/credential-and-timeouts:
+  en: d85575618c0d648f
+  zh: 5089d3f6e867e1dd
+/hy-dsh-timegleam/use-this-package/model-proxy:
+  en: 2963b502d5e2e031
+  zh: af8a0432ee074a99
+/hy-dsh-timegleam/understand-the-implementation:
+  en: a0ba81d4badceb1c
+  zh: dfa69be8d5d7f84e
+/hy-dsh-timegleam/further-exploration:
+  en: c90b93a7dc53f0d0
+  zh: b4e2bd1030907c29
+/hy-dsh-timegleam/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/hy-dsh-timegleam/model-experience/timegleam-remote-mcp-tools:
+  en: 144e07057ce7b3f0
+  zh: bb3bb3960b0273d6
+/hy-dsh-timegleam/model-experience/timegleam-remote-mcp-tools/what-the-model-sees:
+  en: 055564fae3e2299d
+  zh: 1c43a99115342982
+/hy-dsh-timegleam/model-experience/timegleam-remote-mcp-tools/token-effect:
+  en: f169b51f5791ab9e
+  zh: 8ae18c68206584fb
+/hy-dsh-timegleam/model-experience/timegleam-remote-mcp-tools/kv-cache-effect:
+  en: cba95ad4172aa715
+  zh: 14965da38fbbfe1f
+/hy-dsh-timegleam/model-experience/workspace-prompt-section:
+  en: 1042fe4f353dd646
+  zh: ef4bbf0f9a8c1047
+/hy-dsh-timegleam/model-experience/workspace-prompt-section/what-the-model-sees:
+  en: 4b32582597cbf641
+  zh: c1007ac57730f05e
+/hy-dsh-timegleam/model-experience/workspace-prompt-section/what-the-model-sees/workspace-contract:
+  en: 9ab05fb0b9d5ef2f
+  zh: 7c3f2148d6f2097e
+/hy-dsh-timegleam/model-experience/workspace-prompt-section/token-effect:
+  en: 2625b83e010e28b3
+  zh: 867cfc7a8aa1613a
+/hy-dsh-timegleam/model-experience/workspace-prompt-section/kv-cache-effect:
+  en: 17a96662c9d61947
+  zh: 630406dbec023264
+/hy-dsh-timegleam/model-experience/local-image-tools:
+  en: 8072418ddb591b76
+  zh: 590195b2d3ca5b15
+/hy-dsh-timegleam/model-experience/local-image-tools/what-the-model-sees:
+  en: fa462bf1efdce32c
+  zh: 0ef4fee3f4604170
+/hy-dsh-timegleam/model-experience/local-image-tools/what-the-model-sees/tool-declarations:
+  en: 05271d2e3cb29142
+  zh: dc08deca648dfbd7
+/hy-dsh-timegleam/model-experience/local-image-tools/token-effect:
+  en: 38bc7aff57917d3c
+  zh: 82d191a231d0460b
+/hy-dsh-timegleam/model-experience/local-image-tools/kv-cache-effect:
+  en: 9538d96df862732c
+  zh: 0082f1179667fb72
+/hy-dsh-timegleam/known-limitations-and-deferred-work:
+  en: b2594e085f8cd87d
+  zh: 223add9a94c96450
+/hy-dsh-timegleam/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

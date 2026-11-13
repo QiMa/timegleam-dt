@@ -2,6 +2,7 @@
 !include FileFunc.nsh
 Var UnTarget
 Var UnHome
+Var UnUserData
 
 ; The helper refuses unsafe roots, the installation and the Harness home, and never descends into reparse points;
 ; a locked file leaves residue and never fails the uninstall. customCheckAppRunning extracts window-frame.dll first.
@@ -23,8 +24,17 @@ Function un.CleanData
   ; Only a DSH_HOME published as a Windows environment variable is visible here.
   ReadEnvStr $UnHome DSH_HOME
   ClearErrors
+  ; Only a DSH_DESKTOP_USER_DATA_DIR published as a Windows environment variable is visible here.
+  ReadEnvStr $UnUserData DSH_DESKTOP_USER_DATA_DIR
+  ClearErrors
   StrCpy $UnTarget "$APPDATA\${PRODUCT_FILENAME}"
   Call un.RemoveData
+  StrCpy $UnTarget "$APPDATA\${DSH_USER_DATA_DIR_NAME}"
+  Call un.RemoveData
+  ${If} $UnUserData != ""
+    StrCpy $UnTarget "$UnUserData"
+    Call un.RemoveData
+  ${EndIf}
   !ifdef APP_PACKAGE_NAME
     ; Electron derives user data from the package name; a scoped name nests it one directory deeper.
     StrCpy $UnTarget "$APPDATA\${APP_PACKAGE_NAME}"

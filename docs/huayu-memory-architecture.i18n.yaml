@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/huayu-memory-architecture.md
 /huayu-memory-architecture:
-  en: 050cee25e32527a3
-  zh: 62a27eace6acb149
+  en: 8bb0e0a2d8442be7
+  zh: 3097bc941d8eabf8
 /huayu-memory-architecture/components:
   en: 88b8a50f309feb5b
   zh: 7ebf12f77f7573bb

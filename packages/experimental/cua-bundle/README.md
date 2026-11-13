@@ -28,7 +28,7 @@ On macOS, open **Plugins → More** and switch on **Computer use** in the Experi
 
 ```sh
 pnpm run build
-pnpm hy web
+pnpm timegleam web
 ```
 
 For the source Desktop launcher and its separate development profile, follow [Desktop development](../../../apps/desktop/README.md). Enable Computer Use in each profile that needs it.

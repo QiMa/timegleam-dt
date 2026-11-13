@@ -43,7 +43,7 @@ describe('DesktopQuitConfirmation', () => {
     const f = setup('darwin', async () => ({ activeTasks: true, scheduledTasks: true }))
     expect(await f.confirmation.confirm()).toBe(true)
     expect(f.shown).toEqual([{
-      type: 'warning', title: 'Huayu AI', message: '退出 Huayu AI？',
+      type: 'warning', title: '拾光 TimeGleam', message: '退出 拾光 TimeGleam？',
       detail: '当前正在运行的任务将会中断，且应用关闭期间，定时任务不会运行',
       buttons: ['退出', '取消'], defaultId: 0, cancelId: 1, noLink: true,
     }])
@@ -54,7 +54,7 @@ describe('DesktopQuitConfirmation', () => {
     f.answer(1)
     expect(await f.confirmation.confirm()).toBe(false)
     expect(f.shown).toEqual([{
-      type: 'none', icon: f.icon, title: 'Huayu AI', message: 'Quit Huayu AI?',
+      type: 'none', icon: f.icon, title: 'TimeGleam', message: 'Quit TimeGleam?',
       detail: 'Scheduled tasks will not run while the app is closed.',
       buttons: ['Quit', 'Cancel'], defaultId: 0, cancelId: 1, noLink: true,
     }])

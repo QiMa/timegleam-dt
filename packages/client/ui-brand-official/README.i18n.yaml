@@ -3,23 +3,23 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-brand-official/README.md
 /:
-  en: 4b03a49b2675dcfc
-  zh: 0e2fe95889247315
+  en: 7bf18e5e8628d0f5
+  zh: 04969f36d69b2bf0
 /hy-dsh-client-ui-brand-official:
   en: d6568d8fdb94207c
   zh: 9169714f72df24b7
 /hy-dsh-client-ui-brand-official/summary:
-  en: 6ad03f6894d293d5
-  zh: 6f59ca9a5e9da6e4
+  en: b7b43eed1b72a9d9
+  zh: 08e7f4da0bfffe05
 /hy-dsh-client-ui-brand-official/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /hy-dsh-client-ui-brand-official/use-this-package:
-  en: 5e4a069d5f6e7e1a
-  zh: d66eeabc8360bee7
+  en: 20a61d95c9c9aeb4
+  zh: 3241da09bea82681
 /hy-dsh-client-ui-brand-official/use-this-package/choosing-the-profile:
-  en: 488626d21259f1be
-  zh: 0ca5fde88d161cec
+  en: 0abcdb718a5cdfba
+  zh: 39793269728d48e6
 /hy-dsh-client-ui-brand-official/use-this-package/replacing-the-brand:
   en: 6a923aa630d01d65
   zh: 5df0c24eebd9d0d0

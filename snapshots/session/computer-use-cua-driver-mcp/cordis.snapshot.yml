@@ -52,6 +52,6 @@
       name: '@hy/dsh-experimental-computer-use-cua-driver-mcp'
       config:
         command: !!js process.execPath
-        args: [driver.mjs, .huayu/computer-use-fixture]
+        args: [driver.mjs, .timegleam/computer-use-fixture]
         reconnect:
           enabled: false

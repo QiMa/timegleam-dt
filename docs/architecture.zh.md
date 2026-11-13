@@ -1,4 +1,4 @@
-# Huayu AI 架构
+# 拾光 TimeGleam 架构
 
 [English](architecture.md) | 中文
 

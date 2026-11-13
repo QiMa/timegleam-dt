@@ -7,6 +7,7 @@
   "include": [
     "src/client",
     "src/welcome-api.ts",
+    "src/timegleam.ts",
     "src/locale.ts"
   ],
   "references": [

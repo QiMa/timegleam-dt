@@ -1,4 +1,4 @@
-/** Public hy commands using the immutable runtime carried by the Desktop installation. */
+/** Public timegleam commands using the immutable runtime carried by the Desktop installation. */
 
 import { delimiter, dirname, join, resolve } from 'node:path'
 import { runCli } from '@hy/dsh/lib/bin.js'

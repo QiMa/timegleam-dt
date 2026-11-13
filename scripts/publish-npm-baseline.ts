@@ -57,7 +57,7 @@ while time.monotonic() < deadline:
             output.extend(chunk)
 
     snapshot = bytes(output)
-    if not termination_sent and b"hy web: http://127.0.0.1:" in snapshot:
+    if not termination_sent and b"timegleam web: http://127.0.0.1:" in snapshot:
         ready_seen = True
         os.kill(pid, signal.SIGTERM)
         termination_sent = True
@@ -72,11 +72,11 @@ if status is None:
     _, status = os.waitpid(pid, 0)
 sys.stdout.buffer.write(output)
 if not ready_seen:
-    sys.stderr.write("installed hy web did not reach its ready URL\n")
+    sys.stderr.write("installed timegleam web did not reach its ready URL\n")
     sys.exit(124)
 actual_exit = os.waitstatus_to_exitcode(status)
 if actual_exit != 0:
-    sys.stderr.write(f"installed hy web exited {actual_exit}, expected 0\n")
+    sys.stderr.write(f"installed timegleam web exited {actual_exit}, expected 0\n")
     sys.exit(125)
 `
 
@@ -460,7 +460,7 @@ class InstalledBundleSmoke {
       )
       if (version !== this.bundle.manifest.version) {
         throw new Error(
-          `installed hy --version returned ${JSON.stringify(version)}; `
+          `installed timegleam --version returned ${JSON.stringify(version)}; `
           + `expected ${this.bundle.manifest.version}`,
         )
       }
@@ -906,7 +906,7 @@ function installedArtifactEnvironment(consumerRoot: string): NodeJS.ProcessEnv {
   const environment = npmClientEnvironment()
   delete environment.NODE_OPTIONS
   delete environment.NODE_PATH
-  environment.DSH_HOME = resolve(consumerRoot, '.huayu')
+  environment.DSH_HOME = resolve(consumerRoot, '.timegleam')
   environment.DSH_AGENTS_HOME = resolve(consumerRoot, '.agents')
   environment.DSH_TELEMETRY_DISABLED = '1'
   environment.DEEPSEEK_API_KEY = 'keyless-installed-web-no-call'

@@ -1,5 +1,5 @@
 ---
-description: "面向 Web GUI 用户与维护者的模型上下文：给出 Huayu AI checkout 与 GUI URL，且两者都不会改变系统提示词。"
+description: "面向 Web GUI 用户与维护者的模型上下文：给出 拾光 TimeGleam checkout 与 GUI URL，且两者都不会改变系统提示词。"
 kind: "package-reference"
 ---
 
@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-`dsh-harness-dev-context` 告诉运行在 Huayu AI Web GUI 背后的 agent：harness 实现 checkout 在哪里、GUI 与「this page」是什么关系，以及哪个 URL 提供该 GUI。系统提示词只包含不含值的说明；当前 checkout 路径与 GUI URL 以运行时上下文送达，因此从别的 checkout、端口或安装位置启动进程，绝不会改写会话已记录的系统提示词。提示词仍嵌有早期版本这些值的会话会原样保留那段文本。
+`dsh-harness-dev-context` 告诉运行在 拾光 TimeGleam Web GUI 背后的 agent：harness 实现 checkout 在哪里、GUI 与「this page」是什么关系，以及哪个 URL 提供该 GUI。系统提示词只包含不含值的说明；当前 checkout 路径与 GUI URL 以运行时上下文送达，因此从别的 checkout、端口或安装位置启动进程，绝不会改写会话已记录的系统提示词。提示词仍嵌有早期版本这些值的会话会原样保留那段文本。
 
 ## 目录
 
@@ -87,17 +87,17 @@ kind: "package-reference"
 ##### 系统提示词段落
 
 ```markdown
-The runtime context names the Huayu AI implementation checkout. The checkout location and current working directory are separate values and may differ; never infer the working directory from the checkout path. Use pwd to determine the current working directory. Use this checkout only to inspect or extend DSH itself.
+The runtime context names the TimeGleam implementation checkout. The checkout location and current working directory are separate values and may differ; never infer the working directory from the checkout path. Use pwd to determine the current working directory. Use this checkout only to inspect or extend TimeGleam itself.
 
-You are interacting with the user through the Huayu AI Web GUI whose URL the runtime context names. When the user refers to "this page", "this GUI", or "this app" without naming another target, they mean this GUI. The browser provides no implicit DOM, route, or screenshot context. The client-plugin HMR receiver is active, but client-plugin changes reload without a refresh only while `pnpm run dev:web` is also running from this same checkout to rebuild their bundles; verify that watcher before promising automatic updates. Every other change — the apps/web shell and plain packages — requires rebuilding the affected Web artifacts and verifying this existing URL after a page refresh. Starting another server does not update this GUI. The apps/web Vite entry builds the shell but is not a standalone application because only hy web injects window.__DSH_BOOT__. Do not start a replacement server unless the user asks; if one is needed, use a managed background job and verify its exact URL.
+You are interacting with the user through the TimeGleam Web GUI whose URL the runtime context names. When the user refers to "this page", "this GUI", or "this app" without naming another target, they mean this GUI. The browser provides no implicit DOM, route, or screenshot context. The client-plugin HMR receiver is active, but client-plugin changes reload without a refresh only while `pnpm run dev:web` is also running from this same checkout to rebuild their bundles; verify that watcher before promising automatic updates. Every other change — the apps/web shell and plain packages — requires rebuilding the affected Web artifacts and verifying this existing URL after a page refresh. Starting another server does not update this GUI. The apps/web Vite entry builds the shell but is not a standalone application because only timegleam web injects window.__DSH_BOOT__. Do not start a replacement server unless the user asks; if one is needed, use a managed background job and verify its exact URL.
 ```
 
 ##### 运行时上下文行
 
 ```markdown
-Current Huayu AI implementation checkout: "<installation root>".
+Current TimeGleam implementation checkout: "<installation root>".
 
-Current Huayu AI Web GUI URL: "<advertised URL>".
+Current TimeGleam Web GUI URL: "<advertised URL>".
 ```
 
 #### Token 影响

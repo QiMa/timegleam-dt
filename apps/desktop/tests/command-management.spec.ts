@@ -5,16 +5,16 @@ import { en, zh } from '../src/locale.ts'
 import { presentCommandManagement } from '../src/command-management.ts'
 
 it.each([en, zh])('shows installation, repair/removal and shadowed command locations', (messages) => {
-  const destination = '/usr/local/bin/huayu'
+  const destination = '/usr/local/bin/timegleam'
   const missing = presentCommandManagement({ managed: false, available: false, destination }, messages, 'darwin')
   expect(missing.buttons).toEqual([messages.cliCommandInstall, messages.cancel])
   expect(missing.cancelId).toBe(1)
   const installed = presentCommandManagement({ managed: true, available: true, destination, activeCommand: destination }, messages, 'darwin')
   expect(installed.buttons).toEqual([messages.cliCommandClose, messages.cliCommandRepair, messages.cliCommandRemove])
   expect(installed.cancelId).toBe(0)
-  const shadowed = presentCommandManagement({ managed: true, available: true, destination, activeCommand: '/opt/homebrew/bin/huayu' }, messages, 'darwin')
+  const shadowed = presentCommandManagement({ managed: true, available: true, destination, activeCommand: '/opt/homebrew/bin/timegleam' }, messages, 'darwin')
   expect(shadowed.type).toBe('warning')
-  expect(shadowed.detail).toContain('/opt/homebrew/bin/huayu')
+  expect(shadowed.detail).toContain('/opt/homebrew/bin/timegleam')
   expect(shadowed.detail).toContain(messages.cliCommandShadowed)
   const unknown = presentCommandManagement({ managed: false, available: false, destination, selectionUnknown: true }, messages, 'darwin')
   expect(unknown.detail).toContain(messages.cliCommandSelectionUnknown)
@@ -24,8 +24,8 @@ it.each([
   ['darwin', 'en-US', en], ['darwin', 'zh-CN', zh],
   ['win32', 'en-US', en], ['win32', 'zh-CN', zh],
 ] as const)('records command status on %s in %s', async (platform, language, messages) => {
-  const destination = platform === 'darwin' ? '/usr/local/bin/huayu' : 'C:\\Users\\user\\AppData\\Local\\Programs\\Huayu AI\\resources\\runtime\\cli\\bin\\huayu.cmd'
-  const other = platform === 'darwin' ? '/opt/homebrew/bin/huayu' : 'C:\\Program Files\\nodejs\\huayu.cmd'
+  const destination = platform === 'darwin' ? '/usr/local/bin/timegleam' : 'C:\\Users\\user\\AppData\\Local\\Programs\\拾光 TimeGleam\\resources\\runtime\\cli\\bin\\timegleam.cmd'
+  const other = platform === 'darwin' ? '/opt/homebrew/bin/timegleam' : 'C:\\Program Files\\nodejs\\timegleam.cmd'
   const states = [
     { managed: false, available: false, destination },
     { managed: true, available: true, destination, activeCommand: destination },

@@ -1,8 +1,10 @@
-Huayu AI
-Huayu AI
-Add an API key to get started
-Configure baizor.com models to start using Huayu AI
-Enter API key [password]
-Save and continue [disabled]
+TimeGleam
+TimeGleam
+Connect your TimeGleam workspace
+Create an access key under “Advanced access: access keys” in the console, then paste it here.
+Chat models can be configured later in Settings → Models.
+tmg_… / aym_… [password]
+Open TimeGleam Console
+Connect and continue [disabled]
 Set up later
-Back to sign in
+Back

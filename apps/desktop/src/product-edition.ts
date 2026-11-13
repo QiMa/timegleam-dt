@@ -1,5 +1,7 @@
 /** Sealed distribution facts and the enterprise model gateway they carry. */
 
+import { secureOrIntranetTransport } from './intranet-http.ts'
+
 /** Environment variable that overrides the sealed enterprise gateway at runtime. */
 export const AIRGAP_MODEL_GATEWAY_ENV = 'DSH_AIRGAP_MODEL_GATEWAY_URL'
 
@@ -38,10 +40,9 @@ export function desktopProductEdition(manifest: unknown): DesktopProductEdition 
 function gatewayBaseURL(value: string, source: string): string {
   let parsed: URL
   try { parsed = new URL(value) } catch { throw new Error(`desktop product edition: ${source} must be an absolute URL`) }
-  const loopback = parsed.protocol === 'http:' && (parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost')
-  if ((parsed.protocol !== 'https:' && !loopback) || parsed.username !== '' || parsed.password !== ''
+  if (!secureOrIntranetTransport(parsed) || parsed.username !== '' || parsed.password !== ''
     || parsed.search !== '' || parsed.hash !== '') {
-    throw new Error(`desktop product edition: ${source} must be an HTTPS or loopback HTTP URL without credentials, query, or fragment`)
+    throw new Error(`desktop product edition: ${source} must be an HTTPS or intranet HTTP URL without credentials, query, or fragment`)
   }
   if (parsed.pathname === '/' || parsed.pathname === '') parsed.pathname = '/v1'
   else if (!parsed.pathname.endsWith('/v1')) parsed.pathname = `${parsed.pathname.replace(/\/+$/u, '')}/v1`
@@ -98,7 +99,9 @@ export function airgapEnterpriseProviderProfile(gateway: DesktopEnterpriseModelG
     baseURL: gateway.baseURL,
     compat: { thinkingFormat: 'deepseek' },
     defaultContextWindow: 128000,
-    defaultMaxTokens: 8192,
-    models: [{ id: 'huayu-v2', name: 'Huayu v2', contextWindow: 128000, maxTokens: 8192 }],
+    // The gateway serves the same huayu-v2 build as baizor.com: 8192 truncated
+    // reasoning-heavy turns, so the AirGap route matches the 32768 baizor seed.
+    defaultMaxTokens: 32768,
+    models: [{ id: 'huayu-v2', name: 'TimeGleam v2', contextWindow: 128000, maxTokens: 32768 }],
   } as const
 }

@@ -7,6 +7,7 @@ import { loadDesktopPackageEnvironment } from './desktop-package-environment.mjs
 import { retainDesktopRelease, type DesktopRetainedSource } from './desktop-release-store.ts'
 import { validateDesktopBuildVersion } from './desktop-build-version.mjs'
 import { desktopPublishQualificationError } from './desktop-publish-qualification.mjs'
+import { DESKTOP_ARTIFACT_STEM } from './desktop-release-environment.mjs'
 
 function required(env: NodeJS.ProcessEnv, name: string): string {
   const value = env[name]
@@ -60,7 +61,7 @@ export async function retainDesktopCi(env: NodeJS.ProcessEnv, appRoot = resolve(
   const mode = qualification === 'unsigned' ? 'unsigned-artifacts' : qualification === 'unnotarized' ? 'unnotarized-artifacts' : 'artifacts'
   const artifacts = appRoot === resolve(import.meta.dirname, '..')
     ? join(paths.root, mode) : join(appRoot, '.desktop-build', 'targets', target, mode)
-  const base = `deepseek-harness-${version}-${windows ? 'win-x64' : target}`
+  const base = `${DESKTOP_ARTIFACT_STEM}-${version}-${windows ? 'win-x64' : target}`
   const debugSuffix = qualification === 'unnotarized' ? '-unnotarized' : qualification === 'unsigned' ? '-unsigned' : ''
   const names = windows ? [`${base}${debugSuffix}.exe`] : linux ? [`${base}${debugSuffix}.AppImage`]
     : [`${base}${debugSuffix}.dmg`, `${base}${debugSuffix}.zip`]

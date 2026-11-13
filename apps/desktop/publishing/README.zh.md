@@ -55,23 +55,23 @@ node --input-type=module -e "import { randomBytes } from 'node:crypto'; console.
 AirGap 是封闭网络环境下的内网更新仓库。Desktop 通过 `DSH_DESKTOP_AUTO_UPDATE_ENV=airgap` 把更新 feed 与安装包直接发布到 baizor 的 `/lucky/airgap/data/public`，客户端通过 `DSH_DESKTOP_UPDATE_FEED_URL` 覆盖内置 feed 地址后即可在离线环境完成检查、下载与安装。
 
 - 打包/上传共用 `AIRGAP_BASE_URL` 指定客户端可达的 AirGap 公共 URL（含 base path，例如 `https://lanhc.com/lanhc/airgap`）
-- feed 落在 `huayu-ai/dsh-desk/feeds/<target>/`，二进制落在 `huayu-ai/dsh-desk/bin/<target>/`；整个目录由 AirGap 的 `/repo/<path>` 静态分发
-- 封闭网络客户端设置 `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/huayu-ai/dsh-desk/feeds/win-x64/`（Windows x64）或 `/mac-arm64/`、`/mac-x64/`，也可用内网直连 `http://<airgap-host>:8001/repo/...`
+- feed 落在 `timegleam/dsh-desk/feeds/<target>/`，二进制落在 `timegleam/dsh-desk/bin/<target>/`；整个目录由 AirGap 的 `/repo/<path>` 静态分发
+- 封闭网络客户端设置 `DSH_DESKTOP_UPDATE_FEED_URL=https://lanhc.com/lanhc/airgap/timegleam/dsh-desk/feeds/win-x64/`（Windows x64）或 `/mac-arm64/`、`/mac-x64/`，也可用内网直连 `http://<airgap-host>:8001/repo/...`
 - `airgap` 部署不嵌入强制更新策略，不请求 feishu/生产策略服务
-- `DSH_DESKTOP_EDITION=enterprise` 把 AirGap 目录从 `huayu-ai` 切换到独立的企业分发目录 `huayu-enterprise`，企业版构建不会混入公开 feed
+- `DSH_DESKTOP_EDITION=enterprise` 把 AirGap 目录从 `timegleam` 切换到独立的企业分发目录 `timegleam-enterprise`，企业版构建不会混入公开 feed
 - 跨网闸搬运：在联机侧 `/api/pack` 生成签名 `.airgap` 包，U 盘带入后 `/api/import` 验签入库；验签失败拒绝合并
 
 **构建（联机侧）**
 
 ```sh
-# standard edition -> huayu-ai catalog
+# standard edition -> timegleam catalog
 DSH_DESKTOP_AUTO_UPDATE_ENV=airgap AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
 
-# enterprise edition -> huayu-enterprise catalog (never mixed with the public feed)
+# enterprise edition -> timegleam-enterprise catalog (never mixed with the public feed)
 DSH_DESKTOP_AUTO_UPDATE_ENV=airgap DSH_DESKTOP_EDITION=enterprise AIRGAP_BASE_URL=https://lanhc.com/lanhc/airgap pnpm run package:desktop:win:x64
 ```
 
-上传器通过 `scp` 把产物写入 `baizor:/lucky/airgap/data/public/huayu-ai/dsh-desk/...`（标准版）或 `.../huayu-enterprise/dsh-desk/...`（企业版），不需要 COS 凭据。每次非 latest 发布还会在对应版本目录根下刷新固定 `huayu-ai-latest-<target>` 安装包及其 `.sha256` 校验文件，供 `huayu-ai.ps1` / `huayu-ai.sh` 一行安装脚本下载校验。
+上传器通过 `scp` 把产物写入 `baizor:/lucky/airgap/data/public/timegleam/dsh-desk/...`（标准版）或 `.../timegleam-enterprise/dsh-desk/...`（企业版），不需要 COS 凭据。每次非 latest 发布还会在对应版本目录根下刷新固定 `timegleam-latest-<target>` 安装包及其 `.sha256` 校验文件，供目录内的一行安装脚本下载校验。这些脚本随 AirGap 目录提供，不由本仓库生成；它们必须读取上传器写入的固定文件名（`timegleam-latest-win-x64.exe`、`timegleam-latest-macos-arm64.dmg`、`timegleam-latest-macos-x64.dmg`），并安装到 `TimeGleam` 应用目录。
 
 ```sh
 pnpm run upload:win:x64
@@ -80,22 +80,22 @@ pnpm run upload:win:x64
 **客户端（封闭网络侧）**
 
 ```sh
-# PowerShell (enterprise edition: point at huayu-enterprise)
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/win-x64/'
+# PowerShell (enterprise edition: point at timegleam-enterprise)
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'https://lanhc.com/lanhc/airgap/timegleam-enterprise/dsh-desk/feeds/win-x64/'
 # or in-network loopback (http is allowed only for 127.0.0.1/localhost)
-$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/huayu-enterprise/dsh-desk/feeds/win-x64/'
+$env:DSH_DESKTOP_UPDATE_FEED_URL = 'http://127.0.0.1:8001/repo/timegleam-enterprise/dsh-desk/feeds/win-x64/'
 ```
 
 ```sh
 # Linux
-export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/huayu-enterprise/dsh-desk/feeds/linux-x64/'
+export DSH_DESKTOP_UPDATE_FEED_URL='https://lanhc.com/lanhc/airgap/timegleam-enterprise/dsh-desk/feeds/linux-x64/'
 ```
 
 **企业版一键安装（固定目录安装包）**
 
 ```sh
-# Windows: irm https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.ps1 | iex
-# Linux:   curl -fsSL https://lanhc.com/lanhc/airgap/huayu-enterprise/huayu-ai.sh | sh
+# Windows: irm https://lanhc.com/lanhc/airgap/timegleam-enterprise/timegleam.ps1 | iex
+# Linux:   curl -fsSL https://lanhc.com/lanhc/airgap/timegleam-enterprise/timegleam.sh | sh
 ```
 
 <a id="publish-feeds"></a>

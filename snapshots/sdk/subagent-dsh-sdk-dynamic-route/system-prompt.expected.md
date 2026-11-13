@@ -1,4 +1,4 @@
-You are an AI agent powered by Huayu AI.
+You are an AI agent powered by TimeGleam.
 
 You are a coding agent powered by the mock-delegate model.
 

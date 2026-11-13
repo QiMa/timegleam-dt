@@ -1,4 +1,4 @@
-# Keyless generic ACP v1 control-surface patch over `hy --profile acp`.
+# Keyless generic ACP v1 control-surface patch over `timegleam --profile acp`.
 
 - id: llm-deepseek
   name: '@hy/dsh-llm-deepseek-api-key'

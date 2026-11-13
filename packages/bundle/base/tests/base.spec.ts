@@ -88,4 +88,38 @@ describe('dsh-base bundle', () => {
     // The platform layer folded into these rows: no separate patch file ships.
     expect(existsSync(resolve(root, 'windows.cordis.patch.yml'))).toBe(false)
   })
+
+  it('declares every mounted workspace package as a dependency', () => {
+    // The desktop package set is a dependency closure of the manifest, not of
+    // the patch. A row naming a workspace package the manifest omits mounts in
+    // a source checkout but silently disappears from the packaged app: the
+    // loader logs `entry "tool-memory" not found` and carries on, so the only
+    // symptom is a feature that quietly never runs. That is exactly how the
+    // memory plugins went missing from the shipped asar.
+    const root = fileURLToPath(new URL('..', import.meta.url))
+    const manifest = JSON.parse(
+      readFileSync(resolve(root, 'package.json'), 'utf8'),
+    ) as { dependencies?: Record<string, string> }
+    const dependencies = manifest.dependencies ?? {}
+    const parsed = yaml.load(
+      readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'),
+      { schema: entryListSchema },
+    )
+    if (!Array.isArray(parsed)) throw new TypeError('base patch must parse to a patch list')
+    const mounted = parsed.flatMap((patch): Record<string, unknown>[] =>
+      typeof patch === 'object' && patch !== null
+        ? (patch as { insert?: Record<string, unknown>[] }).insert ?? []
+        : [],
+    ).map(row => row.name)
+      .filter((name): name is string => typeof name === 'string' && name.startsWith('@hy/'))
+      // `@hy/cordis*` are the loader itself and resolve from the runtime.
+      .filter(name => !name.startsWith('@hy/cordis'))
+      // Subpath exports (`@hy/pkg/tools`) resolve from the declaring package.
+      .map(name => name.split('/').slice(0, 2).join('/'))
+    expect(mounted.length).toBeGreaterThan(50)
+    const undeclared = mounted.filter(name => !(name in dependencies))
+    expect(undeclared).toEqual([])
+    expect(dependencies).toHaveProperty('@hy/dsh-tool-memory')
+    expect(dependencies).toHaveProperty('@hy/dsh-memory-context')
+  })
 })

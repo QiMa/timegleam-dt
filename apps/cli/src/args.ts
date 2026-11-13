@@ -7,10 +7,10 @@
  * their own flag families and print their own `--help` (see
  * `@hy/dsh-cmdline`). Launcher flags therefore come first: the first
  * token this parser does not recognize starts the inner arguments, so
- * `hy --profile tui --resume abc` boots the tui profile with `--resume abc`,
- * and `hy --profile web -h` prints the web app's help, not this one's.
+ * `timegleam --profile tui --resume abc` boots the tui profile with `--resume abc`,
+ * and `timegleam --profile web -h` prints the web app's help, not this one's.
  *
- * `hy <name>` abbreviates `hy --profile <name>`; `plugin` manages a profile's
+ * `timegleam <name>` abbreviates `timegleam --profile <name>`; `plugin` manages a profile's
  * plugin dependencies by forwarding to pnpm.
  * @module @hy/dsh/args
  */
@@ -89,14 +89,14 @@ function rejectElectronProfile(program: Command, profile: string): void {
 /** The launcher's own help text; each app prints its own. */
 const HELP_EXAMPLES = `
 Examples:
-  hy web                                   boot the web profile (same as: hy --profile web)
-  hy rescue --from-default-profile web
-                                            recreate rescue from the shipped web template, then boot it
-  hy headless "run the tests"              answer one task, print the result, and exit
-  hy tui --patch ./extra.yml               boot a custom profile with one extra overlay
-  hy tui --resume <session>                arguments after the launcher flags reach the app
-  hy web --help                            the web app's own flags and help
-  hy plugin --profile tui add <package>    install a plugin into the tui profile
+  timegleam web                                  boot the web profile (same as: timegleam --profile web)
+  timegleam rescue --from-default-profile web
+                                                 recreate rescue from the shipped web template, then boot it
+  timegleam headless "run the tests"             answer one task, print the result, and exit
+  timegleam tui --patch ./extra.yml              boot a custom profile with one extra overlay
+  timegleam tui --resume <session>               arguments after the launcher flags reach the app
+  timegleam web --help                           the web app's own flags and help
+  timegleam plugin --profile tui add <package>   install a plugin into the tui profile
 `
 
 /**
@@ -150,21 +150,21 @@ export function parseDshArgs(argv: readonly string[], version: string, manageDes
   // inferred type would be circular through its own chain.
   const program: Command = new Command()
   program
-    .name('hy')
+    .name('timegleam')
     .version(version, '-V, --version', 'output the version number')
-    .usage('[--profile] <name> [options] [app-args...]\n       hy plugin --profile <name> <pnpm-args...>')
-    .description('hy: boot a Huayu AI profile — an ordered stack of plugin-bundle patch layers under your own overrides.')
+    .usage('[--profile] <name> [options] [app-args...]\n       timegleam plugin --profile <name> <pnpm-args...>')
+    .description('timegleam: boot a TimeGleam profile — an ordered stack of plugin-bundle patch layers under your own overrides.')
     .addHelpText('after', HELP_EXAMPLES)
     .exitOverride()
     // The launcher's flags come first and end at the first token it does not
     // know; everything from there on belongs to the booted app, including
-    // its -h. `hy -h` with no profile still prints this help, below.
+    // its -h. `timegleam -h` with no profile still prints this help, below.
     .helpOption(false)
     .helpCommand(false)
     .allowUnknownOption()
     .passThroughOptions()
     .enablePositionalOptions()
-    .argument('[args...]', 'arguments for the booted profile\'s app (see: hy --profile <name> --help)')
+    .argument('[args...]', 'arguments for the booted profile\'s app (see: timegleam --profile <name> --help)')
     .option('--profile <name>', 'the profile under $DSH_HOME/profiles to boot', selectProfile)
     .option('--from-default-profile <name>', 'replace a custom profile with a fresh copy of a shipped profile template')
     .option('--patch <path>', 'extra patch-list overlay applied after the profile layer (repeatable)', collect)
@@ -173,7 +173,7 @@ export function parseDshArgs(argv: readonly string[], version: string, manageDes
     .option('--dump-default-config', 'print the profile tree without its user layer or --patch overlays and exit')
     .action((args: string[], options: BootOptions & { profile?: string }) => {
       // With the app owning -h, the launcher's own help is what a bare
-      // `hy -h` (no profile to hand it to) must print.
+      // `timegleam -h` (no profile to hand it to) must print.
       if (options.profile === undefined) {
         if (args.some(argument => argument === '-h' || argument === '--help')) program.help()
         program.error('error: --profile <name> is required')
@@ -211,6 +211,6 @@ export function parseDshArgs(argv: readonly string[], version: string, manageDes
     return process.exit(error instanceof CommanderError ? error.exitCode : 1)
   }
   /* v8 ignore next -- an action resolves or Commander throws */
-  if (resolved === undefined) throw new Error('hy: no invocation resolved')
+  if (resolved === undefined) throw new Error('timegleam: no invocation resolved')
   return resolved
 }

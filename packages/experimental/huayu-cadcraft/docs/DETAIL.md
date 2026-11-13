@@ -1,4 +1,4 @@
-CADCraft brings a Rust-compiled, AutoCAD-class drawing engine into Huayu AI. The plugin serves the engine's WASM web build under `/cadcraft` and shows it in the right sidebar as a tab.
+CADCraft brings a Rust-compiled, AutoCAD-class drawing engine into TimeGleam. The plugin serves the engine's WASM web build under `/cadcraft` and shows it in the right sidebar as a tab.
 
 Drawings stay beside the work: each session keeps its drawing at `cadcraft/drawing.dxf` in the session workspace, so every project directory carries its own drawing.
 

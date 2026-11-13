@@ -25,7 +25,10 @@ async function pixels(page: Page, url: string, size: number) {
     for (let y = 0; y < size; y += 1) {
       for (let x = 0; x < size; x += 1) {
         const at = (y * size + x) * 4
-        if (data[at + 3] === 0 || data[at]! + data[at + 1]! + data[at + 2]! >= 384) continue
+        // The tile is full bleed, so measure the brand-gold aperture instead of
+        // every non-white pixel; the cabinet behind it is deliberately opaque.
+        const gold = data[at + 3]! > 0 && data[at]! > 150 && data[at + 1]! > 100 && data[at + 2]! < 140
+        if (!gold) continue
         ink += 1
         radius = Math.max(radius, Math.hypot(x - (size - 1) / 2, y - (size - 1) / 2))
       }
@@ -33,6 +36,8 @@ async function pixels(page: Page, url: string, size: number) {
     return {
       width: image.naturalWidth, height: image.naturalHeight, radius, ink,
       corners: [0, size - 1, (size - 1) * size, size * size - 1].map(index => data[index * 4 + 3]),
+      cornerColors: [0, size - 1, (size - 1) * size, size * size - 1]
+        .map(index => [...data.slice(index * 4, index * 4 + 3)]),
     }
   }, { url, size })
 }
@@ -51,7 +56,7 @@ it('ships install metadata with the built web application', async () => {
   expect(index).toContain('<link rel="manifest" href="./manifest.webmanifest" />')
   expect(index).toContain('<link rel="apple-touch-icon" href="./apple-touch-icon.png" />')
   expect(index).toContain('<meta name="mobile-web-app-capable" content="yes" />')
-  expect(index).toContain('<meta name="apple-mobile-web-app-title" content="DSH" />')
+  expect(index).toContain('<meta name="apple-mobile-web-app-title" content="TimeGleam" />')
   // No `theme-color` here: `ThemePresenter` owns the single metadata node and
   // follows the resolved in-application theme, which a static media query
   // cannot. The manifest's `theme_color` covers the surrounding chrome before
@@ -62,8 +67,8 @@ it('ships install metadata with the built web application', async () => {
   // so only an absent `id`, which defaults to the resolved `start_url`, gives
   // each mount its own identity. `public-mount.e2e.ts` reads the resolved form.
   expect(manifest).toEqual({
-    name: 'Huayu AI',
-    short_name: 'DSH',
+    name: '拾光 TimeGleam',
+    short_name: 'TimeGleam',
     start_url: './',
     scope: './',
     // `standalone` keeps the phone's status bar; `fullscreen` hides it and the
@@ -99,6 +104,9 @@ it('decodes every generated and shipped icon with its full artwork and opaque co
         const image = await pixels(page, pngUrl(bytes), variant.size)
         expect([image.width, image.height], variant.file).toEqual([variant.size, variant.size])
         expect(image.corners, variant.file).toEqual([255, 255, 255, 255])
+        expect(image.cornerColors, variant.file).toEqual([
+          [18, 17, 16], [18, 17, 16], [18, 17, 16], [18, 17, 16],
+        ])
         expect(image.ink, variant.file).toBeGreaterThan(0)
         // Two pixels allow rasterizer and downsampling differences without
         // accepting missing or undersized artwork in the published PNG.
@@ -115,8 +123,9 @@ it('ships fixed-color favicons selected by document media queries', async () => 
   const light = await readFile(join(DIST_ROOT, 'favicon.svg'), 'utf8')
   const dark = await readFile(join(DIST_ROOT, 'favicon-dark.svg'), 'utf8')
   expect(light).not.toContain('<style>')
-  expect(light).toContain('data:image/png;base64,')
-  expect(dark).toContain('data:image/png;base64,')
+  expect(light).toContain('aria-label="拾光 TimeGleam"')
+  expect(light).toContain('#E0A64B')
+  expect(dark).toContain('#E0A64B')
   expect(dark).toBe(light)
 })
 
@@ -143,14 +152,14 @@ it('preserves fractional coverage along the Apple icon curves', async () => {
       for (let y = 1; y < 179; y += 1) {
         for (let x = 1; x < 179; x += 1) {
           const value = brightness(x, y)
-          if (value <= 85 || value >= 200) continue
-          // Neighboring ink and background distinguish edge coverage from the
-          // source's gradients and shadows, which remain in both renderings.
+          // The tile's dark cabinet averages 17 and the gold aperture 155, so
+          // an edge pixel sits between neighbors drawn on both sides.
+          if (value <= 40 || value >= 130) continue
           const neighbors: number[] = []
           for (let dy = -1; dy <= 1; dy += 1) {
             for (let dx = -1; dx <= 1; dx += 1) neighbors.push(brightness(x + dx, y + dy))
           }
-          if (Math.min(...neighbors) < 70 && Math.max(...neighbors) > 220) partial += 1
+          if (Math.min(...neighbors) < 40 && Math.max(...neighbors) > 130) partial += 1
         }
       }
       return partial

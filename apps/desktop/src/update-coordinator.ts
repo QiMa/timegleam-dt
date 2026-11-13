@@ -12,6 +12,7 @@ import { DesktopUpdatePreparationError, downloadFailureDetails } from './update-
 import type { DesktopUpdateChannel } from './update-channel.ts'
 import { selectUpdateChannel } from './updates/electron-updater/channel.ts'
 import { discardDesktopUpdate } from './updates/electron-updater/discard.ts'
+import { secureOrIntranetTransport } from './intranet-http.ts'
 
 const { autoUpdater } = electronUpdater
 
@@ -21,17 +22,16 @@ export const DESKTOP_UPDATE_FEED_ENV = 'DSH_DESKTOP_UPDATE_FEED_URL'
 /**
  * Validate an explicit feed override without accepting credentials or fragments.
  * @param value Candidate URL read from the process environment.
- * @returns Normalized https or loopback-http feed URL, or undefined when unset.
+ * @returns Normalized https or intranet-http feed URL, or undefined when unset.
  */
 export function resolveDesktopUpdateFeedOverride(value: string | undefined): string | undefined {
   const raw = value?.trim()
   if (raw === undefined || raw === '') return undefined
   let parsed: URL
   try { parsed = new URL(raw) } catch { throw new Error('desktop update: update feed URL is invalid') }
-  const loopback = parsed.protocol === 'http:' && (parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost')
-  if ((parsed.protocol !== 'https:' && !loopback) || parsed.username !== '' || parsed.password !== ''
+  if (!secureOrIntranetTransport(parsed) || parsed.username !== '' || parsed.password !== ''
     || parsed.search !== '' || parsed.hash !== '') {
-    throw new Error('desktop update: update feed URL must be an https or loopback-http URL without credentials, query, or fragment')
+    throw new Error('desktop update: update feed URL must be an https or intranet-http URL without credentials, query, or fragment')
   }
   return parsed.href.replace(/\/+$/u, '') + '/'
 }

@@ -1,12 +1,12 @@
-Usage: hy [--profile] <name> [options] [app-args...]
-       hy plugin --profile <name> <pnpm-args...>
+Usage: timegleam [--profile] <name> [options] [app-args...]
+       timegleam plugin --profile <name> <pnpm-args...>
 
-hy: boot a Huayu AI profile — an ordered stack of plugin-bundle patch
+timegleam: boot a TimeGleam profile — an ordered stack of plugin-bundle patch
 layers under your own overrides.
 
 Arguments:
   args                           arguments for the booted profile's app (see:
-                                 hy --profile <name> --help)
+                                 timegleam --profile <name> --help)
 
 Options:
   -V, --version                  output the version number
@@ -22,11 +22,11 @@ Options:
                                  or --patch overlays and exit
 
 Examples:
-  hy web                                   boot the web profile (same as: hy --profile web)
-  hy rescue --from-default-profile web
-                                            recreate rescue from the shipped web template, then boot it
-  hy headless "run the tests"              answer one task, print the result, and exit
-  hy tui --patch ./extra.yml               boot a custom profile with one extra overlay
-  hy tui --resume <session>                arguments after the launcher flags reach the app
-  hy web --help                            the web app's own flags and help
-  hy plugin --profile tui add <package>    install a plugin into the tui profile
+  timegleam web                                  boot the web profile (same as: timegleam --profile web)
+  timegleam rescue --from-default-profile web
+                                                 recreate rescue from the shipped web template, then boot it
+  timegleam headless "run the tests"             answer one task, print the result, and exit
+  timegleam tui --patch ./extra.yml              boot a custom profile with one extra overlay
+  timegleam tui --resume <session>               arguments after the launcher flags reach the app
+  timegleam web --help                           the web app's own flags and help
+  timegleam plugin --profile tui add <package>   install a plugin into the tui profile

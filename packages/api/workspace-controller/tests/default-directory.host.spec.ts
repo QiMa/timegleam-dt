@@ -4,9 +4,9 @@ import { defaultWorkspaceDirectory, validateDocumentsDirectory } from '../src/de
 
 describe('system Documents directory', () => {
   it.each([
-    ['darwin', '/Users/a/文档/\n', '/Users/a/文档/huayu-ai/default-workspace', 'osascript'],
-    ['win32', 'D:\\Redirected Documents\r\n', 'D:\\Redirected Documents\\huayu-ai\\default-workspace', 'powershell.exe'],
-    ['linux', '/home/a/My Documents\n', '/home/a/My Documents/huayu-ai/default-workspace', 'xdg-user-dir'],
+    ['darwin', '/Users/a/文档/\n', '/Users/a/文档/timegleam/default-workspace', 'osascript'],
+    ['win32', 'D:\\Redirected Documents\r\n', 'D:\\Redirected Documents\\timegleam\\default-workspace', 'powershell.exe'],
+    ['linux', '/home/a/My Documents\n', '/home/a/My Documents/timegleam/default-workspace', 'xdg-user-dir'],
   ] as const)('uses the %s account directory and preserves spaces and Unicode', async (platform, stdout, path, command) => {
     const run = vi.fn<NativeCommandRunner>(async () => ({ stdout, stderr: '' }))
     const signal = new AbortController().signal
@@ -17,7 +17,7 @@ describe('system Documents directory', () => {
   it('uses the configured directory without a system lookup', async () => {
     const run = vi.fn<NativeCommandRunner>()
     await expect(defaultWorkspaceDirectory('/documents', new AbortController().signal, { platform: 'linux', run }))
-      .resolves.toBe('/documents/huayu-ai/default-workspace')
+      .resolves.toBe('/documents/timegleam/default-workspace')
     expect(run).not.toHaveBeenCalled()
   })
 

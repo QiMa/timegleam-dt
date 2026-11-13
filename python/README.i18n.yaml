@@ -2,15 +2,15 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write python/README.md
-/huayu-ai-python-sdk:
-  en: e066df4b08006aa1
-  zh: 12cda3f5f712ae7e
-/huayu-ai-python-sdk/packages:
+/timegleam-python-sdk:
+  en: 364ff01e5226ea7c
+  zh: 2cde1d34ba5db3a7
+/timegleam-python-sdk/packages:
   en: 485e9978ed4f6dee
   zh: fccda14b1b84cecf
-/huayu-ai-python-sdk/behavior:
-  en: f29a388547c77eaf
-  zh: 906f5c20149214f5
-/huayu-ai-python-sdk/contributor-workflows:
+/timegleam-python-sdk/behavior:
+  en: 27193c7cedf2fbb3
+  zh: b000fb83476fbef7
+/timegleam-python-sdk/contributor-workflows:
   en: 292b8aab762f515a
   zh: 93da3d5c6af97d70

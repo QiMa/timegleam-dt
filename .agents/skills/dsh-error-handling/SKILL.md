@@ -3,7 +3,7 @@ name: dsh-error-handling
 description: Apply error-handling principles when designing or reviewing failures, recovery, retries, background tasks, and user-visible error reports.
 ---
 
-# Huayu AI Error Handling
+# TimeGleam Error Handling
 
 Define failures, their owners, and what remains safe after failure.
 

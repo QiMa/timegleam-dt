@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/huayu-cadcraft/README.md
 /:
-  en: e70f46d51f24e942
-  zh: 44fc4217fe9eb277
+  en: 5c5d7aed94574b89
+  zh: 57273c3542aef32f
 /hy-dsh-experimental-huayu-cadcraft:
   en: 29c8d8b509ed62d6
   zh: 623ca6cfc417b75f
@@ -15,8 +15,8 @@
   en: 76368b6b1da79c80
   zh: 49b8d2c4457703e6
 /hy-dsh-experimental-huayu-cadcraft/use-this-package:
-  en: 3be49e6f7fc0c022
-  zh: f87dbc6003ecfaef
+  en: a12bf5a8e89244ec
+  zh: 2d358883b1053317
 /hy-dsh-experimental-huayu-cadcraft/understand-the-implementation:
   en: 34d41f5e623e1e66
   zh: 205ce5061d03e9c0
@@ -39,5 +39,5 @@
   en: cc67dea4dcd8e84c
   zh: e6cde2bae4a1876d
 /hy-dsh-experimental-huayu-cadcraft/known-limitations-and-deferred-work/dev-note:
-  en: 7f3de55849688caf
-  zh: 479b5ba15744260b
+  en: 6a6e4ce739a49a4e
+  zh: e1032842a22e4227

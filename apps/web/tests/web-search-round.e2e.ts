@@ -15,7 +15,7 @@ import type { SessionEvent } from '@hy/dsh-session'
 import { WEB_SEARCH_MAX_RESULTS } from '@hy/dsh-tool-web'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,
-  launchWebScaffold, recordFixture, watchConsole, webSnapshotMode, type WebScaffold,
+  launchWebScaffold, recordFixture, selectedSessionFixture, watchConsole, webSnapshotMode, type WebScaffold,
 } from './scaffold.ts'
 import { connectFreshWorkspace, expandOwningTurnProcess, newEnglishPage, saveFailureShot } from './support.ts'
 
@@ -23,8 +23,40 @@ const SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/web-search-ro
 const FIXTURE = fileURLToPath(new URL('../../../snapshots/web/web-search-round/session.v3.jsonl', import.meta.url))
 const UI_EXPECTED = fileURLToPath(new URL('../../../snapshots/web/web-search-round/ui.expected.md', import.meta.url))
 const MODE = webSnapshotMode()
-const QUERIES = ['Huayu AI snapshot search', 'Huayu AI multi-query search'] as const
-const PROMPT = `Use web_search once with queries ${JSON.stringify(QUERIES)}. Then reply exactly SEARCH_DONE and stop.`
+
+/** Queries driven when this scenario records a fresh turn. */
+const RECORDED_QUERIES = ['TimeGleam snapshot search', 'TimeGleam multi-query search'] as const
+
+/** Drive prompt for one query list; the recorded tool call must repeat the same queries. */
+function promptFor(queries: readonly string[]): string {
+  return `Use web_search once with queries ${JSON.stringify(queries)}. Then reply exactly SEARCH_DONE and stop.`
+}
+
+/**
+ * The query texts of the fixture's recorded `web_search` call. Replay answers
+ * one fixed provider stream, so a drive prompt with different queries cannot
+ * settle; every mode reads them back instead of restating the recorded list.
+ * @param fixtureText - raw session fixture contents.
+ * @returns the recorded query texts in provider order.
+ */
+function recordedQueries(fixtureText: string): readonly string[] {
+  for (const line of fixtureText.split('\n')) {
+    if (line.trim() === '') continue
+    const event = JSON.parse(line) as { type?: unknown; data?: { name?: unknown; arguments?: unknown } }
+    if (event.type !== 'tool/call' || event.data?.name !== 'web_search') continue
+    const args = JSON.parse(String(event.data.arguments)) as { queries?: unknown }
+    const queries = args.queries
+    if (Array.isArray(queries) && queries.every(query => typeof query === 'string')) return queries
+  }
+  throw new Error('web-search-round: the fixture records no web_search query list')
+}
+
+let QUERIES: readonly string[] = RECORDED_QUERIES
+let PROMPT = promptFor(RECORDED_QUERIES)
+const QUERY_COUNT = RECORDED_QUERIES.length
+
+/** 0-based provider query indexes, in recorded order. */
+const QUERY_INDEXES = Array.from({ length: QUERY_COUNT }, (_value, index) => index)
 const SEARCH_CREDENTIAL_REF = credentialRef('DSH_WEB_SEARCH_E2E_KEY')
 const SEARCH_CREDENTIAL = 'snapshot-search-key'
 
@@ -70,7 +102,7 @@ function resultPageAge(ordinal: number): string {
 const RESULT_ORDINALS = Array.from({ length: PROVIDER_RESULT_COUNT }, (_value, index) => index + 1)
 
 /** Sources kept after round-robin merging reaches the shipped combined cap. */
-const KEPT_SOURCES = RESULT_ORDINALS.flatMap(ordinal => QUERIES.map((_query, queryIndex) => ({
+const KEPT_SOURCES = RESULT_ORDINALS.flatMap(ordinal => QUERY_INDEXES.map(queryIndex => ({
   url: resultUrl(queryIndex, ordinal),
   title: resultTitle(queryIndex, ordinal),
   snippet: resultSnippet(queryIndex, ordinal),
@@ -78,13 +110,13 @@ const KEPT_SOURCES = RESULT_ORDINALS.flatMap(ordinal => QUERIES.map((_query, que
 }))).slice(0, WEB_SEARCH_MAX_RESULTS)
 
 /** Model-visible source lines for the kept sources: the summary replaces the display snippet. */
-const KEPT_SOURCE_LINES = RESULT_ORDINALS.flatMap(ordinal => QUERIES.map((_query, queryIndex) =>
+const KEPT_SOURCE_LINES = RESULT_ORDINALS.flatMap(ordinal => QUERY_INDEXES.map(queryIndex =>
   `- [${resultTitle(queryIndex, ordinal)}](${resultUrl(queryIndex, ordinal)}) — ${renderedSummary(queryIndex, ordinal)} (${resultPageAge(ordinal)})`,
 )).slice(0, WEB_SEARCH_MAX_RESULTS)
 
 /** URLs omitted after the combined source cap is reached. */
-const DROPPED_SOURCE_URLS = RESULT_ORDINALS.flatMap(ordinal => QUERIES.map(
-  (_query, queryIndex) => resultUrl(queryIndex, ordinal),
+const DROPPED_SOURCE_URLS = RESULT_ORDINALS.flatMap(ordinal => QUERY_INDEXES.map(
+  queryIndex => resultUrl(queryIndex, ordinal),
 )).slice(WEB_SEARCH_MAX_RESULTS)
 
 interface CapturedSearchRequest {
@@ -145,12 +177,23 @@ describe('web e2e: default Search API web search', () => {
   let scaffold: WebScaffold
   let browser: Browser
   let page: Page
+  let fixturePath = FIXTURE
   let searchServer: Server | undefined
   let tripwire: ReturnType<typeof watchConsole>
   const searchRequests: CapturedSearchRequest[] = []
   const sessionEvents: SessionEvent[] = []
 
   beforeAll(async () => {
+    if (MODE !== 'record') {
+      // Replay returns the recorded provider stream, so the prompts this run
+      // types must be the ones the selected fixture recorded.
+      fixturePath = await selectedSessionFixture(FIXTURE)
+      QUERIES = recordedQueries(await readFile(fixturePath, 'utf8'))
+      PROMPT = promptFor(QUERIES)
+      if (QUERIES.length !== QUERY_COUNT) {
+        throw new Error(`web-search-round: fixture records ${String(QUERIES.length)} queries, expected ${String(QUERY_COUNT)}`)
+      }
+    }
     const search = await startSearchServer(searchRequests)
     searchServer = search.server
     scaffold = await launchWebScaffold({
@@ -161,7 +204,7 @@ describe('web e2e: default Search API web search', () => {
         baseURL: `${search.baseURL}/api/v1/tools`,
         apiKeyEnv: SEARCH_CREDENTIAL_REF,
       },
-      ...(MODE === 'record' ? {} : { replayFixture: FIXTURE, paceMs: 15 }),
+      ...(MODE === 'record' ? {} : { replayFixture: fixturePath, paceMs: 15 }),
     })
     await scaffold.ctx.credentials.set(SEARCH_CREDENTIAL_REF, SEARCH_CREDENTIAL)
     scaffold.ctx.on('session/event', (_session, event: SessionEvent) => { sessionEvents.push(event) })
@@ -191,7 +234,7 @@ describe('web e2e: default Search API web search', () => {
   it('drives the recorded search to a settled turn (all modes)', async () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-search-drive'))
     if (MODE !== 'record') {
-      expect(fixtureUserPrompts(await readFile(FIXTURE, 'utf8'))).toEqual([PROMPT])
+      expect(fixtureUserPrompts(await readFile(fixturePath, 'utf8'))).toEqual([PROMPT])
     }
     const input = page.locator('[data-composer-input]').first()
     await input.waitFor({ timeout: 10_000 })

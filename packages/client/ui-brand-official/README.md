@@ -1,5 +1,5 @@
 ---
-description: "Official Huayu AI brand occupants for the sidebar, active only in official builds; for users and maintainers choosing or replacing brand presentation."
+description: "Official TimeGleam brand occupants for the sidebar, active only in official builds; for users and maintainers choosing or replacing brand presentation."
 kind: "package-reference"
 ---
 
@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-This package gives an `official` client build the Huayu AI mark and name in the sidebar. Other build profiles keep the shell's Huayu mark and local-build label, while the conversation hero always uses the Huayu mark. Choose it for deployments branded as Huayu AI; deployments with another identity should provide a replacement brand package. It has no runtime state and does not affect model requests.
+This package gives an `official` client build the TimeGleam mark and name in the sidebar. Other build profiles keep the shell's own TimeGleam mark and local-build label, and the conversation hero always uses the same TimeGleam mark. It has no runtime state and does not affect model requests.
 
 ## Table of Contents
 
@@ -25,11 +25,11 @@ This package gives an `official` client build the Huayu AI mark and name in the 
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount this plugin in the browser roster of a deployment whose identity is Huayu AI's own, then build the client with the `official` profile so the occupants register.
+Mount this plugin in the browser roster of a deployment whose identity is TimeGleam's own, then build the client with the `official` profile so the occupants register.
 
 ### Choosing the profile
 
-`DSH_CLIENT_BUILD_PROFILE` selects which brand renders. An `official` build shows the official mark and name in the sidebar; any other value leaves the shell fallbacks — the Huayu mark and the local-build label — in place. The conversation hero shows the Huayu mark from `dsh-client-ui-conversation` regardless of profile, because that fallback is already the official mark. The plugin still loads and validates in both cases; only the registration is profile-gated.
+`DSH_CLIENT_BUILD_PROFILE` selects which brand renders. An `official` build shows the official mark and name in the sidebar; any other value leaves the shell fallbacks — the TimeGleam mark and the local-build label — in place. The conversation hero shows the TimeGleam mark from `dsh-client-ui-conversation` regardless of profile, because that fallback is already the official mark. The plugin still loads and validates in both cases; only the registration is profile-gated.
 
 ### Replacing the brand
 

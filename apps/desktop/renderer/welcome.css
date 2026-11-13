@@ -336,3 +336,22 @@ body {
 .actions .welcome-loading { color: inherit; }
 
 .auth-waiting .copy-link:disabled { cursor: default; }
+
+/* The console link opens the same page in a browser; it sits under the copy. */
+.key-heading .copy-link {
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: inherit;
+  line-height: 20px;
+  cursor: pointer;
+  app-region: no-drag;
+  text-decoration: underline;
+}
+
+#auth-page { position: relative; }
+#auth-error { top: calc(100% + 12px); text-align: center; }

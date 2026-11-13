@@ -21,6 +21,7 @@ function transport(preference?: string) {
     else if (method === 'llm/listConfigurableProviders') value = [{ settingsNs: 'llm-pi-ai', settingsPath: ['profiles', 'example'] }]
     else if (method === 'productAnalytics/enabled') value = true
     else if (method === 'productAnalytics/report') value = undefined
+    else if (method === 'settings/update') value = undefined
     else if (method === 'credentials/set') keys.set(payload.args.ref, payload.args.value)
     else value = Object.fromEntries(payload.args.refs.map(ref => [ref, { configured: keys.has(ref), writable: true }]))
     return Response.json({ type: 'server-response', rpcId, result: { ok: true, value } })
@@ -36,9 +37,12 @@ describe('desktop welcome Web operations', () => {
     const host = transport()
     const backend = connectDesktopWelcome(url, cookie, host.send)
     expect(await backend.analyticsEnabled()).toBe(true)
-    expect(await backend.save('sk-example')).toEqual({ ok: true })
-    expect(host.keys.get('CUSTOM_DEEPSEEK_KEY')).toBe('sk-example')
-    expect(await backend.read()).toEqual({ loggedIn: false, hasApiKey: true, writable: true, localePreference: null })
+    await backend.storeTimeGleamToken('tmg_example-key')
+    expect(host.keys.get('TIMEGLEAM_TOKEN')).toBe('tmg_example-key')
+    expect(await backend.read()).toEqual({
+      loggedIn: false, hasApiKey: false, writable: false,
+      hasTimeGleamToken: true, timeGleamWritable: true, localePreference: null,
+    })
     for (const [input, init] of host.send.mock.calls) {
       expect(input).toMatch(/^http:\/\/127\.0\.0\.1:19387\/api\//u)
       expect(init).toMatchObject({ redirect: 'error', headers: { cookie } })
@@ -74,6 +78,14 @@ describe('desktop welcome Web operations', () => {
     expect(await backend.read()).toMatchObject({ hasApiKey: true, writable: false })
     expect(await backend.save('official-key')).toEqual({ ok: false })
     expect(host.keys.has('undefined')).toBe(false)
+  })
+
+  it.each(['', 'sk-format', 'tmg_has space', 'aym_key\n'])('rejects a malformed TimeGleam access key before the Host: %s', async (value) => {
+    const host = transport()
+    const backend = connectDesktopWelcome(url, cookie, host.send)
+    host.send.mockClear()
+    await expect(backend.storeTimeGleamToken(value)).rejects.toThrow('invalid TimeGleam access key')
+    expect(host.send).not.toHaveBeenCalled()
   })
 
   it.each(['', 'bad key', 'key\n'])('rejects malformed keys without contacting a provider: %s', async (value) => {
@@ -216,5 +228,56 @@ describe('desktop welcome Web operations', () => {
     await backend.ensureModelConfiguration()
     expect(updates.get('llm-pi-ai')).toMatchObject({ providers: { airgap: { baseURL: 'https://airgap.example.com/v1', apiKeyEnv: 'DSH_BAIZOR_API_KEY' } } })
     expect(updates.has('agent-default-model')).toBe(false)
+  })
+
+  it('leaves model configuration untouched in the standard edition', async () => {
+    const host = transport()
+    const backend = connectDesktopWelcome(url, cookie, host.send)
+    host.send.mockClear()
+    await backend.ensureModelConfiguration()
+    expect(host.send).not.toHaveBeenCalled()
+  })
+
+  it('seeds the TimeGleam proxy route and its default model from the granted list', async () => {
+    const host = transport()
+    const backend = connectDesktopWelcome(url, cookie, host.send)
+    host.send.mockClear()
+    await backend.ensureTimeGleamModelConfiguration([
+      { id: 'deepseek-chat', name: 'DeepSeek' },
+      { id: 'svc::vision', name: 'Service' },
+    ], 'svc::vision')
+    type Update = { method: string; payload: { args: { ns?: string; patch?: Record<string, unknown> } } }
+    const updates = host.send.mock.calls
+      .map(([, init]) => JSON.parse(init!.body as string) as Update)
+      .filter(({ method }) => method === 'settings/update')
+    expect(updates.map(({ payload }) => payload.args.ns)).toEqual(['llm-pi-ai', 'agent-default-model'])
+    expect(updates[0]!.payload.args.patch).toEqual({ providers: { timegleam: {
+      displayName: 'TimeGleam',
+      apiKeyEnv: 'TIMEGLEAM_TOKEN',
+      api: 'openai-completions',
+      baseURL: 'https://timegleam.com/api/llm/v1',
+      defaultContextWindow: 128000,
+      defaultMaxTokens: 32768,
+      models: [
+        { id: 'deepseek-chat', name: 'DeepSeek', contextWindow: 128000, maxTokens: 32768 },
+        { id: 'svc::vision', name: 'Service', contextWindow: 128000, maxTokens: 32768 },
+      ],
+    } } })
+    expect(updates[1]!.payload.args.patch).toEqual({ provider: 'timegleam', model: 'svc::vision' })
+    expect((host.send.mock.calls[0]![1]!.signal as AbortSignal)).toBeInstanceOf(AbortSignal)
+  })
+
+  it('falls back to the first granted model and refuses an empty list', async () => {
+    const host = transport()
+    const backend = connectDesktopWelcome(url, cookie, host.send)
+    host.send.mockClear()
+    await backend.ensureTimeGleamModelConfiguration([{ id: 'only-model', name: 'Only' }], 'missing-model')
+    const selection = host.send.mock.calls
+      .map(([, init]) => JSON.parse(init!.body as string) as { method: string; payload: { args: { ns?: string; patch?: unknown } } })
+      .find(({ payload }) => payload.args.ns === 'agent-default-model')
+    expect(selection?.payload.args.patch).toEqual({ provider: 'timegleam', model: 'only-model' })
+    host.send.mockClear()
+    await expect(backend.ensureTimeGleamModelConfiguration([])).rejects.toThrow('no TimeGleam model to seed')
+    expect(host.send).not.toHaveBeenCalled()
   })
 })

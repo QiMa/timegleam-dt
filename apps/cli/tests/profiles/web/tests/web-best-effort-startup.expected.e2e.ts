@@ -110,7 +110,7 @@ async function waitForStartup(
   }
   stdout.on('data', (chunk: string) => {
     stdoutText += chunk
-    url ??= /hy web: (http:\/\/[^\s]+)/u.exec(stdoutText)?.[1]
+    url ??= /timegleam web: (http:\/\/[^\s]+)/u.exec(stdoutText)?.[1]
     finish()
   })
   stderr.on('data', (chunk: string) => {
@@ -131,7 +131,7 @@ async function waitForStartup(
   return ready.promise
 }
 
-describe.skipIf(!builtArtifactsExist)('dsh Web profile best-effort startup', () => {
+describe.skipIf(!builtArtifactsExist)('timegleam Web profile best-effort startup', () => {
   it('serves the full Web app while unrelated entries fail to start', async () => {
     const fixture = createFixture()
     const child = execa(process.execPath, [
@@ -237,7 +237,7 @@ describe.skipIf(!builtArtifactsExist)('dsh Web profile best-effort startup', () 
       expect(result.timedOut).toBe(false)
       expect(result.signal).toBeUndefined()
       expect(result.exitCode).toBe(1)
-      expect(result.stdout).not.toContain('hy web: http://')
+      expect(result.stdout).not.toContain('timegleam web: http://')
       expect(result.stderr).toContain('startup failed:')
       expect(result.stderr).toContain(`${id} (required)`)
       expect(result.stderr).toContain(diagnostic)
@@ -290,7 +290,7 @@ describe.skipIf(!builtArtifactsExist)('dsh Web profile best-effort startup', () 
       expect(result.timedOut).toBe(false)
       expect(result.signal).toBeUndefined()
       expect(result.exitCode).toBe(1)
-      expect(result.stdout).not.toContain('hy web: http://')
+      expect(result.stdout).not.toContain('timegleam web: http://')
       expect(result.stderr).toContain('startup failed:')
       expect(result.stderr).toContain('hy: startup failed: 2 required plugins did not activate')
       expect(result.stderr).toContain('Failed plugins (1):')
@@ -298,9 +298,9 @@ describe.skipIf(!builtArtifactsExist)('dsh Web profile best-effort startup', () 
       expect(result.stderr).toContain('Plugins waiting for services (')
       expect(result.stderr).toMatch(/web-runtime \(required\) +webServer/u)
       expect(result.stderr).toContain('at Server.setupListenHandle')
-      const summary = result.stderr.split(/\n\n(?:Full diagnostics:|dsh: warning:)/u)[0]!
+      const summary = result.stderr.split(/\n\n(?:Full diagnostics:|timegleam: warning:)/u)[0]!
       expect(summary.match(/EADDRINUSE/gu)).toHaveLength(1)
-      expect(summary).not.toMatch(/dsh: warning:|\[cause\]|at boot \(|at runCli \(|Node\.js v/u)
+      expect(summary).not.toMatch(/timegleam: warning:|\[cause\]|at boot \(|at runCli \(|Node\.js v/u)
       let report: string
       if (logsBlocked) {
         expect(result.stderr).toContain('hy: warning: could not write startup diagnostics:')

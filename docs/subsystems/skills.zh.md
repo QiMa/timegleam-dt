@@ -67,7 +67,8 @@ interface SkillProviderControl {
 
 | Rank | Source | Root |
 |---|---|---|
-| 100 | `project-dsh` | `<projectRoot>/.huayu/skills` |
+| 100 | `project-dsh` | `<projectRoot>/.timegleam/skills` |
+| 110 | `project-dsh` | `<projectRoot>/.dsh/skills`（旧版路径） |
 | 200 | `project-agents` | `<projectRoot>/.agents/skills` |
 | 300 | `custom` | `Config.customSkillDirs` |
 | 400 | `user-dsh` | `<dshHome>/skills` |

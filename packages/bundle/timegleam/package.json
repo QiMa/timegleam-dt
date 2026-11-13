@@ -1,0 +1,54 @@
+{
+  "name": "@hy/dsh-timegleam",
+  "description": "TimeGleam creation-workbench host plugin: remote MCP, the workspace prompt contract, and billed image tools over the model proxy",
+  "version": "0.2.2-alpha.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "directory": "packages/bundle/timegleam"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-credentials": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-mcp-manager": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tools": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@hy/dsh-system-prompt": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@hy/cordis": "workspace:~",
+    "@hy/dsh-attachment": "workspace:*",
+    "@hy/dsh-credentials": "workspace:*",
+    "@hy/dsh-llm": "workspace:*",
+    "@hy/dsh-mcp-manager": "workspace:*",
+    "@hy/dsh-system-prompt": "workspace:*",
+    "@hy/dsh-tools": "workspace:*"
+  }
+}

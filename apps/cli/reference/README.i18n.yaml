@@ -6,17 +6,17 @@
   en: abffba1bcc44698c
   zh: d58c479481cfa5fe
 /dsh-cli-behavior-reference/profile-boot:
-  en: 4428401a30cee6e3
-  zh: d3c84012952098c3
+  en: c6083ead9ded2789
+  zh: 017e543139ee4653
 /dsh-cli-behavior-reference/profile-boot/app-arguments:
-  en: 0828c80e40bad89d
-  zh: 947f67e95a06f780
+  en: 60b4e6837299427e
+  zh: 88eac566a2e63881
 /dsh-cli-behavior-reference/profile-boot/config-schema-dump:
   en: a356f8a68f3b3685
   zh: c718713b5d709295
 /dsh-cli-behavior-reference/startup-diagnostics:
-  en: 245360baa855497d
-  zh: 72da3bb05d431ac5
+  en: af242187d85bd173
+  zh: 2ea3fc7c28b61ff4
 /dsh-cli-behavior-reference/plugin-management:
   en: c43636cebb8b58f7
   zh: d94ee080490f657c
@@ -24,8 +24,8 @@
   en: 149c5571acd51baf
   zh: 300e3c2425273a92
 /dsh-cli-behavior-reference/shared-deployment-behavior:
-  en: 4663c67365d5710a
-  zh: e6ca1d6e46e56698
+  en: 86d2c8330fbb2db4
+  zh: 775de40aa4450af3
 /dsh-cli-behavior-reference/source-execution:
   en: 2a71ae58dab0e20d
   zh: 10ec8be6b9561785

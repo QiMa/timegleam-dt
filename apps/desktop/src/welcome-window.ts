@@ -1,4 +1,3 @@
-import type { SignInAttemptId } from '@hy/dsh-deepseek-account/types'
 /** Native welcome window and its presentation-only renderer. */
 
 import { join } from 'node:path'
@@ -70,7 +69,8 @@ export async function openWelcomeWindow(locale: DesktopLocale, operations: Welco
     active = false
     for (const channel of [
       WELCOME_IPC.analyticsEnabled, WELCOME_IPC.analytics, WELCOME_IPC.takeNotice, WELCOME_IPC.saveApiKey,
-      WELCOME_IPC.skip, WELCOME_IPC.start, WELCOME_IPC.cancel, WELCOME_IPC.copyLink,
+      WELCOME_IPC.openConsole, WELCOME_IPC.signIn, WELCOME_IPC.cancelSignIn, WELCOME_IPC.copySignInLink,
+      WELCOME_IPC.skip,
     ]) {
       ipcMain.removeHandler(channel)
     }
@@ -102,20 +102,25 @@ export async function openWelcomeWindow(locale: DesktopLocale, operations: Welco
     if (typeof value !== 'string' || !/^[\x21-\x7e]+$/.test(value)) return { ok: false }
     return operations.saveApiKey(value)
   })
+  ipcMain.handle(WELCOME_IPC.openConsole, async (event) => {
+    assertSender(event)
+    await operations.openConsole()
+  })
+  ipcMain.handle(WELCOME_IPC.signIn, async (event) => {
+    assertSender(event)
+    return operations.signIn()
+  })
+  ipcMain.handle(WELCOME_IPC.cancelSignIn, async (event) => {
+    assertSender(event)
+    await operations.cancelSignIn()
+  })
+  ipcMain.handle(WELCOME_IPC.copySignInLink, async (event) => {
+    assertSender(event)
+    await operations.copySignInLink()
+  })
   ipcMain.handle(WELCOME_IPC.skip, async (event) => {
     assertSender(event)
     await operations.skip()
-  })
-  ipcMain.handle(WELCOME_IPC.start, async (event) => { assertSender(event); return operations.startSignIn() })
-  ipcMain.handle(WELCOME_IPC.cancel, async (event, id: unknown) => {
-    assertSender(event)
-    if (typeof id !== 'string') throw new Error('desktop welcome: invalid attempt')
-    return operations.cancelSignIn(id as SignInAttemptId)
-  })
-  ipcMain.handle(WELCOME_IPC.copyLink, async (event, id: unknown) => {
-    assertSender(event)
-    if (typeof id !== 'string') throw new Error('desktop welcome: invalid attempt')
-    return operations.copySignInLink(id as SignInAttemptId)
   })
   window.once('closed', disposeHandlers)
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))

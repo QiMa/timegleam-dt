@@ -25,6 +25,7 @@ import { resolveDesktopBuildCommit } from './desktop-build-commit.mjs'
 import { resolveDesktopBuildVersion } from './desktop-build-version.mjs'
 import { resolveDesktopPolicyEnvironment } from './desktop-policy-environment.mjs'
 import { desktopArtifactOutput, desktopTargetBuildPaths, resolveDesktopBuildTarget } from './desktop-build-paths.mjs'
+import { DESKTOP_ARTIFACT_STEM, DESKTOP_EXECUTABLE_NAME, DESKTOP_PRODUCT_NAME } from './desktop-release-environment.mjs'
 import { installWindowsDirectoryInstaller } from './windows-directory-installer.mjs'
 import { preserveWindowsRuntimeSignature, signWindowsCode } from './windows-runtime-signature.mjs'
 import { prepareWindowsAsarUnpack, verifyWindowsAsarUnpack } from './windows-asar-unpack.mjs'
@@ -123,7 +124,12 @@ export function createElectronBuilderConfig(
   const packaged = resolveDesktopBuildCommit(env)
   return {
     appId,
-    protocols: [{ name: 'Huayu AI', schemes: ['dsh'] }],
+    protocols: [
+      { name: 'TimeGleam', schemes: ['timegleam'] },
+      // Older TimeGleam sign-in pages mint links with the `dsh` scheme, so the
+      // name is rendered by the current product instead of the retired brand.
+      { name: 'TimeGleam (legacy links)', schemes: ['dsh'] },
+    ],
     extraMetadata: {
       dshDesktopAppId: appId,
       dshDesktopUpdateChannel: update?.channel ?? 'nightly',
@@ -133,11 +139,11 @@ export function createElectronBuilderConfig(
       ...buildVersion === productVersion ? {} : { version: buildVersion },
       ...packaged === undefined ? {} : { dshBuildCommit: packaged.commit, dshBuildDirty: packaged.dirty },
     },
-    productName: 'Huayu AI',
+    productName: DESKTOP_PRODUCT_NAME,
     // The default copyright uses author.name; this line names the product instead.
     copyright: `Copyright © ${new Date().getFullYear()} \${productName}`,
     // Unsigned builds carry their own suffix so a shared file can never pass for a release artifact.
-    artifactName: `huayu-ai-\${version}-\${os}-\${arch}${output.suffix}.\${ext}`,
+    artifactName: `${DESKTOP_ARTIFACT_STEM}-\${version}-\${os}-\${arch}${output.suffix}.\${ext}`,
     directories: { output: output.directory },
     asar: true,
     electronDist: buildPaths.electron,
@@ -181,12 +187,13 @@ export function createElectronBuilderConfig(
       ...(packagesWindows ? [{ from: fileURLToPath(new URL('../resources/tray-windows.ico', import.meta.url)), to: 'tray.ico' }] : []),
     ],
     mac: {
+      executableName: DESKTOP_EXECUTABLE_NAME,
       icon: fileURLToPath(new URL('../resources/icon-macos.png', import.meta.url)),
       category: 'public.app-category.developer-tools',
       // macOS matches the application locale against this bundle, not Electron Framework resources.
       extendInfo: {
         CFBundleLocalizations: ['en', 'zh_CN', 'ja', 'es', 'fr', 'de', 'ru', 'pt'],
-        NSMicrophoneUsageDescription: 'Huayu AI uses your microphone to transcribe speech into message drafts.',
+        NSMicrophoneUsageDescription: 'TimeGleam uses your microphone to transcribe speech into message drafts.',
       },
       // Ad-hoc signing keeps the modified Electron executable runnable without a Developer ID.
       identity: unsigned ? '-' : macOSSigning?.signingIdentity,
@@ -262,6 +269,7 @@ export function createElectronBuilderConfig(
       )
     },
     win: {
+      executableName: DESKTOP_EXECUTABLE_NAME,
       icon: fileURLToPath(new URL('../resources/icon-windows.png', import.meta.url)),
       forceCodeSigning: !unsigned,
       signtoolOptions: {
@@ -274,8 +282,8 @@ export function createElectronBuilderConfig(
     linux: {
       icon: fileURLToPath(new URL('../resources/icon.png', import.meta.url)),
       category: 'Development',
-      maintainer: 'Huayu AI',
-      executableName: 'huayu-ai',
+      maintainer: 'TimeGleam',
+      executableName: DESKTOP_EXECUTABLE_NAME,
       target: ['AppImage'],
     },
     nsis: {

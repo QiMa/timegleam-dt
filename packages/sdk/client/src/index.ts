@@ -1,6 +1,6 @@
 /**
- * TypeScript client SDK for the Huayu AI runtime: spawn the
- * same-version `hy --profile sdk` runtime as a subprocess and drive agent
+ * TypeScript client SDK for the TimeGleam runtime: spawn the
+ * same-version `timegleam --profile sdk` runtime as a subprocess and drive agent
  * turns over stdio JSON-RPC. `DeepSeekHarness` is the high-level run API;
  * `HarnessClient` is the lower-level protocol client. A pure library — it
  * registers nothing on a Cordis context; named profiles and ordered patch

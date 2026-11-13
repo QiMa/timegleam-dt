@@ -3,92 +3,92 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/desktop/README.md
 /:
-  en: 0d36989eb614345d
-  zh: a0a1a18c07621393
-/huayu-ai-desktop:
-  en: 78de84bf098a7f94
-  zh: abc7b2d263603e7d
-/huayu-ai-desktop/summary:
-  en: 7bc8bf30de693222
-  zh: e85993d8852b6cab
-/huayu-ai-desktop/table-of-contents:
+  en: bf67df47b8ccc41c
+  zh: b50af2159911b04a
+/timegleam-desktop:
+  en: 61087823b8256287
+  zh: 0c05bfe85d3989fc
+/timegleam-desktop/summary:
+  en: af3e00463e4c5e75
+  zh: 93029cf3d2b5ea9e
+/timegleam-desktop/table-of-contents:
   en: 127ea90553cb6af7
   zh: 7b1c5aec8558c684
-/huayu-ai-desktop/application-overview:
-  en: 50664d784d6b660a
-  zh: a21988082f23080a
-/huayu-ai-desktop/terminal-command:
-  en: 2ba1ccac5c34e22c
-  zh: 13d5f7a32d6c2fea
-/huayu-ai-desktop/closing-the-window-and-quitting:
-  en: 43c3a17302dd0d14
-  zh: 95f131f8ba7a4cb2
-/huayu-ai-desktop/key-technical-decisions:
-  en: 612dd0957e1ddeb2
-  zh: 9d148855f2e8ff70
-/huayu-ai-desktop/key-technical-decisions/bundled-workspace-dependencies:
-  en: b226854d030bbcbd
-  zh: 7f7ddb95d8150c78
-/huayu-ai-desktop/bundled-command-runtime:
-  en: af4f8dcfdf1f4898
-  zh: bd32e99db3272891
-/huayu-ai-desktop/installation-ownership:
+/timegleam-desktop/application-overview:
+  en: 3014f20db8500027
+  zh: 2bc4d57cabfac300
+/timegleam-desktop/terminal-command:
+  en: 80b61010c582b717
+  zh: 5a9ed6b12d1211a1
+/timegleam-desktop/closing-the-window-and-quitting:
+  en: f238d07b8e19d557
+  zh: 316ad468414ebd4e
+/timegleam-desktop/key-technical-decisions:
+  en: dea54ca358fc83bb
+  zh: 4569180c315be43f
+/timegleam-desktop/key-technical-decisions/bundled-workspace-dependencies:
+  en: c49380e5cfd5a0ab
+  zh: 0bb39a5afa723b2e
+/timegleam-desktop/bundled-command-runtime:
+  en: 4cceb65206ead057
+  zh: 7ad27037817a2487
+/timegleam-desktop/installation-ownership:
   en: 160b500cdcd6a39a
   zh: 6c267f1762ec3689
-/huayu-ai-desktop/installation-ownership/runtime-and-plugin-activation:
+/timegleam-desktop/installation-ownership/runtime-and-plugin-activation:
   en: 4951cd3ee659eb33
   zh: 96bdd6358dad587a
-/huayu-ai-desktop/installation-ownership/host-environment:
+/timegleam-desktop/installation-ownership/host-environment:
   en: 98cf848762482d48
   zh: 74f9100a39ec8c2f
-/huayu-ai-desktop/develop:
+/timegleam-desktop/develop:
   en: 163b6ca574be587b
   zh: 21514032f31b901a
-/huayu-ai-desktop/develop/startup-onboarding:
-  en: 67dc7ef3e293236a
-  zh: 1b224db684a2d1d7
-/huayu-ai-desktop/develop/welcome-window-appearance:
+/timegleam-desktop/develop/startup-onboarding:
+  en: b94fae6a8b349b4a
+  zh: 9e35b78b15d0d577
+/timegleam-desktop/develop/welcome-window-appearance:
   en: 617a89aeb28131b9
   zh: 4d84bd5d86501c86
-/huayu-ai-desktop/package:
+/timegleam-desktop/package:
   en: 4cd8a8da6977928d
   zh: 9f624855a2edac37
-/huayu-ai-desktop/package/release-versions:
+/timegleam-desktop/package/release-versions:
   en: d938302f92fc3a1a
   zh: 29df50bc8791baa7
-/huayu-ai-desktop/package/local-macos-dmg-without-release-signing:
-  en: cf9c5f1b1a074a37
-  zh: 77514abedf4f8634
-/huayu-ai-desktop/package/local-official-bundles-from-a-loopback-registry:
+/timegleam-desktop/package/local-macos-dmg-without-release-signing:
+  en: 5b6ab0b45a8c5294
+  zh: b6ba809f64b98178
+/timegleam-desktop/package/local-official-bundles-from-a-loopback-registry:
   en: 5f05072ec82cc62d
   zh: a3d63b58d1ef2db7
-/huayu-ai-desktop/package/runtime-file-selection:
-  en: d8f188834e28ab17
-  zh: ce7740a4dcef9cc5
-/huayu-ai-desktop/package/unsigned-windows-test-installer:
+/timegleam-desktop/package/runtime-file-selection:
+  en: 94f18b923524de5f
+  zh: f6609ba1d51b5588
+/timegleam-desktop/package/unsigned-windows-test-installer:
   en: 6ff80a20ea36e9c5
   zh: 3c79280f81de2cbc
-/huayu-ai-desktop/windows-installer-interface:
-  en: 079c7339975dd771
-  zh: 7ce9004f5ac47508
-/huayu-ai-desktop/updates:
+/timegleam-desktop/windows-installer-interface:
+  en: a775cec11c37a956
+  zh: d81fdbfc2e221569
+/timegleam-desktop/updates:
   en: 67bf0a18faa7aa76
   zh: 782e14ce62bb939f
-/huayu-ai-desktop/updates/local-desktop-settings:
+/timegleam-desktop/updates/local-desktop-settings:
   en: a26475f1dad34ca2
   zh: 1ed6934ce6276ad4
-/huayu-ai-desktop/updates/mandatory-update-policy:
+/timegleam-desktop/updates/mandatory-update-policy:
   en: 182a9c6705213e13
   zh: 681762f83490f4c6
-/huayu-ai-desktop/updates/local-updater-qualification:
+/timegleam-desktop/updates/local-updater-qualification:
   en: db5e898140a73d53
   zh: 80a9d58c74b4bb24
-/huayu-ai-desktop/low-level-development-overrides:
+/timegleam-desktop/low-level-development-overrides:
   en: 8264b135871e8978
   zh: 0939aafb1b2961fc
-/huayu-ai-desktop/known-limitations:
-  en: b1eeadfefb338056
-  zh: 28683fbdf1e98685
-/huayu-ai-desktop/dev-note:
+/timegleam-desktop/known-limitations:
+  en: 971f480cd58c816c
+  zh: f7997c982d1f8b92
+/timegleam-desktop/dev-note:
   en: 8e26b460ba31f21b
   zh: fbcd0307b3867125

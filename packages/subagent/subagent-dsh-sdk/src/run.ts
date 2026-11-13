@@ -1,5 +1,5 @@
 /**
- * Fresh-process SDK subagent client. Drives one child Huayu AI
+ * Fresh-process SDK subagent client. Drives one child TimeGleam
  * runtime over stdio JSON-RPC through `@hy/dsh-sdk-client` and owns
  * cancellation and quiescent disposal. It publishes after the child
  * handshake, maps child failures to stop reasons, and tears down to

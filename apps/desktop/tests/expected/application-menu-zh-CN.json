@@ -1,13 +1,16 @@
 [
   {
-    "label": "关于 Huayu AI",
+    "label": "关于 拾光 TimeGleam",
     "role": "about"
   },
   {
     "type": "separator"
   },
   {
-    "label": "管理 huayu 命令…"
+    "label": "检查更新…"
+  },
+  {
+    "label": "管理 TimeGleam 命令…"
   },
   {
     "type": "separator"
@@ -21,7 +24,7 @@
   },
   {
     "role": "hide",
-    "label": "隐藏 Huayu AI"
+    "label": "隐藏 拾光 TimeGleam"
   },
   {
     "role": "hideOthers",
@@ -36,6 +39,6 @@
   },
   {
     "role": "quit",
-    "label": "退出 Huayu AI"
+    "label": "退出 拾光 TimeGleam"
   }
 ]

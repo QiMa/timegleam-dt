@@ -12,6 +12,7 @@
   },
   "type": "module",
   "bin": {
+    "timegleam": "lib/bin.js",
     "dsh": "lib/bin.js"
   },
   "files": [

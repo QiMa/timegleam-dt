@@ -264,28 +264,28 @@ describe('product icon set', () => {
   })
 })
 
-describe('FishLogo', () => {
-  it('renders the official Huayu mark as a square embedded tile', () => {
-    const { container } = render(<primitives.FishLogo />)
+describe('TimeGleamMark', () => {
+  it('renders the aperture glyph as a square currentColor svg', () => {
+    const { container } = render(<primitives.TimeGleamMark />)
     const svg = container.querySelector('svg')!
     expect(svg.getAttribute('width')).toBe('24')
     expect(svg.getAttribute('height')).toBe('24')
-    expect(svg.getAttribute('viewBox')).toBe('0 0 96 96')
-    expect(container.querySelectorAll('image')).toHaveLength(1)
-    expect(container.querySelector('image')?.getAttribute('href')).toContain('data:image/png;base64,')
+    expect(svg.getAttribute('viewBox')).toBe('0 0 32 32')
+    expect(container.querySelectorAll('path')).toHaveLength(1)
+    expect(container.querySelector('path')?.getAttribute('fill')).toBe('currentColor')
   })
 })
 
 describe('BrandWordmark', () => {
   it('can render the name artwork with or without its leading mark', () => {
     const view = render(<primitives.BrandWordmark />)
-    const svg = view.container.querySelector('svg')!
-    expect(svg.getAttribute('height')).toBe('24')
-    expect(Number(svg.getAttribute('width'))).toBeCloseTo(188.65, 1)
-    expect(svg.getAttribute('viewBox')).toBe('0 0 188.65 24')
+    const lockup = view.container.firstElementChild!
+    expect(lockup.getAttribute('aria-label')).toBe('拾光 TimeGleam')
+    expect(view.container.querySelectorAll('svg')).toHaveLength(1)
+    expect(view.container.textContent).toContain('拾光')
+    expect(view.container.textContent).toContain('TIMEGLEAM')
 
     view.rerender(<primitives.BrandWordmark includeMark={false} />)
-    expect(Number(svg.getAttribute('width'))).toBeCloseTo(157.65, 1)
-    expect(svg.getAttribute('viewBox')).toBe('0 0 157.65 24')
+    expect(view.container.querySelectorAll('svg')).toHaveLength(0)
   })
 })

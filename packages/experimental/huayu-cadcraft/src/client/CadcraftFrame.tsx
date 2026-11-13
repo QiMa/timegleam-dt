@@ -4,6 +4,7 @@
  * render time (`__HUAYU_CADCAST_CONFIG__`), defaulting to `/cadcraft`.
  */
 import type { ReactNode } from 'react'
+import { CADCRAFT_TITLE } from './locale.ts'
 
 interface CadcraftConfig {
   readonly mountPath?: string
@@ -20,7 +21,7 @@ export function CadcraftFrame(): ReactNode {
   return (
     <iframe
       src={resolveMountPath()}
-      title="CADCraft"
+      title={CADCRAFT_TITLE}
       style={{ width: '100%', height: '100%', border: 'none', background: '#22282f' }}
     />
   )

@@ -121,10 +121,11 @@ export function resolveDesktopUploadConfig(
 export function resolveDesktopEdition(env: NodeJS.ProcessEnv): 'standard' | 'enterprise'
 
 /**
- * Normalize an HTTPS base URL that may carry a base path (used by the AirGap public root).
+ * Normalize an HTTPS or intranet-HTTP base URL that may carry a base path
+ * (used by the AirGap public root, which often has no internal TLS yet).
  * @param value - Candidate base URL.
  * @param name - Environment variable used in diagnostics.
- * @returns Normalized HTTPS base URL without a trailing slash.
+ * @returns Normalized base URL without a trailing slash.
  */
 export function httpsBaseUrl(value: string, name: string): string
 

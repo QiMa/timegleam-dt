@@ -2,36 +2,36 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/architecture.md
-/huayu-ai-architecture:
-  en: 68722df2a7030263
-  zh: 9e602888a3287dd9
-/huayu-ai-architecture/cordis:
+/timegleam-architecture:
+  en: 2e73e211c182eefa
+  zh: 857a5edd16ca801f
+/timegleam-architecture/cordis:
   en: da5060e577578ea7
   zh: 2e77d570e32d8938
-/huayu-ai-architecture/profiles-and-bundles:
+/timegleam-architecture/profiles-and-bundles:
   en: 21423f481b18b0be
   zh: 5343bd7ea0fae5bc
-/huayu-ai-architecture/application-launch:
+/timegleam-architecture/application-launch:
   en: 01e17b24e70ac3cc
   zh: 29c4b02da4364f62
-/huayu-ai-architecture/desktop-application:
+/timegleam-architecture/desktop-application:
   en: b9eeb18645121a8b
   zh: 70d87a12c43e042a
-/huayu-ai-architecture/core-packages:
+/timegleam-architecture/core-packages:
   en: 20ef882e44b06a10
   zh: c10c3934ed5570e9
-/huayu-ai-architecture/events:
+/timegleam-architecture/events:
   en: ddebac7cfd41ec73
   zh: 51e6d0866a9e7839
-/huayu-ai-architecture/turn-flow:
+/timegleam-architecture/turn-flow:
   en: 1a79a70b62c04cdb
   zh: c86d765e21430405
-/huayu-ai-architecture/session-log:
+/timegleam-architecture/session-log:
   en: b3b63d8fe7cab9fe
   zh: 3703fcf30b1639d0
-/huayu-ai-architecture/capability-seams:
+/timegleam-architecture/capability-seams:
   en: 1d425c445bfcc931
   zh: 834d486f88e68edf
-/huayu-ai-architecture/where-new-behavior-goes:
+/timegleam-architecture/where-new-behavior-goes:
   en: ee73b1861378b099
   zh: 9a182be609485f67
