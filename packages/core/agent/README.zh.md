@@ -49,7 +49,7 @@ await handle.dispose()   // stops the loop, unregisters, removes the session, un
 
 `select({ provider, model, reasoningEffort? })` 完整赋值，从下一个尚未开始准备的步骤生效。省略强度表示使用适配器默认值；选择操作既不继承旧强度，也不查询默认值。与已记录选择相同则不重复记录，但仅与初始 options 相同仍会记录 `model/selection`。调用方负责校验可用性与能力；追加失败沿用 Session 现有的失败保证。
 
-普通恢复保留持久化选择。明确覆盖模型的入口先形成完整选择：仅在配置未指定强度且路由不变时保留旧的显式强度，然后调用 `select()`。Web 与 ACP 用户选择直接调用 `select()`，因此省略强度表示 Auto。选择 Session 模型不会改变部署默认值。
+普通恢复保留持久化选择。已记录的路由若其提供方不再由 Host 注册，则属于例外：循环回退到实时的 `AgentOptions` 路由并通过 `select()` 记录它；仅缺少凭据的已注册路由仍保持记录，因为请求会报告该失败。明确覆盖模型的入口先形成完整选择：仅在配置未指定强度且路由不变时保留旧的显式强度，然后调用 `select()`。Web 与 ACP 用户选择直接调用 `select()`，因此省略强度表示 Auto。选择 Session 模型不会改变部署默认值。
 
 要启用作用域内的切换提示，在 Agent setup 中调用 `dsh-agent` 的 `installModelSelection(agentCtx)`。作用域拥有监听器，并在释放时移除它。
 

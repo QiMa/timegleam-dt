@@ -280,12 +280,38 @@ export class ReactLoopAgent implements Agent {
     }
   }
 
+  /**
+   * Resolve the route a step about to begin will use. A recorded choice whose
+   * provider this Host no longer registers cannot complete a request: the
+   * adapter that resolves its credential and endpoint is gone, so every step
+   * would fail before streaming. Such a step falls back to the live Agent
+   * route when that route is registered, and records the fallback so the
+   * Session heals once instead of failing on every step. A recorded route that
+   * is still registered is kept even when its credential is missing, because
+   * that failure belongs to the request and carries its own remedy.
+   * @returns the step's detached selection, or undefined when no source names one.
+   */
+  private stepSelection(): Readonly<ModelSelection> | undefined {
+    const recorded = this.model.current()
+    if (recorded === undefined) return undefined
+    const providers = this.loopCtx.llm.listProviders()
+    if (providers.some(candidate => candidate.id === recorded.provider)) return recorded
+    const provider = this.options.provider
+    const model = this.options.model
+    if (provider === undefined || model === undefined) return recorded
+    if (!providers.some(candidate => candidate.id === provider)) return recorded
+    const reasoningEffort = this.options.reasoningEffort
+    const fallback: ModelSelection = { provider, model, ...reasoningEffort === undefined ? {} : { reasoningEffort } }
+    this.model.select(fallback)
+    return fallback
+  }
+
   private async preStep(target: InboxTarget, position: { turn: number; step: number }): Promise<PreparedStep> {
     /* v8 ignore next -- private callers establish the running phase before proposing a step */
     if (this.phase.kind !== 'running') throw new Error(`agent "${this.id}": pre-step outside running phase`)
     const signal = this.phase.abort.signal
     const claimed = this.inbox.claim(target, position.turn)
-    const selection = this.model.current()
+    const selection = this.stepSelection()
     if (selection === undefined) {
       throw new Error(`agent "${this.id}" has no provider/model: set AgentOptions.provider and AgentOptions.model or record a model selection`)
     }

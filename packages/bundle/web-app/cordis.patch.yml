@@ -29,6 +29,19 @@
     path: ':memory:'
     openAt: never
 
+# The Desktop app is a TimeGleam client. The standard edition has no DeepSeek
+# API key and no DeepSeek account, so both DeepSeek routes would only appear in
+# the picker and then fail the first request with MISSING_CREDENTIAL; the
+# enterprise edition holds a sealed gateway key, which is not a DeepSeek one
+# either. Chat reaches exactly one route: the `timegleam` provider the welcome
+# flow seeds. Web keeps both rows, because its deployments configure
+# `DEEPSEEK_API_KEY`.
+- id: llm-deepseek
+  disabled: !!js "ctx.get('profileContext')?.name === 'desktop'"
+
+- id: llm-deepseek-account
+  disabled: !!js "ctx.get('profileContext')?.name === 'desktop'"
+
 # ── web-only host rows, the transport layer, and the browser roster ─────────
 
 # `dsh.client` rows are the browser roster the modules node half scans into

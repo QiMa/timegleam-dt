@@ -77,7 +77,7 @@ description: "把 Harness 桌面应用重塑为拾光 TimeGleam：应用身份�
 | `GET /image-models` | 工作区获授权的画面模型 |
 | `POST /images/generations` | 出图 |
 
-欢迎页写入名为 `timegleam` 的 `llm-pi-ai` 提供方，以 `openai-completions` 协议访问 `/v1`，默认取首个获授权的文本模型；已保存的密钥就是它的 `apiKeyEnv` 指向，因此设置中不写入提供方密钥。随包插件用同一把密钥提供两个本地工具：`timegleam_image_models` 列出获授权的画面模型，`timegleam_image` 生成图片并把每张返回结果保存为本地附件。扣费一律由代理计算，桌面端不估算：文本按百万 token 加单次调用费结算，图片按返回张数与尺寸档位结算。Ark 系图片服务每次只返回一张，代理会在扣点前以 HTTP 422 拒绝大于 1 的 `n`。
+欢迎页写入名为 `timegleam` 的 `llm-pi-ai` 提供方，以 `openai-completions` 协议访问 `/v1`，默认取首个获授权的文本模型；已保存的密钥就是它的 `apiKeyEnv` 指向，因此设置中不写入提供方密钥。随包组合在桌面 profile 上不加入 DeepSeek 路由：内置 Web 组合在 `profileContext.name` 为 `desktop` 时禁用 `llm-deepseek` 与 `llm-deepseek-account`，因为两个版本都不持有 DeepSeek 密钥。因此全新安装从写入的路由起步，而在设置页新增的提供方仍可用。记录在本 Host 未注册路由上的 Session 会改用实时的 Agent 默认路由恢复，并记录该选择，因此在登录之前建立的 Session 可以继续对话。随包插件用同一把密钥提供两个本地工具：`timegleam_image_models` 列出获授权的画面模型，`timegleam_image` 生成图片并把每张返回结果保存为本地附件。扣费一律由代理计算，桌面端不估算：文本按百万 token 加单次调用费结算，图片按返回张数与尺寸档位结算。Ark 系图片服务每次只返回一张，代理会在扣点前以 HTTP 422 拒绝大于 1 的 `n`。
 
 写入的提供方只为 `huayu-v2` 声明 `reasoningEffort` 档位，并以 `medium` 起步：代理对该模型的每一档都已实测返回 200（`off` 发为 `none`）。必须显式给出档位，因为不选档位时 pi-ai 发的是已声明的 `off` 值。其余获授权的上游不声明该控件，因此不会被发送它们可能拒绝的字段。
 

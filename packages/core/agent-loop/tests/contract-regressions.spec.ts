@@ -469,6 +469,49 @@ describe('adapter registration, routing, and accepted-input ownership', () => {
     expect(agent.session.deriveMessages().at(-1)?.content).toEqual([{ type: 'text', text: 'routed' }])
   })
 
+  it('falls back from a recorded route whose adapter this Host no longer registers', async () => {
+    const adapter = new MockAdapter([textResponse('healed')])
+    const ctx = await harness(adapter)
+    const agent = await ctx.agentLoop.create(SessionId('a1'), { provider: 'mock', model: 'mock' })
+    agent.model.select({ provider: 'retired-gateway', model: 'retired-model' })
+
+    send(agent, 'go')
+    await waitForIdle(ctx, agent)
+
+    expect(adapter.requests).toHaveLength(1)
+    expect(adapter.requests[0]).toMatchObject({ provider: 'mock', model: 'mock' })
+    expect(agent.model.current()).toEqual({ provider: 'mock', model: 'mock' })
+    expect(agent.session.snapshotEvents().filter(event => event.type === 'model/selection').at(-1))
+      .toMatchObject({ data: { provider: 'mock', model: 'mock' } })
+  })
+
+  it('keeps a recorded unregistered route when no live route can replace it', async () => {
+    const adapter = new MockAdapter([textResponse('never')])
+    const ctx = await harness(adapter)
+    const agent = await ctx.agentLoop.create(SessionId('a1'), {})
+    agent.model.select({ provider: 'retired-gateway', model: 'retired-model' })
+
+    send(agent, 'go')
+    await waitForIdle(ctx, agent)
+
+    expect(adapter.requests).toHaveLength(0)
+    expect(agent.model.current()).toEqual({ provider: 'retired-gateway', model: 'retired-model' })
+    expect(agent.session.snapshotEvents().filter(event => event.type === 'model/selection')).toHaveLength(1)
+  })
+
+  it('keeps a recorded unregistered route when the live options name another unregistered one', async () => {
+    const adapter = new MockAdapter([textResponse('never')])
+    const ctx = await harness(adapter)
+    const agent = await ctx.agentLoop.create(SessionId('a1'), { provider: 'also-retired', model: 'stale' })
+    agent.model.select({ provider: 'retired-gateway', model: 'retired-model' })
+
+    send(agent, 'go')
+    await waitForIdle(ctx, agent)
+
+    expect(adapter.requests).toHaveLength(0)
+    expect(agent.model.current()).toEqual({ provider: 'retired-gateway', model: 'retired-model' })
+  })
+
   it('durable inbox splices carry exact messages and the claimed steer preserves its source', async () => {
     const adapter = new MockAdapter([toolCallResponse('c1', 'noop', {}), textResponse('done')])
     const ctx = await harness(adapter)

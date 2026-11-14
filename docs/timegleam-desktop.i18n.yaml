@@ -3,11 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/timegleam-desktop.md
 /:
-  en: cb3f91d54eee30e5
-  zh: cb3f91d54eee30e5
-/description-rebrand-the-harness-desktop-application-as-timegleam-application-identity-the-online-workspace-connection-over-mcp-deep-links-and-what-changes-for-existing-huayu-ai-installations:
-  en: a85fd3372ef5d9e4
-  zh: 7401bb68f54439f2
+  en: d0f70b8088c8374b
+  zh: 35b8d9f304e8baa4
 /timegleam-desktop:
   en: c709387f4ea5d99a
   zh: 03e0951cacea7917
@@ -15,23 +12,23 @@
   en: 93734f74c15bc234
   zh: 7e50f24262a44fb0
 /timegleam-desktop/table-of-contents:
-  en: e586c2692e28b1a5
-  zh: 42bca992044d993e
+  en: f0d594cecf24d16c
+  zh: 522e6b5f86b85f7c
 /timegleam-desktop/application-identity:
-  en: 5ab7f2bfb8419d7b
-  zh: ceec64cb04980982
+  en: d1268eac74ab245b
+  zh: 85450811a81a4eb4
 /timegleam-desktop/connecting-the-online-workspace:
-  en: 65246d63bcd4d3a8
-  zh: f7b10af5d8961c11
+  en: 1292c22f12425bb9
+  zh: 019aeac5f2dfe16d
 /timegleam-desktop/connecting-the-online-workspace/workbench-rules:
-  en: 44a3add019f1e661
-  zh: 647813011f8abdba
+  en: 3aea07ba4ee7543c
+  zh: 78eef9b01b4070e8
 /timegleam-desktop/model-proxy:
-  en: 0781fef69a48d6db
-  zh: 4e9bbe23162da4c7
+  en: 26427b26ed920018
+  zh: 7165c4ae79661170
 /timegleam-desktop/deep-links:
-  en: a48883c4990201fa
-  zh: 9a915d6b75de2618
+  en: 51b86cda72630ae7
+  zh: c9abbf71fb80004a
 /timegleam-desktop/upgrading-from-huayu-ai:
   en: 836b876759c1b0a3
   zh: 5ec204b94a1eb16c
@@ -39,11 +36,11 @@
   en: 46a5cc7f1138827e
   zh: b8f1819c1356f392
 /timegleam-desktop/verification-evidence:
-  en: 4ed5b0a75a1565f4
-  zh: a349f41735f03ebd
+  en: c0895ffdb8db8a3f
+  zh: dbe86c66595b209e
 /timegleam-desktop/known-limitations:
-  en: ba0a3760fb134b9d
-  zh: a80a787db2a8134d
+  en: 08e8b1412dcd37bc
+  zh: 21e713229fb1ceaa
 /timegleam-desktop/dev-note:
   en: 810b54c4bb8d873d
   zh: 4fe501577aa5f5d7

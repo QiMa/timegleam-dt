@@ -49,7 +49,7 @@ await handle.dispose()   // stops the loop, unregisters, removes the session, un
 
 `select({ provider, model, reasoningEffort? })` assigns the complete choice for the next step whose preparation has not begun. Omitted effort uses adapter defaults; selection neither inherits old effort nor queries defaults. An equal recorded choice is a no-op, but a choice equal only to initial options is recorded as `model/selection`. Callers validate availability and capabilities; append failures retain the Session's existing guarantees.
 
-Ordinary resume keeps the recorded choice. An entry point explicitly overriding the model first builds a complete selection, retaining the previous explicit effort only when the configured route is unchanged and omits effort, then calls `select()`. Web and ACP user selections call `select()` directly, so omitted effort means Auto. Selecting a Session model does not change deployment defaults.
+Ordinary resume keeps the recorded choice. A recorded route whose provider the Host no longer registers is an exception: the loop falls back to the live `AgentOptions` route and records it through `select()`, while a registered route that merely lacks its credential stays recorded because the request reports that failure. An entry point explicitly overriding the model first builds a complete selection, retaining the previous explicit effort only when the configured route is unchanged and omits effort, then calls `select()`. Web and ACP user selections call `select()` directly, so omitted effort means Auto. Selecting a Session model does not change deployment defaults.
 
 For scoped switch notices, call `installModelSelection(agentCtx)` from `dsh-agent` during Agent setup. The scope owns the listener and removes it on disposal.
 
